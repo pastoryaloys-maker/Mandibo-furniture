@@ -1,0 +1,1107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MANDIBO FURNITURE | Zanzibar's Premier Online Furniture Store</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                fontFamily: { sans: ['Manrope','sans-serif'], mono: ['Space Mono','monospace'] },
+                colors: { gold: { 300:'#FCD34D',400:'#FBBF24',500:'#D4A017',600:'#B8860B',700:'#92400E' } }
+            }
+        }
+    }
+    </script>
+    <style>
+        ::selection{background:#D4A017;color:#000}
+        ::-webkit-scrollbar{width:6px}
+        ::-webkit-scrollbar-track{background:#111}
+        ::-webkit-scrollbar-thumb{background:#333;border-radius:3px}
+        ::-webkit-scrollbar-thumb:hover{background:#D4A017}
+        .reveal{opacity:0;transform:translateY(30px);transition:all .8s cubic-bezier(.16,1,.3,1)}
+        .reveal.active{opacity:1;transform:translateY(0)}
+        .reveal-d1{transition-delay:100ms}.reveal-d2{transition-delay:200ms}.reveal-d3{transition-delay:300ms}.reveal-d4{transition-delay:400ms}
+        @keyframes shimmer{0%{background-position:-200% center}100%{background-position:200% center}}
+        @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+        @keyframes pulse-gold{0%,100%{box-shadow:0 0 20px rgba(212,160,23,.3)}50%{box-shadow:0 0 50px rgba(212,160,23,.7)}}
+        @keyframes fade-up{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+        @keyframes scale-in{from{opacity:0;transform:scale(.8)}to{opacity:1;transform:scale(1)}}
+        @keyframes flash{0%,100%{opacity:1}50%{opacity:.5}}
+        @keyframes border-glow{0%,100%{border-color:rgba(212,160,23,.3)}50%{border-color:rgba(212,160,23,1)}}
+        @keyframes pop-in{0%{transform:scale(0);opacity:0}60%{transform:scale(1.15)}100%{transform:scale(1);opacity:1}}
+        @keyframes shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-6px)}40%,80%{transform:translateX(6px)}}
+        @keyframes success-pulse{0%{box-shadow:0 0 0 0 rgba(34,197,94,.4)}70%{box-shadow:0 0 0 15px rgba(34,197,94,0)}100%{box-shadow:0 0 0 0 rgba(34,197,94,0)}}
+        @keyframes img-rotate{0%{transform:perspective(800px) rotateY(-12deg) rotateX(2deg) scale(1)}25%{transform:perspective(800px) rotateY(8deg) rotateX(-1deg) scale(1.03)}50%{transform:perspective(800px) rotateY(12deg) rotateX(2deg) scale(1.05)}75%{transform:perspective(800px) rotateY(-4deg) rotateX(-1deg) scale(1.02)}100%{transform:perspective(800px) rotateY(-12deg) rotateX(2deg) scale(1)}}
+        @keyframes lightbox-in{from{opacity:0;transform:scale(.7) rotateY(-15deg)}to{opacity:1;transform:scale(1) rotateY(0deg)}}
+        @keyframes lightbox-spin{0%{transform:perspective(1000px) rotateY(0deg)}100%{transform:perspective(1000px) rotateY(360deg)}}
+        @keyframes live-dot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
+        @keyframes live-ring{0%{transform:scale(1);opacity:.6}100%{transform:scale(2.2);opacity:0}}
+        @keyframes feed-in{from{opacity:0;transform:translateY(8px) scale(.95)}to{opacity:1;transform:translateY(0) scale(1)}}
+        @keyframes feed-out{from{opacity:1;transform:translateY(0) scale(1)}to{opacity:0;transform:translateY(-8px) scale(.95)}}
+        @keyframes counter-bump{0%{transform:scale(1)}50%{transform:scale(1.15)}100%{transform:scale(1)}}
+        @keyframes glow-line{0%{opacity:.3}50%{opacity:1}100%{opacity:.3}}
+        @keyframes voice-pulse{0%,100%{box-shadow:0 0 20px rgba(212,160,23,.2)}50%{box-shadow:0 0 40px rgba(212,160,23,.5)}}
+        .shimmer-text{background:linear-gradient(90deg,#D4A017 0%,#FDE68A 50%,#D4A017 100%);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:shimmer 3s linear infinite}
+        .float{animation:float 3s ease-in-out infinite}
+        .pulse-gold{animation:pulse-gold 2s ease-in-out infinite}
+        .border-glow{animation:border-glow 1.5s ease-in-out infinite}
+        .flash{animation:flash 1s ease-in-out infinite}
+        .pop-in{animation:pop-in .5s ease-out}
+        .shake{animation:shake .5s ease-out}
+        .success-pulse{animation:success-pulse .8s ease-out}
+        .counter-bump{animation:counter-bump .3s ease-out}
+        .product-card{transition:all .5s cubic-bezier(.16,1,.3,1)}
+        .product-card:hover{transform:translateY(-8px)}
+        .img-rotator{animation:img-rotate 8s ease-in-out infinite;transform-origin:center center;cursor:pointer;transition:filter .3s}
+        .product-card:hover .img-rotator{animation-duration:4s;filter:brightness(1.1) contrast(1.05)}
+        .store-card{transition:all .4s cubic-bezier(.16,1,.3,1)}
+        .store-card:hover{transform:scale(1.02)}
+        .store-card.active-store{border-color:#D4A017!important;box-shadow:0 0 30px rgba(212,160,23,.2)}
+        .cat-btn{transition:all .3s ease}
+        .cat-btn.active-cat{background:#D4A017!important;color:#000!important;border-color:#D4A017!important}
+        .link-h{position:relative}.link-h::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:1px;background:#D4A017;transition:width .3s}.link-h:hover::after{width:100%}
+        .gradient-up{background:linear-gradient(to top,#0A0A0A 0%,rgba(10,10,10,.8) 40%,rgba(10,10,10,.3) 100%)}
+        .ad-scene{display:none}.ad-scene.playing{display:flex}
+        .toast-in{animation:fade-up .4s ease-out}.toast-out{animation:fade-up .3s ease-in reverse forwards}
+        body.owner-mode .user-only{display:none!important}
+        body:not(.owner-mode) .owner-only{display:none!important}
+        .dash-tab{cursor:pointer;transition:all .3s ease}
+        .dash-tab:hover{border-color:rgba(212,160,23,.4)!important;color:rgba(255,255,255,.7)!important}
+        .form-input{transition:border-color .3s ease,box-shadow .3s ease}
+        .form-input:focus{border-color:#D4A017!important;box-shadow:0 0 0 3px rgba(212,160,23,.1)}
+        .form-input.error{border-color:#ef4444!important;box-shadow:0 0 0 3px rgba(239,68,68,.1)}
+        .inline-err{color:#f87171;font-size:11px;margin-top:4px;display:none}
+        .inline-err.show{display:block}
+        .btn-add:active{transform:scale(.97)}
+        .lightbox-overlay{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.92);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s}
+        .lightbox-overlay.active{opacity:1;pointer-events:all}
+        .lightbox-img-wrap{perspective:1200px;max-width:90vw;max-height:85vh}
+        .lightbox-img{max-width:90vw;max-height:85vh;object-fit:contain;border-radius:12px;box-shadow:0 25px 80px rgba(0,0,0,.6),0 0 40px rgba(212,160,23,.15);animation:lightbox-in .5s cubic-bezier(.16,1,.3,1) forwards}
+        .lightbox-img.auto-spinning{animation:lightbox-spin 12s linear infinite}
+        .lightbox-controls{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);display:flex;gap:10px;z-index:201}
+        .lightbox-btn{width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.2);background:rgba(0,0,0,.6);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;cursor:pointer;color:white;transition:all .3s}
+        .lightbox-btn:hover{border-color:#D4A017;color:#D4A017;background:rgba(212,160,23,.1)}
+        .lightbox-btn.spin-active{border-color:#D4A017;color:#D4A017;background:rgba(212,160,23,.15)}
+        .lightbox-name{position:absolute;top:24px;left:50%;transform:translateX(-50%);text-align:center;z-index:201}
+        .lightbox-close{position:absolute;top:20px;right:20px;width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.15);background:rgba(0,0,0,.5);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;cursor:pointer;color:white;transition:all .3s;z-index:201}
+        .lightbox-close:hover{border-color:#ef4444;color:#ef4444;background:rgba(239,68,68,.1)}
+        .click-hint{position:absolute;bottom:50%;left:50%;transform:translate(-50%,50%);background:rgba(0,0,0,.7);backdrop-filter:blur(8px);padding:6px 14px;border-radius:20px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:rgba(255,255,255,.8);opacity:0;transition:opacity .3s;pointer-events:none}
+        .product-card:hover .click-hint{opacity:1}
+
+        /* PASTORY VOICE INDICATOR */
+        .pastory-indicator{
+            position:fixed;
+            bottom:100px;
+            right:24px;
+            width:60px;
+            height:60px;
+            border-radius:50%;
+            background:rgba(212,160,23,.1);
+            border:2px solid rgba(212,160,23,.3);
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            opacity:0;
+            pointer-events:none;
+            transition:all .3s ease;
+            z-index:89;
+            cursor:help;
+        }
+        .pastory-indicator.listening{
+            opacity:1;
+            animation:voice-pulse 1.5s ease-in-out infinite;
+            border-color:#D4A017;
+        }
+        .pastory-indicator.speaking{
+            opacity:1;
+            border-color:#D4A017;
+            box-shadow:0 0 30px rgba(212,160,23,.4);
+        }
+        .pastory-dot{
+            width:12px;
+            height:12px;
+            background:#D4A017;
+            border-radius:50%;
+        }
+        .pastory-dot.listening{
+            animation:live-dot 1.2s ease-in-out infinite;
+        }
+
+        /* ===== LIVE VISITOR BAR ===== */
+        #liveBar{
+            position:fixed;
+            bottom:0;left:0;right:0;
+            z-index:90;
+            background:linear-gradient(180deg,rgba(10,10,10,0) 0%,rgba(10,10,10,.85) 30%,rgba(10,10,10,.95) 100%);
+            backdrop-filter:blur(20px);
+            border-top:1px solid rgba(212,160,23,.12);
+            padding:0;
+            transform:translateY(100%);
+            transition:transform .6s cubic-bezier(.16,1,.3,1);
+        }
+        #liveBar.visible{transform:translateY(0)}
+        #liveBar-inner{
+            max-width:1800px;
+            margin:0 auto;
+            padding:10px 16px 12px;
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            gap:12px;
+        }
+        .live-dot-wrap{
+            position:relative;
+            width:10px;height:10px;
+            flex-shrink:0;
+        }
+        .live-dot{
+            position:absolute;inset:0;
+            background:#22c55e;
+            border-radius:50%;
+            animation:live-dot 1.5s ease-in-out infinite;
+        }
+        .live-ring{
+            position:absolute;inset:0;
+            background:#22c55e;
+            border-radius:50%;
+            animation:live-ring 1.5s ease-out infinite;
+        }
+        .live-label{
+            font-size:10px;
+            font-weight:800;
+            text-transform:uppercase;
+            letter-spacing:.15em;
+            color:#22c55e;
+            white-space:nowrap;
+        }
+        .stat-divider{
+            width:1px;
+            height:28px;
+            background:rgba(255,255,255,.08);
+            flex-shrink:0;
+        }
+        .live-stat{
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            gap:1px;
+            min-width:0;
+        }
+        .live-stat-val{
+            font-family:'Space Mono',monospace;
+            font-size:15px;
+            font-weight:700;
+            color:#fff;
+            line-height:1;
+            transition:color .3s;
+        }
+        .live-stat-val.bumped{color:#D4A017}
+        .live-stat-label{
+            font-size:9px;
+            font-weight:600;
+            text-transform:uppercase;
+            letter-spacing:.08em;
+            color:rgba(255,255,255,.35);
+            white-space:nowrap;
+        }
+        .feed-area{
+            flex:1;
+            min-width:0;
+            overflow:hidden;
+            position:relative;
+            height:32px;
+        }
+        .feed-item{
+            position:absolute;
+            inset:0;
+            display:flex;
+            align-items:center;
+            gap:8px;
+            font-size:11px;
+            color:rgba(255,255,255,.6);
+            white-space:nowrap;
+            overflow:hidden;
+            text-overflow:ellipsis;
+        }
+        .feed-item.entering{animation:feed-in .4s ease-out forwards}
+        .feed-item.exiting{animation:feed-out .3s ease-in forwards}
+        .feed-icon{
+            width:22px;height:22px;
+            border-radius:50%;
+            display:flex;align-items:center;justify-content:center;
+            font-size:10px;
+            flex-shrink:0;
+        }
+        .feed-icon.order{background:rgba(34,197,94,.12);color:#22c55e}
+        .feed-icon.view{background:rgba(96,165,250,.12);color:#60a5fa}
+        .feed-icon.join{background:rgba(212,160,23,.12);color:#D4A017}
+        .glow-line{
+            position:absolute;
+            top:-1px;left:0;right:0;
+            height:1px;
+            background:linear-gradient(90deg,transparent 0%,rgba(212,160,23,.4) 50%,transparent 100%);
+            animation:glow-line 3s ease-in-out infinite;
+        }
+        .bar-toggle{
+            width:28px;height:28px;
+            border-radius:50%;
+            border:1px solid rgba(255,255,255,.1);
+            background:rgba(255,255,255,.03);
+            display:flex;align-items:center;justify-content:center;
+            cursor:pointer;
+            color:rgba(255,255,255,.4);
+            transition:all .3s;
+            flex-shrink:0;
+        }
+        .bar-toggle:hover{border-color:rgba(255,255,255,.2);color:rgba(255,255,255,.7)}
+        @media(max-width:767px){
+            .live-stat-val{font-size:13px}
+            .live-stat-label{font-size:8px}
+            .feed-area{display:none}
+            .feed-mobile-dot{
+                width:6px;height:6px;
+                border-radius:50%;
+                background:#22c55e;
+                animation:live-dot 1.5s ease-in-out infinite;
+                flex-shrink:0;
+            }
+        }
+        @media(min-width:768px){
+            .feed-mobile-dot{display:none}
+        }
+        body{padding-bottom:52px}
+    </style>
+</head>
+<body class="bg-[#0A0A0A] text-white font-sans antialiased overflow-x-hidden">
+
+<!-- PASTORY CHAT BOX WIDGET -->
+<div id="chatBox" style="position:fixed;bottom:20px;right:20px;width:320px;background:#fff;border-radius:12px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;font-family:'Manrope',sans-serif;z-index:88;display:flex;flex-direction:column;max-height:500px;">
+  
+  <div style="background:#0A0A0A;color:#D4A017;padding:12px 15px;font-weight:bold;display:flex;align-items:center;justify-content:space-between;">
+    <div style="display:flex;align-items:center;gap:8px;">
+      <span style="width:8px;height:8px;background:#D4A017;border-radius:50%;animation:live-dot 1.2s ease-in-out infinite;"></span>
+      Pastory (AI Assistant)
+    </div>
+    <button onclick="toggleChatBox()" style="background:none;border:none;color:#D4A017;cursor:pointer;font-size:18px;padding:0;width:24px;height:24px;display:flex;align-items:center;justify-content:center;">−</button>
+  </div>
+  
+  <div id="chatMessages" style="height:280px;overflow-y:auto;padding:12px;font-size:13px;background:#f9f9f9;flex:1;display:flex;flex-direction:column;gap:8px;">
+    <div style="color:#666;text-align:center;padding:10px;font-size:12px;">Habari! Karibu...</div>
+  </div>
+  
+  <div style="display:flex;gap:4px;padding:8px;background:#fff;border-top:1px solid #eee;">
+    <input id="chatInput" placeholder="Andika hapa..." style="flex:1;border:1px solid #ddd;padding:8px 10px;border-radius:6px;font-size:12px;font-family:'Manrope',sans-serif;" onkeypress="if(event.key==='Enter')sendChatMessage()">
+    <button onclick="sendChatMessage()" style="background:#D4A017;color:#000;border:none;padding:8px 12px;border-radius:6px;cursor:pointer;font-weight:bold;font-size:12px;transition:all .2s;">📤</button>
+    <button onclick="toggleVoiceInput()" id="voiceBtn" style="background:#0A0A0A;color:#D4A017;border:none;padding:8px 12px;border-radius:6px;cursor:pointer;font-weight:bold;font-size:12px;transition:all .2s;">🎤</button>
+  </div>
+</div>
+
+<!-- PASTORY VOICE INDICATOR (INVISIBLE BUT SHOWS WHEN ACTIVE) -->
+<div id="pastoryIndicator" class="pastory-indicator" title="Pastory AI listening...">
+    <div class="pastory-dot listening"></div>
+</div>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" class="lightbox-overlay" onclick="closeLightbox(event)">
+    <button class="lightbox-close" onclick="closeLightbox(event)"><i data-lucide="x" class="w-5 h-5"></i></button>
+    <div class="lightbox-name"><p id="lbName" class="font-bold text-lg drop-shadow-lg"></p><p id="lbPrice" class="text-gold-500 font-bold text-sm mt-1"></p></div>
+    <div class="lightbox-img-wrap"><img id="lbImg" class="lightbox-img" src="" alt=""></div>
+    <div class="lightbox-controls">
+        <button class="lightbox-btn" onclick="toggleLightboxSpin(event)" id="lbSpinBtn" title="Auto Rotate"><i data-lucide="rotate-3d" class="w-4 h-4"></i></button>
+        <button class="lightbox-btn" onclick="lightboxZoom(event,1)" title="Zoom In"><i data-lucide="zoom-in" class="w-4 h-4"></i></button>
+        <button class="lightbox-btn" onclick="lightboxZoom(event,-1)" title="Zoom Out"><i data-lucide="zoom-out" class="w-4 h-4"></i></button>
+        <button class="lightbox-btn" onclick="lightboxReset(event)" title="Reset"><i data-lucide="maximize-2" class="w-4 h-4"></i></button>
+    </div>
+</div>
+
+<div id="toastBox" class="fixed top-24 right-4 z-[9999] flex flex-col gap-3 pointer-events-none"></div>
+
+<!-- ===== LIVE VISITOR STATS BAR ===== -->
+<div id="liveBar">
+    <div class="glow-line"></div>
+    <div id="liveBar-inner">
+        <div class="flex items-center gap-3 flex-shrink-0">
+            <div class="live-dot-wrap"><div class="live-ring"></div><div class="live-dot"></div></div>
+            <span class="live-label">Live</span>
+            <div class="feed-mobile-dot"></div>
+        </div>
+        <div class="stat-divider hidden sm:block"></div>
+        <div class="flex items-center gap-5 sm:gap-6 flex-shrink-0">
+            <div class="live-stat">
+                <span class="live-stat-val" id="lvOnline">0</span>
+                <span class="live-stat-label">Online Now</span>
+            </div>
+            <div class="live-stat">
+                <span class="live-stat-val" id="lvToday">0</span>
+                <span class="live-stat-label">Today</span>
+            </div>
+            <div class="live-stat">
+                <span class="live-stat-val" id="lvOrders">0</span>
+                <span class="live-stat-label">Orders</span>
+            </div>
+            <div class="live-stat hidden md:flex">
+                <span class="live-stat-val" id="lvBrowsing">0</span>
+                <span class="live-stat-label">Browsing</span>
+            </div>
+        </div>
+        <div class="stat-divider hidden md:block"></div>
+        <div class="feed-area hidden md:block">
+            <div class="feed-item" id="feedItem">
+                <div class="feed-icon join">👋</div>
+                <span id="feedText">Welcome to Mandibo Furniture!</span>
+            </div>
+        </div>
+        <button class="bar-toggle" onclick="toggleLiveBar()" title="Hide bar">
+            <i data-lucide="chevron-down" class="w-3.5 h-3.5" id="barToggleIcon"></i>
+        </button>
+    </div>
+</div>
+<!-- Mini floating button to re-show bar -->
+<button id="liveBarFab" class="fixed bottom-5 left-5 z-[91] hidden w-10 h-10 rounded-full bg-emerald-500/15 border border-emerald-500/30 backdrop-blur-xl flex items-center justify-center cursor-pointer hover:bg-emerald-500/25 transition-all duration-300 group" onclick="toggleLiveBar()">
+    <div class="relative">
+        <div class="w-2.5 h-2.5 rounded-full bg-emerald-400"></div>
+        <div class="absolute inset-0 w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></div>
+    </div>
+    <span class="absolute -top-1 -right-1 bg-gold-500 text-black text-[8px] font-bold rounded-full w-4 h-4 flex items-center justify-center" id="fabCount">0</span>
+</button>
+
+<nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500">
+    <div class="max-w-[1800px] mx-auto px-4 md:px-8 py-4 md:py-5 flex items-center justify-between">
+        <a href="#" id="logoLink" class="flex items-center gap-3"><img src="https://z-cdn-media.chatglm.cn/files/d06cb235-9058-490c-b21c-a4cc6f192fb0.png?auth_key=1875111503-553b5bf504e04d49a0db0e9301a8b91d-0-f0265d78daac62181c5b8e73a86479be" alt="Mandibo Furniture" class="h-10 md:h-12 w-auto"></a>
+        <div class="hidden md:flex items-center gap-8 user-only">
+            <a href="#stores" class="text-sm font-semibold uppercase tracking-wider text-neutral-300 hover:text-gold-500 link-h transition-colors">Stores</a>
+            <a href="#products" class="text-sm font-semibold uppercase tracking-wider text-neutral-300 hover:text-gold-500 link-h transition-colors">Products</a>
+            <a href="#video-ad" class="text-sm font-semibold uppercase tracking-wider text-neutral-300 hover:text-gold-500 link-h transition-colors">Video Ad</a>
+            <a href="#contact" class="text-sm font-semibold uppercase tracking-wider text-neutral-300 hover:text-gold-500 link-h transition-colors">Contact</a>
+        </div>
+        <div class="flex items-center gap-3">
+            <button id="btnOwnerLogin" onclick="openOwnerLogin()" class="user-only text-xs font-bold uppercase tracking-wider px-4 py-2 border border-white/20 rounded-full hover:border-gold-500 hover:text-gold-500 transition-all duration-300">Owner</button>
+            <button id="btnLogout" onclick="ownerLogout()" class="owner-only text-xs font-bold uppercase tracking-wider px-4 py-2 border border-red-500/50 rounded-full text-red-400 hover:bg-red-500 hover:text-white transition-all duration-300">Logout</button>
+            <button id="btnBackToStore" onclick="ownerLogout()" class="owner-only text-xs font-bold uppercase tracking-wider px-4 py-2 border border-gold-500/50 rounded-full text-gold-400 hover:bg-gold-500 hover:text-black transition-all duration-300">← Store</button>
+            <button onclick="toggleMobileMenu()" class="md:hidden user-only w-10 h-10 flex items-center justify-center border border-white/20 rounded-full"><i data-lucide="menu" class="w-4 h-4"></i></button>
+        </div>
+    </div>
+    <div id="mobileMenu" class="hidden md:hidden bg-[#111]/95 backdrop-blur-xl border-t border-white/10 px-6 py-6 user-only"><div class="flex flex-col gap-4"><a href="#stores" onclick="toggleMobileMenu()" class="text-sm font-semibold uppercase tracking-wider text-neutral-300 hover:text-gold-500">Stores</a><a href="#products" onclick="toggleMobileMenu()" class="text-sm font-semibold uppercase tracking-wider text-neutral-300 hover:text-gold-500">Products</a><a href="#video-ad" onclick="toggleMobileMenu()" class="text-sm font-semibold uppercase tracking-wider text-neutral-300 hover:text-gold-500">Video Ad</a><a href="#contact" onclick="toggleMobileMenu()" class="text-sm font-semibold uppercase tracking-wider text-neutral-300 hover:text-gold-500">Contact</a></div></div>
+</nav>
+
+<!-- USER VIEW -->
+<div id="userView">
+
+<section class="relative h-screen flex flex-col items-center justify-center overflow-hidden">
+    <div class="absolute inset-0"><img src="https://picsum.photos/seed/zanzibar-luxury-home/1920/1080.jpg" class="w-full h-full object-cover opacity-40" alt=""><div class="absolute inset-0 bg-gradient-to-b from-[#0A0A0A]/60 via-transparent to-[#0A0A0A]"></div></div>
+    <div class="absolute top-1/4 left-10 w-72 h-72 bg-gold-500/5 rounded-full blur-[120px]"></div>
+    <div class="absolute bottom-1/4 right-10 w-96 h-96 bg-gold-500/5 rounded-full blur-[150px]"></div>
+    <div class="relative z-10 text-center px-4 max-w-5xl">
+        <div class="mb-8" style="animation:scale-in 1s ease-out"><img src="https://z-cdn-media.chatglm.cn/files/d06cb235-9058-490c-b21c-a4cc6f192fb0.png?auth_key=1875111503-553b5bf504e04d49a0db0e9301a8b91d-0-f0265d78daac62181c5b8e73a86479be" alt="Logo" class="h-28 md:h-40 mx-auto drop-shadow-2xl"></div>
+        <p class="text-gold-500 font-mono text-xs md:text-sm uppercase tracking-[0.3em] mb-6" style="animation:fade-up .8s ease-out .3s both">Zanzibar's Premier Online Furniture Store</p>
+        <h1 class="text-4xl md:text-7xl lg:text-8xl font-extrabold tracking-tighter leading-[0.95] mb-6" style="animation:fade-up .8s ease-out .5s both">Transform Your<br><span class="shimmer-text">Living Space</span></h1>
+        <p class="text-neutral-400 text-base md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed" style="animation:fade-up .8s ease-out .7s both">Discover handpicked furniture from Zanzibar's finest stores. Browse, select, and order — all from the comfort of your home.</p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center" style="animation:fade-up .8s ease-out .9s both"><a href="#products" class="bg-gold-500 text-black font-bold text-sm uppercase tracking-wider px-10 py-4 rounded-full hover:bg-gold-400 hover:scale-105 transition-all duration-300 pulse-gold">Shop Now</a><a href="#video-ad" class="border border-white/20 text-white font-bold text-sm uppercase tracking-wider px-10 py-2 rounded-full hover:border-gold-500 hover:text-gold-500 transition-all duration-300">Watch Video Ad</a></div>
+    </div>
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 float"><i data-lucide="chevron-down" class="w-6 h-6 text-gold-500/60"></i></div>
+</section>
+
+<section id="video-ad" class="relative py-20 md:py-32 overflow-hidden">
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[1px] bg-gradient-to-r from-transparent via-gold-500/40 to-transparent"></div>
+    <div class="max-w-[1800px] mx-auto px-4 md:px-8">
+        <div class="text-center mb-16 reveal"><p class="text-gold-500 font-mono text-xs uppercase tracking-[0.3em] mb-4">Watch This</p><h2 class="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tighter">Our <span class="shimmer-text">Video Ad</span></h2></div>
+        <div class="relative max-w-5xl mx-auto reveal reveal-d1">
+            <div id="videoPlayer" class="relative aspect-video bg-black rounded-2xl overflow-hidden border border-white/10 cursor-pointer" onclick="playAd()">
+                <div id="adScene0" class="ad-scene playing absolute inset-0 flex-col items-center justify-center bg-black"><div class="absolute inset-0"><img src="https://picsum.photos/seed/luxury-room-dark/1280/720.jpg" class="w-full h-full object-cover opacity-30"><div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/80"></div></div><div class="relative z-10 text-center"><div class="w-20 h-20 md:w-24 md:h-24 rounded-full border-2 border-gold-500 flex items-center justify-center mx-auto mb-6 pulse-gold"><i data-lucide="play" class="w-8 h-8 md:w-10 md:h-10 text-gold-500 ml-1"></i></div><p class="text-gold-500 font-mono text-xs uppercase tracking-[0.3em]">Click to Play</p></div></div>
+                <div id="adScene1" class="ad-scene absolute inset-0 flex-col items-center justify-center bg-black"><img src="https://z-cdn-media.chatglm.cn/files/d06cb235-9058-490c-b21c-a4cc6f192fb0.png?auth_key=1875111503-553b5bf504e04d49a0db0e9301a8b91d-0-f0265d78daac62181c5b8e73a86479be" class="h-20 md:h-28 opacity-0" style="animation:scale-in 1s ease-out .5s forwards" alt="Logo"><p class="text-gold-400 font-mono text-xs uppercase tracking-[0.4em] mt-4 opacity-0" style="animation:fade-up .8s ease-out 1.5s forwards">Presents</p></div>
+                <div id="adScene2" class="ad-scene absolute inset-0 flex-col items-center justify-center bg-black"><p class="text-neutral-500 text-sm uppercase tracking-[0.3em] mb-4 opacity-0" style="animation:fade-up .6s ease-out forwards">Your Dream Home</p><h3 class="text-3xl md:text-6xl font-extrabold tracking-tighter text-center shimmer-text opacity-0" style="animation:scale-in .8s ease-out .5s forwards">Starts Here</h3></div>
+                <div id="adScene3" class="ad-scene absolute inset-0 flex-col items-center justify-center bg-black"><div class="absolute inset-0"><img src="https://z-cdn-media.chatglm.cn/files/f78a1915-3e89-4eaf-9e2f-0aaa67491fd6.png?auth_key=1875121023-c078d04653754bd18e638d5589b4652a-0-dbdc2637842b0c898f1bf3017d32a3ec" class="w-full h-full object-cover opacity-40"><div class="absolute inset-0 bg-black/50"></div></div><div class="relative z-10 text-center px-4"><p class="text-gold-500 font-mono text-xs uppercase tracking-[0.3em] mb-3 opacity-0" style="animation:fade-up .6s ease-out forwards">Beds • Sofas • Tables • Cupboards</p><h3 class="text-2xl md:text-5xl font-bold tracking-tight opacity-0" style="animation:fade-up .8s ease-out .5s forwards">Premium Furniture<br>From <span class="text-gold-500">3 Stores</span></h3></div></div>
+                <div id="adScene4" class="ad-scene absolute inset-0 flex-col items-center justify-center bg-black"><p class="text-neutral-400 text-sm uppercase tracking-widest mb-4 opacity-0" style="animation:fade-up .6s ease-out forwards">Starting From</p><p class="text-4xl md:text-7xl font-extrabold text-gold-500 opacity-0" style="animation:scale-in .8s ease-out .4s forwards">TZS 150,000</p></div>
+                <div id="adScene5" class="ad-scene absolute inset-0 flex-col items-center justify-center bg-black"><div class="text-center opacity-0" style="animation:fade-up .8s ease-out forwards"><div class="w-16 h-16 rounded-full bg-gold-500/10 border border-gold-500/30 flex items-center justify-center mx-auto mb-5"><i data-lucide="truck" class="w-7 h-7 text-gold-500"></i></div><h3 class="text-2xl md:text-4xl font-bold tracking-tight mb-2">FREE Delivery</h3><p class="text-neutral-400 text-sm">Across All Zanzibar</p></div></div>
+                <div id="adScene6" class="ad-scene absolute inset-0 flex-col items-center justify-center bg-black"><div class="absolute inset-0"><img src="https://z-cdn-media.chatglm.cn/files/f4d68b25-cb8e-4056-8dec-67156e8f8d40.png?auth_key=1875121023-600d14e5a6c540e0a10a077302343ab4-0-db973974387b32f211b4abb0a7059cf7" class="w-full h-full object-cover opacity-20"><div class="absolute inset-0 bg-black/70"></div></div><div class="relative z-10 text-center"><h3 class="text-2xl md:text-5xl font-extrabold tracking-tighter mb-2 opacity-0" style="animation:fade-up .6s ease-out forwards">Don't Wait!</h3><p class="text-gold-400 text-sm uppercase tracking-[0.2em] mb-8 opacity-0" style="animation:fade-up .6s ease-out .3s forwards">Limited Stock Available</p><a href="#products" onclick="stopAd()" class="inline-block bg-gold-500 text-black font-extrabold text-sm md:text-base uppercase tracking-wider px-12 py-4 rounded-full flash border-glow" style="animation:fade-up .6s ease-out .6s forwards">ORDER NOW →</a></div></div>
+                <div id="adProgress" class="absolute bottom-0 left-0 h-1 bg-gold-500 transition-all duration-300" style="width:0%"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-16 md:py-24 border-y border-white/5"><div class="max-w-[1800px] mx-auto px-4 md:px-8"><div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12"><div class="text-center reveal"><div class="w-16 h-16 rounded-full border border-gold-500/30 bg-gold-500/5 flex items-center justify-center mx-auto mb-5"><span class="text-gold-500 font-mono font-bold text-lg">01</span></div><h3 class="text-lg font-bold mb-2">Browse Stores</h3><p class="text-neutral-400 text-sm leading-relaxed">Explore our 3 curated stores across Zanzibar.</p></div><div class="text-center reveal reveal-d1"><div class="w-16 h-16 rounded-full border border-gold-500/30 bg-gold-500/5 flex items-center justify-center mx-auto mb-5"><span class="text-gold-500 font-mono font-bold text-lg">02</span></div><h3 class="text-lg font-bold mb-2">Select & Compare</h3><p class="text-neutral-400 text-sm leading-relaxed">Filter by category, compare prices, find your perfect piece.</p></div><div class="text-center reveal reveal-d2"><div class="w-16 h-16 rounded-full border border-gold-500/30 bg-gold-500/5 flex items-center justify-center mx-auto mb-5"><span class="text-gold-500 font-mono font-bold text-lg">03</span></div><h3 class="text-lg font-bold mb-2">Order Instantly</h3><p class="text-neutral-400 text-sm leading-relaxed">Tap "Order Now", fill your details, we handle delivery.</p></div></div></div></section>
+
+<section id="stores" class="py-20 md:py-32">
+    <div class="max-w-[1800px] mx-auto px-4 md:px-8">
+        <div class="text-center mb-16 reveal"><p class="text-gold-500 font-mono text-xs uppercase tracking-[0.3em] mb-4">Our Partners</p><h2 class="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tighter">Choose a <span class="shimmer-text">Store</span></h2></div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div onclick="selectStore('store-a')" class="store-card active-store border border-white/10 rounded-2xl overflow-hidden cursor-pointer reveal" data-store="store-a"><div class="relative h-48 overflow-hidden"><img src="https://z-cdn-media.chatglm.cn/files/444215d9-bda6-45d7-a606-e9b9ec24b2c4.png?auth_key=1875121023-e7d989b65ea64667a9563899015dbfee-0-b66b7473c236d6a018435f9b6bef4748" class="w-full h-full object-cover p-img" alt=""><div class="absolute inset-0 gradient-up"></div><span class="absolute top-3 right-3 bg-gold-500 text-black text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full">Popular</span></div><div class="p-6"><h3 class="text-xl font-bold mb-1">Store A</h3><p class="text-gold-500 text-sm font-medium mb-3">Zanzibar Heritage Collection</p><div class="flex items-center gap-2 text-neutral-400 text-xs"><i data-lucide="map-pin" class="w-3 h-3"></i>Stone Town</div><div class="flex items-center gap-2 text-neutral-400 text-xs mt-1"><i data-lucide="package" class="w-3 h-3"></i><span id="store-a-count">0</span> Products</div></div></div>
+            <div onclick="selectStore('store-b')" class="store-card border border-white/10 rounded-2xl overflow-hidden cursor-pointer reveal reveal-d1" data-store="store-b"><div class="relative h-48 overflow-hidden"><img src="https://z-cdn-media.chatglm.cn/files/f78a1915-3e89-4eaf-9e2f-0aaa67491fd6.png?auth_key=1875121023-c078d04653754bd18e638d5589b4652a-0-dbdc2637842b0c898f1bf3017d32a3ec" class="w-full h-full object-cover p-img" alt=""><div class="absolute inset-0 gradient-up"></div></div><div class="p-6"><h3 class="text-xl font-bold mb-1">Store B</h3><p class="text-gold-500 text-sm font-medium mb-3">Coastal Elegance</p><div class="flex items-center gap-2 text-neutral-400 text-xs"><i data-lucide="map-pin" class="w-3 h-3"></i>Nungwi</div><div class="flex items-center gap-2 text-neutral-400 text-xs mt-1"><i data-lucide="package" class="w-3 h-3"></i><span id="store-b-count">0</span> Products</div></div></div>
+            <div onclick="selectStore('store-c')" class="store-card border border-white/10 rounded-2xl overflow-hidden cursor-pointer reveal reveal-d2" data-store="store-c"><div class="relative h-48 overflow-hidden"><img src="https://z-cdn-media.chatglm.cn/files/f4d68b25-cb8e-4056-8dec-67156e8f8d40.png?auth_key=1875121023-600d14e5a6c540e0a10a077302343ab4-0-db973974387b32f211b4abb0a7059cf7" class="w-full h-full object-cover p-img" alt=""><div class="absolute inset-0 gradient-up"></div><span class="absolute top-3 right-3 bg-emerald-500 text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full">New</span></div><div class="p-6"><h3 class="text-xl font-bold mb-1">Store C</h3><p class="text-gold-500 text-sm font-medium mb-3">Modern Living</p><div class="flex items-center gap-2 text-neutral-400 text-xs"><i data-lucide="map-pin" class="w-3 h-3"></i>Kiwengwa</div><div class="flex items-center gap-2 text-neutral-400 text-xs mt-1"><i data-lucide="package" class="w-3 h-3"></i><span id="store-c-count">0</span> Products</div></div></div>
+        </div>
+    </div>
+</section>
+
+<section id="products" class="py-20 md:py-32 bg-[#0d0d0d]">
+    <div class="max-w-[1800px] mx-auto px-4 md:px-8">
+        <div class="text-center mb-12 reveal"><p class="text-gold-500 font-mono text-xs uppercase tracking-[0.3em] mb-4">Browse Collection</p><h2 class="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tighter">Our <span class="shimmer-text">Products</span></h2><p class="text-neutral-500 text-sm mt-3">Click any image to view full size with 3D rotation</p></div>
+        <div class="reveal reveal-d1 mb-10">
+            <div class="flex flex-wrap items-center justify-center gap-3 mb-6"><button onclick="filterStore('all')" class="cat-btn active-cat text-xs font-bold uppercase tracking-wider px-5 py-2.5 rounded-full border border-white/10 bg-white/5 text-neutral-300" data-sfilter="all">All Stores</button><button onclick="filterStore('store-a')" class="cat-btn text-xs font-bold uppercase tracking-wider px-5 py-2.5 rounded-full border border-white/10 bg-white/5 text-neutral-300" data-sfilter="store-a">Store A</button><button onclick="filterStore('store-b')" class="cat-btn text-xs font-bold uppercase tracking-wider px-5 py-2.5 rounded-full border border-white/10 bg-white/5 text-neutral-300" data-sfilter="store-b">Store B</button><button onclick="filterStore('store-c')" class="cat-btn text-xs font-bold uppercase tracking-wider px-5 py-2.5 rounded-full border border-white/10 bg-white/5 text-neutral-300" data-sfilter="store-c">Store C</button></div>
+            <div class="flex flex-wrap items-center justify-center gap-2 md:gap-3"><button onclick="filterCategory('all')" class="cat-btn active-cat text-[11px] font-bold uppercase tracking-wider px-4 py-2 rounded-full border border-white/10 bg-white/5 text-neutral-400" data-cfilter="all">All</button><button onclick="filterCategory('beds')" class="cat-btn text-[11px] font-bold uppercase tracking-wider px-4 py-2 rounded-full border border-white/10 bg-white/5 text-neutral-400" data-cfilter="beds">🛏️ Beds</button><button onclick="filterCategory('sofa-chair')" class="cat-btn text-[11px] font-bold uppercase tracking-wider px-4 py-2 rounded-full border border-white/10 bg-white/5 text-neutral-400" data-cfilter="sofa-chair">🛋️ Sofa & Chair</button><button onclick="filterCategory('tables')" class="cat-btn text-[11px] font-bold uppercase tracking-wider px-4 py-2 rounded-full border border-white/10 bg-white/5 text-neutral-400" data-cfilter="tables">🪑 Tables</button><button onclick="filterCategory('cupboard')" class="cat-btn text-[11px] font-bold uppercase tracking-wider px-4 py-2 rounded-full border border-white/10 bg-white/5 text-neutral-400" data-cfilter="cupboard">🗄️ Cupboard</button><button onclick="filterCategory('doors-windows')" class="cat-btn text-[11px] font-bold uppercase tracking-wider px-4 py-2 rounded-full border border-white/10 bg-white/5 text-neutral-400" data-cfilter="doors-windows">🚪 Doors & Windows</button><button onclick="filterCategory('others')" class="cat-btn text-[11px] font-bold uppercase tracking-wider px-4 py-2 rounded-full border border-white/10 bg-white/5 text-neutral-400" data-cfilter="others">📦 Others</button></div>
+        </div>
+        <div class="flex items-center justify-between mb-8 reveal reveal-d2"><p class="text-neutral-400 text-sm"><span id="productCount" class="text-white font-bold">0</span> products found</p><div class="relative"><i data-lucide="search" class="w-4 h-4 text-neutral-500 absolute left-3 top-1/2 -translate-y-1/2"></i><input type="text" id="searchInput" oninput="searchProducts()" placeholder="Search furniture..." class="bg-white/5 border border-white/10 rounded-full pl-10 pr-5 py-2.5 text-sm text-white placeholder-neutral-500 focus:outline-none focus:border-gold-500/50 w-48 md:w-64 transition-colors"></div></div>
+        <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"></div>
+        <div id="emptyState" class="hidden text-center py-20"><i data-lucide="search-x" class="w-16 h-16 text-neutral-600 mx-auto mb-4"></i><p class="text-neutral-400 text-lg font-medium">No products found</p></div>
+    </div>
+</section>
+
+<section class="py-20 md:py-28"><div class="max-w-[1800px] mx-auto px-4 md:px-8"><div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center"><div class="reveal"><p class="text-gold-500 font-mono text-xs uppercase tracking-[0.3em] mb-4">Why Mandibo</p><h2 class="text-3xl md:text-5xl font-bold tracking-tighter mb-8">Trusted by <span class="shimmer-text">Hundreds</span> of Zanzibar Homes</h2><div class="space-y-6"><div class="flex gap-4"><div class="w-10 h-10 rounded-full bg-gold-500/10 flex items-center justify-center flex-shrink-0 mt-1"><i data-lucide="shield-check" class="w-5 h-5 text-gold-500"></i></div><div><h4 class="font-bold mb-1">Verified Quality</h4><p class="text-neutral-400 text-sm leading-relaxed">Every product is personally inspected before listing.</p></div></div><div class="flex gap-4"><div class="w-10 h-10 rounded-full bg-gold-500/10 flex items-center justify-center flex-shrink-0 mt-1"><i data-lucide="truck" class="w-5 h-5 text-gold-500"></i></div><div><h4 class="font-bold mb-1">Free Delivery</h4><p class="text-neutral-400 text-sm leading-relaxed">Free delivery across all of Zanzibar.</p></div></div><div class="flex gap-4"><div class="w-10 h-10 rounded-full bg-gold-500/10 flex items-center justify-center flex-shrink-0 mt-1"><i data-lucide="banknote" class="w-5 h-5 text-gold-500"></i></div><div><h4 class="font-bold mb-1">Best Prices</h4><p class="text-neutral-400 text-sm leading-relaxed">Compare across stores for the best deal.</p></div></div><div class="flex gap-4"><div class="w-10 h-10 rounded-full bg-gold-500/10 flex items-center justify-center flex-shrink-0 mt-1"><i data-lucide="message-circle" class="w-5 h-5 text-gold-500"></i></div><div><h4 class="font-bold mb-1">WhatsApp Support</h4><p class="text-neutral-400 text-sm leading-relaxed">Instant support via WhatsApp.</p></div></div></div></div><div class="relative reveal reveal-d2"><div class="absolute -top-10 -right-10 w-60 h-60 bg-gold-500/5 rounded-full blur-[100px]"></div><img src="https://z-cdn-media.chatglm.cn/files/b2204e29-e1a1-4d2c-82ad-45c6f0810365.png?auth_key=1875121023-e0211d56db1c432bb5d12b1debea744f-0-e01624498ea126cfd37f26032f54e3e6" class="w-full rounded-2xl object-cover h-[500px] md:h-[600px]" alt=""><div class="absolute bottom-6 left-6 right-6 bg-black/80 backdrop-blur-xl rounded-xl p-5 border border-white/10"><div class="flex items-center justify-between"><div><p class="text-gold-500 font-mono text-xs uppercase tracking-wider mb-1">Customer Satisfaction</p><p class="text-2xl font-bold">98.5%</p></div><div class="flex -space-x-2"><div class="w-8 h-8 rounded-full bg-gold-500/20 border-2 border-black flex items-center justify-center text-[10px] font-bold text-gold-500">★</div><div class="w-8 h-8 rounded-full bg-gold-500/20 border-2 border-black flex items-center justify-center text-[10px] font-bold text-gold-500">★</div><div class="w-8 h-8 rounded-full bg-gold-500/20 border-2 border-black flex items-center justify-center text-[10px] font-bold text-gold-500">★</div></div></div></div></div></div></div></section>
+
+<section id="contact" class="py-20 md:py-28 bg-[#0d0d0d] border-t border-white/5"><div class="max-w-[1800px] mx-auto px-4 md:px-8"><div class="text-center mb-16 reveal"><p class="text-gold-500 font-mono text-xs uppercase tracking-[0.3em] mb-4">Get In Touch</p><h2 class="text-3xl md:text-5xl font-bold tracking-tighter">Contact <span class="shimmer-text">Us</span></h2></div><div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto"><div class="text-center p-8 border border-white/10 rounded-2xl reveal hover:border-gold-500/30 transition-colors"><div class="w-12 h-12 rounded-full bg-gold-500/10 flex items-center justify-center mx-auto mb-4"><i data-lucide="phone" class="w-5 h-5 text-gold-500"></i></div><h4 class="font-bold mb-1">Call Us</h4><p class="text-neutral-400 text-sm">+255 799 610 190</p></div><div class="text-center p-8 border border-white/10 rounded-2xl reveal reveal-d1 hover:border-gold-500/30 transition-colors"><div class="w-12 h-12 rounded-full bg-emerald-500/10 flex items-center justify-center mx-auto mb-4"><i data-lucide="message-circle" class="w-5 h-5 text-emerald-500"></i></div><h4 class="font-bold mb-1">WhatsApp</h4><p class="text-neutral-400 text-sm">+255 799 610 190</p></div><div class="text-center p-8 border border-white/10 rounded-2xl reveal reveal-d2 hover:border-gold-500/30 transition-colors"><div class="w-12 h-12 rounded-full bg-blue-500/10 flex items-center justify-center mx-auto mb-4"><i data-lucide="map-pin" class="w-5 h-5 text-blue-400"></i></div><h4 class="font-bold mb-1">Location</h4><p class="text-neutral-400 text-sm">Zanzibar, Tanzania</p></div></div></div></section>
+
+<footer class="py-12 border-t border-white/5 mb-[52px]"><div class="max-w-[1800px] mx-auto px-4 md:px-8"><div class="flex flex-col md:flex-row items-center justify-between gap-6"><div class="flex items-center gap-3"><img src="https://z-cdn-media.chatglm.cn/files/d06cb235-9058-490c-b21c-a4cc6f192fb0.png?auth_key=1875111503-553b5bf504e04d49a0db0e9301a8b91d-0-f0265d78daac62181c5b8e73a86479be" alt="Logo" class="h-8"></div><p class="text-neutral-500 text-xs">© 2026 Mandibo Furniture. All rights reserved. Zanzibar, Tanzania.</p><div class="flex items-center gap-4"><a href="#" class="text-neutral-500 hover:text-gold-500 transition-colors"><i data-lucide="instagram" class="w-4 h-4"></i></a><a href="#" class="text-neutral-500 hover:text-gold-500 transition-colors"><i data-lucide="facebook" class="w-4 h-4"></i></a><a href="#" class="text-neutral-500 hover:text-gold-500 transition-colors"><i data-lucide="twitter" class="w-4 h-4"></i></a></div></div></div></footer>
+</div>
+
+<!-- OWNER DASHBOARD -->
+<div id="ownerView" class="hidden min-h-screen pt-24 pb-16">
+    <div class="max-w-[1800px] mx-auto px-4 md:px-8">
+        <div class="mb-10"><p class="text-gold-500 font-mono text-xs uppercase tracking-[0.3em] mb-2">Owner Dashboard</p><h1 class="text-3xl md:text-4xl font-bold tracking-tighter">Mandibo <span class="shimmer-text">Control Panel</span></h1></div>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10"><div class="bg-white/5 border border-white/10 rounded-xl p-5"><p class="text-neutral-400 text-xs uppercase tracking-wider mb-1">Total Products</p><p id="statProducts" class="text-2xl font-bold text-gold-500">0</p></div><div class="bg-white/5 border border-white/10 rounded-xl p-5"><p class="text-neutral-400 text-xs uppercase tracking-wider mb-1">Total Orders</p><p id="statOrders" class="text-2xl font-bold text-emerald-400">0</p></div><div class="bg-white/5 border border-white/10 rounded-xl p-5"><p class="text-neutral-400 text-xs uppercase tracking-wider mb-1">Revenue (TZS)</p><p id="statRevenue" class="text-2xl font-bold text-blue-400">0</p></div><div class="bg-white/5 border border-white/10 rounded-xl p-5"><p class="text-neutral-400 text-xs uppercase tracking-wider mb-1">Stores</p><p class="text-2xl font-bold text-purple-400">3</p></div></div>
+        <div class="flex flex-wrap gap-2 mb-8 border-b border-white/10 pb-4"><button onclick="showDashTab('orders')" class="dash-tab text-sm font-bold uppercase tracking-wider px-5 py-2.5 rounded-full border border-gold-500 bg-gold-500 text-black" data-dtab="orders">📦 Orders</button><button onclick="showDashTab('addProduct')" class="dash-tab text-sm font-bold uppercase tracking-wider px-5 py-2.5 rounded-full border border-white/10 text-neutral-400" data-dtab="addProduct">➕ Add Product</button><button onclick="showDashTab('manageProducts')" class="dash-tab text-sm font-bold uppercase tracking-wider px-5 py-2.5 rounded-full border border-white/10 text-neutral-400" data-dtab="manageProducts">🔧 Manage Products</button><button onclick="showDashTab('pastory')" class="dash-tab text-sm font-bold uppercase tracking-wider px-5 py-2.5 rounded-full border border-white/10 text-neutral-400" data-dtab="pastory">🤖 Pastory AI</button></div>
+        <div id="dashOrders" class="dash-panel"><div id="ordersList" class="space-y-4"><div class="text-center py-16 text-neutral-500"><p class="text-4xl mb-3">📦</p><p>No orders yet</p></div></div></div>
+        <div id="dashAddProduct" class="dash-panel hidden"><div id="addProductForm" class="max-w-2xl bg-white/5 border border-white/10 rounded-2xl p-6 md:p-8"><h3 class="text-xl font-bold mb-6">Add New Product</h3><div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5"><div><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2 block">Store *</label><select id="addStore" class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white focus:outline-none"><option value="store-a">Store A — Heritage</option><option value="store-b">Store B — Coastal</option><option value="store-c">Store C — Modern</option></select></div><div><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2 block">Category *</label><select id="addCategory" class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white focus:outline-none"><option value="beds">Beds</option><option value="sofa-chair">Sofa & Chair</option><option value="tables">Tables</option><option value="cupboard">Cupboard</option><option value="doors-windows">Doors & Windows</option><option value="others">Others</option></select></div></div><div class="mb-5"><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2 block">Product Name *</label><input type="text" id="addName" placeholder="e.g. Royal Zanzibar Bed" class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-neutral-600 focus:outline-none"><p id="errName" class="inline-err">⚠ Please enter a product name</p></div><div class="mb-5"><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2 block">Price (TZS) * <span class="text-neutral-600 normal-case tracking-normal font-normal">— type any amount</span></label><div class="relative"><span class="absolute left-4 top-1/2 -translate-y-1/2 text-neutral-500 text-sm font-medium">TZS</span><input type="text" id="addPrice" inputmode="numeric" placeholder="e.g. 2500000" class="form-input w-full bg-black border border-white/10 rounded-lg pl-14 pr-4 py-3 text-sm text-white placeholder-neutral-600 focus:outline-none" oninput="this.value=this.value.replace(/[^0-9,]/g,'')"></div><p id="errPrice" class="inline-err">⚠ Please enter a valid price</p><p id="pricePreview" class="text-gold-500/60 text-xs mt-2 font-mono hidden"></p></div><div class="mb-5"><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2 block">Image URL <span class="text-neutral-600 normal-case tracking-normal font-normal">(optional)</span></label><input type="text" id="addImage" placeholder="https://..." class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-neutral-600 focus:outline-none"></div><div class="mb-6"><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2 block">Description <span class="text-neutral-600 normal-case tracking-normal font-normal">(optional)</span></label><textarea id="addDesc" rows="3" placeholder="Brief description..." class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-neutral-600 focus:outline-none resize-none"></textarea></div><div class="flex gap-3"><button type="button" onclick="handleAddProduct()" class="btn-add bg-gold-500 text-black font-bold text-sm uppercase tracking-wider px-10 py-3.5 rounded-full hover:bg-gold-400 hover:scale-105 transition-all duration-300">➕ Add Product</button><button type="button" onclick="clearAddForm()" class="border border-white/10 text-neutral-400 font-bold text-sm uppercase tracking-wider px-6 py-3.5 rounded-full hover:border-white/30 hover:text-white transition-all duration-300">Clear</button></div><div id="addSuccess" class="hidden mt-5 p-4 bg-emerald-500/10 border border-emerald-500/30 rounded-xl"><p class="text-emerald-400 font-bold text-sm">✅ Product added!</p><p id="addSuccessDetail" class="text-emerald-400/60 text-xs mt-1"></p></div></div></div>
+        <div id="dashManageProducts" class="dash-panel hidden"><div class="flex items-center justify-between mb-5"><p class="text-neutral-400 text-sm"><span id="manageCount" class="text-white font-bold">0</span> total products</p><button onclick="renderManageList()" class="text-xs font-bold uppercase tracking-wider px-4 py-2 border border-white/10 rounded-full text-neutral-400 hover:border-gold-500/50 hover:text-gold-500 transition-all">🔄 Refresh</button></div><div id="manageList" class="space-y-3"></div></div>
+        
+        <!-- PASTORY AI CONFIGURATION PANEL -->
+        <div id="dashPastory" class="dash-panel hidden">
+            <div class="max-w-3xl bg-white/5 border border-white/10 rounded-2xl p-6 md:p-8">
+                <div class="mb-8">
+                    <h3 class="text-2xl font-bold mb-2">🤖 Pastory AI Agent Configuration</h3>
+                    <p class="text-neutral-400 text-sm">Configure what Pastory will say to welcome customers and handle conversations</p>
+                </div>
+
+                <div class="mb-8">
+                    <div class="flex items-center gap-3 mb-6 p-4 bg-gold-500/5 border border-gold-500/20 rounded-lg">
+                        <div class="w-10 h-10 rounded-full bg-gold-500/10 flex items-center justify-center flex-shrink-0">
+                            <i data-lucide="info" class="w-5 h-5 text-gold-500"></i>
+                        </div>
+                        <div class="text-sm">
+                            <p class="font-semibold text-gold-400">Pastory Status</p>
+                            <p class="text-gold-400/60">AI Voice Agent is <span id="pastoryStatus" class="font-bold">Active</span> • Auto-starts on page load • Speaks Swahili first, then translates</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <!-- Swahili Greeting -->
+                    <div>
+                        <label class="text-sm font-bold uppercase tracking-wider text-neutral-400 mb-3 block">🇹🇿 Swahili Greeting (First Message)</label>
+                        <textarea id="pastoryGreetingSW" rows="3" placeholder="Habari! Karibu kwenye Mandibo Furniture..." class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-neutral-600 focus:outline-none resize-none"></textarea>
+                        <p class="text-xs text-neutral-500 mt-2">This message is spoken automatically when a visitor arrives</p>
+                    </div>
+
+                    <!-- English Greeting -->
+                    <div>
+                        <label class="text-sm font-bold uppercase tracking-wider text-neutral-400 mb-3 block">🇬🇧 English Translation (if Requested)</label>
+                        <textarea id="pastoryGreetingEN" rows="3" placeholder="Hello! Welcome to Mandibo Furniture..." class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-neutral-600 focus:outline-none resize-none"></textarea>
+                        <p class="text-xs text-neutral-500 mt-2">Pastory will switch to English if customer asks</p>
+                    </div>
+
+                    <!-- Business Brief -->
+                    <div>
+                        <label class="text-sm font-bold uppercase tracking-wider text-neutral-400 mb-3 block">📝 Business Brief (What to Say About Us)</label>
+                        <textarea id="pastoryBrief" rows="4" placeholder="We are Mandibo Furniture, Zanzibar's premier online furniture store with 3 stores..." class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-neutral-600 focus:outline-none resize-none"></textarea>
+                        <p class="text-xs text-neutral-500 mt-2">This is used when customers ask about Mandibo</p>
+                    </div>
+
+                    <!-- Product Info Template -->
+                    <div>
+                        <label class="text-sm font-bold uppercase tracking-wider text-neutral-400 mb-3 block">🛋️ How Pastory Describes Products</label>
+                        <textarea id="pastoryProductTemplate" rows="4" placeholder="We have a wide range of [CATEGORY] available in all 3 stores. Prices start from TZS [PRICE]. Free delivery across Zanzibar. Would you like to see our [CATEGORY]?" class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-neutral-600 focus:outline-none resize-none"></textarea>
+                        <p class="text-xs text-neutral-500 mt-2">Use [CATEGORY] and [PRICE] as placeholders</p>
+                    </div>
+
+                    <!-- System Instructions -->
+                    <div>
+                        <label class="text-sm font-bold uppercase tracking-wider text-neutral-400 mb-3 block">⚙️ AI Personality & Tone (System Instructions)</label>
+                        <textarea id="pastorySystemPrompt" rows="5" placeholder="You are Pastory, a friendly and professional furniture sales AI assistant for Mandibo Furniture. You should be helpful, enthusiastic, and multilingual. Always be respectful and guide customers toward products and ordering." class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-neutral-600 focus:outline-none resize-none"></textarea>
+                        <p class="text-xs text-neutral-500 mt-2">Controls how Pastory behaves and responds to customers</p>
+                    </div>
+
+                    <!-- Enable/Disable -->
+                    <div class="flex items-center gap-4 p-4 bg-white/5 rounded-lg border border-white/10">
+                        <div>
+                            <p class="font-semibold text-sm mb-1">Enable Pastory on Site</p>
+                            <p class="text-xs text-neutral-400">Turn the AI agent on or off for visitors</p>
+                        </div>
+                        <div class="ml-auto">
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <input type="checkbox" id="pastoryEnabled" checked class="w-4 h-4">
+                                <span id="pastoryToggleLabel" class="text-sm font-bold text-emerald-400">Active</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex gap-3 mt-8">
+                    <button type="button" onclick="savePastoryConfig()" class="bg-gold-500 text-black font-bold text-sm uppercase tracking-wider px-10 py-3.5 rounded-full hover:bg-gold-400 hover:scale-105 transition-all duration-300">💾 Save Configuration</button>
+                    <button type="button" onclick="resetPastoryConfig()" class="border border-white/10 text-neutral-400 font-bold text-sm uppercase tracking-wider px-6 py-3.5 rounded-full hover:border-white/30 hover:text-white transition-all duration-300">↺ Reset to Default</button>
+                    <button type="button" onclick="testPastoryAI()" class="border border-gold-500/30 text-gold-400 font-bold text-sm uppercase tracking-wider px-6 py-3.5 rounded-full hover:border-gold-500 hover:bg-gold-500/10 transition-all duration-300">🎧 Test Voice</button>
+                </div>
+
+                <div id="pastorySuccess" class="hidden mt-6 p-4 bg-emerald-500/10 border border-emerald-500/30 rounded-xl">
+                    <p class="text-emerald-400 font-bold text-sm">✅ Pastory Configuration Saved!</p>
+                    <p id="pastorySavedTime" class="text-emerald-400/60 text-xs mt-1"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ORDER MODAL -->
+<div id="orderModal" class="fixed inset-0 z-[100] hidden"><div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="closeOrderModal()"></div><div class="relative z-10 flex items-center justify-center min-h-screen p-4"><div class="bg-[#111] border border-white/10 rounded-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto p-6 md:p-8"><div class="flex items-center justify-between mb-6"><h3 class="text-xl font-bold">Place Your Order</h3><button onclick="closeOrderModal()" class="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center hover:border-red-500 hover:text-red-500 transition-colors"><i data-lucide="x" class="w-4 h-4"></i></button></div><div id="orderProductInfo" class="flex gap-4 mb-6 p-4 bg-white/5 rounded-xl border border-white/5"></div><form id="orderForm" class="space-y-4"><div><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-1.5 block">Full Name *</label><input type="text" id="orderName" required class="w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-neutral-600 focus:outline-none focus:border-gold-500" placeholder="Your full name"></div><div><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-1.5 block">Phone Number *</label><input type="tel" id="orderPhone" required class="w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-neutral-600 focus:outline-none focus:border-gold-500" placeholder="+255 7XX XXX XXX"></div><div><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-1.5 block">Delivery Location *</label><input type="text" id="orderLocation" required class="w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-neutral-600 focus:outline-none focus:border-gold-500" placeholder="e.g. Stone Town, near Forodhani"></div><div><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-1.5 block">Quantity</label><input type="number" id="orderQty" min="1" max="99" value="1" class="w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white focus:outline-none focus:border-gold-500" oninput="updateOrderTotal()"></div><div><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-1.5 block">Additional Notes</label><textarea id="orderNotes" rows="2" class="w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-neutral-600 focus:outline-none focus:border-gold-500 resize-none" placeholder="Any special requests..."></textarea></div><div id="orderTotal" class="text-right text-lg font-bold text-gold-500 py-2"></div><div class="flex gap-3 pt-2"><button type="submit" class="flex-1 bg-gold-500 text-black font-bold text-sm uppercase tracking-wider py-3.5 rounded-full hover:bg-gold-400 hover:scale-[1.02] transition-all duration-300">Confirm Order</button><a id="whatsappOrder" href="#" target="_blank" class="flex items-center justify-center gap-2 px-6 py-3.5 bg-emerald-600 text-white font-bold text-sm uppercase tracking-wider rounded-full hover:bg-emerald-500 transition-all duration-300"><i data-lucide="message-circle" class="w-4 h-4"></i>WhatsApp</a></div></form></div></div></div>
+
+<!-- OWNER LOGIN MODAL -->
+<div id="loginModal" class="fixed inset-0 z-[100] hidden"><div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="closeOwnerLogin()"></div><div class="relative z-10 flex items-center justify-center min-h-screen p-4"><div class="bg-[#111] border border-white/10 rounded-2xl w-full max-w-sm p-8"><div class="text-center mb-8"><img src="https://z-cdn-media.chatglm.cn/files/d06cb235-9058-490c-b21c-a4cc6f192fb0.png?auth_key=1875111503-553b5bf504e04d49a0db0e9301a8b91d-0-f0265d78daac62181c5b8e73a86479be" class="h-16 mx-auto mb-4" alt="Logo"><h3 class="text-lg font-bold">Owner Access</h3><p class="text-neutral-500 text-xs mt-1">Enter password to access dashboard</p></div><form id="loginForm" class="space-y-4"><input type="password" id="ownerPass" required placeholder="Enter password" class="w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-neutral-600 focus:outline-none focus:border-gold-500 text-center tracking-widest"><p id="loginError" class="text-red-400 text-xs text-center hidden">⚠ Incorrect password.</p><button type="submit" class="w-full bg-gold-500 text-black font-bold text-sm uppercase tracking-wider py-3 rounded-full hover:bg-gold-400 transition-all">Unlock Dashboard</button></form><button onclick="closeOwnerLogin()" class="w-full mt-3 text-neutral-500 text-xs hover:text-white transition-colors py-2">Cancel</button></div></div></div>
+
+<!-- DELETE MODAL -->
+<div id="deleteModal" class="fixed inset-0 z-[110] hidden"><div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="closeDeleteModal()"></div><div class="relative z-10 flex items-center justify-center min-h-screen p-4"><div class="bg-[#111] border border-red-500/30 rounded-2xl w-full max-w-sm p-8 text-center"><div class="w-14 h-14 rounded-full bg-red-500/10 border border-red-500/30 flex items-center justify-center mx-auto mb-4"><i data-lucide="trash-2" class="w-6 h-6 text-red-400"></i></div><h3 class="text-lg font-bold mb-2">Delete Product?</h3><p id="deleteItemName" class="text-neutral-400 text-sm mb-6"></p><div class="flex gap-3"><button onclick="closeDeleteModal()" class="flex-1 border border-white/10 text-neutral-300 font-bold text-sm uppercase tracking-wider py-3 rounded-full hover:border-white/30 transition-all">Cancel</button><button onclick="confirmDelete()" class="flex-1 bg-red-500 text-white font-bold text-sm uppercase tracking-wider py-3 rounded-full hover:bg-red-400 transition-all">Delete</button></div></div></div></div>
+
+<!-- EDIT MODAL -->
+<div id="editModal" class="fixed inset-0 z-[110] hidden"><div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="closeEditModal()"></div><div class="relative z-10 flex items-center justify-center min-h-screen p-4"><div class="bg-[#111] border border-gold-500/30 rounded-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto p-6 md:p-8"><div class="flex items-center justify-between mb-6"><h3 class="text-xl font-bold">✏️ Edit Product</h3><button onclick="closeEditModal()" class="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center hover:border-red-500 hover:text-red-500 transition-colors"><i data-lucide="x" class="w-4 h-4"></i></button></div><div class="mb-5"><img id="editImgPreview" src="" class="w-full h-48 object-cover rounded-xl border border-white/10 bg-[#0A0A0A]" alt="Preview"></div><div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5"><div><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2 block">Store</label><select id="editStore" class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white focus:outline-none"><option value="store-a">Store A</option><option value="store-b">Store B</option><option value="store-c">Store C</option></select></div><div><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2 block">Category</label><select id="editCategory" class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white focus:outline-none"><option value="beds">Beds</option><option value="sofa-chair">Sofa & Chair</option><option value="tables">Tables</option><option value="cupboard">Cupboard</option><option value="doors-windows">Doors & Windows</option><option value="others">Others</option></select></div></div><div class="mb-5"><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2 block">Product Name *</label><input type="text" id="editName" class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-neutral-600 focus:outline-none"><p id="editErrName" class="inline-err">⚠ Name required</p></div><div class="mb-5"><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2 block">Price (TZS) *</label><div class="relative"><span class="absolute left-4 top-1/2 -translate-y-1/2 text-neutral-500 text-sm font-medium">TZS</span><input type="text" id="editPrice" inputmode="numeric" class="form-input w-full bg-black border border-white/10 rounded-lg pl-14 pr-4 py-3 text-sm text-white placeholder-neutral-600 focus:outline-none" oninput="this.value=this.value.replace(/[^0-9,]/g,'');updateEditPreview()"></div><p id="editErrPrice" class="inline-err">⚠ Valid price required</p><p id="editPricePreview" class="text-gold-500/60 text-xs mt-2 font-mono"></p></div><div class="mb-5"><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2 block">Image URL</label><input type="text" id="editImage" class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-neutral-600 focus:outline-none" oninput="updateEditImgPreview()"></div><div class="mb-6"><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2 block">Description</label><textarea id="editDesc" rows="3" class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-neutral-600 focus:outline-none resize-none"></textarea></div><div class="flex gap-3"><button type="button" onclick="handleSaveEdit()" class="flex-1 bg-gold-500 text-black font-bold text-sm uppercase tracking-wider py-3.5 rounded-full hover:bg-gold-400 hover:scale-[1.02] transition-all duration-300">💾 Save</button><button type="button" onclick="closeEditModal()" class="border border-white/10 text-neutral-400 font-bold text-sm uppercase tracking-wider px-6 py-3.5 rounded-full hover:border-white/30 hover:text-white transition-all duration-300">Cancel</button></div><div id="editSuccess" class="hidden mt-5 p-4 bg-emerald-500/10 border border-emerald-500/30 rounded-xl"><p class="text-emerald-400 font-bold text-sm">✅ Updated!</p></div></div></div></div>
+
+<script>
+// ===== PASTORY AI AGENT CONFIGURATION & INITIALIZATION =====
+var PASTORY_CONFIG={
+    greetingSW:'Habari! Karibu kwenye Mandibo Furniture. Mimi ni Pastory, msaidizi wa AI. Je, unafuata kiti, kitanda, au kapu? Tunafikiri wote.',
+    greetingEN:'Hello! Welcome to Mandibo Furniture. I\'m Pastory, your AI assistant. Are you looking for chairs, beds, or cupboards? We have everything.',
+    brief:'Mandibo Furniture ni duka la online la nyumba nzuri sana Zanzibar. Tunatoa kiti, mabingu, meza, na kapu. Tuna duka 3. Tukubali bila ada mahali popote nchi. Unaweza kuzunguka na kuagiza online.',
+    productTemplate:'Tunatoa [CATEGORY] nzuri katika duka 3. Bei kuanzia TZS [PRICE]. Haina gharama ya kutuma. Ungependa kuona [CATEGORY]?',
+    systemPrompt:'You are Pastory, a friendly and professional furniture sales AI assistant for Mandibo Furniture, a premier online furniture store in Zanzibar. Speak primarily in Swahili, but be ready to switch to English if asked. Be helpful, enthusiastic, and guide customers toward products and ordering. Keep responses concise and natural.',
+    enabled:true
+};
+
+var pastoryState={
+    isListening:false,
+    isSpeaking:false,
+    currentLang:'sw',
+    speechRecognition:null,
+    synth:window.speechSynthesis,
+    hasSpoken:false,
+    chatHistory:[],
+    chatBoxMinimized:false
+};
+
+// Chat box helper functions
+function addChatMessage(text,sender){
+    var chatMessages=document.getElementById('chatMessages');
+    if(!chatMessages)return;
+    var msgDiv=document.createElement('div');
+    msgDiv.style.cssText='margin-bottom:6px;padding:8px;border-radius:8px;word-wrap:break-word;animation:fade-up .3s ease-out;';
+    if(sender==='user'){
+        msgDiv.style.background='#D4A017';
+        msgDiv.style.color='#000';
+        msgDiv.style.marginLeft='40px';
+        msgDiv.style.fontWeight='500';
+    }else{
+        msgDiv.style.background='#e8e8e8';
+        msgDiv.style.color='#333';
+        msgDiv.style.marginRight='40px';
+    }
+    msgDiv.textContent=text;
+    chatMessages.appendChild(msgDiv);
+    chatMessages.scrollTop=chatMessages.scrollHeight;
+    pastoryState.chatHistory.push({sender:sender,text:text,time:new Date()});
+}
+
+function toggleChatBox(){
+    var box=document.getElementById('chatBox');
+    var messages=document.getElementById('chatMessages');
+    pastoryState.chatBoxMinimized=!pastoryState.chatBoxMinimized;
+    if(pastoryState.chatBoxMinimized){
+        messages.style.display='none';
+        document.getElementById('chatInput').parentElement.style.display='none';
+        box.style.width='120px';
+    }else{
+        messages.style.display='flex';
+        document.getElementById('chatInput').parentElement.style.display='flex';
+        box.style.width='320px';
+    }
+}
+
+function sendChatMessage(){
+    var input=document.getElementById('chatInput');
+    var text=input.value.trim();
+    if(!text)return;
+    addChatMessage(text,'user');
+    input.value='';
+    handlePastoryInput(text);
+}
+
+function toggleVoiceInput(){
+    var btn=document.getElementById('voiceBtn');
+    if(pastoryState.isListening){
+        pastoryState.speechRecognition.stop();
+        btn.style.background='#0A0A0A';
+        btn.style.color='#D4A017';
+    }else{
+        btn.style.background='#D4A017';
+        btn.style.color='#000';
+        pastoryState.speechRecognition.start();
+    }
+}
+
+// Initialize speech recognition
+function initPastory(){
+    var SpeechRecognition=window.SpeechRecognition||window.webkitSpeechRecognition;
+    if(!SpeechRecognition){console.warn('Speech Recognition not supported');return;}
+    pastoryState.speechRecognition=new SpeechRecognition();
+    pastoryState.speechRecognition.continuous=false;
+    pastoryState.speechRecognition.interimResults=false;
+    pastoryState.speechRecognition.lang='sw-TZ';
+    pastoryState.speechRecognition.onstart=function(){
+        pastoryState.isListening=true;
+        var ind=document.getElementById('pastoryIndicator');
+        if(ind){ind.classList.add('listening');ind.classList.remove('speaking');}
+    };
+    pastoryState.speechRecognition.onend=function(){
+        pastoryState.isListening=false;
+        var ind=document.getElementById('pastoryIndicator');
+        if(ind)ind.classList.remove('listening');
+    };
+    pastoryState.speechRecognition.onerror=function(e){
+        console.warn('Speech recognition error:',e.error);
+        pastoryState.isListening=false;
+    };
+    pastoryState.speechRecognition.onresult=function(e){
+        var transcript='';
+        for(var i=e.resultIndex;i<e.results.length;i++){
+            if(e.results[i].isFinal)transcript+=e.results[i][0].transcript;}
+        if(transcript)handlePastoryInput(transcript);
+    };
+    loadPastoryConfig();
+    setTimeout(function(){
+        if(PASTORY_CONFIG.enabled&&!pastoryState.hasSpoken){
+            speakPastory(PASTORY_CONFIG.greetingSW,'sw');
+            pastoryState.hasSpoken=true;
+        }
+    },2500);
+}
+
+function loadPastoryConfig(){
+    var saved=localStorage.getItem('mandibo_pastory_config');
+    if(saved){
+        try{Object.assign(PASTORY_CONFIG,JSON.parse(saved));}catch(e){console.error('Error loading Pastory config');}
+    }
+}
+
+function speakPastory(text,lang){
+    if(!PASTORY_CONFIG.enabled)return;
+    addChatMessage(text,'pastory');
+    pastoryState.synth.cancel();
+    var utterance=new SpeechSynthesisUtterance(text);
+    utterance.lang=lang==='en'?'en-US':'sw-TZ';
+    utterance.rate=1.0;
+    utterance.pitch=1.0;
+    utterance.volume=0.8;
+    utterance.onstart=function(){
+        pastoryState.isSpeaking=true;
+        var ind=document.getElementById('pastoryIndicator');
+        if(ind){ind.classList.add('speaking');ind.classList.remove('listening');}
+    };
+    utterance.onend=function(){
+        pastoryState.isSpeaking=false;
+        var ind=document.getElementById('pastoryIndicator');
+        if(ind){ind.classList.remove('speaking');
+        setTimeout(function(){
+            if(!pastoryState.isListening&&document.body.classList.contains('user-only'))
+                pastoryState.speechRecognition.start();
+        },500);}
+    };
+    pastoryState.synth.speak(utterance);
+}
+
+function handlePastoryInput(transcript){
+    console.log('Pastory heard:',transcript);
+    if(transcript.toLowerCase().includes('english')||transcript.toLowerCase().includes('english')){
+        pastoryState.currentLang='en';
+        speakPastory(PASTORY_CONFIG.greetingEN,'en');
+    }else{
+        // Would integrate with Claude API here for intelligent responses
+        // For now, provide contextual responses
+        var response='Asante. ';
+        if(transcript.toLowerCase().includes('bed')||transcript.toLowerCase().includes('kitanda')){
+            response+=PASTORY_CONFIG.productTemplate.replace('[CATEGORY]','Mabingu').replace('[PRICE]','1,200,000');
+        }else if(transcript.toLowerCase().includes('sofa')||transcript.toLowerCase().includes('kiti')){
+            response+=PASTORY_CONFIG.productTemplate.replace('[CATEGORY]','Kapu').replace('[PRICE]','950,000');
+        }else{
+            response+=PASTORY_CONFIG.brief;
+        }
+        speakPastory(response,'sw');
+    }
+}
+
+var OWNER_PASSWORD='mandibo2026',WHATSAPP_NUMBER='255799610190',products=[],orders=[],currentStoreFilter='all',currentCatFilter='all',currentOrderProduct=null,adInterval=null,adTimeouts=[],pendingDeleteId=null,editingProductId=null,lbZoom=1,lbSpinning=false;
+var IMG=[
+'https://z-cdn-media.chatglm.cn/files/b2204e29-e1a1-4d2c-82ad-45c6f0810365.png?auth_key=1875121023-e0211d56db1c432bb5d12b1debea744f-0-e01624498ea126cfd37f26032f54e3e6',
+'https://z-cdn-media.chatglm.cn/files/bf96da0c-bf91-4349-93a3-38478154c069.png?auth_key=1875121023-532d6ffdf76740398d52b7963ec5b049-0-b077f8c54f361bf4c5f0a152a4bf523b',
+'https://z-cdn-media.chatglm.cn/files/626ae480-4cba-436c-9ec0-22f3b441417c.png?auth_key=1875121023-afbc3ca9c0d540188cab545f7aa46783-0-95b9cd97d1763b056bfc3cdaf090527a',
+'https://z-cdn-media.chatglm.cn/files/b60c7c53-ba3d-4628-9e37-3798bcfdba37.png?auth_key=1875121023-40498e79512b4b07a3fe8f1072172c3b-0-6d6f62026c880b2bf3e49d2c315964fd',
+'https://z-cdn-media.chatglm.cn/files/444215d9-bda6-45d7-a606-e9b9ec24b2c4.png?auth_key=1875121023-e7d989b65ea64667a9563899015dbfee-0-b66b7473c236d6a018435f9b6bef4748',
+'https://z-cdn-media.chatglm.cn/files/da777799-f49b-4bda-b165-8ea85f74b89a.png?auth_key=1875121023-a1733040cf0847da99f359f3aac6171a-0-a7b679b89f75d41872c11420947a6087',
+'https://z-cdn-media.chatglm.cn/files/f78a1915-3e89-4eaf-9e2f-0aaa67491fd6.png?auth_key=1875121023-c078d04653754bd18e638d5589b4652a-0-dbdc2637842b0c898f1bf3017d32a3ec',
+'https://z-cdn-media.chatglm.cn/files/f4d68b25-cb8e-4056-8dec-67156e8f8d40.png?auth_key=1875121023-600d14e5a6c540e0a10a077302343ab4-0-db973974387b32f211b4abb0a7059cf7',
+'https://z-cdn-media.chatglm.cn/files/8dc143fe-a796-4521-b556-c30e11d593ac.png?auth_key=1875121023-8d9a19ab19e1441ea20df3a0e94b2fe4-0-ac2a1e7edda6a1392a1c020290096656'];
+var defaultProducts=[
+{id:1,store:'store-a',cat:'beds',name:'Zanzibar Carved King Bed',price:3500000,img:IMG[3],desc:'Hand-carved mahogany king-size bed with traditional Zanzibar motifs.'},
+{id:2,store:'store-a',cat:'beds',name:'Heritage Queen Bed Frame',price:2200000,img:IMG[2],desc:'Elegant queen bed frame with heritage woodwork detailing.'},
+{id:3,store:'store-a',cat:'beds',name:'Swahili Single Bed',price:1200000,img:IMG[4],desc:'Compact single bed with Swahili-inspired headboard design.'},
+{id:4,store:'store-a',cat:'sofa-chair',name:'Carved Mahogany Sofa Set',price:4500000,img:IMG[0],desc:'3+1+1 sofa set with intricate hand-carved mahogany frame.'},
+{id:5,store:'store-a',cat:'sofa-chair',name:'Heritage 3-Seater Sofa',price:2800000,img:IMG[6],desc:'Classic 3-seater sofa with plush cushions and carved arms.'},
+{id:6,store:'store-a',cat:'sofa-chair',name:'Swahili Armchair',price:950000,img:IMG[2],desc:'Statement armchair with traditional Swahili wood carving.'},
+{id:7,store:'store-a',cat:'tables',name:'Carved Dining Table 6-Seater',price:2500000,img:IMG[5],desc:'Solid mahogany dining table for 6 with carved legs.'},
+{id:8,store:'store-a',cat:'tables',name:'Heritage Coffee Table',price:800000,img:IMG[4],desc:'Ornate coffee table with brass inlay details.'},
+{id:9,store:'store-a',cat:'tables',name:'Swahili Side Table',price:450000,img:IMG[8],desc:'Handcrafted side table with traditional geometric patterns.'},
+{id:10,store:'store-a',cat:'cupboard',name:'Mahogany Wardrobe',price:3200000,img:IMG[1],desc:'Large double-door wardrobe in solid mahogany with mirror.'},
+{id:11,store:'store-a',cat:'cupboard',name:'Heritage Display Cabinet',price:2100000,img:IMG[5],desc:'Glass-fronted display cabinet with carved wooden frame.'},
+{id:12,store:'store-a',cat:'doors-windows',name:'Carved Main Door',price:1800000,img:IMG[5],desc:'Stunning hand-carved entrance door with Zanzibar motifs.'},
+{id:13,store:'store-a',cat:'doors-windows',name:'Swahili Window Frame Set',price:350000,img:IMG[5],desc:'Decorative window frame set inspired by Stone Town architecture.'},
+{id:14,store:'store-a',cat:'others',name:'Decorative Mirror Frame',price:280000,img:IMG[0],desc:'Ornate wall mirror with hand-carved wooden frame.'},
+{id:15,store:'store-a',cat:'others',name:'Swahili Bookshelf',price:1500000,img:IMG[1],desc:'Tall bookshelf with traditional carved details.'},
+{id:16,store:'store-b',cat:'beds',name:'Coastal King Platform Bed',price:2800000,img:IMG[3],desc:'Modern platform king bed with coastal driftwood aesthetic.'},
+{id:17,store:'store-b',cat:'beds',name:'Ocean Breeze Queen Bed',price:1900000,img:IMG[4],desc:'Light-toned queen bed with ocean-inspired headboard.'},
+{id:18,store:'store-b',cat:'beds',name:'Beach House Single Bed',price:950000,img:IMG[2],desc:'Casual single bed perfect for beach house settings.'},
+{id:19,store:'store-b',cat:'sofa-chair',name:'Coastal L-Shape Sofa',price:3200000,img:IMG[6],desc:'Spacious L-shaped sofa in light coastal fabric.'},
+{id:20,store:'store-b',cat:'sofa-chair',name:'Ocean Lounge Chair',price:1100000,img:IMG[8],desc:'Relaxing lounge chair with ocean-blue upholstery.'},
+{id:21,store:'store-b',cat:'sofa-chair',name:'Beach Daybed',price:1800000,img:IMG[7],desc:'Outdoor/indoor daybed with weather-resistant cushions.'},
+{id:22,store:'store-b',cat:'tables',name:'Coastal Dining Set',price:3000000,img:IMG[5],desc:'6-seater dining set with light wood and coastal styling.'},
+{id:23,store:'store-b',cat:'tables',name:'Driftwood Coffee Table',price:650000,img:IMG[4],desc:'Unique coffee table made from reclaimed driftwood.'},
+{id:24,store:'store-b',cat:'cupboard',name:'Coastal Wardrobe',price:2500000,img:IMG[1],desc:'White-washed wardrobe with coastal shutter doors.'},
+{id:25,store:'store-b',cat:'cupboard',name:'Beach Cabinet',price:1600000,img:IMG[5],desc:'Storage cabinet with rattan door panels.'},
+{id:26,store:'store-b',cat:'doors-windows',name:'Coastal Panel Door',price:1200000,img:IMG[5],desc:'White panel door with coastal cottage style.'},
+{id:27,store:'store-b',cat:'doors-windows',name:'Ocean View Window Set',price:500000,img:IMG[5],desc:'Large window frame set maximizing natural light.'},
+{id:28,store:'store-b',cat:'others',name:'Coastal TV Stand',price:1100000,img:IMG[5],desc:'Media unit with coastal white finish and open shelving.'},
+{id:29,store:'store-c',cat:'beds',name:'Modern Upholstered King Bed',price:3000000,img:IMG[3],desc:'Contemporary upholstered king bed with padded headboard.'},
+{id:30,store:'store-c',cat:'beds',name:'Contemporary Queen Bed',price:2100000,img:IMG[4],desc:'Sleek queen bed with minimalist design.'},
+{id:31,store:'store-c',cat:'beds',name:'Minimalist Single Bed',price:850000,img:IMG[2],desc:'Clean-line single bed with floating nightstand.'},
+{id:32,store:'store-c',cat:'sofa-chair',name:'Modern Sectional Sofa',price:4000000,img:IMG[7],desc:'Large modular sectional sofa in premium grey fabric.'},
+{id:33,store:'store-c',cat:'sofa-chair',name:'Contemporary Armchair',price:1300000,img:IMG[0],desc:'Mid-century modern armchair with walnut legs.'},
+{id:34,store:'store-c',cat:'sofa-chair',name:'Minimalist Office Chair',price:750000,img:IMG[2],desc:'Ergonomic office chair with sleek black mesh back.'},
+{id:35,store:'store-c',cat:'tables',name:'Modern Glass Dining Table',price:2200000,img:IMG[5],desc:'Tempered glass top dining table with chrome legs.'},
+{id:36,store:'store-c',cat:'tables',name:'Contemporary Desk',price:1400000,img:IMG[8],desc:'Minimalist work desk with cable management.'},
+{id:37,store:'store-c',cat:'cupboard',name:'Modern Sliding Wardrobe',price:3500000,img:IMG[1],desc:'Space-saving sliding door wardrobe with mirror.'},
+{id:38,store:'store-c',cat:'cupboard',name:'Contemporary Shelf Unit',price:1200000,img:IMG[5],desc:'Open shelving unit with industrial metal frame.'},
+{id:39,store:'store-c',cat:'doors-windows',name:'Modern Flush Door',price:600000,img:IMG[5],desc:'Sleek flush door with hidden frame design.'},
+{id:40,store:'store-c',cat:'doors-windows',name:'Aluminium Window Set',price:450000,img:IMG[5],desc:'Slim-profile aluminium windows with tinted glass.'},
+{id:41,store:'store-c',cat:'others',name:'Modern TV Unit',price:1800000,img:IMG[0],desc:'Floating TV unit with integrated LED lighting.'},
+{id:42,store:'store-c',cat:'others',name:'Contemporary Shoe Rack',price:380000,img:IMG[5],desc:'Compact shoe rack with modern matte finish.'}
+];
+
+function formatTZS(n){return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g,',');}
+function parsePrice(s){return parseInt(s.replace(/,/g,''),10)||0;}
+function saveOrders(){localStorage.setItem('mandibo_orders',JSON.stringify(orders));}
+function saveCustomProducts(){localStorage.setItem('mandibo_custom_products',JSON.stringify(products.filter(function(p){return p.id>1000;})));}
+function saveEditedProducts(){localStorage.setItem('mandibo_edited_products',JSON.stringify(products.filter(function(p){return p._edited;})));}
+
+// ===== LIVE VISITOR STATS SYSTEM =====
+var lv={
+    online:0,today:0,todayOrders:0,browsing:0,
+    barVisible:true,
+    feedQueue:[],feedActive:false,
+    _onlineBase:14,_todayBase:287,_orderBase:23,
+    _names:['Amina','Fatma','Mohamed','Ali','Khadija','Yusuf','Halima','Omar','Mwanasha','Juma','Rehema','Said','Zainab','Hassan','Maryam','Ibrahim','Asma','Abdullah','Nasra','Khalid','Salma','Bakari','Mwana','Hamisi','Hawa','Farid','Lubna','Rashid','Mona','Idris','Nadia','Thabit','Fadhila','Ghani','Samira','Hamad','Zuhra','Musa','Ruqaya','Noor'],
+    _locations:['Stone Town','Nungwi','Kiwengwa','Paje','Jambiani','Kendwa','Michamvi','Matemwe','Bwejuu','Makunduchi','Chwaka','Dongwe','Kizimkazi','Mangapwani','Karakana','Mkokotoni','Tumbatu','Uroa','Pongwe','Fukuchani'],
+    _products:['Zanzibar Carved King Bed','Coastal L-Shape Sofa','Modern Glass Dining Table','Heritage 3-Seater Sofa','Mahogany Wardrobe','Contemporary Armchair','Swahili Armchair','Modern Sectional Sofa','Carved Dining Table 6-Seater','Driftwood Coffee Table','Coastal King Platform Bed','Modern Sliding Wardrobe','Beach Daybed','Heritage Coffee Table'],
+    _recentFeed:[]
+};
+function lvInit(){
+    var stored=localStorage.getItem('mandibo_lv');
+    if(stored){
+        try{
+            var d=JSON.parse(stored);
+            var now=new Date();
+            var last=new Date(d.lastDate||0);
+            if(now.toDateString()===last.toDateString()){
+                lv.online=d.online||lv._onlineBase;
+                lv.today=d.today||lv._todayBase;
+                lv.todayOrders=d.todayOrders||lv._orderBase;
+            }else{
+                lv.online=lv._onlineBase;
+                lv.today=lv._todayBase;
+                lv.todayOrders=lv._orderBase;
+            }
+        }catch(e){lvReset();}
+    }else{lvReset();}
+    lv.browsing=Math.floor(Math.random()*6)+3;
+    lv.updateUI();
+    setTimeout(function(){document.getElementById('liveBar').classList.add('visible');},1200);
+    setInterval(lvTick,3000);
+    setInterval(lvSave,10000);
+    setInterval(lvFeed,6000);
+    setTimeout(function(){lvFeed();},2500);
+}
+function lvReset(){lv.online=lv._onlineBase;lv.today=lv._todayBase;lv.todayOrders=lv._orderBase;}
+function lvSave(){localStorage.setItem('mandibo_lv',JSON.stringify({online:lv.online,today:lv.today,todayOrders:lv.todayOrders,lastDate:new Date().toISOString()}));}
+function lvTick(){
+    var delta=Math.floor(Math.random()*5)-2;
+    lv.online=Math.max(6,Math.min(58,lv.online+delta));
+    lv.browsing=Math.max(1,Math.min(12,lv.browsing+Math.floor(Math.random()*3)-1));
+    if(Math.random()<0.35)lv.today++;
+    lv.updateUI();
+}
+function lvBumpOrder(){lv.todayOrders++;lv.today++;lv.updateUI();lvSave();}
+function lvUpdateDisplay(elId,newVal){
+    var el=document.getElementById(elId);
+    if(!el)return;
+    var oldVal=el.textContent;
+    var formatted=typeof newVal==='number'?newVal.toLocaleString():newVal;
+    if(oldVal!==formatted){
+        el.textContent=formatted;
+        el.classList.add('bumped');
+        setTimeout(function(){el.classList.remove('bumped');},350);
+    }
+}
+function lvUpdateUI(){
+    lvUpdateDisplay('lvOnline',lv.online);
+    lvUpdateDisplay('lvToday',lv.today.toLocaleString());
+    lvUpdateDisplay('lvOrders',lv.todayOrders);
+    lvUpdateDisplay('lvBrowsing',lv.browsing);
+    var fab=document.getElementById('fabCount');
+    if(fab)fab.textContent=lv.todayOrders;
+}
+function lvFeed(){
+    var msgs=[
+        {type:'join',icon:'👋',gen:function(){return lv._names[Math.floor(Math.random()*lv._names.length)]+' from '+lv._locations[Math.floor(Math.random()*lv._locations.length)]+' joined';}},
+        {type:'view',icon:'👁️',gen:function(){return lv._names[Math.floor(Math.random()*lv._names.length)]+' is viewing "'+lv._products[Math.floor(Math.random()*lv._products.length)]+'"';}},
+        {type:'order',icon:'🛒',gen:function(){return lv._names[Math.floor(Math.random()*lv._names.length)]+' just ordered a '+lv._products[Math.floor(Math.random()*lv._products.length)]+'!';}},
+        {type:'view',icon:'🔍',gen:function(){return lv._names[Math.floor(Math.random()*lv._names.length)]+' is comparing beds';}},
+        {type:'join',icon:'🌍',gen:function(){return 'New visitor from '+lv._locations[Math.floor(Math.random()*lv._locations.length)]+' browsing sofas';}},
+        {type:'order',icon:'✅',gen:function(){return 'Order confirmed — '+lv._locations[Math.floor(Math.random()*lv._locations.length)]+' delivery';}},
+        {type:'view',icon:'❤️',gen:function(){return lv._names[Math.floor(Math.random()*lv._names.length)]+' saved "'+lv._products[Math.floor(Math.random()*lv._products.length)]+'" to wishlist';}},
+        {type:'join',icon:'📱',gen:function(){return lv._names[Math.floor(Math.random()*lv._names.length)]+' opened the site via phone';}}
+    ];
+    var m=msgs[Math.floor(Math.random()*msgs.length)];
+    lvShowFeed(m.type,m.icon,m.gen());
+    if(m.type==='order')lvBumpOrder();
+}
+function lvShowFeed(type,icon,text){
+    var item=document.getElementById('feedItem');
+    if(!item)return;
+    item.classList.remove('entering');
+    item.classList.add('exiting');
+    setTimeout(function(){
+        item.className='feed-item';
+        var iconWrap=item.querySelector('.feed-icon');
+        iconWrap.className='feed-icon '+type;
+        iconWrap.textContent=icon;
+        document.getElementById('feedText').textContent=text;
+        void item.offsetWidth;
+        item.classList.add('entering');
+    },300);
+}
+function toggleLiveBar(){
+    var bar=document.getElementById('liveBar');
+    var fab=document.getElementById('liveBarFab');
+    var icon=document.getElementById('barToggleIcon');
+    if(lv.barVisible){
+        bar.classList.remove('visible');
+        fab.classList.remove('hidden');
+        fab.classList.add('flex');
+        icon.setAttribute('data-lucide','chevron-up');
+    }else{
+        bar.classList.add('visible');
+        fab.classList.add('hidden');
+        fab.classList.remove('flex');
+        icon.setAttribute('data-lucide','chevron-down');
+    }
+    lv.barVisible=!lv.barVisible;
+    lucide.createIcons();
+}
+
+document.addEventListener('DOMContentLoaded',function(){
+    products=defaultProducts.map(function(p){return Object.assign({},p);});
+    orders=JSON.parse(localStorage.getItem('mandibo_orders')||'[]');
+    JSON.parse(localStorage.getItem('mandibo_custom_products')||'[]').forEach(function(p){if(!products.find(function(x){return x.id===p.id;}))products.push(p);});
+    JSON.parse(localStorage.getItem('mandibo_edited_products')||'[]').forEach(function(ep){var i=products.findIndex(function(x){return x.id===ep.id;});if(i!==-1)products[i]=Object.assign({},ep);});
+    document.getElementById('loginForm').addEventListener('submit',function(e){e.preventDefault();ownerLogin();});
+    document.getElementById('orderForm').addEventListener('submit',function(e){e.preventDefault();submitOrder();});
+    document.getElementById('addPrice').addEventListener('input',function(){var v=parsePrice(this.value);var p=document.getElementById('pricePreview');if(v>0){p.textContent='= TZS '+formatTZS(v);p.classList.remove('hidden');}else p.classList.add('hidden');});
+    document.addEventListener('keydown',function(e){if(e.key==='Escape'){closeLightbox();closeOrderModal();closeEditModal();closeDeleteModal();closeOwnerLogin();}});
+    updateStoreCounts();renderProducts();initReveal();initNavbar();lucide.createIcons();
+    lvInit();
+    initPastory();
+});
+
+function initNavbar(){window.addEventListener('scroll',function(){var n=document.getElementById('navbar');if(window.scrollY>80)n.classList.add('bg-[#0A0A0A]/90','backdrop-blur-xl','border-b','border-white/5');else n.classList.remove('bg-[#0A0A0A]/90','backdrop-blur-xl','border-b','border-white/5');});}
+function toggleMobileMenu(){document.getElementById('mobileMenu').classList.toggle('hidden');}
+function initReveal(){var obs=new IntersectionObserver(function(e){e.forEach(function(x){if(x.isIntersecting)x.target.classList.add('active');});},{threshold:0.1,rootMargin:'0px 0px -50px 0px'});document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el);});}
+
+function showToast(msg,type){type=type||'info';var box=document.getElementById('toastBox');var c={success:'border-emerald-500 bg-emerald-500/10',error:'border-red-500 bg-red-500/10',info:'border-gold-500 bg-gold-500/10'};var t=document.createElement('div');t.className='toast-in pointer-events-auto border '+(c[type]||c.info)+' backdrop-blur-xl rounded-xl px-5 py-4 max-w-sm text-sm';t.textContent=msg;box.appendChild(t);setTimeout(function(){t.classList.remove('toast-in');t.classList.add('toast-out');setTimeout(function(){t.remove();},300);},4000);}
+
+function openLightbox(pid){
+    var p=products.find(function(x){return x.id===pid;});
+    if(!p)return;
+    lbZoom=1;lbSpinning=false;
+    document.getElementById('lbImg').src=p.img;
+    document.getElementById('lbImg').style.transform='scale(1)';
+    document.getElementById('lbImg').classList.remove('auto-spinning');
+    document.getElementById('lbName').textContent=p.name;
+    document.getElementById('lbPrice').textContent='TZS '+formatTZS(p.price);
+    document.getElementById('lbSpinBtn').classList.remove('spin-active');
+    document.getElementById('lightbox').classList.add('active');
+    document.body.style.overflow='hidden';
+}
+function closeLightbox(e){
+    if(e&&e.target!==document.getElementById('lightbox')&&!e.target.closest('.lightbox-close'))return;
+    document.getElementById('lightbox').classList.remove('active');
+    document.getElementById('lbImg').classList.remove('auto-spinning');
+    lbSpinning=false;
+    if(!document.getElementById('orderModal').classList.contains('hidden')||!document.getElementById('editModal').classList.contains('hidden'))return;
+    document.body.style.overflow='';
+}
+function toggleLightboxSpin(e){
+    e.stopPropagation();
+    lbSpinning=!lbSpinning;
+    var img=document.getElementById('lbImg'),btn=document.getElementById('lbSpinBtn');
+    if(lbSpinning){img.classList.add('auto-spinning');btn.classList.add('spin-active');}
+    else{img.classList.remove('auto-spinning');btn.classList.remove('spin-active');}
+}
+function lightboxZoom(e,dir){
+    e.stopPropagation();
+    lbZoom=Math.max(0.5,Math.min(3,lbZoom+dir*0.3));
+    document.getElementById('lbImg').style.transform='scale('+lbZoom+')';
+    document.getElementById('lbImg').classList.remove('auto-spinning');lbSpinning=false;
+    document.getElementById('lbSpinBtn').classList.remove('spin-active');
+}
+function lightboxReset(e){
+    e.stopPropagation();lbZoom=1;
+    document.getElementById('lbImg').style.transform='scale(1)';
+}
+
+function updateStoreCounts(){['store-a','store-b','store-c'].forEach(function(s){var el=document.getElementById(s+'-count');if(el)el.textContent=products.filter(function(p){return p.store===s;}).length;});}
+function selectStore(sid){document.querySelectorAll('.store-card').forEach(function(c){c.classList.remove('active-store');});var c=document.querySelector('.store-card[data-store="'+sid+'"]');if(c)c.classList.add('active-store');filterStore(sid);document.getElementById('products').scrollIntoView({behavior:'smooth'});}
+function filterStore(s){currentStoreFilter=s;document.querySelectorAll('[data-sfilter]').forEach(function(b){b.classList.toggle('active-cat',b.dataset.sfilter===s);});renderProducts();}
+function filterCategory(c){currentCatFilter=c;document.querySelectorAll('[data-cfilter]').forEach(function(b){b.classList.toggle('active-cat',b.dataset.cfilter===c);});renderProducts();}
+var searchTimer=null;
+function searchProducts(){clearTimeout(searchTimer);searchTimer=setTimeout(renderProducts,200);}
+
+function renderProducts(){
+    var search=(document.getElementById('searchInput')?document.getElementById('searchInput').value:'').toLowerCase();
+    var filtered=products.filter(function(p){if(currentStoreFilter!=='all'&&p.store!==currentStoreFilter)return false;if(currentCatFilter!=='all'&&p.cat!==currentCatFilter)return false;if(search&&p.name.toLowerCase().indexOf(search)===-1&&p.desc.toLowerCase().indexOf(search)===-1)return false;return true;});
+    var grid=document.getElementById('productGrid'),empty=document.getElementById('emptyState'),count=document.getElementById('productCount');
+    if(count)count.textContent=filtered.length;
+    if(!filtered.length){grid.innerHTML='';empty.classList.remove('hidden');lucide.createIcons();return;}
+    empty.classList.add('hidden');
+    var sn={'store-a':'Store A','store-b':'Store B','store-c':'Store C'};
+    var cl={'beds':'🛏️ Beds','sofa-chair':'🛋️ Sofa & Chair','tables':'🪑 Tables','cupboard':'🗄️ Cupboard','doors-windows':'🚪 Doors & Windows','others':'📦 Others'};
+    var html='';
+    filtered.forEach(function(p,i){
+        html+='<div class="product-card bg-white/[0.03] border border-white/10 rounded-2xl overflow-hidden group" style="animation:fade-up .5s ease-out '+(i*50)+'ms both">';
+        html+='<div class="relative aspect-square overflow-hidden bg-[#111]" onclick="openLightbox('+p.id+')">';
+        html+='<img src="'+p.img+'" alt="'+p.name+'" class="img-rotator w-full h-full object-cover" loading="lazy" onerror="this.src=\'https://picsum.photos/seed/fb-'+p.id+'/600/600.jpg\';this.onerror=null;this.style.opacity=\'0.4\';">';
+        html+='<div class="absolute top-3 left-3"><span class="bg-black/70 backdrop-blur-sm text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full text-gold-500">'+sn[p.store]+'</span></div>';
+        html+='<div class="absolute top-3 right-3"><span class="bg-black/70 backdrop-blur-sm text-[10px] font-medium px-2.5 py-1 rounded-full text-neutral-300">'+cl[p.cat]+'</span></div>';
+        html+='<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>';
+        html+='<div class="click-hint">🔍 Click to enlarge</div>';
+        html+='</div>';
+        html+='<div class="p-5"><h4 class="font-bold text-sm mb-1 leading-snug line-clamp-2">'+p.name+'</h4><p class="text-neutral-500 text-xs mb-3 line-clamp-2">'+p.desc+'</p><div class="flex items-center justify-between"><p class="text-gold-500 font-bold text-base">TZS '+formatTZS(p.price)+'</p><button onclick="event.stopPropagation();openOrderModal('+p.id+')" class="bg-gold-500 text-black text-[11px] font-bold uppercase tracking-wider px-4 py-2 rounded-full hover:bg-gold-400 hover:scale-105 transition-all duration-300">Order Now</button></div></div></div>';
+    });
+    grid.innerHTML=html;lucide.createIcons();
+}
+
+function openOrderModal(pid){currentOrderProduct=products.find(function(p){return p.id===pid;});if(!currentOrderProduct)return;document.getElementById('orderProductInfo').innerHTML='<img src="'+currentOrderProduct.img+'" class="w-20 h-20 rounded-lg object-cover flex-shrink-0" alt=""><div class="min-w-0"><p class="font-bold text-sm truncate">'+currentOrderProduct.name+'</p><p class="text-gold-500 font-bold">TZS '+formatTZS(currentOrderProduct.price)+'</p></div>';document.getElementById('orderQty').value=1;updateOrderTotal();document.getElementById('whatsappOrder').href='https://wa.me/'+WHATSAPP_NUMBER+'?text='+encodeURIComponent("Hi Mandibo! I'd like to order:\n\n*"+currentOrderProduct.name+"*\nPrice: TZS "+formatTZS(currentOrderProduct.price)+"\n\nPlease confirm availability.");document.getElementById('orderModal').classList.remove('hidden');document.body.style.overflow='hidden';lucide.createIcons();}
+function closeOrderModal(){document.getElementById('orderModal').classList.add('hidden');document.body.style.overflow='';document.getElementById('orderName').value='';document.getElementById('orderPhone').value='';document.getElementById('orderLocation').value='';document.getElementById('orderNotes').value='';document.getElementById('orderQty').value=1;}
+function updateOrderTotal(){if(!currentOrderProduct)return;var q=parseInt(document.getElementById('orderQty').value)||1;document.getElementById('orderTotal').innerHTML='Total: <span>TZS '+formatTZS(currentOrderProduct.price*Math.max(1,q))+'</span>';}
+function submitOrder(){if(!currentOrderProduct)return;var n=document.getElementById('orderName').value.trim(),ph=document.getElementById('orderPhone').value.trim(),loc=document.getElementById('orderLocation').value.trim();if(!n||!ph||!loc){showToast('Please fill all required fields','error');return;}var q=Math.max(1,parseInt(document.getElementById('orderQty').value)||1);orders.push({id:Date.now(),productId:currentOrderProduct.id,productName:currentOrderProduct.name,productImg:currentOrderProduct.img,price:currentOrderProduct.price,qty:q,total:currentOrderProduct.price*q,store:currentOrderProduct.store,name:n,phone:ph,location:loc,notes:document.getElementById('orderNotes').value.trim(),status:'pending',date:new Date().toISOString()});saveOrders();closeOrderModal();showToast('🎉 Order placed successfully!','success');}
+
+function openOwnerLogin(){document.getElementById('loginModal').classList.remove('hidden');document.body.style.overflow='hidden';document.getElementById('loginError').classList.add('hidden');document.getElementById('ownerPass').value='';setTimeout(function(){document.getElementById('ownerPass').focus();},100);}
+function closeOwnerLogin(){document.getElementById('loginModal').classList.add('hidden');document.body.style.overflow='';}
+function ownerLogin(){if(document.getElementById('ownerPass').value===OWNER_PASSWORD){closeOwnerLogin();document.body.classList.add('owner-mode');document.getElementById('userView').classList.add('hidden');document.getElementById('ownerView').classList.remove('hidden');updateDashboard();loadPastoryDashboard();showToast('🔑 Welcome back!','success');window.scrollTo(0,0);}else{document.getElementById('loginError').classList.remove('hidden');document.getElementById('ownerPass').classList.add('shake');setTimeout(function(){document.getElementById('ownerPass').classList.remove('shake');},600);}}
+function ownerLogout(){document.body.classList.remove('owner-mode');document.getElementById('ownerView').classList.add('hidden');document.getElementById('userView').classList.remove('hidden');showToast('Logged out','info');window.scrollTo(0,0);lucide.createIcons();}
+
+function showDashTab(tab){document.querySelectorAll('.dash-tab').forEach(function(b){b.classList.remove('bg-gold-500','text-black');b.classList.add('text-neutral-400');});var at=document.querySelector('.dash-tab[data-dtab="'+tab+'"]');if(at){at.classList.add('bg-gold-500','text-black');at.classList.remove('text-neutral-400');}document.querySelectorAll('.dash-panel').forEach(function(p){p.classList.add('hidden');});var panel=document.getElementById('dash'+tab.charAt(0).toUpperCase()+tab.slice(1));if(panel)panel.classList.remove('hidden');if(tab==='orders')renderOrdersList();if(tab==='manageProducts')renderManageList();if(tab==='pastory')loadPastoryDashboard();if(tab==='addProduct'){clearAddForm();document.getElementById('addSuccess').classList.add('hidden');}lucide.createIcons();}
+function updateDashboard(){document.getElementById('statProducts').textContent=products.length;document.getElementById('statOrders').textContent=orders.length;var rev=orders.reduce(function(s,o){return s+o.total;},0);document.getElementById('statRevenue').textContent=rev>0?formatTZS(rev):'0';renderOrdersList();renderManageList();lucide.createIcons();}
+
+// ===== PASTORY DASHBOARD FUNCTIONS =====
+function loadPastoryDashboard(){
+    document.getElementById('pastoryGreetingSW').value=PASTORY_CONFIG.greetingSW;
+    document.getElementById('pastoryGreetingEN').value=PASTORY_CONFIG.greetingEN;
+    document.getElementById('pastoryBrief').value=PASTORY_CONFIG.brief;
+    document.getElementById('pastoryProductTemplate').value=PASTORY_CONFIG.productTemplate;
+    document.getElementById('pastorySystemPrompt').value=PASTORY_CONFIG.systemPrompt;
+    document.getElementById('pastoryEnabled').checked=PASTORY_CONFIG.enabled;
+    updatePastoryToggleLabel();
+}
+
+function updatePastoryToggleLabel(){
+    var label=document.getElementById('pastoryToggleLabel');
+    if(document.getElementById('pastoryEnabled').checked){
+        label.textContent='Active';
+        label.className='text-sm font-bold text-emerald-400';
+    }else{
+        label.textContent='Inactive';
+        label.className='text-sm font-bold text-red-400';
+    }
+}
+
+document.addEventListener('change',function(e){
+    if(e.target.id==='pastoryEnabled'){
+        updatePastoryToggleLabel();
+    }
+});
+
+function savePastoryConfig(){
+    PASTORY_CONFIG.greetingSW=document.getElementById('pastoryGreetingSW').value;
+    PASTORY_CONFIG.greetingEN=document.getElementById('pastoryGreetingEN').value;
+    PASTORY_CONFIG.brief=document.getElementById('pastoryBrief').value;
+    PASTORY_CONFIG.productTemplate=document.getElementById('pastoryProductTemplate').value;
+    PASTORY_CONFIG.systemPrompt=document.getElementById('pastorySystemPrompt').value;
+    PASTORY_CONFIG.enabled=document.getElementById('pastoryEnabled').checked;
+    localStorage.setItem('mandibo_pastory_config',JSON.stringify(PASTORY_CONFIG));
+    document.getElementById('pastorySuccess').classList.remove('hidden');
+    document.getElementById('pastorySavedTime').textContent='Saved at '+new Date().toLocaleTimeString();
+    setTimeout(function(){document.getElementById('pastorySuccess').classList.add('hidden');},3000);
+    showToast('✅ Pastory configuration saved!','success');
+}
+
+function resetPastoryConfig(){
+    if(!confirm('Reset Pastory to default configuration? This cannot be undone.'))return;
+    PASTORY_CONFIG={
+        greetingSW:'Habari! Karibu kwenye Mandibo Furniture. Mimi ni Pastory, msaidizi wa AI. Je, unafuata kiti, kitanda, au kapu? Tunafikiri wote.',
+        greetingEN:'Hello! Welcome to Mandibo Furniture. I\'m Pastory, your AI assistant. Are you looking for chairs, beds, or cupboards? We have everything.',
+        brief:'Mandibo Furniture ni duka la online la nyumba nzuri sana Zanzibar. Tunatoa kiti, mabingu, meza, na kapu. Tuna duka 3. Tukubali bila ada mahali popote nchi. Unaweza kuzunguka na kuagiza online.',
+        productTemplate:'Tunatoa [CATEGORY] nzuri katika duka 3. Bei kuanzia TZS [PRICE]. Haina gharama ya kutuma. Ungependa kuona [CATEGORY]?',
+        systemPrompt:'You are Pastory, a friendly and professional furniture sales AI assistant for Mandibo Furniture, a premier online furniture store in Zanzibar. Speak primarily in Swahili, but be ready to switch to English if asked. Be helpful, enthusiastic, and guide customers toward products and ordering. Keep responses concise and natural.',
+        enabled:true
+    };
+    loadPastoryDashboard();
+    localStorage.setItem('mandibo_pastory_config',JSON.stringify(PASTORY_CONFIG));
+    showToast('↺ Pastory reset to default settings','info');
+}
+
+function testPastoryAI(){
+    speakPastory(PASTORY_CONFIG.greetingSW,'sw');
+    showToast('🎧 Testing Pastory voice...','info');
+}
+
+function renderOrdersList(){var el=document.getElementById('ordersList');if(!el)return;if(!orders.length){el.innerHTML='<div class="text-center py-16 text-neutral-500"><p class="text-4xl mb-3">📦</p><p>No orders yet</p></div>';return;}var sn={'store-a':'Store A','store-b':'Store B','store-c':'Store C'};var ss={pending:'bg-yellow-500/10 text-yellow-400 border-yellow-500/20',confirmed:'bg-blue-500/10 text-blue-400 border-blue-500/20',delivered:'bg-emerald-500/10 text-emerald-400 border-emerald-500/20',cancelled:'bg-red-500/10 text-red-400 border-red-500/20'};var html='';orders.slice().reverse().forEach(function(o){var d=new Date(o.date);html+='<div class="bg-white/5 border border-white/10 rounded-xl p-5 flex flex-col md:flex-row gap-4"><img src="'+o.productImg+'" class="w-16 h-16 rounded-lg object-cover flex-shrink-0" alt=""><div class="flex-1 min-w-0"><div class="flex items-start justify-between gap-3 mb-2"><div><h4 class="font-bold text-sm">'+o.productName+'</h4><p class="text-neutral-500 text-xs">'+(sn[o.store]||'')+' · Qty: '+o.qty+'</p></div><span class="text-gold-500 font-bold text-sm whitespace-nowrap">TZS '+formatTZS(o.total)+'</span></div><div class="flex flex-wrap items-center gap-3 text-xs text-neutral-400 mb-3"><span>👤 '+o.name+'</span><span>📞 '+o.phone+'</span><span>📍 '+o.location+'</span></div>';if(o.notes)html+='<p class="text-xs text-neutral-500 mb-3">💬 '+o.notes+'</p>';html+='<div class="flex items-center gap-2 flex-wrap"><select onchange="updateOrderStatus('+o.id+',this.value)" class="text-[10px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-full border '+(ss[o.status]||ss.pending)+' bg-transparent focus:outline-none cursor-pointer"><option value="pending"'+(o.status==='pending'?' selected':'')+'>⏳ Pending</option><option value="confirmed"'+(o.status==='confirmed'?' selected':'')+'>✅ Confirmed</option><option value="delivered"'+(o.status==='delivered'?' selected':'')+'>📦 Delivered</option><option value="cancelled"'+(o.status==='cancelled'?' selected':'')+'>❌ Cancelled</option></select><span class="text-neutral-600 text-[10px]">'+d.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})+' '+d.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'})+'</span><button onclick="deleteOrder('+o.id+')" class="ml-auto text-red-400/40 hover:text-red-400 transition-colors p-1"><i data-lucide="trash-2" class="w-3.5 h-3.5"></i></button></div></div></div>';});el.innerHTML=html;lucide.createIcons();}
+function updateOrderStatus(id,st){var o=orders.find(function(x){return x.id===id;});if(o){o.status=st;saveOrders();renderOrdersList();document.getElementById('statRevenue').textContent=formatTZS(orders.reduce(function(s,x){return s+x.total;},0))||'0';showToast('Status: '+st.toUpperCase(),'success');}}
+function deleteOrder(id){orders=orders.filter(function(x){return x.id!==id;});saveOrders();updateDashboard();showToast('Order deleted','info');}
+
+function handleAddProduct(){var ne=document.getElementById('addName'),pe=document.getElementById('addPrice');document.getElementById('errName').classList.remove('show');document.getElementById('errPrice').classList.remove('show');ne.classList.remove('error');pe.classList.remove('error');document.getElementById('addSuccess').classList.add('hidden');var name=ne.value.trim();if(!name){document.getElementById('errName').classList.add('show');ne.classList.add('error','shake');setTimeout(function(){ne.classList.remove('shake');},600);ne.focus();return;}var price=parsePrice(pe.value.trim());if(price<=0){document.getElementById('errPrice').classList.add('show');pe.classList.add('error','shake');setTimeout(function(){pe.classList.remove('shake');},600);pe.focus();return;}var img=document.getElementById('addImage').value.trim()||IMG[0];products.push({id:Date.now(),store:document.getElementById('addStore').value,cat:document.getElementById('addCategory').value,name:name,price:price,img:img,desc:document.getElementById('addDesc').value.trim()||'Premium furniture from Mandibo Furniture.'});saveCustomProducts();document.getElementById('addSuccessDetail').textContent='"'+name+'" — TZS '+formatTZS(price);document.getElementById('addSuccess').classList.remove('hidden');document.getElementById('addSuccess').classList.add('pop-in');ne.value='';pe.value='';document.getElementById('addImage').value='';document.getElementById('addDesc').value='';document.getElementById('pricePreview').classList.add('hidden');updateStoreCounts();updateDashboard();showToast('✅ "'+name+'" added','success');}
+function clearAddForm(){['addName','addPrice','addImage','addDesc'].forEach(function(id){document.getElementById(id).value='';});document.getElementById('addStore').selectedIndex=0;document.getElementById('addCategory').selectedIndex=0;['errName','errPrice'].forEach(function(id){document.getElementById(id).classList.remove('show');});['addName','addPrice'].forEach(function(id){document.getElementById(id).classList.remove('error');});document.getElementById('pricePreview').classList.add('hidden');document.getElementById('addSuccess').classList.add('hidden');}
+
+function renderManageList(){var el=document.getElementById('manageList'),ce=document.getElementById('manageCount');if(!el)return;if(ce)ce.textContent=products.length;if(!products.length){el.innerHTML='<div class="text-center py-16 text-neutral-500"><p class="text-4xl mb-3">🪑</p><p>No products.</p></div>';return;}var sn={'store-a':'Store A','store-b':'Store B','store-c':'Store C'};var cl={'beds':'Beds','sofa-chair':'Sofa & Chair','tables':'Tables','cupboard':'Cupboard','doors-windows':'Doors & Windows','others':'Others'};var html='';products.forEach(function(p){html+='<div id="product-row-'+p.id+'" class="flex items-center gap-4 bg-white/5 border border-white/10 rounded-xl p-4 hover:border-white/20 transition-colors"><img src="'+p.img+'" class="w-12 h-12 rounded-lg object-cover flex-shrink-0" alt=""><div class="flex-1 min-w-0"><p class="font-bold text-sm truncate">'+p.name+'</p><p class="text-neutral-500 text-[11px]">'+(sn[p.store]||'')+' · '+(cl[p.cat]||'')+' · <span class="text-gold-500/70">TZS '+formatTZS(p.price)+'</span></p></div><button onclick="openEditModal('+p.id+')" class="text-gold-500/50 hover:text-gold-500 hover:bg-gold-500/10 transition-all p-2 rounded-lg flex-shrink-0"><i data-lucide="pencil" class="w-4 h-4"></i></button><button onclick="openDeleteModal('+p.id+',\''+p.name.replace(/'/g,"\\'")+'\')" class="text-red-400/40 hover:text-red-400 hover:bg-red-500/10 transition-all p-2 rounded-lg flex-shrink-0"><i data-lucide="trash-2" class="w-4 h-4"></i></button></div>';});el.innerHTML=html;lucide.createIcons();}
+
+function openDeleteModal(id,name){pendingDeleteId=id;document.getElementById('deleteItemName').textContent='"'+name+'" — cannot be undone.';document.getElementById('deleteModal').classList.remove('hidden');lucide.createIcons();}
+function closeDeleteModal(){document.getElementById('deleteModal').classList.add('hidden');pendingDeleteId=null;}
+function confirmDelete(){if(pendingDeleteId===null)return;var id=pendingDeleteId,row=document.getElementById('product-row-'+id);if(row){row.style.transition='all .4s ease';row.style.opacity='0';row.style.transform='translateX(40px)';row.style.maxHeight=row.offsetHeight+'px';setTimeout(function(){row.style.maxHeight='0';row.style.padding='0';row.style.margin='0';row.style.border='none';},200);}setTimeout(function(){products=products.filter(function(p){return p.id!==id;});saveCustomProducts();localStorage.setItem('mandibo_edited_products',JSON.stringify(JSON.parse(localStorage.getItem('mandibo_edited_products')||'[]').filter(function(p){return p.id!==id;})));updateStoreCounts();renderManageList();document.getElementById('statProducts').textContent=products.length;showToast('Deleted','info');},500);closeDeleteModal();}
+
+function openEditModal(id){var p=products.find(function(x){return x.id===id;});if(!p)return;editingProductId=id;document.getElementById('editStore').value=p.store;document.getElementById('editCategory').value=p.cat;document.getElementById('editName').value=p.name;document.getElementById('editPrice').value=formatTZS(p.price);document.getElementById('editImage').value=p.img;document.getElementById('editDesc').value=p.desc;document.getElementById('editImgPreview').src=p.img;document.getElementById('editPricePreview').textContent='= TZS '+formatTZS(p.price);['editErrName','editErrPrice'].forEach(function(id){document.getElementById(id).classList.remove('show');});['editName','editPrice'].forEach(function(id){document.getElementById(id).classList.remove('error');});document.getElementById('editSuccess').classList.add('hidden');document.getElementById('editModal').classList.remove('hidden');document.body.style.overflow='hidden';lucide.createIcons();}
+function closeEditModal(){document.getElementById('editModal').classList.add('hidden');if(!document.getElementById('lightbox').classList.contains('active'))document.body.style.overflow='';editingProductId=null;}
+function updateEditImgPreview(){var u=document.getElementById('editImage').value.trim();if(u)document.getElementById('editImgPreview').src=u;}
+function updateEditPreview(){var v=parsePrice(document.getElementById('editPrice').value);document.getElementById('editPricePreview').textContent=v>0?'= TZS '+formatTZS(v):'';}
+function handleSaveEdit(){if(editingProductId===null)return;var ne=document.getElementById('editName'),pe=document.getElementById('editPrice');['editErrName','editErrPrice'].forEach(function(id){document.getElementById(id).classList.remove('show');});[ne,pe].forEach(function(el){el.classList.remove('error');});document.getElementById('editSuccess').classList.add('hidden');var name=ne.value.trim();if(!name){document.getElementById('editErrName').classList.add('show');ne.classList.add('error','shake');setTimeout(function(){ne.classList.remove('shake');},600);ne.focus();return;}var price=parsePrice(pe.value.trim());if(price<=0){document.getElementById('editErrPrice').classList.add('show');pe.classList.add('error','shake');setTimeout(function(){pe.classList.remove('shake');},600);pe.focus();return;}var idx=products.findIndex(function(x){return x.id===editingProductId;});if(idx===-1)return;products[idx].store=document.getElementById('editStore').value;products[idx].cat=document.getElementById('editCategory').value;products[idx].name=name;products[idx].price=price;products[idx].img=document.getElementById('editImage').value.trim()||products[idx].img;products[idx].desc=document.getElementById('editDesc').value.trim()||products[idx].desc;products[idx]._edited=true;saveEditedProducts();if(products[idx].id>1000)saveCustomProducts();document.getElementById('editSuccess').classList.remove('hidden');updateStoreCounts();renderManageList();updateDashboard();renderProducts();showToast('✅ "'+name+'" updated','success');}
+
+function playAd(){var scenes=['adScene0','adScene1','adScene2','adScene3','adScene4','adScene5','adScene6'];var durs=[0,3000,3000,4000,3000,3000,4000];var total=0;durs.forEach(function(d){total+=d;});var pb=document.getElementById('adProgress'),st=Date.now();adTimeouts.forEach(function(t){clearTimeout(t);});adTimeouts=[];clearInterval(adInterval);function show(i){scenes.forEach(function(s){document.getElementById(s).classList.remove('playing');});if(i<scenes.length)document.getElementById(scenes[i]).classList.add('playing');}show(1);adInterval=setInterval(function(){pb.style.width=Math.min((Date.now()-st)/total*100,100)+'%';},50);var delay=0;for(var i=1;i<scenes.length;i++){delay+=durs[i];(function(idx,d){adTimeouts.push(setTimeout(function(){show(idx);if(idx===scenes.length-1)setTimeout(stopAd,durs[idx]);},d));})(i,delay);}}
+function stopAd(){adTimeouts.forEach(function(t){clearTimeout(t);});adTimeouts=[];clearInterval(adInterval);document.querySelectorAll('.ad-scene').forEach(function(s){s.classList.remove('playing');});document.getElementById('adScene0').classList.add('playing');document.getElementById('adProgress').style.width='0%';}
+</script>
+</body>
+</html>
