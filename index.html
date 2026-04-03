@@ -49,6 +49,8 @@
         @keyframes voice-pulse{0%,100%{box-shadow:0 0 20px rgba(212,160,23,.2)}50%{box-shadow:0 0 40px rgba(212,160,23,.5)}}
         @keyframes slide-up-in{from{transform:translateY(100%) scale(0.9);opacity:0}to{transform:translateY(0) scale(1);opacity:1}}
         @keyframes slide-down-out{from{transform:translateY(0) scale(1);opacity:1}to{transform:translateY(100%) scale(0.9);opacity:0}}
+        @keyframes typing-bounce{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-8px)}}
+
         .shimmer-text{background:linear-gradient(90deg,#D4A017 0%,#FDE68A 50%,#D4A017 100%);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:shimmer 3s linear infinite}
         .float{animation:float 3s ease-in-out infinite}
         .pulse-gold{animation:pulse-gold 2s ease-in-out infinite}
@@ -70,7 +72,7 @@
         .link-h{position:relative}.link-h::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:1px;background:#D4A017;transition:width .3s}.link-h:hover::after{width:100%}
         .gradient-up{background:linear-gradient(to top,#0A0A0A 0%,rgba(10,10,10,.8) 40%,rgba(10,10,10,.3) 100%)}
         .ad-scene{display:none}.ad-scene.playing{display:flex}
-        .toast-in{animation:fade-up .4s ease-out}.toast-out{animation:fade-up .3s ease-in reverse forwards}
+        .toast-in{animation:fade-up .4s ease-out}.toast-out{animation:fade-up .3s ease-out reverse forwards}
         body.owner-mode .user-only{display:none!important}
         body:not(.owner-mode) .owner-only{display:none!important}
         .dash-tab{cursor:pointer;transition:all .3s ease}
@@ -96,341 +98,65 @@
         .click-hint{position:absolute;bottom:50%;left:50%;transform:translate(-50%,50%);background:rgba(0,0,0,.7);backdrop-filter:blur(8px);padding:6px 14px;border-radius:20px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:rgba(255,255,255,.8);opacity:0;transition:opacity .3s;pointer-events:none}
         .product-card:hover .click-hint{opacity:1}
 
-        /* MANDIBO TEAM AI CHAT BOX - DYNAMIC POP-UP */
-        #chatBox{
-            position:fixed;
-            bottom:20px;
-            right:20px;
-            width:340px;
-            background:#fff;
-            border-radius:16px;
-            box-shadow:0 20px 60px rgba(0,0,0,0.4), 0 0 0 1px rgba(212,160,23,0.2);
-            overflow:hidden;
-            font-family:'Manrope',sans-serif;
-            z-index:999;
-            display:flex;
-            flex-direction:column;
-            max-height:520px;
-            transform:translateY(100%) scale(0.9);
-            opacity:0;
-            pointer-events:none;
-            transition:all .4s cubic-bezier(.16,1,.3,1);
-        }
-        #chatBox.visible{
-            transform:translateY(0) scale(1);
-            opacity:1;
-            pointer-events:all;
-            animation:slide-up-in .5s cubic-bezier(.16,1,.3,1);
-        }
-        #chatBox.hiding{
-            animation:slide-down-out .4s cubic-bezier(.16,1,.3,1) forwards;
-        }
-        .chat-header{
-            background:linear-gradient(135deg, #0A0A0A 0%, #1a1a1a 100%);
-            color:#D4A017;
-            padding:14px 16px;
-            font-weight:bold;
-            display:flex;
-            align-items:center;
-            justify-content:space-between;
-            border-bottom:1px solid rgba(212,160,23,0.2);
-        }
-        .chat-minimize-btn{
-            background:rgba(212,160,23,0.1);
-            border:1px solid rgba(212,160,23,0.3);
-            color:#D4A017;
-            cursor:pointer;
-            font-size:18px;
-            padding:4px 10px;
-            border-radius:8px;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            transition:all .3s;
-            width:32px;
-            height:32px;
-        }
-        .chat-minimize-btn:hover{
-            background:rgba(212,160,23,0.2);
-            border-color:#D4A017;
-        }
-        #chatMessages{
-            height:300px;
-            overflow-y:auto;
-            padding:14px;
-            font-size:13px;
-            background:#f9f9f9;
-            flex:1;
-            display:flex;
-            flex-direction:column;
-            gap:10px;
-        }
-        .chat-input-area{
-            display:flex;
-            gap:6px;
-            padding:10px;
-            background:#fff;
-            border-top:1px solid #eee;
-        }
-        .chat-msg{
-            margin-bottom:8px;
-            padding:10px 12px;
-            border-radius:12px;
-            word-wrap:break-word;
-            animation:fade-up .3s ease-out;
-            max-width:85%;
-        }
-        .chat-msg.user{
-            background:#D4A017;
-            color:#000;
-            margin-left:auto;
-            font-weight:500;
-            border-bottom-right-radius:4px;
-        }
-        .chat-msg.bot{
-            background:#e8e8e8;
-            color:#333;
-            margin-right:auto;
-            border-bottom-left-radius:4px;
-        }
-        .typing-indicator{
-            display:none;
-            padding:10px 12px;
-            background:#e8e8e8;
-            border-radius:12px;
-            width:fit-content;
-            margin-right:auto;
-        }
-        .typing-indicator.active{
-            display:block;
-            animation:fade-up .3s ease-out;
-        }
-        .typing-dot{
-            display:inline-block;
-            width:8px;
-            height:8px;
-            border-radius:50%;
-            background:#999;
-            margin:0 2px;
-            animation:typing-bounce 1.4s infinite;
-        }
+        /* CHAT BOX */
+        #chatBox{position:fixed;bottom:20px;right:20px;width:340px;background:#fff;border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,0.4), 0 0 0 1px rgba(212,160,23,0.2);overflow:hidden;font-family:'Manrope',sans-serif;z-index:999;display:flex;flex-direction:column;max-height:520px;transform:translateY(100%) scale(0.9);opacity:0;pointer-events:none;transition:all .4s cubic-bezier(.16,1,.3,1)}
+        #chatBox.visible{transform:translateY(0) scale(1);opacity:1;pointer-events:all;animation:slide-up-in .5s cubic-bezier(.16,1,.3,1)}
+        #chatBox.hiding{animation:slide-down-out .4s cubic-bezier(.16,1,.3,1) forwards}
+        .chat-header{background:linear-gradient(135deg, #0A0A0A 0%, #1a1a1a 100%);color:#D4A017;padding:14px 16px;font-weight:bold;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(212,160,23,0.2)}
+        .chat-minimize-btn{background:rgba(212,160,23,0.1);border:1px solid rgba(212,160,23,0.3);color:#D4A017;cursor:pointer;font-size:18px;padding:4px 10px;border-radius:8px;display:flex;align-items:center;justify-content:center;transition:all .3s;width:32px;height:32px}
+        .chat-minimize-btn:hover{background:rgba(212,160,23,0.2);border-color:#D4A017}
+        #chatMessages{height:300px;overflow-y:auto;padding:14px;font-size:13px;background:#f9f9f9;flex:1;display:flex;flex-direction:column;gap:10px}
+        .chat-input-area{display:flex;gap:6px;padding:10px;background:#fff;border-top:1px solid #eee}
+        .chat-msg{margin-bottom:8px;padding:10px 12px;border-radius:12px;word-wrap:break-word;animation:fade-up .3s ease-out;max-width:85%}
+        .chat-msg.user{background:#D4A017;color:#000;margin-left:auto;font-weight:500;border-bottom-right-radius:4px}
+        .chat-msg.bot{background:#e8e8e8;color:#333;margin-right:auto;border-bottom-left-radius:4px}
+        .typing-indicator{display:none;padding:10px 12px;background:#e8e8e8;border-radius:12px;width:fit-content;margin-right:auto}
+        .typing-indicator.active{display:block;animation:fade-up .3s ease-out}
+        .typing-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#999;margin:0 2px;animation:typing-bounce 1.4s infinite}
         .typing-dot:nth-child(2){animation-delay:0.2s}
         .typing-dot:nth-child(3){animation-delay:0.4s}
-        @keyframes typing-bounce{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-8px)}}
 
         /* FLOATING AI INDICATOR */
-        .ai-indicator{
-            position:fixed;
-            bottom:20px;
-            right:20px;
-            width:60px;
-            height:60px;
-            border-radius:50%;
-            background:linear-gradient(135deg, #D4A017 0%, #B8860B 100%);
-            border:3px solid rgba(212,160,23,.3);
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            cursor:pointer;
-            transition:all .3s ease;
-            z-index:998;
-            box-shadow:0 8px 24px rgba(212,160,23,.4);
-        }
-        .ai-indicator:hover{
-            transform:scale(1.1);
-            box-shadow:0 12px 32px rgba(212,160,23,.6);
-        }
-        .ai-indicator.listening{
-            animation:voice-pulse 1.5s ease-in-out infinite;
-        }
-        .ai-indicator.speaking{
-            border-color:#D4A017;
-            box-shadow:0 0 40px rgba(212,160,23,.6);
-            animation:pulse-gold 1s ease-in-out infinite;
-        }
-        .ai-indicator.hidden{
-            display:none;
-        }
-        .ai-icon{
-            font-size:28px;
-        }
-        .ai-notification{
-            position:absolute;
-            top:-8px;
-            right:-8px;
-            width:24px;
-            height:24px;
-            background:#ef4444;
-            border-radius:50%;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            font-size:11px;
-            font-weight:bold;
-            color:white;
-            animation:pop-in .5s ease-out;
-        }
+        .ai-indicator{position:fixed;bottom:20px;right:20px;width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg, #D4A017 0%, #B8860B 100%);border:3px solid rgba(212,160,23,.3);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .3s ease;z-index:998;box-shadow:0 8px 24px rgba(212,160,23,.4)}
+        .ai-indicator:hover{transform:scale(1.1);box-shadow:0 12px 32px rgba(212,160,23,.6)}
+        .ai-indicator.listening{animation:voice-pulse 1.5s ease-in-out infinite}
+        .ai-indicator.speaking{border-color:#D4A017;box-shadow:0 0 40px rgba(212,160,23,.6);animation:pulse-gold 1s ease-in-out infinite}
+        .ai-indicator.hidden{display:none}
+        .ai-icon{font-size:28px}
+        .ai-notification{position:absolute;top:-8px;right:-8px;width:24px;height:24px;background:#ef4444;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:bold;color:white;animation:pop-in .5s ease-out}
 
-        /* ===== LIVE VISITOR BAR ===== */
-        #liveBar{
-            position:fixed;
-            bottom:0;left:0;right:0;
-            z-index:90;
-            background:linear-gradient(180deg,rgba(10,10,10,0) 0%,rgba(10,10,10,.85) 30%,rgba(10,10,10,.95) 100%);
-            backdrop-filter:blur(20px);
-            border-top:1px solid rgba(212,160,23,.12);
-            padding:0;
-            transform:translateY(100%);
-            transition:transform .6s cubic-bezier(.16,1,.3,1);
-        }
+        /* LIVE VISITOR BAR */
+        #liveBar{position:fixed;bottom:0;left:0;right:0;z-index:90;background:linear-gradient(180deg,rgba(10,10,10,0) 0%,rgba(10,10,10,.85) 30%,rgba(10,10,10,.95) 100%);backdrop-filter:blur(20px);border-top:1px solid rgba(212,160,23,.12);padding:0;transform:translateY(100%);transition:transform .6s cubic-bezier(.16,1,.3,1)}
         #liveBar.visible{transform:translateY(0)}
-        #liveBar-inner{
-            max-width:1800px;
-            margin:0 auto;
-            padding:10px 16px 12px;
-            display:flex;
-            align-items:center;
-            justify-content:space-between;
-            gap:12px;
-        }
-        .live-dot-wrap{
-            position:relative;
-            width:10px;height:10px;
-            flex-shrink:0;
-        }
-        .live-dot{
-            position:absolute;inset:0;
-            background:#22c55e;
-            border-radius:50%;
-            animation:live-dot 1.5s ease-in-out infinite;
-        }
-        .live-ring{
-            position:absolute;inset:0;
-            background:#22c55e;
-            border-radius:50%;
-            animation:live-ring 1.5s ease-out infinite;
-        }
-        .live-label{
-            font-size:10px;
-            font-weight:800;
-            text-transform:uppercase;
-            letter-spacing:.15em;
-            color:#22c55e;
-            white-space:nowrap;
-        }
-        .stat-divider{
-            width:1px;
-            height:28px;
-            background:rgba(255,255,255,.08);
-            flex-shrink:0;
-        }
-        .live-stat{
-            display:flex;
-            flex-direction:column;
-            align-items:center;
-            gap:1px;
-            min-width:0;
-        }
-        .live-stat-val{
-            font-family:'Space Mono',monospace;
-            font-size:15px;
-            font-weight:700;
-            color:#fff;
-            line-height:1;
-            transition:color .3s;
-        }
+        #liveBar-inner{max-width:1800px;margin:0 auto;padding:10px 16px 12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+        .live-dot-wrap{position:relative;width:10px;height:10px;flex-shrink:0}
+        .live-dot{position:absolute;inset:0;background:#22c55e;border-radius:50%;animation:live-dot 1.5s ease-in-out infinite}
+        .live-ring{position:absolute;inset:0;background:#22c55e;border-radius:50%;animation:live-ring 1.5s ease-out infinite}
+        .live-label{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.15em;color:#22c55e;white-space:nowrap}
+        .stat-divider{width:1px;height:28px;background:rgba(255,255,255,.08);flex-shrink:0}
+        .live-stat{display:flex;flex-direction:column;align-items:center;gap:1px;min-width:0}
+        .live-stat-val{font-family:'Space Mono',monospace;font-size:15px;font-weight:700;color:#fff;line-height:1;transition:color .3s}
         .live-stat-val.bumped{color:#D4A017}
-        .live-stat-label{
-            font-size:9px;
-            font-weight:600;
-            text-transform:uppercase;
-            letter-spacing:.08em;
-            color:rgba(255,255,255,.35);
-            white-space:nowrap;
-        }
-        .feed-area{
-            flex:1;
-            min-width:0;
-            overflow:hidden;
-            position:relative;
-            height:32px;
-        }
-        .feed-item{
-            position:absolute;
-            inset:0;
-            display:flex;
-            align-items:center;
-            gap:8px;
-            font-size:11px;
-            color:rgba(255,255,255,.6);
-            white-space:nowrap;
-            overflow:hidden;
-            text-overflow:ellipsis;
-        }
+        .live-stat-label{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.35);white-space:nowrap}
+        .feed-area{flex:1;min-width:0;overflow:hidden;position:relative;height:32px}
+        .feed-item{position:absolute;inset:0;display:flex;align-items:center;gap:8px;font-size:11px;color:rgba(255,255,255,.6);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
         .feed-item.entering{animation:feed-in .4s ease-out forwards}
         .feed-item.exiting{animation:feed-out .3s ease-in forwards}
-        .feed-icon{
-            width:22px;height:22px;
-            border-radius:50%;
-            display:flex;align-items:center;justify-content:center;
-            font-size:10px;
-            flex-shrink:0;
-        }
+        .feed-icon{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;flex-shrink:0}
         .feed-icon.order{background:rgba(34,197,94,.12);color:#22c55e}
         .feed-icon.view{background:rgba(96,165,250,.12);color:#60a5fa}
         .feed-icon.join{background:rgba(212,160,23,.12);color:#D4A017}
-        .glow-line{
-            position:absolute;
-            top:-1px;left:0;right:0;
-            height:1px;
-            background:linear-gradient(90deg,transparent 0%,rgba(212,160,23,.4) 50%,transparent 100%);
-            animation:glow-line 3s ease-in-out infinite;
-        }
-        .bar-toggle{
-            width:28px;height:28px;
-            border-radius:50%;
-            border:1px solid rgba(255,255,255,.1);
-            background:rgba(255,255,255,.03);
-            display:flex;align-items:center;justify-content:center;
-            cursor:pointer;
-            color:rgba(255,255,255,.4);
-            transition:all .3s;
-            flex-shrink:0;
-        }
+        .glow-line{position:absolute;top:-1px;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent 0%,rgba(212,160,23,.4) 50%,transparent 100%);animation:glow-line 3s ease-in-out infinite}
+        .bar-toggle{width:28px;height:28px;border-radius:50%;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03);display:flex;align-items:center;justify-content:center;cursor:pointer;color:rgba(255,255,255,.4);transition:all .3s;flex-shrink:0}
         .bar-toggle:hover{border-color:rgba(255,255,255,.2);color:rgba(255,255,255,.7)}
-        @media(max-width:767px){
-            .live-stat-val{font-size:13px}
-            .live-stat-label{font-size:8px}
-            .feed-area{display:none}
-            .feed-mobile-dot{
-                width:6px;height:6px;
-                border-radius:50%;
-                background:#22c55e;
-                animation:live-dot 1.5s ease-in-out infinite;
-                flex-shrink:0;
-            }
-            #chatBox{
-                width:300px;
-                max-height:450px;
-                bottom:15px;
-                right:15px;
-            }
-            .ai-indicator{
-                width:56px;
-                height:56px;
-                bottom:15px;
-                right:15px;
-            }
-        }
-        @media(min-width:768px){
-            .feed-mobile-dot{display:none}
-        }
+        @media(max-width:767px){.live-stat-val{font-size:13px}.live-stat-label{font-size:8px}.feed-area{display:none}.feed-mobile-dot{width:6px;height:6px;border-radius:50%;background:#22c55e;animation:live-dot 1.5s ease-in-out infinite;flex-shrink:0}#chatBox{width:300px;max-height:450px;bottom:15px;right:15px}.ai-indicator{width:56px;height:56px;bottom:15px;right:15px}}
+        @media(min-width:768px){.feed-mobile-dot{display:none}}
         body{padding-bottom:52px}
     </style>
 </head>
 <body class="bg-[#0A0A0A] text-white font-sans antialiased overflow-x-hidden">
 
-<!-- MANDIBO TEAM AI CHAT BOX (DYNAMIC POP-UP) -->
+<!-- CHAT BOX -->
 <div id="chatBox">
     <div class="chat-header">
         <div style="display:flex;align-items:center;gap:10px;">
@@ -439,17 +165,8 @@
         </div>
         <button onclick="hideChatBox()" class="chat-minimize-btn" title="Close">✕</button>
     </div>
-    
-    <div id="chatMessages">
-        <div style="color:#666;text-align:center;padding:10px;font-size:12px;">👋 Karibu Mandibo Furniture...</div>
-    </div>
-    
-    <div class="typing-indicator" id="typingIndicator">
-        <span class="typing-dot"></span>
-        <span class="typing-dot"></span>
-        <span class="typing-dot"></span>
-    </div>
-    
+    <div id="chatMessages"><div style="color:#666;text-align:center;padding:10px;font-size:12px;">👋 Karibu Mandibo Furniture...</div></div>
+    <div class="typing-indicator" id="typingIndicator"><span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span></div>
     <div class="chat-input-area">
         <input id="chatInput" placeholder="Andika hapa..." style="flex:1;border:1px solid #ddd;padding:10px 12px;border-radius:10px;font-size:13px;font-family:'Manrope',sans-serif;outline:none;" onkeypress="if(event.key==='Enter')sendChatMessage()">
         <button onclick="sendChatMessage()" style="background:#D4A017;color:#000;border:none;padding:10px 14px;border-radius:10px;cursor:pointer;font-weight:bold;font-size:13px;transition:all .2s;min-width:44px;">📤</button>
@@ -478,7 +195,7 @@
 
 <div id="toastBox" class="fixed top-24 right-4 z-[9999] flex flex-col gap-3 pointer-events-none"></div>
 
-<!-- ===== LIVE VISITOR STATS BAR ===== -->
+<!-- LIVE VISITOR STATS BAR -->
 <div id="liveBar">
     <div class="glow-line"></div>
     <div id="liveBar-inner">
@@ -489,22 +206,10 @@
         </div>
         <div class="stat-divider hidden sm:block"></div>
         <div class="flex items-center gap-5 sm:gap-6 flex-shrink-0">
-            <div class="live-stat">
-                <span class="live-stat-val" id="lvOnline">0</span>
-                <span class="live-stat-label">Online Now</span>
-            </div>
-            <div class="live-stat">
-                <span class="live-stat-val" id="lvToday">0</span>
-                <span class="live-stat-label">Today</span>
-            </div>
-            <div class="live-stat">
-                <span class="live-stat-val" id="lvOrders">0</span>
-                <span class="live-stat-label">Orders</span>
-            </div>
-            <div class="live-stat hidden md:flex">
-                <span class="live-stat-val" id="lvBrowsing">0</span>
-                <span class="live-stat-label">Browsing</span>
-            </div>
+            <div class="live-stat"><span class="live-stat-val" id="lvOnline">0</span><span class="live-stat-label">Online Now</span></div>
+            <div class="live-stat"><span class="live-stat-val" id="lvToday">0</span><span class="live-stat-label">Today</span></div>
+            <div class="live-stat"><span class="live-stat-val" id="lvOrders">0</span><span class="live-stat-label">Orders</span></div>
+            <div class="live-stat hidden md:flex"><span class="live-stat-val" id="lvBrowsing">0</span><span class="live-stat-label">Browsing</span></div>
         </div>
         <div class="stat-divider hidden md:block"></div>
         <div class="feed-area hidden md:block">
@@ -518,18 +223,17 @@
         </button>
     </div>
 </div>
-<!-- Mini floating button to re-show bar -->
 <button id="liveBarFab" class="fixed bottom-5 left-5 z-[91] hidden w-10 h-10 rounded-full bg-emerald-500/15 border border-emerald-500/30 backdrop-blur-xl flex items-center justify-center cursor-pointer hover:bg-emerald-500/25 transition-all duration-300 group" onclick="toggleLiveBar()">
-    <div class="relative">
-        <div class="w-2.5 h-2.5 rounded-full bg-emerald-400"></div>
-        <div class="absolute inset-0 w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></div>
-    </div>
+    <div class="relative"><div class="w-2.5 h-2.5 rounded-full bg-emerald-400"></div><div class="absolute inset-0 w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></div></div>
     <span class="absolute -top-1 -right-1 bg-gold-500 text-black text-[8px] font-bold rounded-full w-4 h-4 flex items-center justify-center" id="fabCount">0</span>
 </button>
 
+<!-- NAVBAR -->
 <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500">
     <div class="max-w-[1800px] mx-auto px-4 md:px-8 py-4 md:py-5 flex items-center justify-between">
-        <a href="#" id="logoLink" class="flex items-center gap-3"><img src="https://z-cdn-media.chatglm.cn/files/d06cb235-9058-490c-b21c-a4cc6f192fb0.png?auth_key=1875111503-553b5bf504e04d49a0db0e9301a8b91d-0-f0265d78daac62181c5b8e73a86479be" alt="Mandibo Furniture" class="h-10 md:h-12 w-auto"></a>
+        <a href="#" id="logoLink" class="flex items-center gap-3">
+            <img src="https://z-cdn-media.chatglm.cn/files/d06cb235-9058-490c-b21c-a4cc6f192fb0.png?auth_key=1875111503-553b5bf504e04d49a0db0e9301a8b91d-0-f0265d78daac62181c5b8e73a86479be" alt="Mandibo Furniture" class="h-10 md:h-12 w-auto">
+        </a>
         <div class="hidden md:flex items-center gap-8 user-only">
             <a href="#stores" class="text-sm font-semibold uppercase tracking-wider text-neutral-300 hover:text-gold-500 link-h transition-colors">Stores</a>
             <a href="#products" class="text-sm font-semibold uppercase tracking-wider text-neutral-300 hover:text-gold-500 link-h transition-colors">Products</a>
@@ -584,13 +288,12 @@
 
 <section class="py-16 md:py-24 border-y border-white/5"><div class="max-w-[1800px] mx-auto px-4 md:px-8"><div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12"><div class="text-center reveal"><div class="w-16 h-16 rounded-full border border-gold-500/30 bg-gold-500/5 flex items-center justify-center mx-auto mb-5"><span class="text-gold-500 font-mono font-bold text-lg">01</span></div><h3 class="text-lg font-bold mb-2">Browse Stores</h3><p class="text-neutral-400 text-sm leading-relaxed">Explore our 3 curated stores across Zanzibar.</p></div><div class="text-center reveal reveal-d1"><div class="w-16 h-16 rounded-full border border-gold-500/30 bg-gold-500/5 flex items-center justify-center mx-auto mb-5"><span class="text-gold-500 font-mono font-bold text-lg">02</span></div><h3 class="text-lg font-bold mb-2">Select & Compare</h3><p class="text-neutral-400 text-sm leading-relaxed">Filter by category, compare prices, find your perfect piece.</p></div><div class="text-center reveal reveal-d2"><div class="w-16 h-16 rounded-full border border-gold-500/30 bg-gold-500/5 flex items-center justify-center mx-auto mb-5"><span class="text-gold-500 font-mono font-bold text-lg">03</span></div><h3 class="text-lg font-bold mb-2">Order Instantly</h3><p class="text-neutral-400 text-sm leading-relaxed">Tap "Order Now", fill your details, we handle delivery.</p></div></div></div></section>
 
+<!-- DYNAMIC STORES SECTION -->
 <section id="stores" class="py-20 md:py-32">
     <div class="max-w-[1800px] mx-auto px-4 md:px-8">
         <div class="text-center mb-16 reveal"><p class="text-gold-500 font-mono text-xs uppercase tracking-[0.3em] mb-4">Our Partners</p><h2 class="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tighter">Choose a <span class="shimmer-text">Store</span></h2></div>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div onclick="selectStore('store-a')" class="store-card active-store border border-white/10 rounded-2xl overflow-hidden cursor-pointer reveal" data-store="store-a"><div class="relative h-48 overflow-hidden"><img src="https://z-cdn-media.chatglm.cn/files/444215d9-bda6-45d7-a606-e9b9ec24b2c4.png?auth_key=1875121023-e7d989b65ea64667a9563899015dbfee-0-b66b7473c236d6a018435f9b6bef4748" class="w-full h-full object-cover p-img" alt=""><div class="absolute inset-0 gradient-up"></div><span class="absolute top-3 right-3 bg-gold-500 text-black text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full">Popular</span></div><div class="p-6"><h3 class="text-xl font-bold mb-1">Store A</h3><p class="text-gold-500 text-sm font-medium mb-3">Zanzibar Heritage Collection</p><div class="flex items-center gap-2 text-neutral-400 text-xs"><i data-lucide="map-pin" class="w-3 h-3"></i>Stone Town</div><div class="flex items-center gap-2 text-neutral-400 text-xs mt-1"><i data-lucide="package" class="w-3 h-3"></i><span id="store-a-count">0</span> Products</div></div></div>
-            <div onclick="selectStore('store-b')" class="store-card border border-white/10 rounded-2xl overflow-hidden cursor-pointer reveal reveal-d1" data-store="store-b"><div class="relative h-48 overflow-hidden"><img src="https://z-cdn-media.chatglm.cn/files/f78a1915-3e89-4eaf-9e2f-0aaa67491fd6.png?auth_key=1875121023-c078d04653754bd18e638d5589b4652a-0-dbdc2637842b0c898f1bf3017d32a3ec" class="w-full h-full object-cover p-img" alt=""><div class="absolute inset-0 gradient-up"></div></div><div class="p-6"><h3 class="text-xl font-bold mb-1">Store B</h3><p class="text-gold-500 text-sm font-medium mb-3">Coastal Elegance</p><div class="flex items-center gap-2 text-neutral-400 text-xs"><i data-lucide="map-pin" class="w-3 h-3"></i>Nungwi</div><div class="flex items-center gap-2 text-neutral-400 text-xs mt-1"><i data-lucide="package" class="w-3 h-3"></i><span id="store-b-count">0</span> Products</div></div></div>
-            <div onclick="selectStore('store-c')" class="store-card border border-white/10 rounded-2xl overflow-hidden cursor-pointer reveal reveal-d2" data-store="store-c"><div class="relative h-48 overflow-hidden"><img src="https://z-cdn-media.chatglm.cn/files/f4d68b25-cb8e-4056-8dec-67156e8f8d40.png?auth_key=1875121023-600d14e5a6c540e0a10a077302343ab4-0-db973974387b32f211b4abb0a7059cf7" class="w-full h-full object-cover p-img" alt=""><div class="absolute inset-0 gradient-up"></div><span class="absolute top-3 right-3 bg-emerald-500 text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full">New</span></div><div class="p-6"><h3 class="text-xl font-bold mb-1">Store C</h3><p class="text-gold-500 text-sm font-medium mb-3">Modern Living</p><div class="flex items-center gap-2 text-neutral-400 text-xs"><i data-lucide="map-pin" class="w-3 h-3"></i>Kiwengwa</div><div class="flex items-center gap-2 text-neutral-400 text-xs mt-1"><i data-lucide="package" class="w-3 h-3"></i><span id="store-c-count">0</span> Products</div></div></div>
+        <div id="dynamicStoreGrid" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Stores injected via JS -->
         </div>
     </div>
 </section>
@@ -599,8 +302,21 @@
     <div class="max-w-[1800px] mx-auto px-4 md:px-8">
         <div class="text-center mb-12 reveal"><p class="text-gold-500 font-mono text-xs uppercase tracking-[0.3em] mb-4">Browse Collection</p><h2 class="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tighter">Our <span class="shimmer-text">Products</span></h2><p class="text-neutral-500 text-sm mt-3">Click any image to view full size with 3D rotation</p></div>
         <div class="reveal reveal-d1 mb-10">
-            <div class="flex flex-wrap items-center justify-center gap-3 mb-6"><button onclick="filterStore('all')" class="cat-btn active-cat text-xs font-bold uppercase tracking-wider px-5 py-2.5 rounded-full border border-white/10 bg-white/5 text-neutral-300" data-sfilter="all">All Stores</button><button onclick="filterStore('store-a')" class="cat-btn text-xs font-bold uppercase tracking-wider px-5 py-2.5 rounded-full border border-white/10 bg-white/5 text-neutral-300" data-sfilter="store-a">Store A</button><button onclick="filterStore('store-b')" class="cat-btn text-xs font-bold uppercase tracking-wider px-5 py-2.5 rounded-full border border-white/10 bg-white/5 text-neutral-300" data-sfilter="store-b">Store B</button><button onclick="filterStore('store-c')" class="cat-btn text-xs font-bold uppercase tracking-wider px-5 py-2.5 rounded-full border border-white/10 bg-white/5 text-neutral-300" data-sfilter="store-c">Store C</button></div>
-            <div class="flex flex-wrap items-center justify-center gap-2 md:gap-3"><button onclick="filterCategory('all')" class="cat-btn active-cat text-[11px] font-bold uppercase tracking-wider px-4 py-2 rounded-full border border-white/10 bg-white/5 text-neutral-400" data-cfilter="all">All</button><button onclick="filterCategory('beds')" class="cat-btn text-[11px] font-bold uppercase tracking-wider px-4 py-2 rounded-full border border-white/10 bg-white/5 text-neutral-400" data-cfilter="beds">🛏️ Beds</button><button onclick="filterCategory('sofa-chair')" class="cat-btn text-[11px] font-bold uppercase tracking-wider px-4 py-2 rounded-full border border-white/10 bg-white/5 text-neutral-400" data-cfilter="sofa-chair">🛋️ Sofa & Chair</button><button onclick="filterCategory('tables')" class="cat-btn text-[11px] font-bold uppercase tracking-wider px-4 py-2 rounded-full border border-white/10 bg-white/5 text-neutral-400" data-cfilter="tables">🪑 Tables</button><button onclick="filterCategory('cupboard')" class="cat-btn text-[11px] font-bold uppercase tracking-wider px-4 py-2 rounded-full border border-white/10 bg-white/5 text-neutral-400" data-cfilter="cupboard">🗄️ Cupboard</button><button onclick="filterCategory('doors-windows')" class="cat-btn text-[11px] font-bold uppercase tracking-wider px-4 py-2 rounded-full border border-white/10 bg-white/5 text-neutral-400" data-cfilter="doors-windows">🚪 Doors & Windows</button><button onclick="filterCategory('others')" class="cat-btn text-[11px] font-bold uppercase tracking-wider px-4 py-2 rounded-full border border-white/10 bg-white/5 text-neutral-400" data-cfilter="others">📦 Others</button></div>
+            <div class="flex flex-wrap items-center justify-center gap-3 mb-6">
+                <button onclick="filterStore('all')" class="cat-btn active-cat text-xs font-bold uppercase tracking-wider px-5 py-2.5 rounded-full border border-white/10 bg-white/5 text-neutral-300" data-sfilter="all">All Stores</button>
+                <button onclick="filterStore('store-a')" class="cat-btn text-xs font-bold uppercase tracking-wider px-5 py-2.5 rounded-full border border-white/10 bg-white/5 text-neutral-300" data-sfilter="store-a">Store A</button>
+                <button onclick="filterStore('store-b')" class="cat-btn text-xs font-bold uppercase tracking-wider px-5 py-2.5 rounded-full border border-white/10 bg-white/5 text-neutral-300" data-sfilter="store-b">Store B</button>
+                <button onclick="filterStore('store-c')" class="cat-btn text-xs font-bold uppercase tracking-wider px-5 py-2.5 rounded-full border border-white/10 bg-white/5 text-neutral-300" data-sfilter="store-c">Store C</button>
+            </div>
+            <div class="flex flex-wrap items-center justify-center gap-2 md:gap-3">
+                <button onclick="filterCategory('all')" class="cat-btn active-cat text-[11px] font-bold uppercase tracking-wider px-4 py-2 rounded-full border border-white/10 bg-white/5 text-neutral-400" data-cfilter="all">All</button>
+                <button onclick="filterCategory('beds')" class="cat-btn text-[11px] font-bold uppercase tracking-wider px-4 py-2 rounded-full border border-white/10 bg-white/5 text-neutral-400" data-cfilter="beds">🛏️ Beds</button>
+                <button onclick="filterCategory('sofa-chair')" class="cat-btn text-[11px] font-bold uppercase tracking-wider px-4 py-2 rounded-full border border-white/10 bg-white/5 text-neutral-400" data-cfilter="sofa-chair">🛋️ Sofa & Chair</button>
+                <button onclick="filterCategory('tables')" class="cat-btn text-[11px] font-bold uppercase tracking-wider px-4 py-2 rounded-full border border-white/10 bg-white/5 text-neutral-400" data-cfilter="tables">🪑 Tables</button>
+                <button onclick="filterCategory('cupboard')" class="cat-btn text-[11px] font-bold uppercase tracking-wider px-4 py-2 rounded-full border border-white/10 bg-white/5 text-neutral-400" data-cfilter="cupboard">🗄️ Cupboard</button>
+                <button onclick="filterCategory('doors-windows')" class="cat-btn text-[11px] font-bold uppercase tracking-wider px-4 py-2 rounded-full border border-white/10 bg-white/5 text-neutral-400" data-cfilter="doors-windows">🚪 Doors & Windows</button>
+                <button onclick="filterCategory('others')" class="cat-btn text-[11px] font-bold uppercase tracking-wider px-4 py-2 rounded-full border border-white/10 bg-white/5 text-neutral-400" data-cfilter="others">📦 Others</button>
+            </div>
         </div>
         <div class="flex items-center justify-between mb-8 reveal reveal-d2"><p class="text-neutral-400 text-sm"><span id="productCount" class="text-white font-bold">0</span> products found</p><div class="relative"><i data-lucide="search" class="w-4 h-4 text-neutral-500 absolute left-3 top-1/2 -translate-y-1/2"></i><input type="text" id="searchInput" oninput="searchProducts()" placeholder="Search furniture..." class="bg-white/5 border border-white/10 rounded-full pl-10 pr-5 py-2.5 text-sm text-white placeholder-neutral-500 focus:outline-none focus:border-gold-500/50 w-48 md:w-64 transition-colors"></div></div>
         <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"></div>
@@ -610,7 +326,8 @@
 
 <section class="py-20 md:py-28"><div class="max-w-[1800px] mx-auto px-4 md:px-8"><div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center"><div class="reveal"><p class="text-gold-500 font-mono text-xs uppercase tracking-[0.3em] mb-4">Why Mandibo</p><h2 class="text-3xl md:text-5xl font-bold tracking-tighter mb-8">Trusted by <span class="shimmer-text">Hundreds</span> of Zanzibar Homes</h2><div class="space-y-6"><div class="flex gap-4"><div class="w-10 h-10 rounded-full bg-gold-500/10 flex items-center justify-center flex-shrink-0 mt-1"><i data-lucide="shield-check" class="w-5 h-5 text-gold-500"></i></div><div><h4 class="font-bold mb-1">Verified Quality</h4><p class="text-neutral-400 text-sm leading-relaxed">Every product is personally inspected before listing.</p></div></div><div class="flex gap-4"><div class="w-10 h-10 rounded-full bg-gold-500/10 flex items-center justify-center flex-shrink-0 mt-1"><i data-lucide="truck" class="w-5 h-5 text-gold-500"></i></div><div><h4 class="font-bold mb-1">Free Delivery</h4><p class="text-neutral-400 text-sm leading-relaxed">Free delivery across all of Zanzibar.</p></div></div><div class="flex gap-4"><div class="w-10 h-10 rounded-full bg-gold-500/10 flex items-center justify-center flex-shrink-0 mt-1"><i data-lucide="banknote" class="w-5 h-5 text-gold-500"></i></div><div><h4 class="font-bold mb-1">Best Prices</h4><p class="text-neutral-400 text-sm leading-relaxed">Compare across stores for the best deal.</p></div></div><div class="flex gap-4"><div class="w-10 h-10 rounded-full bg-gold-500/10 flex items-center justify-center flex-shrink-0 mt-1"><i data-lucide="message-circle" class="w-5 h-5 text-gold-500"></i></div><div><h4 class="font-bold mb-1">WhatsApp Support</h4><p class="text-neutral-400 text-sm leading-relaxed">Instant support via WhatsApp.</p></div></div></div></div><div class="relative reveal reveal-d2"><div class="absolute -top-10 -right-10 w-60 h-60 bg-gold-500/5 rounded-full blur-[100px]"></div><img src="https://z-cdn-media.chatglm.cn/files/b2204e29-e1a1-4d2c-82ad-45c6f0810365.png?auth_key=1875121023-e0211d56db1c432bb5d12b1debea744f-0-e01624498ea126cfd37f26032f54e3e6" class="w-full rounded-2xl object-cover h-[500px] md:h-[600px]" alt=""><div class="absolute bottom-6 left-6 right-6 bg-black/80 backdrop-blur-xl rounded-xl p-5 border border-white/10"><div class="flex items-center justify-between"><div><p class="text-gold-500 font-mono text-xs uppercase tracking-wider mb-1">Customer Satisfaction</p><p class="text-2xl font-bold">98.5%</p></div><div class="flex -space-x-2"><div class="w-8 h-8 rounded-full bg-gold-500/20 border-2 border-black flex items-center justify-center text-[10px] font-bold text-gold-500">★</div><div class="w-8 h-8 rounded-full bg-gold-500/20 border-2 border-black flex items-center justify-center text-[10px] font-bold text-gold-500">★</div><div class="w-8 h-8 rounded-full bg-gold-500/20 border-2 border-black flex items-center justify-center text-[10px] font-bold text-gold-500">★</div></div></div></div></div></div></div></section>
 
-<section id="contact" class="py-20 md:py-28 bg-[#0d0d0d] border-t border-white/5"><div class="max-w-[1800px] mx-auto px-4 md:px-8"><div class="text-center mb-16 reveal"><p class="text-gold-500 font-mono text-xs uppercase tracking-[0.3em] mb-4">Get In Touch</p><h2 class="text-3xl md:text-5xl font-bold tracking-tighter">Contact <span class="shimmer-text">Us</span></h2></div><div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto"><div class="text-center p-8 border border-white/10 rounded-2xl reveal hover:border-gold-500/30 transition-colors"><div class="w-12 h-12 rounded-full bg-gold-500/10 flex items-center justify-center mx-auto mb-4"><i data-lucide="phone" class="w-5 h-5 text-gold-500"></i></div><h4 class="font-bold mb-1">Call Us</h4><p class="text-neutral-400 text-sm">+255 799 610 190</p></div><div class="text-center p-8 border border-white/10 rounded-2xl reveal reveal-d1 hover:border-gold-500/30 transition-colors"><div class="w-12 h-12 rounded-full bg-emerald-500/10 flex items-center justify-center mx-auto mb-4"><i data-lucide="message-circle" class="w-5 h-5 text-emerald-500"></i></div><h4 class="font-bold mb-1">WhatsApp</h4><p class="text-neutral-400 text-sm">+255 799 610 190</p></div><div class="text-center p-8 border border-white/10 rounded-2xl reveal reveal-d2 hover:border-gold-500/30 transition-colors"><div class="w-12 h-12 rounded-full bg-blue-500/10 flex items-center justify-center mx-auto mb-4"><i data-lucide="map-pin" class="w-5 h-5 text-blue-400"></i></div><h4 class="font-bold mb-1">Location</h4><p class="text-neutral-400 text-sm">Zanzibar, Tanzania</p></div></div></div></section>
+<!-- DYNAMIC CONTACT SECTION -->
+<section id="contact" class="py-20 md:py-28 bg-[#0d0d0d] border-t border-white/5"><div class="max-w-[1800px] mx-auto px-4 md:px-8"><div class="text-center mb-16 reveal"><p class="text-gold-500 font-mono text-xs uppercase tracking-[0.3em] mb-4">Get In Touch</p><h2 class="text-3xl md:text-5xl font-bold tracking-tighter">Contact <span class="shimmer-text">Us</span></h2></div><div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto"><div class="text-center p-8 border border-white/10 rounded-2xl reveal hover:border-gold-500/30 transition-colors"><div class="w-12 h-12 rounded-full bg-gold-500/10 flex items-center justify-center mx-auto mb-4"><i data-lucide="phone" class="w-5 h-5 text-gold-500"></i></div><h4 class="font-bold mb-1">Call Us</h4><p id="dynamicPhone" class="text-neutral-400 text-sm">+255 799 610 190</p></div><div class="text-center p-8 border border-white/10 rounded-2xl reveal reveal-d1 hover:border-gold-500/30 transition-colors"><div class="w-12 h-12 rounded-full bg-emerald-500/10 flex items-center justify-center mx-auto mb-4"><i data-lucide="message-circle" class="w-5 h-5 text-emerald-500"></i></div><h4 class="font-bold mb-1">WhatsApp</h4><p id="dynamicWhatsapp" class="text-neutral-400 text-sm">+255 799 610 190</p></div><div class="text-center p-8 border border-white/10 rounded-2xl reveal reveal-d2 hover:border-gold-500/30 transition-colors"><div class="w-12 h-12 rounded-full bg-blue-500/10 flex items-center justify-center mx-auto mb-4"><i data-lucide="map-pin" class="w-5 h-5 text-blue-400"></i></div><h4 class="font-bold mb-1">Location</h4><p id="dynamicLocation" class="text-neutral-400 text-sm">Zanzibar, Tanzania</p></div></div></div></section>
 
 <footer class="py-12 border-t border-white/5 mb-[52px]"><div class="max-w-[1800px] mx-auto px-4 md:px-8"><div class="flex flex-col md:flex-row items-center justify-between gap-6"><div class="flex items-center gap-3"><img src="https://z-cdn-media.chatglm.cn/files/d06cb235-9058-490c-b21c-a4cc6f192fb0.png?auth_key=1875111503-553b5bf504e04d49a0db0e9301a8b91d-0-f0265d78daac62181c5b8e73a86479be" alt="Logo" class="h-8"></div><p class="text-neutral-500 text-xs">© 2026 Mandibo Furniture. All rights reserved. Zanzibar, Tanzania.</p><div class="flex items-center gap-4"><a href="#" class="text-neutral-500 hover:text-gold-500 transition-colors"><i data-lucide="instagram" class="w-4 h-4"></i></a><a href="#" class="text-neutral-500 hover:text-gold-500 transition-colors"><i data-lucide="facebook" class="w-4 h-4"></i></a><a href="#" class="text-neutral-500 hover:text-gold-500 transition-colors"><i data-lucide="twitter" class="w-4 h-4"></i></a></div></div></div></footer>
 </div>
@@ -620,63 +337,130 @@
     <div class="max-w-[1800px] mx-auto px-4 md:px-8">
         <div class="mb-10"><p class="text-gold-500 font-mono text-xs uppercase tracking-[0.3em] mb-2">Owner Dashboard</p><h1 class="text-3xl md:text-4xl font-bold tracking-tighter">Mandibo <span class="shimmer-text">Control Panel</span></h1></div>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10"><div class="bg-white/5 border border-white/10 rounded-xl p-5"><p class="text-neutral-400 text-xs uppercase tracking-wider mb-1">Total Products</p><p id="statProducts" class="text-2xl font-bold text-gold-500">0</p></div><div class="bg-white/5 border border-white/10 rounded-xl p-5"><p class="text-neutral-400 text-xs uppercase tracking-wider mb-1">Total Orders</p><p id="statOrders" class="text-2xl font-bold text-emerald-400">0</p></div><div class="bg-white/5 border border-white/10 rounded-xl p-5"><p class="text-neutral-400 text-xs uppercase tracking-wider mb-1">Revenue (TZS)</p><p id="statRevenue" class="text-2xl font-bold text-blue-400">0</p></div><div class="bg-white/5 border border-white/10 rounded-xl p-5"><p class="text-neutral-400 text-xs uppercase tracking-wider mb-1">Stores</p><p class="text-2xl font-bold text-purple-400">3</p></div></div>
-        <div class="flex flex-wrap gap-2 mb-8 border-b border-white/10 pb-4"><button onclick="showDashTab('orders')" class="dash-tab text-sm font-bold uppercase tracking-wider px-5 py-2.5 rounded-full border border-gold-500 bg-gold-500 text-black" data-dtab="orders">📦 Orders</button><button onclick="showDashTab('addProduct')" class="dash-tab text-sm font-bold uppercase tracking-wider px-5 py-2.5 rounded-full border border-white/10 text-neutral-400" data-dtab="addProduct">➕ Add Product</button><button onclick="showDashTab('manageProducts')" class="dash-tab text-sm font-bold uppercase tracking-wider px-5 py-2.5 rounded-full border border-white/10 text-neutral-400" data-dtab="manageProducts">🔧 Manage Products</button><button onclick="showDashTab('aiconfig')" class="dash-tab text-sm font-bold uppercase tracking-wider px-5 py-2.5 rounded-full border border-white/10 text-neutral-400" data-dtab="aiconfig">🤖 AI Config</button></div>
-        <div id="dashOrders" class="dash-panel"><div id="ordersList" class="space-y-4"><div class="text-center py-16 text-neutral-500"><p class="text-4xl mb-3">📦</p><p>No orders yet</p></div></div></div>
-        <div id="dashAddProduct" class="dash-panel hidden"><div id="addProductForm" class="max-w-2xl bg-white/5 border border-white/10 rounded-2xl p-6 md:p-8"><h3 class="text-xl font-bold mb-6">Add New Product</h3><div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5"><div><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2 block">Store *</label><select id="addStore" class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white focus:outline-none"><option value="store-a">Store A — Heritage</option><option value="store-b">Store B — Coastal</option><option value="store-c">Store C — Modern</option></select></div><div><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2 block">Category *</label><select id="addCategory" class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white focus:outline-none"><option value="beds">Beds</option><option value="sofa-chair">Sofa & Chair</option><option value="tables">Tables</option><option value="cupboard">Cupboard</option><option value="doors-windows">Doors & Windows</option><option value="others">Others</option></select></div></div><div class="mb-5"><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2 block">Product Name *</label><input type="text" id="addName" placeholder="e.g. Royal Zanzibar Bed" class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-neutral-600 focus:outline-none"><p id="errName" class="inline-err">⚠ Please enter a product name</p></div><div class="mb-5"><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2 block">Price (TZS) * <span class="text-neutral-600 normal-case tracking-normal font-normal">— type any amount</span></label><div class="relative"><span class="absolute left-4 top-1/2 -translate-y-1/2 text-neutral-500 text-sm font-medium">TZS</span><input type="text" id="addPrice" inputmode="numeric" placeholder="e.g. 2500000" class="form-input w-full bg-black border border-white/10 rounded-lg pl-14 pr-4 py-3 text-sm text-white placeholder-neutral-600 focus:outline-none" oninput="this.value=this.value.replace(/[^0-9,]/g,'')"></div><p id="errPrice" class="inline-err">⚠ Please enter a valid price</p><p id="pricePreview" class="text-gold-500/60 text-xs mt-2 font-mono hidden"></p></div><div class="mb-5"><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2 block">Image URL <span class="text-neutral-600 normal-case tracking-normal font-normal">(optional)</span></label><input type="text" id="addImage" placeholder="https://..." class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-neutral-600 focus:outline-none"></div><div class="mb-6"><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2 block">Description <span class="text-neutral-600 normal-case tracking-normal font-normal">(optional)</span></label><textarea id="addDesc" rows="3" placeholder="Brief description..." class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-neutral-600 focus:outline-none resize-none"></textarea></div><div class="flex gap-3"><button type="button" onclick="handleAddProduct()" class="btn-add bg-gold-500 text-black font-bold text-sm uppercase tracking-wider px-10 py-3.5 rounded-full hover:bg-gold-400 hover:scale-105 transition-all duration-300">➕ Add Product</button><button type="button" onclick="clearAddForm()" class="border border-white/10 text-neutral-400 font-bold text-sm uppercase tracking-wider px-6 py-3.5 rounded-full hover:border-white/30 hover:text-white transition-all duration-300">Clear</button></div><div id="addSuccess" class="hidden mt-5 p-4 bg-emerald-500/10 border border-emerald-500/30 rounded-xl"><p class="text-emerald-400 font-bold text-sm">✅ Product added!</p><p id="addSuccessDetail" class="text-emerald-400/60 text-xs mt-1"></p></div></div></div>
-        <div id="dashManageProducts" class="dash-panel hidden"><div class="flex items-center justify-between mb-5"><p class="text-neutral-400 text-sm"><span id="manageCount" class="text-white font-bold">0</span> total products</p><button onclick="renderManageList()" class="text-xs font-bold uppercase tracking-wider px-4 py-2 border border-white/10 rounded-full text-neutral-400 hover:border-gold-500/50 hover:text-gold-500 transition-all">🔄 Refresh</button></div><div id="manageList" class="space-y-3"></div></div>
         
-        <!-- MANDIBO TEAM AI CONFIGURATION PANEL -->
+        <div class="flex flex-wrap gap-2 mb-8 border-b border-white/10 pb-4">
+            <button onclick="showDashTab('orders')" class="dash-tab text-sm font-bold uppercase tracking-wider px-5 py-2.5 rounded-full border border-gold-500 bg-gold-500 text-black" data-dtab="orders">📦 Orders</button>
+            <button onclick="showDashTab('addProduct')" class="dash-tab text-sm font-bold uppercase tracking-wider px-5 py-2.5 rounded-full border border-white/10 text-neutral-400" data-dtab="addProduct">➕ Add Product</button>
+            <button onclick="showDashTab('manageProducts')" class="dash-tab text-sm font-bold uppercase tracking-wider px-5 py-2.5 rounded-full border border-white/10 text-neutral-400" data-dtab="manageProducts">🔧 Manage Products</button>
+            <button onclick="showDashTab('aiconfig')" class="dash-tab text-sm font-bold uppercase tracking-wider px-5 py-2.5 rounded-full border border-white/10 text-neutral-400" data-dtab="aiconfig">🤖 AI Config</button>
+            <button onclick="showDashTab('manageStores')" class="dash-tab text-sm font-bold uppercase tracking-wider px-5 py-2.5 rounded-full border border-white/10 text-neutral-400" data-dtab="manageStores">🏪 Manage Stores</button>
+            <button onclick="showDashTab('siteSettings')" class="dash-tab text-sm font-bold uppercase tracking-wider px-5 py-2.5 rounded-full border border-white/10 text-neutral-400" data-dtab="siteSettings">⚙️ Site Settings</button>
+        </div>
+
+        <!-- PANELS -->
+        <div id="dashOrders" class="dash-panel"><div id="ordersList" class="space-y-4"><div class="text-center py-16 text-neutral-500"><p class="text-4xl mb-3">📦</p><p>No orders yet</p></div></div></div>
+        
+        <div id="dashAddProduct" class="dash-panel hidden">
+            <div id="addProductForm" class="max-w-2xl bg-white/5 border border-white/10 rounded-2xl p-6 md:p-8">
+                <h3 class="text-xl font-bold mb-6">Add New Product</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
+                    <div><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2 block">Store *</label><select id="addStore" class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white focus:outline-none"><option value="store-a">Store A — Heritage</option><option value="store-b">Store B — Coastal</option><option value="store-c">Store C — Modern</option></select></div>
+                    <div><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2 block">Category *</label><select id="addCategory" class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white focus:outline-none"><option value="beds">Beds</option><option value="sofa-chair">Sofa & Chair</option><option value="tables">Tables</option><option value="cupboard">Cupboard</option><option value="doors-windows">Doors & Windows</option><option value="others">Others</option></select></div>
+                </div>
+                <div class="mb-5"><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2 block">Product Name *</label><input type="text" id="addName" placeholder="e.g. Royal Zanzibar Bed" class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-neutral-600 focus:outline-none"><p id="errName" class="inline-err">⚠ Please enter a product name</p></div>
+                <div class="mb-5"><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2 block">Price (TZS) *</label><div class="relative"><span class="absolute left-4 top-1/2 -translate-y-1/2 text-neutral-500 text-sm font-medium">TZS</span><input type="text" id="addPrice" inputmode="numeric" placeholder="e.g. 2500000" class="form-input w-full bg-black border border-white/10 rounded-lg pl-14 pr-4 py-3 text-sm text-white placeholder-neutral-600 focus:outline-none" oninput="this.value=this.value.replace(/[^0-9,]/g,'')"></div><p id="errPrice" class="inline-err">⚠ Please enter a valid price</p><p id="pricePreview" class="text-gold-500/60 text-xs mt-2 font-mono hidden"></p></div>
+                <div class="mb-5"><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2 block">Image URL</label><input type="text" id="addImage" placeholder="https://..." class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-neutral-600 focus:outline-none"></div>
+                <div class="mb-6"><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2 block">Description</label><textarea id="addDesc" rows="3" placeholder="Brief description..." class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-neutral-600 focus:outline-none resize-none"></textarea></div>
+                <div class="flex gap-3"><button type="button" onclick="handleAddProduct()" class="btn-add bg-gold-500 text-black font-bold text-sm uppercase tracking-wider px-10 py-3.5 rounded-full hover:bg-gold-400 hover:scale-105 transition-all duration-300">➕ Add Product</button><button type="button" onclick="clearAddForm()" class="border border-white/10 text-neutral-400 font-bold text-sm uppercase tracking-wider px-6 py-3.5 rounded-full hover:border-white/30 hover:text-white transition-all duration-300">Clear</button></div>
+                <div id="addSuccess" class="hidden mt-5 p-4 bg-emerald-500/10 border border-emerald-500/30 rounded-xl"><p class="text-emerald-400 font-bold text-sm">✅ Product added!</p></div>
+            </div>
+        </div>
+
+        <div id="dashManageProducts" class="dash-panel hidden">
+            <div class="flex items-center justify-between mb-5"><p class="text-neutral-400 text-sm"><span id="manageCount" class="text-white font-bold">0</span> total products</p><button onclick="renderManageList()" class="text-xs font-bold uppercase tracking-wider px-4 py-2 border border-white/10 rounded-full text-neutral-400 hover:border-gold-500/50 hover:text-gold-500 transition-all">🔄 Refresh</button></div>
+            <div id="manageList" class="space-y-3"></div>
+        </div>
+        
+        <!-- MANAGE STORES PANEL -->
+        <div id="dashManageStores" class="dash-panel hidden">
+            <div class="max-w-4xl bg-white/5 border border-white/10 rounded-2xl p-6 md:p-8">
+                <h3 class="text-2xl font-bold mb-6">🏪 Manage Stores</h3>
+                <p class="text-neutral-400 text-sm mb-6">Edit store details. Changes appear instantly on the website.</p>
+                <div class="space-y-8">
+                    <!-- Store A -->
+                    <div class="p-5 border border-white/10 rounded-xl bg-black/20">
+                        <h4 class="text-gold-500 font-bold mb-4 flex items-center gap-2"><i data-lucide="store" class="w-4 h-4"></i> Store A (ID: store-a)</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                            <div><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-1 block">Name</label><input type="text" id="store-a-name" class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-2 text-sm text-white focus:outline-none"></div>
+                            <div><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-1 block">Location</label><input type="text" id="store-a-loc" class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-2 text-sm text-white focus:outline-none"></div>
+                        </div>
+                        <div class="mb-4"><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-1 block">Tagline/Subtitle</label><input type="text" id="store-a-tag" class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-2 text-sm text-white focus:outline-none"></div>
+                        <div><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-1 block">Image URL</label><input type="text" id="store-a-img" class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-2 text-sm text-white focus:outline-none"></div>
+                    </div>
+                    <!-- Store B -->
+                    <div class="p-5 border border-white/10 rounded-xl bg-black/20">
+                        <h4 class="text-gold-500 font-bold mb-4 flex items-center gap-2"><i data-lucide="store" class="w-4 h-4"></i> Store B (ID: store-b)</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                            <div><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-1 block">Name</label><input type="text" id="store-b-name" class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-2 text-sm text-white focus:outline-none"></div>
+                            <div><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-1 block">Location</label><input type="text" id="store-b-loc" class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-2 text-sm text-white focus:outline-none"></div>
+                        </div>
+                        <div class="mb-4"><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-1 block">Tagline/Subtitle</label><input type="text" id="store-b-tag" class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-2 text-sm text-white focus:outline-none"></div>
+                        <div><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-1 block">Image URL</label><input type="text" id="store-b-img" class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-2 text-sm text-white focus:outline-none"></div>
+                    </div>
+                    <!-- Store C -->
+                    <div class="p-5 border border-white/10 rounded-xl bg-black/20">
+                        <h4 class="text-gold-500 font-bold mb-4 flex items-center gap-2"><i data-lucide="store" class="w-4 h-4"></i> Store C (ID: store-c)</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                            <div><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-1 block">Name</label><input type="text" id="store-c-name" class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-2 text-sm text-white focus:outline-none"></div>
+                            <div><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-1 block">Location</label><input type="text" id="store-c-loc" class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-2 text-sm text-white focus:outline-none"></div>
+                        </div>
+                        <div class="mb-4"><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-1 block">Tagline/Subtitle</label><input type="text" id="store-c-tag" class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-2 text-sm text-white focus:outline-none"></div>
+                        <div><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-1 block">Image URL</label><input type="text" id="store-c-img" class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-2 text-sm text-white focus:outline-none"></div>
+                    </div>
+                </div>
+                <div class="mt-8 flex gap-3">
+                    <button onclick="saveStoreConfig()" class="bg-gold-500 text-black font-bold text-sm uppercase tracking-wider px-10 py-3.5 rounded-full hover:bg-gold-400 transition-all">💾 Save Stores</button>
+                </div>
+                <div id="storeSuccess" class="hidden mt-4 p-3 bg-emerald-500/10 border border-emerald-500/30 rounded-lg text-emerald-400 text-sm">✅ Store details updated.</div>
+            </div>
+        </div>
+
+        <!-- SITE SETTINGS PANEL -->
+        <div id="dashSiteSettings" class="dash-panel hidden">
+             <div class="max-w-3xl bg-white/5 border border-white/10 rounded-2xl p-6 md:p-8">
+                <h3 class="text-2xl font-bold mb-6">⚙️ Site Settings</h3>
+                <div class="space-y-6">
+                    <div>
+                        <label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2 block">Contact Phone Number</label>
+                        <input type="text" id="settingPhone" class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white focus:outline-none" placeholder="+255 ...">
+                    </div>
+                    <div>
+                        <label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2 block">WhatsApp Number</label>
+                        <input type="text" id="settingWhatsapp" class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white focus:outline-none" placeholder="+255 ...">
+                    </div>
+                    <div>
+                        <label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2 block">Location Text</label>
+                        <input type="text" id="settingLocation" class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white focus:outline-none" placeholder="Zanzibar, Tanzania">
+                    </div>
+                    <div class="border-t border-white/10 pt-6 mt-6">
+                        <label class="text-xs font-bold uppercase tracking-wider text-red-400 mb-2 block">Owner Password</label>
+                        <input type="password" id="settingPass" class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white focus:outline-none" placeholder="Enter new password">
+                        <p class="text-neutral-500 text-xs mt-2">⚠ Changing this will require you to login with the new password.</p>
+                    </div>
+                </div>
+                <div class="mt-8 flex gap-3">
+                    <button onclick="saveSiteSettings()" class="bg-gold-500 text-black font-bold text-sm uppercase tracking-wider px-10 py-3.5 rounded-full hover:bg-gold-400 transition-all">💾 Save Settings</button>
+                </div>
+                <div id="siteSettingsSuccess" class="hidden mt-4 p-3 bg-emerald-500/10 border border-emerald-500/30 rounded-lg text-emerald-400 text-sm">✅ Settings saved.</div>
+            </div>
+        </div>
+
+        <!-- AI CONFIG PANEL -->
         <div id="dashAiconfig" class="dash-panel hidden">
             <div class="max-w-3xl bg-white/5 border border-white/10 rounded-2xl p-6 md:p-8">
-                <div class="mb-8">
-                    <h3 class="text-2xl font-bold mb-2">🤖 Mandibo Team AI Configuration</h3>
-                    <p class="text-neutral-400 text-sm">Configure how the Mandibo Team AI agent greets and assists customers</p>
-                </div>
-
+                <div class="mb-8"><h3 class="text-2xl font-bold mb-2">🤖 Mandibo Team AI Configuration</h3><p class="text-neutral-400 text-sm">Configure how the Mandibo Team AI agent greets and assists customers</p></div>
                 <div class="mb-8">
                     <div class="flex items-center gap-3 mb-6 p-4 bg-gold-500/5 border border-gold-500/20 rounded-lg">
-                        <div class="w-10 h-10 rounded-full bg-gold-500/10 flex items-center justify-center flex-shrink-0">
-                            <i data-lucide="info" class="w-5 h-5 text-gold-500"></i>
-                        </div>
-                        <div class="text-sm">
-                            <p class="font-semibold text-gold-400">Mandibo Team AI Status</p>
-                            <p class="text-gold-400/60">AI Agent is <span id="aiConfigStatus" class="font-bold">Active</span> • Auto-starts immediately • Dynamic pop-up chat</p>
-                        </div>
+                        <div class="w-10 h-10 rounded-full bg-gold-500/10 flex items-center justify-center flex-shrink-0"><i data-lucide="info" class="w-5 h-5 text-gold-500"></i></div>
+                        <div class="text-sm"><p class="font-semibold text-gold-400">Mandibo Team AI Status</p><p class="text-gold-400/60">AI Agent is <span id="aiConfigStatus" class="font-bold">Active</span> • Auto-starts immediately • Dynamic pop-up chat</p></div>
                     </div>
                 </div>
-
                 <div class="space-y-6">
-                    <!-- Swahili Greeting -->
-                    <div>
-                        <label class="text-sm font-bold uppercase tracking-wider text-neutral-400 mb-3 block">🇹🇿 Swahili Greeting (First Message)</label>
-                        <textarea id="aiGreetingSW" rows="3" placeholder="Habari! Karibu kwenye Mandibo Furniture..." class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-neutral-600 focus:outline-none resize-none"></textarea>
-                        <p class="text-xs text-neutral-500 mt-2">This message is spoken and shown immediately when visitor arrives</p>
-                    </div>
-
-                    <!-- Enable/Disable -->
-                    <div class="flex items-center gap-4 p-4 bg-white/5 rounded-lg border border-white/10">
-                        <div>
-                            <p class="font-semibold text-sm mb-1">Enable Mandibo Team AI</p>
-                            <p class="text-xs text-neutral-400">Turn the AI agent on or off for visitors</p>
-                        </div>
-                        <div class="ml-auto">
-                            <label class="flex items-center gap-2 cursor-pointer">
-                                <input type="checkbox" id="aiEnabled" checked class="w-4 h-4">
-                                <span id="aiToggleLabel" class="text-sm font-bold text-emerald-400">Active</span>
-                            </label>
-                        </div>
-                    </div>
+                    <div><label class="text-sm font-bold uppercase tracking-wider text-neutral-400 mb-3 block">🇹🇿 Swahili Greeting (First Message)</label><textarea id="aiGreetingSW" rows="3" placeholder="Habari! Karibu kwenye Mandibo Furniture..." class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-neutral-600 focus:outline-none resize-none"></textarea><p class="text-xs text-neutral-500 mt-2">This message is spoken and shown immediately when visitor arrives</p></div>
+                    <div class="flex items-center gap-4 p-4 bg-white/5 rounded-lg border border-white/10"><div><p class="font-semibold text-sm mb-1">Enable Mandibo Team AI</p><p class="text-xs text-neutral-400">Turn the AI agent on or off for visitors</p></div><div class="ml-auto"><label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" id="aiEnabled" checked class="w-4 h-4"><span id="aiToggleLabel" class="text-sm font-bold text-emerald-400">Active</span></label></div></div>
                 </div>
-
-                <div class="flex gap-3 mt-8">
-                    <button type="button" onclick="saveAIConfig()" class="bg-gold-500 text-black font-bold text-sm uppercase tracking-wider px-10 py-3.5 rounded-full hover:bg-gold-400 hover:scale-105 transition-all duration-300">💾 Save Configuration</button>
-                    <button type="button" onclick="testAIVoice()" class="border border-gold-500/30 text-gold-400 font-bold text-sm uppercase tracking-wider px-6 py-3.5 rounded-full hover:border-gold-500 hover:bg-gold-500/10 transition-all duration-300">🎧 Test Voice</button>
-                </div>
-
-                <div id="aiSuccess" class="hidden mt-6 p-4 bg-emerald-500/10 border border-emerald-500/30 rounded-xl">
-                    <p class="text-emerald-400 font-bold text-sm">✅ Mandibo Team AI Configuration Saved!</p>
-                    <p id="aiSavedTime" class="text-emerald-400/60 text-xs mt-1"></p>
-                </div>
+                <div class="flex gap-3 mt-8"><button type="button" onclick="saveAIConfig()" class="bg-gold-500 text-black font-bold text-sm uppercase tracking-wider px-10 py-3.5 rounded-full hover:bg-gold-400 hover:scale-105 transition-all duration-300">💾 Save Configuration</button><button type="button" onclick="testAIVoice()" class="border border-gold-500/30 text-gold-400 font-bold text-sm uppercase tracking-wider px-6 py-3.5 rounded-full hover:border-gold-500 hover:bg-gold-500/10 transition-all duration-300">🎧 Test Voice</button></div>
+                <div id="aiSuccess" class="hidden mt-6 p-4 bg-emerald-500/10 border border-emerald-500/30 rounded-xl"><p class="text-emerald-400 font-bold text-sm">✅ Mandibo Team AI Configuration Saved!</p><p id="aiSavedTime" class="text-emerald-400/60 text-xs mt-1"></p></div>
             </div>
         </div>
     </div>
@@ -695,491 +479,153 @@
 <div id="editModal" class="fixed inset-0 z-[110] hidden"><div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="closeEditModal()"></div><div class="relative z-10 flex items-center justify-center min-h-screen p-4"><div class="bg-[#111] border border-gold-500/30 rounded-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto p-6 md:p-8"><div class="flex items-center justify-between mb-6"><h3 class="text-xl font-bold">✏️ Edit Product</h3><button onclick="closeEditModal()" class="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center hover:border-red-500 hover:text-red-500 transition-colors"><i data-lucide="x" class="w-4 h-4"></i></button></div><div class="mb-5"><img id="editImgPreview" src="" class="w-full h-48 object-cover rounded-xl border border-white/10 bg-[#0A0A0A]" alt="Preview"></div><div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5"><div><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2 block">Store</label><select id="editStore" class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white focus:outline-none"><option value="store-a">Store A</option><option value="store-b">Store B</option><option value="store-c">Store C</option></select></div><div><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2 block">Category</label><select id="editCategory" class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white focus:outline-none"><option value="beds">Beds</option><option value="sofa-chair">Sofa & Chair</option><option value="tables">Tables</option><option value="cupboard">Cupboard</option><option value="doors-windows">Doors & Windows</option><option value="others">Others</option></select></div></div><div class="mb-5"><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2 block">Product Name *</label><input type="text" id="editName" class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-neutral-600 focus:outline-none"><p id="editErrName" class="inline-err">⚠ Name required</p></div><div class="mb-5"><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2 block">Price (TZS) *</label><div class="relative"><span class="absolute left-4 top-1/2 -translate-y-1/2 text-neutral-500 text-sm font-medium">TZS</span><input type="text" id="editPrice" inputmode="numeric" class="form-input w-full bg-black border border-white/10 rounded-lg pl-14 pr-4 py-3 text-sm text-white placeholder-neutral-600 focus:outline-none" oninput="this.value=this.value.replace(/[^0-9,]/g,'');updateEditPreview()"></div><p id="editErrPrice" class="inline-err">⚠ Valid price required</p><p id="editPricePreview" class="text-gold-500/60 text-xs mt-2 font-mono"></p></div><div class="mb-5"><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2 block">Image URL</label><input type="text" id="editImage" class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-neutral-600 focus:outline-none" oninput="updateEditImgPreview()"></div><div class="mb-6"><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2 block">Description</label><textarea id="editDesc" rows="3" class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-neutral-600 focus:outline-none resize-none"></textarea></div><div class="flex gap-3"><button type="button" onclick="handleSaveEdit()" class="flex-1 bg-gold-500 text-black font-bold text-sm uppercase tracking-wider py-3.5 rounded-full hover:bg-gold-400 hover:scale-[1.02] transition-all duration-300">💾 Save</button><button type="button" onclick="closeEditModal()" class="border border-white/10 text-neutral-400 font-bold text-sm uppercase tracking-wider px-6 py-3.5 rounded-full hover:border-white/30 hover:text-white transition-all duration-300">Cancel</button></div><div id="editSuccess" class="hidden mt-5 p-4 bg-emerald-500/10 border border-emerald-500/30 rounded-xl"><p class="text-emerald-400 font-bold text-sm">✅ Updated!</p></div></div></div></div>
 
 <script>
-// ===== MANDIBO TEAM AI CONFIGURATION & INITIALIZATION =====
+// ===== DATA & CONFIGURATION =====
+var DEFAULT_SITE_SETTINGS = {
+    phone: '+255 799 610 190',
+    whatsapp: '+255 799 610 190',
+    location: 'Zanzibar, Tanzania',
+    ownerPass: 'mandibo2026'
+};
+
+var DEFAULT_STORES = {
+    'store-a': { name: 'Store A', tag: 'Zanzibar Heritage Collection', loc: 'Stone Town', img: 'https://z-cdn-media.chatglm.cn/files/444215d9-bda6-45d7-a606-e9b9ec24b2c4.png?auth_key=1875121023-e7d989b65ea64667a9563899015dbfee-0-b66b7473c236d6a018435f9b6bef4748', badge: 'Popular', badgeColor: 'bg-gold-500' },
+    'store-b': { name: 'Store B', tag: 'Coastal Elegance', loc: 'Nungwi', img: 'https://z-cdn-media.chatglm.cn/files/f78a1915-3e89-4eaf-9e2f-0aaa67491fd6.png?auth_key=1875121023-c078d04653754bd18e638d5589b4652a-0-dbdc2637842b0c898f1bf3017d32a3ec', badge: '', badgeColor: '' },
+    'store-c': { name: 'Store C', tag: 'Modern Living', loc: 'Kiwengwa', img: 'https://z-cdn-media.chatglm.cn/files/f4d68b25-cb8e-4056-8dec-67156e8f8d40.png?auth_key=1875121023-600d14e5a6c540e0a10a077302343ab4-0-db973974387b32f211b4abb0a7059cf7', badge: 'New', badgeColor: 'bg-emerald-500' }
+};
+
 var AI_CONFIG={
     greetingSW:'Habari! Karibu kwenye Mandibo Furniture. 🤝 Mimi ni timu ya Mandibo. Tunakusaidia kupata samani nzuri. Je, unatafuta nini leo - sofa, kitanda, meza au kapu?',
     enabled:true
 };
 
-var aiState={
-    isListening:false,
-    isSpeaking:false,
-    speechRecognition:null,
-    synth:window.speechSynthesis,
-    hasGreeted:false,
-    chatVisible:false,
-    autoHideTimer:null,
-    newMessages:0
+var STATE = {
+    settings: JSON.parse(JSON.stringify(DEFAULT_SITE_SETTINGS)),
+    stores: JSON.parse(JSON.stringify(DEFAULT_STORES)),
+    products: [],
+    orders: [],
+    currentStoreFilter: 'all',
+    currentCatFilter: 'all',
+    currentOrderProduct: null,
+    adInterval: null,
+    adTimeouts: [],
+    pendingDeleteId: null,
+    editingProductId: null,
+    lbZoom: 1,
+    lbSpinning: false,
+    ai: {
+        isListening: false,
+        isSpeaking: false,
+        speechRecognition: null,
+        synth: window.speechSynthesis,
+        hasGreeted: false,
+        chatVisible: false,
+        autoHideTimer: null,
+        newMessages: 0
+    },
+    live: {
+        online: 0, today: 0, todayOrders: 0, browsing: 0,
+        barVisible: true, _onlineBase: 14, _todayBase: 287, _orderBase: 23,
+        _names: ['Amina','Fatma','Mohamed','Ali','Khadija','Yusuf','Halima','Omar','Mwanasha','Juma','Rehema','Said','Zainab','Hassan','Maryam','Ibrahim','Asma','Abdullah','Nasra','Khalid','Salma','Bakari','Mwana','Hamisi','Hawa','Farid','Lubna','Rashid','Mona','Idris','Nadia','Thabit','Fadhila','Ghani','Samira','Hamad','Zuhra','Musa','Ruqaya','Noor'],
+        _locations: ['Stone Town','Nungwi','Kiwengwa','Paje','Jambiani','Kendwa','Michamvi','Matemwe','Bwejuu','Makunduchi','Chwaka','Dongwe','Kizimkazi','Mangapwani','Karakana','Mkokotoni','Tumbatu','Uroa','Pongwe','Fukuchani'],
+        _products: ['Zanzibar Carved King Bed','Coastal L-Shape Sofa','Modern Glass Dining Table','Heritage 3-Seater Sofa','Mahogany Wardrobe','Contemporary Armchair','Swahili Armchair','Modern Sectional Sofa','Carved Dining Table 6-Seater','Driftwood Coffee Table','Coastal King Platform Bed','Modern Sliding Wardrobe','Beach Daybed','Heritage Coffee Table']
+    }
 };
 
-// Chat box visibility management
-function showChatBox(){
-    var box=document.getElementById('chatBox');
-    var indicator=document.getElementById('aiIndicator');
-    var notification=document.getElementById('aiNotification');
-    
-    box.classList.remove('hiding');
-    box.classList.add('visible');
-    indicator.classList.add('hidden');
-    notification.style.display='none';
-    aiState.chatVisible=true;
-    aiState.newMessages=0;
-    
-    clearTimeout(aiState.autoHideTimer);
-    document.getElementById('chatInput').focus();
-}
-
-function hideChatBox(){
-    var box=document.getElementById('chatBox');
-    var indicator=document.getElementById('aiIndicator');
-    
-    box.classList.add('hiding');
-    setTimeout(function(){
-        box.classList.remove('visible','hiding');
-        indicator.classList.remove('hidden');
-        aiState.chatVisible=false;
-    },400);
-}
-
-function autoShowChat(){
-    if(!aiState.chatVisible && AI_CONFIG.enabled){
-        showChatBox();
-        aiState.autoHideTimer=setTimeout(function(){
-            if(!document.getElementById('chatInput').value.trim()){
-                hideChatBox();
-            }
-        },15000);
-    }
-}
-
-function addChatMessage(text,sender){
-    var chat=document.getElementById('chatMessages');
-    if(!chat)return;
-    
-    var msg=document.createElement('div');
-    msg.className='chat-msg '+(sender==='user'?'user':'bot');
-    msg.textContent=text;
-    chat.appendChild(msg);
-    chat.scrollTop=chat.scrollHeight;
-    
-    if(sender==='bot'&&!aiState.chatVisible){
-        aiState.newMessages++;
-        var notification=document.getElementById('aiNotification');
-        notification.textContent=aiState.newMessages;
-        notification.style.display='flex';
-    }
-}
-
-function showTyping(){
-    document.getElementById('typingIndicator').classList.add('active');
-}
-
-function hideTyping(){
-    document.getElementById('typingIndicator').classList.remove('active');
-}
-
-function sendChatMessage(){
-    var input=document.getElementById('chatInput');
-    var text=input.value.trim();
-    if(!text)return;
-    
-    addChatMessage(text,'user');
-    input.value='';
-    
-    clearTimeout(aiState.autoHideTimer);
-    
-    showTyping();
-    setTimeout(function(){
-        hideTyping();
-        var response=getAIResponse(text);
-        addChatMessage(response,'bot');
-        speakText(response,'sw');
-        
-        if(text.toLowerCase().includes('order')||text.toLowerCase().includes('agiza')||text.toLowerCase().includes('nunua')){
-            setTimeout(function(){
-                addChatMessage('Bonyeza "Order Now" kwenye bidhaa unayoipenda, au piga simu +255 799 610 190 📞','bot');
-            },1500);
-        }
-    },1200);
-}
-
-function toggleVoiceInput(){
-    var btn=document.getElementById('voiceBtn');
-    if(!aiState.speechRecognition)return;
-    
-    if(aiState.isListening){
-        aiState.speechRecognition.stop();
-        btn.style.background='#0A0A0A';
-        btn.style.color='#D4A017';
-    }else{
-        btn.style.background='#D4A017';
-        btn.style.color='#000';
-        aiState.speechRecognition.start();
-    }
-}
-
-// Initialize speech recognition
-function initAI(){
-    var SpeechRecognition=window.SpeechRecognition||window.webkitSpeechRecognition;
-    if(SpeechRecognition){
-        aiState.speechRecognition=new SpeechRecognition();
-        aiState.speechRecognition.continuous=false;
-        aiState.speechRecognition.interimResults=false;
-        aiState.speechRecognition.lang='sw-TZ';
-        
-        aiState.speechRecognition.onstart=function(){
-            aiState.isListening=true;
-            document.getElementById('aiIndicator').classList.add('listening');
-        };
-        
-        aiState.speechRecognition.onend=function(){
-            aiState.isListening=false;
-            document.getElementById('aiIndicator').classList.remove('listening');
-        };
-        
-        aiState.speechRecognition.onerror=function(e){
-            console.warn('Speech recognition error:',e.error);
-            aiState.isListening=false;
-        };
-        
-        aiState.speechRecognition.onresult=function(e){
-            var transcript='';
-            for(var i=e.resultIndex;i<e.results.length;i++){
-                if(e.results[i].isFinal)transcript+=e.results[i][0].transcript;
-            }
-            if(transcript){
-                document.getElementById('chatInput').value=transcript;
-                sendChatMessage();
-            }
-        };
-    }
-    
-    loadAIConfig();
-    
-    // IMMEDIATE GREETING - Start talking right away!
-    setTimeout(function(){
-        if(AI_CONFIG.enabled&&!aiState.hasGreeted){
-            speakText(AI_CONFIG.greetingSW,'sw');
-            addChatMessage(AI_CONFIG.greetingSW,'bot');
-            autoShowChat();
-            aiState.hasGreeted=true;
-        }
-    },800);
-}
-
-function loadAIConfig(){
-    var saved=localStorage.getItem('mandibo_ai_config');
-    if(saved){
-        try{Object.assign(AI_CONFIG,JSON.parse(saved));}catch(e){}
-    }
-}
-
-function speakText(text,lang){
-    if(!AI_CONFIG.enabled)return;
-    
-    aiState.synth.cancel();
-    var utterance=new SpeechSynthesisUtterance(text);
-    utterance.lang=lang==='en'?'en-US':'sw-TZ';
-    utterance.rate=1.0;
-    utterance.pitch=1.0;
-    utterance.volume=0.9;
-    
-    utterance.onstart=function(){
-        aiState.isSpeaking=true;
-        document.getElementById('aiIndicator').classList.add('speaking');
-        if(!aiState.chatVisible)autoShowChat();
-    };
-    
-    utterance.onend=function(){
-        aiState.isSpeaking=false;
-        document.getElementById('aiIndicator').classList.remove('speaking');
-    };
-    
-    aiState.synth.speak(utterance);
-}
-
-// AI Response Logic
-const responses=[
-    {keywords:['bei','price','gharama','cost'],reply:'Bei zinategemea bidhaa 😊 Niambie unatafuta nini (sofa, kitanda, meza) nikupatie bei sahihi. Ama bonyeza "Order Now" kwenye bidhaa unayoipenda!'},
-    {keywords:['sofa','kochi','couch'],reply:'Sofa hizi zinauzwa sana kwa sasa 🛋️🔥 Unataka ya watu wangapi? 3, 5 au zaidi? Tazama chini ya ukurasa kupata bei!'},
-    {keywords:['kitanda','bed'],reply:'Tunazo kitanda za kisasa kabisa 🛏️ Unatafuta size gani? 4x6, 5x6 au 6x6? Angalia products za Mandibo!'},
-    {keywords:['meza','table','desk'],reply:'Tunazo meza za dining, coffee table, na study desk 🪑 Je, ni kwa ajili ya nyumbani au ofisi?'},
-    {keywords:['kapu','cupboard','wardrobe','cabinet'],reply:'Kapu zetu ni quality sana 🗄️ Tunazo za mirror, sliding door, na traditional. Unapenda style gani?'},
-    {keywords:['delivery','usafirishaji','peleka'],reply:'Tunafanya delivery bure Zanzibar yote 🚚 Niambie eneo lako nikusaidie haraka!'},
-    {keywords:['nunua','order','nataka','agiza','buy'],reply:'Vizuri sana! 👍 Kwa kuagiza: 1) Bonyeza "Order Now" kwenye bidhaa 2) Jaza maelezo yako 3) Tutawasiliana haraka! 📞 +255 799 610 190'},
-    {keywords:['store','duka','wapi','location'],reply:'Tunana duka 3 Zanzibar: 🏪 Store A (Stone Town - Heritage) 🏪 Store B (Nungwi - Coastal) 🏪 Store C (Kiwengwa - Modern). Unataka kutembelea?'},
-    {keywords:['hi','habari','hello','sasa','mambo','vipi'],reply:'Habari yako! 😊 Karibu sana Mandibo Furniture. Tunayo sofa, vitanda, meza, kapu... unataka kuangalia nini?'},
-    {keywords:['asante','thanks','thank you','shukrani'],reply:'Karibu sana! 🙏 Niko hapa kukusaidia wakati wowote. Je, kuna kingine unachohitaji?'},
-    {keywords:['price range','bei ipi','how much','kiasi gani'],reply:'Bei zetu ni affordable sana! Kutoka TZS 150,000 hadi TZS 4,500,000. Tunataka kila mtu apate samani nzuri 💯'}
+var IMG_PLACEHOLDER = [
+    'https://z-cdn-media.chatglm.cn/files/b2204e29-e1a1-4d2c-82ad-45c6f0810365.png?auth_key=1875121023-e0211d56db1c432bb5d12b1debea744f-0-e01624498ea126cfd37f26032f54e3e6',
+    'https://z-cdn-media.chatglm.cn/files/bf96da0c-bf91-4349-93a3-38478154c069.png?auth_key=1875121023-532d6ffdf76740398d52b7963ec5b049-0-b077f8c54f361bf4c5f0a152a4bf523b',
+    'https://z-cdn-media.chatglm.cn/files/626ae480-4cba-436c-9ec0-22f3b441417c.png?auth_key=1875121023-afbc3ca9c0d540188cab545f7aa46783-0-95b9cd97d1763b056bfc3cdaf090527a',
+    'https://z-cdn-media.chatglm.cn/files/b60c7c53-ba3d-4628-9e37-3798bcfdba37.png?auth_key=1875121023-40498e79512b4b07a3fe8f1072172c3b-0-6d6f62026c880b2bf3e49d2c315964fd',
+    'https://z-cdn-media.chatglm.cn/files/444215d9-bda6-45d7-a606-e9b9ec24b2c4.png?auth_key=1875121023-e7d989b65ea64667a9563899015dbfee-0-b66b7473c236d6a018435f9b6bef4748',
+    'https://z-cdn-media.chatglm.cn/files/da777799-f49b-4bda-b165-8ea85f74b89a.png?auth_key=1875121023-a1733040cf0847da99f359f3aac6171a-0-a7b679b89f75d41872c11420947a6087',
+    'https://z-cdn-media.chatglm.cn/files/f78a1915-3e89-4eaf-9e2f-0aaa67491fd6.png?auth_key=1875121023-c078d04653754bd18e638d5589b4652a-0-dbdc2637842b0c898f1bf3017d32a3ec',
+    'https://z-cdn-media.chatglm.cn/files/f4d68b25-cb8e-4056-8dec-67156e8f8d40.png?auth_key=1875121023-600d14e5a6c540e0a10a077302343ab4-0-db973974387b32f211b4abb0a7059cf7',
+    'https://z-cdn-media.chatglm.cn/files/8dc143fe-a796-4521-b556-c30e11d593ac.png?auth_key=1875121023-8d9a19ab19e1441ea20df3a0e94b2fe4-0-ac2a1e7edda6a1392a1c020290096656'
 ];
 
-function getAIResponse(userMessage){
-    var msg=userMessage.toLowerCase();
-    
-    for(var r of responses){
-        for(var k of r.keywords){
-            if(msg.includes(k)){
-                return r.reply;
-            }
-        }
-    }
-    
-    return 'Karibu Mandibo Furniture! 😊 Tunayo samani nzuri - sofa, vitanda, meza, kapu. Unatafuta nini leo? Ama bonyeza "Order Now" kwa bidhaa unayopenda! 📞 +255 799 610 190';
-}
-
-// Rest of the script continues with existing variables and functions...
-var OWNER_PASSWORD='mandibo2026',WHATSAPP_NUMBER='255799610190',products=[],orders=[],currentStoreFilter='all',currentCatFilter='all',currentOrderProduct=null,adInterval=null,adTimeouts=[],pendingDeleteId=null,editingProductId=null,lbZoom=1,lbSpinning=false;
-var IMG=[
-'https://z-cdn-media.chatglm.cn/files/b2204e29-e1a1-4d2c-82ad-45c6f0810365.png?auth_key=1875121023-e0211d56db1c432bb5d12b1debea744f-0-e01624498ea126cfd37f26032f54e3e6',
-'https://z-cdn-media.chatglm.cn/files/bf96da0c-bf91-4349-93a3-38478154c069.png?auth_key=1875121023-532d6ffdf76740398d52b7963ec5b049-0-b077f8c54f361bf4c5f0a152a4bf523b',
-'https://z-cdn-media.chatglm.cn/files/626ae480-4cba-436c-9ec0-22f3b441417c.png?auth_key=1875121023-afbc3ca9c0d540188cab545f7aa46783-0-95b9cd97d1763b056bfc3cdaf090527a',
-'https://z-cdn-media.chatglm.cn/files/b60c7c53-ba3d-4628-9e37-3798bcfdba37.png?auth_key=1875121023-40498e79512b4b07a3fe8f1072172c3b-0-6d6f62026c880b2bf3e49d2c315964fd',
-'https://z-cdn-media.chatglm.cn/files/444215d9-bda6-45d7-a606-e9b9ec24b2c4.png?auth_key=1875121023-e7d989b65ea64667a9563899015dbfee-0-b66b7473c236d6a018435f9b6bef4748',
-'https://z-cdn-media.chatglm.cn/files/da777799-f49b-4bda-b165-8ea85f74b89a.png?auth_key=1875121023-a1733040cf0847da99f359f3aac6171a-0-a7b679b89f75d41872c11420947a6087',
-'https://z-cdn-media.chatglm.cn/files/f78a1915-3e89-4eaf-9e2f-0aaa67491fd6.png?auth_key=1875121023-c078d04653754bd18e638d5589b4652a-0-dbdc2637842b0c898f1bf3017d32a3ec',
-'https://z-cdn-media.chatglm.cn/files/f4d68b25-cb8e-4056-8dec-67156e8f8d40.png?auth_key=1875121023-600d14e5a6c540e0a10a077302343ab4-0-db973974387b32f211b4abb0a7059cf7',
-'https://z-cdn-media.chatglm.cn/files/8dc143fe-a796-4521-b556-c30e11d593ac.png?auth_key=1875121023-8d9a19ab19e1441ea20df3a0e94b2fe4-0-ac2a1e7edda6a1392a1c020290096656'];
-var defaultProducts=[
-{id:1,store:'store-a',cat:'beds',name:'Zanzibar Carved King Bed',price:3500000,img:IMG[3],desc:'Hand-carved mahogany king-size bed with traditional Zanzibar motifs.'},
-{id:2,store:'store-a',cat:'beds',name:'Heritage Queen Bed Frame',price:2200000,img:IMG[2],desc:'Elegant queen bed frame with heritage woodwork detailing.'},
-{id:3,store:'store-a',cat:'beds',name:'Swahili Single Bed',price:1200000,img:IMG[4],desc:'Compact single bed with Swahili-inspired headboard design.'},
-{id:4,store:'store-a',cat:'sofa-chair',name:'Carved Mahogany Sofa Set',price:4500000,img:IMG[0],desc:'3+1+1 sofa set with intricate hand-carved mahogany frame.'},
-{id:5,store:'store-a',cat:'sofa-chair',name:'Heritage 3-Seater Sofa',price:2800000,img:IMG[6],desc:'Classic 3-seater sofa with plush cushions and carved arms.'},
-{id:6,store:'store-a',cat:'sofa-chair',name:'Swahili Armchair',price:950000,img:IMG[2],desc:'Statement armchair with traditional Swahili wood carving.'},
-{id:7,store:'store-a',cat:'tables',name:'Carved Dining Table 6-Seater',price:2500000,img:IMG[5],desc:'Solid mahogany dining table for 6 with carved legs.'},
-{id:8,store:'store-a',cat:'tables',name:'Heritage Coffee Table',price:800000,img:IMG[4],desc:'Ornate coffee table with brass inlay details.'},
-{id:9,store:'store-a',cat:'tables',name:'Swahili Side Table',price:450000,img:IMG[8],desc:'Handcrafted side table with traditional geometric patterns.'},
-{id:10,store:'store-a',cat:'cupboard',name:'Mahogany Wardrobe',price:3200000,img:IMG[1],desc:'Large double-door wardrobe in solid mahogany with mirror.'},
-{id:11,store:'store-a',cat:'cupboard',name:'Heritage Display Cabinet',price:2100000,img:IMG[5],desc:'Glass-fronted display cabinet with carved wooden frame.'},
-{id:12,store:'store-a',cat:'doors-windows',name:'Carved Main Door',price:1800000,img:IMG[5],desc:'Stunning hand-carved entrance door with Zanzibar motifs.'},
-{id:13,store:'store-a',cat:'doors-windows',name:'Swahili Window Frame Set',price:350000,img:IMG[5],desc:'Decorative window frame set inspired by Stone Town architecture.'},
-{id:14,store:'store-a',cat:'others',name:'Decorative Mirror Frame',price:280000,img:IMG[0],desc:'Ornate wall mirror with hand-carved wooden frame.'},
-{id:15,store:'store-a',cat:'others',name:'Swahili Bookshelf',price:1500000,img:IMG[1],desc:'Tall bookshelf with traditional carved details.'},
-{id:16,store:'store-b',cat:'beds',name:'Coastal King Platform Bed',price:2800000,img:IMG[3],desc:'Modern platform king bed with coastal driftwood aesthetic.'},
-{id:17,store:'store-b',cat:'beds',name:'Ocean Breeze Queen Bed',price:1900000,img:IMG[4],desc:'Light-toned queen bed with ocean-inspired headboard.'},
-{id:18,store:'store-b',cat:'beds',name:'Beach House Single Bed',price:950000,img:IMG[2],desc:'Casual single bed perfect for beach house settings.'},
-{id:19,store:'store-b',cat:'sofa-chair',name:'Coastal L-Shape Sofa',price:3200000,img:IMG[6],desc:'Spacious L-shaped sofa in light coastal fabric.'},
-{id:20,store:'store-b',cat:'sofa-chair',name:'Ocean Lounge Chair',price:1100000,img:IMG[8],desc:'Relaxing lounge chair with ocean-blue upholstery.'},
-{id:21,store:'store-b',cat:'sofa-chair',name:'Beach Daybed',price:1800000,img:IMG[7],desc:'Outdoor/indoor daybed with weather-resistant cushions.'},
-{id:22,store:'store-b',cat:'tables',name:'Coastal Dining Set',price:3000000,img:IMG[5],desc:'6-seater dining set with light wood and coastal styling.'},
-{id:23,store:'store-b',cat:'tables',name:'Driftwood Coffee Table',price:650000,img:IMG[4],desc:'Unique coffee table made from reclaimed driftwood.'},
-{id:24,store:'store-b',cat:'cupboard',name:'Coastal Wardrobe',price:2500000,img:IMG[1],desc:'White-washed wardrobe with coastal shutter doors.'},
-{id:25,store:'store-b',cat:'cupboard',name:'Beach Cabinet',price:1600000,img:IMG[5],desc:'Storage cabinet with rattan door panels.'},
-{id:26,store:'store-b',cat:'doors-windows',name:'Coastal Panel Door',price:1200000,img:IMG[5],desc:'White panel door with coastal cottage style.'},
-{id:27,store:'store-b',cat:'doors-windows',name:'Ocean View Window Set',price:500000,img:IMG[5],desc:'Large window frame set maximizing natural light.'},
-{id:28,store:'store-b',cat:'others',name:'Coastal TV Stand',price:1100000,img:IMG[5],desc:'Media unit with coastal white finish and open shelving.'},
-{id:29,store:'store-c',cat:'beds',name:'Modern Upholstered King Bed',price:3000000,img:IMG[3],desc:'Contemporary upholstered king bed with padded headboard.'},
-{id:30,store:'store-c',cat:'beds',name:'Contemporary Queen Bed',price:2100000,img:IMG[4],desc:'Sleek queen bed with minimalist design.'},
-{id:31,store:'store-c',cat:'beds',name:'Minimalist Single Bed',price:850000,img:IMG[2],desc:'Clean-line single bed with floating nightstand.'},
-{id:32,store:'store-c',cat:'sofa-chair',name:'Modern Sectional Sofa',price:4000000,img:IMG[7],desc:'Large modular sectional sofa in premium grey fabric.'},
-{id:33,store:'store-c',cat:'sofa-chair',name:'Contemporary Armchair',price:1300000,img:IMG[0],desc:'Mid-century modern armchair with walnut legs.'},
-{id:34,store:'store-c',cat:'sofa-chair',name:'Minimalist Office Chair',price:750000,img:IMG[2],desc:'Ergonomic office chair with sleek black mesh back.'},
-{id:35,store:'store-c',cat:'tables',name:'Modern Glass Dining Table',price:2200000,img:IMG[5],desc:'Tempered glass top dining table with chrome legs.'},
-{id:36,store:'store-c',cat:'tables',name:'Contemporary Desk',price:1400000,img:IMG[8],desc:'Minimalist work desk with cable management.'},
-{id:37,store:'store-c',cat:'cupboard',name:'Modern Sliding Wardrobe',price:3500000,img:IMG[1],desc:'Space-saving sliding door wardrobe with mirror.'},
-{id:38,store:'store-c',cat:'cupboard',name:'Contemporary Shelf Unit',price:1200000,img:IMG[5],desc:'Open shelving unit with industrial metal frame.'},
-{id:39,store:'store-c',cat:'doors-windows',name:'Modern Flush Door',price:600000,img:IMG[5],desc:'Sleek flush door with hidden frame design.'},
-{id:40,store:'store-c',cat:'doors-windows',name:'Aluminium Window Set',price:450000,img:IMG[5],desc:'Slim-profile aluminium windows with tinted glass.'},
-{id:41,store:'store-c',cat:'others',name:'Modern TV Unit',price:1800000,img:IMG[0],desc:'Floating TV unit with integrated LED lighting.'},
-{id:42,store:'store-c',cat:'others',name:'Contemporary Shoe Rack',price:380000,img:IMG[5],desc:'Compact shoe rack with modern matte finish.'}
+// Default Seed Products
+var defaultProducts = [
+    {id:1,store:'store-a',cat:'beds',name:'Zanzibar Carved King Bed',price:3500000,img:IMG_PLACEHOLDER[3],desc:'Hand-carved mahogany king-size bed with traditional Zanzibar motifs.'},
+    {id:2,store:'store-a',cat:'beds',name:'Heritage Queen Bed Frame',price:2200000,img:IMG_PLACEHOLDER[2],desc:'Elegant queen bed frame with heritage woodwork detailing.'},
+    {id:3,store:'store-a',cat:'sofa-chair',name:'Carved Mahogany Sofa Set',price:4500000,img:IMG_PLACEHOLDER[0],desc:'3+1+1 sofa set with intricate hand-carved mahogany frame.'},
+    {id:4,store:'store-a',cat:'tables',name:'Carved Dining Table 6-Seater',price:2500000,img:IMG_PLACEHOLDER[5],desc:'Solid mahogany dining table for 6 with carved legs.'},
+    {id:5,store:'store-a',cat:'cupboard',name:'Mahogany Wardrobe',price:3200000,img:IMG_PLACEHOLDER[1],desc:'Large double-door wardrobe in solid mahogany with mirror.'},
+    {id:6,store:'store-b',cat:'beds',name:'Coastal King Platform Bed',price:2800000,img:IMG_PLACEHOLDER[3],desc:'Modern platform king bed with coastal driftwood aesthetic.'},
+    {id:7,store:'store-b',cat:'sofa-chair',name:'Coastal L-Shape Sofa',price:3200000,img:IMG_PLACEHOLDER[6],desc:'Spacious L-shaped sofa in light coastal fabric.'},
+    {id:8,store:'store-b',cat:'tables',name:'Coastal Dining Set',price:3000000,img:IMG_PLACEHOLDER[5],desc:'6-seater dining set with light wood and coastal styling.'},
+    {id:9,store:'store-c',cat:'beds',name:'Modern Upholstered King Bed',price:3000000,img:IMG_PLACEHOLDER[3],desc:'Contemporary upholstered king bed with padded headboard.'},
+    {id:10,store:'store-c',cat:'sofa-chair',name:'Modern Sectional Sofa',price:4000000,img:IMG_PLACEHOLDER[7],desc:'Large modular sectional sofa in premium grey fabric.'}
 ];
 
+// ===== CORE FUNCTIONS =====
 function formatTZS(n){return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g,',');}
 function parsePrice(s){return parseInt(s.replace(/,/g,''),10)||0;}
-function saveOrders(){localStorage.setItem('mandibo_orders',JSON.stringify(orders));}
-function saveCustomProducts(){localStorage.setItem('mandibo_custom_products',JSON.stringify(products.filter(function(p){return p.id>1000;})));}
-function saveEditedProducts(){localStorage.setItem('mandibo_edited_products',JSON.stringify(products.filter(function(p){return p._edited;})));}
+function saveData(){
+    localStorage.setItem('mandibo_orders', JSON.stringify(STATE.orders));
+    localStorage.setItem('mandibo_settings', JSON.stringify(STATE.settings));
+    localStorage.setItem('mandibo_stores', JSON.stringify(STATE.stores));
+    localStorage.setItem('mandibo_ai_config', JSON.stringify(AI_CONFIG));
+    // Save custom/edited products
+    var custom = STATE.products.filter(function(p){return p.id > 1000 || p._edited;});
+    localStorage.setItem('mandibo_products_db', JSON.stringify(custom));
+}
+function loadData(){
+    var s = localStorage.getItem('mandibo_settings'); if(s) STATE.settings = JSON.parse(s);
+    var st = localStorage.getItem('mandibo_stores'); if(st) STATE.stores = JSON.parse(st);
+    var ai = localStorage.getItem('mandibo_ai_config'); if(ai) AI_CONFIG = JSON.parse(ai);
+    
+    STATE.orders = JSON.parse(localStorage.getItem('mandibo_orders')||'[]');
+    
+    // Load products
+    STATE.products = defaultProducts.map(function(p){return Object.assign({},p);});
+    var savedProds = JSON.parse(localStorage.getItem('mandibo_products_db')||'[]');
+    savedProds.forEach(function(sp){
+        var idx = STATE.products.findIndex(function(x){return x.id === sp.id;});
+        if(idx !== -1) STATE.products[idx] = sp; // Update existing
+        else STATE.products.push(sp); // Add new custom
+    });
+    
+    // Apply contact info to UI
+    if(document.getElementById('dynamicPhone')) document.getElementById('dynamicPhone').textContent = STATE.settings.phone;
+    if(document.getElementById('dynamicWhatsapp')) document.getElementById('dynamicWhatsapp').textContent = STATE.settings.whatsapp;
+    if(document.getElementById('dynamicLocation')) document.getElementById('dynamicLocation').textContent = STATE.settings.location;
+}
 
-// ===== LIVE VISITOR STATS SYSTEM =====
-var lv={
-    online:0,today:0,todayOrders:0,browsing:0,
-    barVisible:true,
-    feedQueue:[],feedActive:false,
-    _onlineBase:14,_todayBase:287,_orderBase:23,
-    _names:['Amina','Fatma','Mohamed','Ali','Khadija','Yusuf','Halima','Omar','Mwanasha','Juma','Rehema','Said','Zainab','Hassan','Maryam','Ibrahim','Asma','Abdullah','Nasra','Khalid','Salma','Bakari','Mwana','Hamisi','Hawa','Farid','Lubna','Rashid','Mona','Idris','Nadia','Thabit','Fadhila','Ghani','Samira','Hamad','Zuhra','Musa','Ruqaya','Noor'],
-    _locations:['Stone Town','Nungwi','Kiwengwa','Paje','Jambiani','Kendwa','Michamvi','Matemwe','Bwejuu','Makunduchi','Chwaka','Dongwe','Kizimkazi','Mangapwani','Karakana','Mkokotoni','Tumbatu','Uroa','Pongwe','Fukuchani'],
-    _products:['Zanzibar Carved King Bed','Coastal L-Shape Sofa','Modern Glass Dining Table','Heritage 3-Seater Sofa','Mahogany Wardrobe','Contemporary Armchair','Swahili Armchair','Modern Sectional Sofa','Carved Dining Table 6-Seater','Driftwood Coffee Table','Coastal King Platform Bed','Modern Sliding Wardrobe','Beach Daybed','Heritage Coffee Table'],
-    _recentFeed:[]
-};
-function lvInit(){
-    var stored=localStorage.getItem('mandibo_lv');
-    if(stored){
-        try{
-            var d=JSON.parse(stored);
-            var now=new Date();
-            var last=new Date(d.lastDate||0);
-            if(now.toDateString()===last.toDateString()){
-                lv.online=d.online||lv._onlineBase;
-                lv.today=d.today||lv._todayBase;
-                lv.todayOrders=d.todayOrders||lv._orderBase;
-            }else{
-                lv.online=lv._onlineBase;
-                lv.today=lv._todayBase;
-                lv.todayOrders=lv._orderBase;
-            }
-        }catch(e){lvReset();}
-    }else{lvReset();}
-    lv.browsing=Math.floor(Math.random()*6)+3;
-    lv.updateUI();
-    setTimeout(function(){document.getElementById('liveBar').classList.add('visible');},1200);
-    setInterval(lvTick,3000);
-    setInterval(lvSave,10000);
-    setInterval(lvFeed,6000);
-    setTimeout(function(){lvFeed();},2500);
-}
-function lvReset(){lv.online=lv._onlineBase;lv.today=lv._todayBase;lv.todayOrders=lv._orderBase;}
-function lvSave(){localStorage.setItem('mandibo_lv',JSON.stringify({online:lv.online,today:lv.today,todayOrders:lv.todayOrders,lastDate:new Date().toISOString()}));}
-function lvTick(){
-    var delta=Math.floor(Math.random()*5)-2;
-    lv.online=Math.max(6,Math.min(58,lv.online+delta));
-    lv.browsing=Math.max(1,Math.min(12,lv.browsing+Math.floor(Math.random()*3)-1));
-    if(Math.random()<0.35)lv.today++;
-    lv.updateUI();
-}
-function lvBumpOrder(){lv.todayOrders++;lv.today++;lv.updateUI();lvSave();}
-function lvUpdateDisplay(elId,newVal){
-    var el=document.getElementById(elId);
-    if(!el)return;
-    var oldVal=el.textContent;
-    var formatted=typeof newVal==='number'?newVal.toLocaleString():newVal;
-    if(oldVal!==formatted){
-        el.textContent=formatted;
-        el.classList.add('bumped');
-        setTimeout(function(){el.classList.remove('bumped');},350);
-    }
-}
-function lvUpdateUI(){
-    lvUpdateDisplay('lvOnline',lv.online);
-    lvUpdateDisplay('lvToday',lv.today.toLocaleString());
-    lvUpdateDisplay('lvOrders',lv.todayOrders);
-    lvUpdateDisplay('lvBrowsing',lv.browsing);
-    var fab=document.getElementById('fabCount');
-    if(fab)fab.textContent=lv.todayOrders;
-}
-function lvFeed(){
-    var msgs=[
-        {type:'join',icon:'👋',gen:function(){return lv._names[Math.floor(Math.random()*lv._names.length)]+' from '+lv._locations[Math.floor(Math.random()*lv._locations.length)]+' joined';}},
-        {type:'view',icon:'👁️',gen:function(){return lv._names[Math.floor(Math.random()*lv._names.length)]+' is viewing "'+lv._products[Math.floor(Math.random()*lv._products.length)]+'"';}},
-        {type:'order',icon:'🛒',gen:function(){return lv._names[Math.floor(Math.random()*lv._names.length)]+' just ordered a '+lv._products[Math.floor(Math.random()*lv._products.length)]+'!';}},
-        {type:'view',icon:'🔍',gen:function(){return lv._names[Math.floor(Math.random()*lv._names.length)]+' is comparing beds';}},
-        {type:'join',icon:'🌍',gen:function(){return 'New visitor from '+lv._locations[Math.floor(Math.random()*lv._locations.length)]+' browsing sofas';}},
-        {type:'order',icon:'✅',gen:function(){return 'Order confirmed — '+lv._locations[Math.floor(Math.random()*lv._locations.length)]+' delivery';}},
-        {type:'view',icon:'❤️',gen:function(){return lv._names[Math.floor(Math.random()*lv._names.length)]+' saved "'+lv._products[Math.floor(Math.random()*lv._products.length)]+'" to wishlist';}},
-        {type:'join',icon:'📱',gen:function(){return lv._names[Math.floor(Math.random()*lv._names.length)]+' opened the site via phone';}}
-    ];
-    var m=msgs[Math.floor(Math.random()*msgs.length)];
-    lvShowFeed(m.type,m.icon,m.gen());
-    if(m.type==='order')lvBumpOrder();
-}
-function lvShowFeed(type,icon,text){
-    var item=document.getElementById('feedItem');
-    if(!item)return;
-    item.classList.remove('entering');
-    item.classList.add('exiting');
-    setTimeout(function(){
-        item.className='feed-item';
-        var iconWrap=item.querySelector('.feed-icon');
-        iconWrap.className='feed-icon '+type;
-        iconWrap.textContent=icon;
-        document.getElementById('feedText').textContent=text;
-        void item.offsetWidth;
-        item.classList.add('entering');
-    },300);
-}
-function toggleLiveBar(){
-    var bar=document.getElementById('liveBar');
-    var fab=document.getElementById('liveBarFab');
-    var icon=document.getElementById('barToggleIcon');
-    if(lv.barVisible){
-        bar.classList.remove('visible');
-        fab.classList.remove('hidden');
-        fab.classList.add('flex');
-        icon.setAttribute('data-lucide','chevron-up');
-    }else{
-        bar.classList.add('visible');
-        fab.classList.add('hidden');
-        fab.classList.remove('flex');
-        icon.setAttribute('data-lucide','chevron-down');
-    }
-    lv.barVisible=!lv.barVisible;
+// ===== DYNAMIC STORE RENDERING =====
+function renderStores() {
+    var container = document.getElementById('dynamicStoreGrid');
+    if(!container) return;
+    var html = '';
+    Object.keys(STATE.stores).forEach(function(key, index){
+        var s = STATE.stores[key];
+        var count = STATE.products.filter(function(p){return p.store === key;}).length;
+        var badgeHtml = s.badge ? '<span class="absolute top-3 right-3 '+s.badgeColor+' text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full">'+s.badge+'</span>' : '';
+        
+        html += '<div onclick="selectStore(\''+key+'\')" class="store-card border border-white/10 rounded-2xl overflow-hidden cursor-pointer reveal reveal-d'+index+'" data-store="'+key+'">';
+        html += '<div class="relative h-48 overflow-hidden"><img src="'+s.img+'" class="w-full h-full object-cover p-img" alt=""><div class="absolute inset-0 gradient-up"></div>'+badgeHtml+'</div>';
+        html += '<div class="p-6"><h3 class="text-xl font-bold mb-1">'+s.name+'</h3><p class="text-gold-500 text-sm font-medium mb-3">'+s.tag+'</p>';
+        html += '<div class="flex items-center gap-2 text-neutral-400 text-xs"><i data-lucide="map-pin" class="w-3 h-3"></i>'+s.loc+'</div>';
+        html += '<div class="flex items-center gap-2 text-neutral-400 text-xs mt-1"><i data-lucide="package" class="w-3 h-3"></i><span id="store-'+key+'-count">'+count+'</span> Products</div></div></div>';
+    });
+    container.innerHTML = html;
     lucide.createIcons();
 }
 
-document.addEventListener('DOMContentLoaded',function(){
-    products=defaultProducts.map(function(p){return Object.assign({},p);});
-    orders=JSON.parse(localStorage.getItem('mandibo_orders')||'[]');
-    JSON.parse(localStorage.getItem('mandibo_custom_products')||'[]').forEach(function(p){if(!products.find(function(x){return x.id===p.id;}))products.push(p);});
-    JSON.parse(localStorage.getItem('mandibo_edited_products')||'[]').forEach(function(ep){var i=products.findIndex(function(x){return x.id===ep.id;});if(i!==-1)products[i]=Object.assign({},ep);});
-    document.getElementById('loginForm').addEventListener('submit',function(e){e.preventDefault();ownerLogin();});
-    document.getElementById('orderForm').addEventListener('submit',function(e){e.preventDefault();submitOrder();});
-    document.getElementById('addPrice').addEventListener('input',function(){var v=parsePrice(this.value);var p=document.getElementById('pricePreview');if(v>0){p.textContent='= TZS '+formatTZS(v);p.classList.remove('hidden');}else p.classList.add('hidden');});
-    document.addEventListener('keydown',function(e){if(e.key==='Escape'){closeLightbox();closeOrderModal();closeEditModal();closeDeleteModal();closeOwnerLogin();}});
-    updateStoreCounts();renderProducts();initReveal();initNavbar();lucide.createIcons();
-    lvInit();
-    initAI();
-});
-
-function initNavbar(){window.addEventListener('scroll',function(){var n=document.getElementById('navbar');if(window.scrollY>80)n.classList.add('bg-[#0A0A0A]/90','backdrop-blur-xl','border-b','border-white/5');else n.classList.remove('bg-[#0A0A0A]/90','backdrop-blur-xl','border-b','border-white/5');});}
-function toggleMobileMenu(){document.getElementById('mobileMenu').classList.toggle('hidden');}
-function initReveal(){var obs=new IntersectionObserver(function(e){e.forEach(function(x){if(x.isIntersecting)x.target.classList.add('active');});},{threshold:0.1,rootMargin:'0px 0px -50px 0px'});document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el);});}
-
-function showToast(msg,type){type=type||'info';var box=document.getElementById('toastBox');var c={success:'border-emerald-500 bg-emerald-500/10',error:'border-red-500 bg-red-500/10',info:'border-gold-500 bg-gold-500/10'};var t=document.createElement('div');t.className='toast-in pointer-events-auto border '+(c[type]||c.info)+' backdrop-blur-xl rounded-xl px-5 py-4 max-w-sm text-sm';t.textContent=msg;box.appendChild(t);setTimeout(function(){t.classList.remove('toast-in');t.classList.add('toast-out');setTimeout(function(){t.remove();},300);},4000);}
-
-function openLightbox(pid){
-    var p=products.find(function(x){return x.id===pid;});
-    if(!p)return;
-    lbZoom=1;lbSpinning=false;
-    document.getElementById('lbImg').src=p.img;
-    document.getElementById('lbImg').style.transform='scale(1)';
-    document.getElementById('lbImg').classList.remove('auto-spinning');
-    document.getElementById('lbName').textContent=p.name;
-    document.getElementById('lbPrice').textContent='TZS '+formatTZS(p.price);
-    document.getElementById('lbSpinBtn').classList.remove('spin-active');
-    document.getElementById('lightbox').classList.add('active');
-    document.body.style.overflow='hidden';
-}
-function closeLightbox(e){
-    if(e&&e.target!==document.getElementById('lightbox')&&!e.target.closest('.lightbox-close'))return;
-    document.getElementById('lightbox').classList.remove('active');
-    document.getElementById('lbImg').classList.remove('auto-spinning');
-    lbSpinning=false;
-    if(!document.getElementById('orderModal').classList.contains('hidden')||!document.getElementById('editModal').classList.contains('hidden'))return;
-    document.body.style.overflow='';
-}
-function toggleLightboxSpin(e){
-    e.stopPropagation();
-    lbSpinning=!lbSpinning;
-    var img=document.getElementById('lbImg'),btn=document.getElementById('lbSpinBtn');
-    if(lbSpinning){img.classList.add('auto-spinning');btn.classList.add('spin-active');}
-    else{img.classList.remove('auto-spinning');btn.classList.remove('spin-active');}
-}
-function lightboxZoom(e,dir){
-    e.stopPropagation();
-    lbZoom=Math.max(0.5,Math.min(3,lbZoom+dir*0.3));
-    document.getElementById('lbImg').style.transform='scale('+lbZoom+')';
-    document.getElementById('lbImg').classList.remove('auto-spinning');lbSpinning=false;
-    document.getElementById('lbSpinBtn').classList.remove('spin-active');
-}
-function lightboxReset(e){
-    e.stopPropagation();lbZoom=1;
-    document.getElementById('lbImg').style.transform='scale(1)';
-}
-
-function updateStoreCounts(){['store-a','store-b','store-c'].forEach(function(s){var el=document.getElementById(s+'-count');if(el)el.textContent=products.filter(function(p){return p.store===s;}).length;});}
-function selectStore(sid){document.querySelectorAll('.store-card').forEach(function(c){c.classList.remove('active-store');});var c=document.querySelector('.store-card[data-store="'+sid+'"]');if(c)c.classList.add('active-store');filterStore(sid);document.getElementById('products').scrollIntoView({behavior:'smooth'});}
-function filterStore(s){currentStoreFilter=s;document.querySelectorAll('[data-sfilter]').forEach(function(b){b.classList.toggle('active-cat',b.dataset.sfilter===s);});renderProducts();}
-function filterCategory(c){currentCatFilter=c;document.querySelectorAll('[data-cfilter]').forEach(function(b){b.classList.toggle('active-cat',b.dataset.cfilter===c);});renderProducts();}
-var searchTimer=null;
-function searchProducts(){clearTimeout(searchTimer);searchTimer=setTimeout(renderProducts,200);}
-
+// ===== PRODUCT LOGIC =====
 function renderProducts(){
     var search=(document.getElementById('searchInput')?document.getElementById('searchInput').value:'').toLowerCase();
-    var filtered=products.filter(function(p){if(currentStoreFilter!=='all'&&p.store!==currentStoreFilter)return false;if(currentCatFilter!=='all'&&p.cat!==currentCatFilter)return false;if(search&&p.name.toLowerCase().indexOf(search)===-1&&p.desc.toLowerCase().indexOf(search)===-1)return false;return true;});
+    var filtered=STATE.products.filter(function(p){
+        if(STATE.currentStoreFilter!=='all'&&p.store!==STATE.currentStoreFilter)return false;
+        if(STATE.currentCatFilter!=='all'&&p.cat!==STATE.currentCatFilter)return false;
+        if(search&&p.name.toLowerCase().indexOf(search)===-1&&p.desc.toLowerCase().indexOf(search)===-1)return false;
+        return true;
+    });
     var grid=document.getElementById('productGrid'),empty=document.getElementById('emptyState'),count=document.getElementById('productCount');
     if(count)count.textContent=filtered.length;
     if(!filtered.length){grid.innerHTML='';empty.classList.remove('hidden');lucide.createIcons();return;}
     empty.classList.add('hidden');
-    var sn={'store-a':'Store A','store-b':'Store B','store-c':'Store C'};
+    var sn={};
+    Object.keys(STATE.stores).forEach(k => sn[k] = STATE.stores[k].name);
     var cl={'beds':'🛏️ Beds','sofa-chair':'🛋️ Sofa & Chair','tables':'🪑 Tables','cupboard':'🗄️ Cupboard','doors-windows':'🚪 Doors & Windows','others':'📦 Others'};
     var html='';
     filtered.forEach(function(p,i){
@@ -1196,97 +642,225 @@ function renderProducts(){
     grid.innerHTML=html;lucide.createIcons();
 }
 
-function openOrderModal(pid){
-    currentOrderProduct=products.find(function(p){return p.id===pid;});
-    if(!currentOrderProduct)return;
-    document.getElementById('orderProductInfo').innerHTML='<img src="'+currentOrderProduct.img+'" class="w-20 h-20 rounded-lg object-cover flex-shrink-0" alt=""><div class="min-w-0"><p class="font-bold text-sm truncate">'+currentOrderProduct.name+'</p><p class="text-gold-500 font-bold">TZS '+formatTZS(currentOrderProduct.price)+'</p></div>';
-    document.getElementById('orderQty').value=1;
-    updateOrderTotal();
-    document.getElementById('whatsappOrder').href='https://wa.me/'+WHATSAPP_NUMBER+'?text='+encodeURIComponent("Hi Mandibo! I'd like to order:\n\n*"+currentOrderProduct.name+"*\nPrice: TZS "+formatTZS(currentOrderProduct.price)+"\n\nPlease confirm availability.");
-    document.getElementById('orderModal').classList.remove('hidden');
-    document.body.style.overflow='hidden';
+// ===== DASHBOARD FUNCTIONS =====
+function showDashTab(tab){
+    document.querySelectorAll('.dash-tab').forEach(function(b){b.classList.remove('bg-gold-500','text-black');b.classList.add('text-neutral-400');});
+    var at=document.querySelector('.dash-tab[data-dtab="'+tab+'"]');if(at){at.classList.add('bg-gold-500','text-black');at.classList.remove('text-neutral-400');}
+    document.querySelectorAll('.dash-panel').forEach(function(p){p.classList.add('hidden');});
+    var panel=document.getElementById('dash'+tab.charAt(0).toUpperCase()+tab.slice(1));if(panel)panel.classList.remove('hidden');
+    if(tab==='orders')renderOrdersList();
+    if(tab==='manageProducts')renderManageList();
+    if(tab==='manageStores')loadStoreConfig();
+    if(tab==='siteSettings')loadSiteSettings();
+    if(tab==='aiconfig')loadAIDashboard();
+    if(tab==='addProduct'){clearAddForm();document.getElementById('addSuccess').classList.add('hidden');}
     lucide.createIcons();
+}
+function updateDashboard(){document.getElementById('statProducts').textContent=STATE.products.length;document.getElementById('statOrders').textContent=STATE.orders.length;var rev=STATE.orders.reduce(function(s,o){return s+o.total;},0);document.getElementById('statRevenue').textContent=rev>0?formatTZS(rev):'0';renderOrdersList();renderManageList();lucide.createIcons();}
+
+// STORE SETTINGS
+function loadStoreConfig(){
+    ['store-a','store-b','store-c'].forEach(function(id){
+        var s = STATE.stores[id];
+        document.getElementById(id+'-name').value = s.name;
+        document.getElementById(id+'-loc').value = s.loc;
+        document.getElementById(id+'-tag').value = s.tag;
+        document.getElementById(id+'-img').value = s.img;
+    });
+    document.getElementById('storeSuccess').classList.add('hidden');
+}
+function saveStoreConfig(){
+    ['store-a','store-b','store-c'].forEach(function(id){
+        STATE.stores[id].name = document.getElementById(id+'-name').value;
+        STATE.stores[id].loc = document.getElementById(id+'-loc').value;
+        STATE.stores[id].tag = document.getElementById(id+'-tag').value;
+        STATE.stores[id].img = document.getElementById(id+'-img').value;
+    });
+    saveData();
+    renderStores(); // Update user view
+    document.getElementById('storeSuccess').classList.remove('hidden');
+    showToast('✅ Stores updated successfully','success');
+}
+
+// SITE SETTINGS
+function loadSiteSettings(){
+    document.getElementById('settingPhone').value = STATE.settings.phone;
+    document.getElementById('settingWhatsapp').value = STATE.settings.whatsapp;
+    document.getElementById('settingLocation').value = STATE.settings.location;
+    document.getElementById('settingPass').value = '';
+    document.getElementById('siteSettingsSuccess').classList.add('hidden');
+}
+function saveSiteSettings(){
+    if(document.getElementById('settingPhone').value) STATE.settings.phone = document.getElementById('settingPhone').value;
+    if(document.getElementById('settingWhatsapp').value) STATE.settings.whatsapp = document.getElementById('settingWhatsapp').value;
+    if(document.getElementById('settingLocation').value) STATE.settings.location = document.getElementById('settingLocation').value;
+    if(document.getElementById('settingPass').value) STATE.settings.ownerPass = document.getElementById('settingPass').value;
     
-    // Show AI chat when order is initiated
-    if(AI_CONFIG.enabled){
-        setTimeout(function(){
-            autoShowChat();
-            addChatMessage('Karibu! Nimeona unataka kuagiza '+currentOrderProduct.name+'. 😊 Jaza maelezo yako na tutawasiliana haraka!','bot');
-        },500);
-    }
-}
-function closeOrderModal(){document.getElementById('orderModal').classList.add('hidden');document.body.style.overflow='';document.getElementById('orderName').value='';document.getElementById('orderPhone').value='';document.getElementById('orderLocation').value='';document.getElementById('orderNotes').value='';document.getElementById('orderQty').value=1;}
-function updateOrderTotal(){if(!currentOrderProduct)return;var q=parseInt(document.getElementById('orderQty').value)||1;document.getElementById('orderTotal').innerHTML='Total: <span>TZS '+formatTZS(currentOrderProduct.price*Math.max(1,q))+'</span>';}
-function submitOrder(){if(!currentOrderProduct)return;var n=document.getElementById('orderName').value.trim(),ph=document.getElementById('orderPhone').value.trim(),loc=document.getElementById('orderLocation').value.trim();if(!n||!ph||!loc){showToast('Please fill all required fields','error');return;}var q=Math.max(1,parseInt(document.getElementById('orderQty').value)||1);orders.push({id:Date.now(),productId:currentOrderProduct.id,productName:currentOrderProduct.name,productImg:currentOrderProduct.img,price:currentOrderProduct.price,qty:q,total:currentOrderProduct.price*q,store:currentOrderProduct.store,name:n,phone:ph,location:loc,notes:document.getElementById('orderNotes').value.trim(),status:'pending',date:new Date().toISOString()});saveOrders();closeOrderModal();showToast('🎉 Order placed successfully!','success');}
-
-function openOwnerLogin(){document.getElementById('loginModal').classList.remove('hidden');document.body.style.overflow='hidden';document.getElementById('loginError').classList.add('hidden');document.getElementById('ownerPass').value='';setTimeout(function(){document.getElementById('ownerPass').focus();},100);}
-function closeOwnerLogin(){document.getElementById('loginModal').classList.add('hidden');document.body.style.overflow='';}
-function ownerLogin(){if(document.getElementById('ownerPass').value===OWNER_PASSWORD){closeOwnerLogin();document.body.classList.add('owner-mode');document.getElementById('userView').classList.add('hidden');document.getElementById('ownerView').classList.remove('hidden');updateDashboard();loadAIDashboard();showToast('🔑 Welcome back!','success');window.scrollTo(0,0);}else{document.getElementById('loginError').classList.remove('hidden');document.getElementById('ownerPass').classList.add('shake');setTimeout(function(){document.getElementById('ownerPass').classList.remove('shake');},600);}}
-function ownerLogout(){document.body.classList.remove('owner-mode');document.getElementById('ownerView').classList.add('hidden');document.getElementById('userView').classList.remove('hidden');showToast('Logged out','info');window.scrollTo(0,0);lucide.createIcons();}
-
-function showDashTab(tab){document.querySelectorAll('.dash-tab').forEach(function(b){b.classList.remove('bg-gold-500','text-black');b.classList.add('text-neutral-400');});var at=document.querySelector('.dash-tab[data-dtab="'+tab+'"]');if(at){at.classList.add('bg-gold-500','text-black');at.classList.remove('text-neutral-400');}document.querySelectorAll('.dash-panel').forEach(function(p){p.classList.add('hidden');});var panel=document.getElementById('dash'+tab.charAt(0).toUpperCase()+tab.slice(1));if(panel)panel.classList.remove('hidden');if(tab==='orders')renderOrdersList();if(tab==='manageProducts')renderManageList();if(tab==='aiconfig')loadAIDashboard();if(tab==='addProduct'){clearAddForm();document.getElementById('addSuccess').classList.add('hidden');}lucide.createIcons();}
-function updateDashboard(){document.getElementById('statProducts').textContent=products.length;document.getElementById('statOrders').textContent=orders.length;var rev=orders.reduce(function(s,o){return s+o.total;},0);document.getElementById('statRevenue').textContent=rev>0?formatTZS(rev):'0';renderOrdersList();renderManageList();lucide.createIcons();}
-
-// ===== MANDIBO TEAM AI DASHBOARD FUNCTIONS =====
-function loadAIDashboard(){
-    document.getElementById('aiGreetingSW').value=AI_CONFIG.greetingSW;
-    document.getElementById('aiEnabled').checked=AI_CONFIG.enabled;
-    updateAIToggleLabel();
+    saveData();
+    // Update UI immediately
+    document.getElementById('dynamicPhone').textContent = STATE.settings.phone;
+    document.getElementById('dynamicWhatsapp').textContent = STATE.settings.whatsapp;
+    document.getElementById('dynamicLocation').textContent = STATE.settings.location;
+    
+    document.getElementById('siteSettingsSuccess').classList.remove('hidden');
+    showToast('✅ Settings saved','success');
 }
 
-function updateAIToggleLabel(){
-    var label=document.getElementById('aiToggleLabel');
-    if(document.getElementById('aiEnabled').checked){
-        label.textContent='Active';
-        label.className='text-sm font-bold text-emerald-400';
-    }else{
-        label.textContent='Inactive';
-        label.className='text-sm font-bold text-red-400';
-    }
+// PRODUCT CRUD
+function handleAddProduct(){
+    var ne=document.getElementById('addName'),pe=document.getElementById('addPrice');
+    document.getElementById('errName').classList.remove('show');document.getElementById('errPrice').classList.remove('show');
+    ne.classList.remove('error');pe.classList.remove('error');document.getElementById('addSuccess').classList.add('hidden');
+    var name=ne.value.trim();if(!name){document.getElementById('errName').classList.add('show');ne.classList.add('error','shake');setTimeout(function(){ne.classList.remove('shake');},600);ne.focus();return;}
+    var price=parsePrice(pe.value.trim());if(price<=0){document.getElementById('errPrice').classList.add('show');pe.classList.add('error','shake');setTimeout(function(){pe.classList.remove('shake');},600);pe.focus();return;}
+    var img=document.getElementById('addImage').value.trim()||IMG_PLACEHOLDER[0];
+    STATE.products.push({
+        id:Date.now(),store:document.getElementById('addStore').value,cat:document.getElementById('addCategory').value,
+        name:name,price:price,img:img,desc:document.getElementById('addDesc').value.trim()||'Premium furniture from Mandibo Furniture.'
+    });
+    saveData();document.getElementById('addSuccess').classList.remove('hidden');document.getElementById('addSuccess').classList.add('pop-in');
+    ne.value='';pe.value='';document.getElementById('addImage').value='';document.getElementById('addDesc').value='';document.getElementById('pricePreview').classList.add('hidden');
+    renderStores(); renderProducts(); updateDashboard(); showToast('✅ "'+name+'" added','success');
 }
-
-document.addEventListener('change',function(e){
-    if(e.target.id==='aiEnabled'){
-        updateAIToggleLabel();
-    }
-});
-
-function saveAIConfig(){
-    AI_CONFIG.greetingSW=document.getElementById('aiGreetingSW').value;
-    AI_CONFIG.enabled=document.getElementById('aiEnabled').checked;
-    localStorage.setItem('mandibo_ai_config',JSON.stringify(AI_CONFIG));
-    document.getElementById('aiSuccess').classList.remove('hidden');
-    document.getElementById('aiSavedTime').textContent='Saved at '+new Date().toLocaleTimeString();
-    setTimeout(function(){document.getElementById('aiSuccess').classList.add('hidden');},3000);
-    showToast('✅ Mandibo Team AI configuration saved!','success');
-}
-
-function testAIVoice(){
-    speakText(AI_CONFIG.greetingSW,'sw');
-    showToast('🎧 Testing Mandibo Team voice...','info');
-}
-
-function renderOrdersList(){var el=document.getElementById('ordersList');if(!el)return;if(!orders.length){el.innerHTML='<div class="text-center py-16 text-neutral-500"><p class="text-4xl mb-3">📦</p><p>No orders yet</p></div>';return;}var sn={'store-a':'Store A','store-b':'Store B','store-c':'Store C'};var ss={pending:'bg-yellow-500/10 text-yellow-400 border-yellow-500/20',confirmed:'bg-blue-500/10 text-blue-400 border-blue-500/20',delivered:'bg-emerald-500/10 text-emerald-400 border-emerald-500/20',cancelled:'bg-red-500/10 text-red-400 border-red-500/20'};var html='';orders.slice().reverse().forEach(function(o){var d=new Date(o.date);html+='<div class="bg-white/5 border border-white/10 rounded-xl p-5 flex flex-col md:flex-row gap-4"><img src="'+o.productImg+'" class="w-16 h-16 rounded-lg object-cover flex-shrink-0" alt=""><div class="flex-1 min-w-0"><div class="flex items-start justify-between gap-3 mb-2"><div><h4 class="font-bold text-sm">'+o.productName+'</h4><p class="text-neutral-500 text-xs">'+(sn[o.store]||'')+' · Qty: '+o.qty+'</p></div><span class="text-gold-500 font-bold text-sm whitespace-nowrap">TZS '+formatTZS(o.total)+'</span></div><div class="flex flex-wrap items-center gap-3 text-xs text-neutral-400 mb-3"><span>👤 '+o.name+'</span><span>📞 '+o.phone+'</span><span>📍 '+o.location+'</span></div>';if(o.notes)html+='<p class="text-xs text-neutral-500 mb-3">💬 '+o.notes+'</p>';html+='<div class="flex items-center gap-2 flex-wrap"><select onchange="updateOrderStatus('+o.id+',this.value)" class="text-[10px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-full border '+(ss[o.status]||ss.pending)+' bg-transparent focus:outline-none cursor-pointer"><option value="pending"'+(o.status==='pending'?' selected':'')+'>⏳ Pending</option><option value="confirmed"'+(o.status==='confirmed'?' selected':'')+'>✅ Confirmed</option><option value="delivered"'+(o.status==='delivered'?' selected':'')+'>📦 Delivered</option><option value="cancelled"'+(o.status==='cancelled'?' selected':'')+'>❌ Cancelled</option></select><span class="text-neutral-600 text-[10px]">'+d.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})+' '+d.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'})+'</span><button onclick="deleteOrder('+o.id+')" class="ml-auto text-red-400/40 hover:text-red-400 transition-colors p-1"><i data-lucide="trash-2" class="w-3.5 h-3.5"></i></button></div></div></div>';});el.innerHTML=html;lucide.createIcons();}
-function updateOrderStatus(id,st){var o=orders.find(function(x){return x.id===id;});if(o){o.status=st;saveOrders();renderOrdersList();document.getElementById('statRevenue').textContent=formatTZS(orders.reduce(function(s,x){return s+x.total;},0))||'0';showToast('Status: '+st.toUpperCase(),'success');}}
-function deleteOrder(id){orders=orders.filter(function(x){return x.id!==id;});saveOrders();updateDashboard();showToast('Order deleted','info');}
-
-function handleAddProduct(){var ne=document.getElementById('addName'),pe=document.getElementById('addPrice');document.getElementById('errName').classList.remove('show');document.getElementById('errPrice').classList.remove('show');ne.classList.remove('error');pe.classList.remove('error');document.getElementById('addSuccess').classList.add('hidden');var name=ne.value.trim();if(!name){document.getElementById('errName').classList.add('show');ne.classList.add('error','shake');setTimeout(function(){ne.classList.remove('shake');},600);ne.focus();return;}var price=parsePrice(pe.value.trim());if(price<=0){document.getElementById('errPrice').classList.add('show');pe.classList.add('error','shake');setTimeout(function(){pe.classList.remove('shake');},600);pe.focus();return;}var img=document.getElementById('addImage').value.trim()||IMG[0];products.push({id:Date.now(),store:document.getElementById('addStore').value,cat:document.getElementById('addCategory').value,name:name,price:price,img:img,desc:document.getElementById('addDesc').value.trim()||'Premium furniture from Mandibo Furniture.'});saveCustomProducts();document.getElementById('addSuccessDetail').textContent='"'+name+'" — TZS '+formatTZS(price);document.getElementById('addSuccess').classList.remove('hidden');document.getElementById('addSuccess').classList.add('pop-in');ne.value='';pe.value='';document.getElementById('addImage').value='';document.getElementById('addDesc').value='';document.getElementById('pricePreview').classList.add('hidden');updateStoreCounts();updateDashboard();showToast('✅ "'+name+'" added','success');}
 function clearAddForm(){['addName','addPrice','addImage','addDesc'].forEach(function(id){document.getElementById(id).value='';});document.getElementById('addStore').selectedIndex=0;document.getElementById('addCategory').selectedIndex=0;['errName','errPrice'].forEach(function(id){document.getElementById(id).classList.remove('show');});['addName','addPrice'].forEach(function(id){document.getElementById(id).classList.remove('error');});document.getElementById('pricePreview').classList.add('hidden');document.getElementById('addSuccess').classList.add('hidden');}
 
-function renderManageList(){var el=document.getElementById('manageList'),ce=document.getElementById('manageCount');if(!el)return;if(ce)ce.textContent=products.length;if(!products.length){el.innerHTML='<div class="text-center py-16 text-neutral-500"><p class="text-4xl mb-3">🪑</p><p>No products.</p></div>';return;}var sn={'store-a':'Store A','store-b':'Store B','store-c':'Store C'};var cl={'beds':'Beds','sofa-chair':'Sofa & Chair','tables':'Tables','cupboard':'Cupboard','doors-windows':'Doors & Windows','others':'Others'};var html='';products.forEach(function(p){html+='<div id="product-row-'+p.id+'" class="flex items-center gap-4 bg-white/5 border border-white/10 rounded-xl p-4 hover:border-white/20 transition-colors"><img src="'+p.img+'" class="w-12 h-12 rounded-lg object-cover flex-shrink-0" alt=""><div class="flex-1 min-w-0"><p class="font-bold text-sm truncate">'+p.name+'</p><p class="text-neutral-500 text-[11px]">'+(sn[p.store]||'')+' · '+(cl[p.cat]||'')+' · <span class="text-gold-500/70">TZS '+formatTZS(p.price)+'</span></p></div><button onclick="openEditModal('+p.id+')" class="text-gold-500/50 hover:text-gold-500 hover:bg-gold-500/10 transition-all p-2 rounded-lg flex-shrink-0"><i data-lucide="pencil" class="w-4 h-4"></i></button><button onclick="openDeleteModal('+p.id+',\''+p.name.replace(/'/g,"\\'")+'\')" class="text-red-400/40 hover:text-red-400 hover:bg-red-500/10 transition-all p-2 rounded-lg flex-shrink-0"><i data-lucide="trash-2" class="w-4 h-4"></i></button></div>';});el.innerHTML=html;lucide.createIcons();}
+function renderManageList(){
+    var el=document.getElementById('manageList'),ce=document.getElementById('manageCount');if(!el)return;if(ce)ce.textContent=STATE.products.length;if(!STATE.products.length){el.innerHTML='<div class="text-center py-16 text-neutral-500"><p class="text-4xl mb-3">🪑</p><p>No products.</p></div>';return;}
+    var sn={}; Object.keys(STATE.stores).forEach(k => sn[k] = STATE.stores[k].name);
+    var cl={'beds':'Beds','sofa-chair':'Sofa & Chair','tables':'Tables','cupboard':'Cupboard','doors-windows':'Doors & Windows','others':'Others'};
+    var html='';STATE.products.forEach(function(p){
+        html+='<div id="product-row-'+p.id+'" class="flex items-center gap-4 bg-white/5 border border-white/10 rounded-xl p-4 hover:border-white/20 transition-colors"><img src="'+p.img+'" class="w-12 h-12 rounded-lg object-cover flex-shrink-0" alt=""><div class="flex-1 min-w-0"><p class="font-bold text-sm truncate">'+p.name+'</p><p class="text-neutral-500 text-[11px]">'+(sn[p.store]||'')+' · '+(cl[p.cat]||'')+' · <span class="text-gold-500/70">TZS '+formatTZS(p.price)+'</span></p></div><button onclick="openEditModal('+p.id+')" class="text-gold-500/50 hover:text-gold-500 hover:bg-gold-500/10 transition-all p-2 rounded-lg flex-shrink-0"><i data-lucide="pencil" class="w-4 h-4"></i></button><button onclick="openDeleteModal('+p.id+',\''+p.name.replace(/'/g,"\\'")+'\')" class="text-red-400/40 hover:text-red-400 hover:bg-red-500/10 transition-all p-2 rounded-lg flex-shrink-0"><i data-lucide="trash-2" class="w-4 h-4"></i></button></div>';
+    });el.innerHTML=html;lucide.createIcons();
+}
 
-function openDeleteModal(id,name){pendingDeleteId=id;document.getElementById('deleteItemName').textContent='"'+name+'" — cannot be undone.';document.getElementById('deleteModal').classList.remove('hidden');lucide.createIcons();}
-function closeDeleteModal(){document.getElementById('deleteModal').classList.add('hidden');pendingDeleteId=null;}
-function confirmDelete(){if(pendingDeleteId===null)return;var id=pendingDeleteId,row=document.getElementById('product-row-'+id);if(row){row.style.transition='all .4s ease';row.style.opacity='0';row.style.transform='translateX(40px)';row.style.maxHeight=row.offsetHeight+'px';setTimeout(function(){row.style.maxHeight='0';row.style.padding='0';row.style.margin='0';row.style.border='none';},200);}setTimeout(function(){products=products.filter(function(p){return p.id!==id;});saveCustomProducts();localStorage.setItem('mandibo_edited_products',JSON.stringify(JSON.parse(localStorage.getItem('mandibo_edited_products')||'[]').filter(function(p){return p.id!==id;})));updateStoreCounts();renderManageList();document.getElementById('statProducts').textContent=products.length;showToast('Deleted','info');},500);closeDeleteModal();}
+function openDeleteModal(id,name){STATE.pendingDeleteId=id;document.getElementById('deleteItemName').textContent='"'+name+'" — cannot be undone.';document.getElementById('deleteModal').classList.remove('hidden');lucide.createIcons();}
+function closeDeleteModal(){document.getElementById('deleteModal').classList.add('hidden');STATE.pendingDeleteId=null;}
+function confirmDelete(){
+    if(STATE.pendingDeleteId===null)return;
+    var id=STATE.pendingDeleteId,row=document.getElementById('product-row-'+id);
+    if(row){row.style.transition='all .4s ease';row.style.opacity='0';row.style.transform='translateX(40px)';row.style.maxHeight=row.offsetHeight+'px';setTimeout(function(){row.style.maxHeight='0';row.style.padding='0';row.style.margin='0';row.style.border='none';},200);}
+    setTimeout(function(){
+        STATE.products=STATE.products.filter(function(p){return p.id!==id;});
+        saveData(); renderStores(); renderManageList(); document.getElementById('statProducts').textContent=STATE.products.length; showToast('Deleted','info');
+    },500);closeDeleteModal();
+}
 
-function openEditModal(id){var p=products.find(function(x){return x.id===id;});if(!p)return;editingProductId=id;document.getElementById('editStore').value=p.store;document.getElementById('editCategory').value=p.cat;document.getElementById('editName').value=p.name;document.getElementById('editPrice').value=formatTZS(p.price);document.getElementById('editImage').value=p.img;document.getElementById('editDesc').value=p.desc;document.getElementById('editImgPreview').src=p.img;document.getElementById('editPricePreview').textContent='= TZS '+formatTZS(p.price);['editErrName','editErrPrice'].forEach(function(id){document.getElementById(id).classList.remove('show');});['editName','editPrice'].forEach(function(id){document.getElementById(id).classList.remove('error');});document.getElementById('editSuccess').classList.add('hidden');document.getElementById('editModal').classList.remove('hidden');document.body.style.overflow='hidden';lucide.createIcons();}
-function closeEditModal(){document.getElementById('editModal').classList.add('hidden');if(!document.getElementById('lightbox').classList.contains('active'))document.body.style.overflow='';editingProductId=null;}
+function openEditModal(id){
+    var p=STATE.products.find(function(x){return x.id===id;});if(!p)return;
+    STATE.editingProductId=id;document.getElementById('editStore').value=p.store;document.getElementById('editCategory').value=p.cat;
+    document.getElementById('editName').value=p.name;document.getElementById('editPrice').value=formatTZS(p.price);
+    document.getElementById('editImage').value=p.img;document.getElementById('editDesc').value=p.desc;
+    document.getElementById('editImgPreview').src=p.img;document.getElementById('editPricePreview').textContent='= TZS '+formatTZS(p.price);
+    ['editErrName','editErrPrice'].forEach(function(id){document.getElementById(id).classList.remove('show');});['editName','editPrice'].forEach(function(id){document.getElementById(id).classList.remove('error');});
+    document.getElementById('editSuccess').classList.add('hidden');document.getElementById('editModal').classList.remove('hidden');document.body.style.overflow='hidden';lucide.createIcons();
+}
+function closeEditModal(){document.getElementById('editModal').classList.add('hidden');if(!document.getElementById('lightbox').classList.contains('active'))document.body.style.overflow='';STATE.editingProductId=null;}
 function updateEditImgPreview(){var u=document.getElementById('editImage').value.trim();if(u)document.getElementById('editImgPreview').src=u;}
 function updateEditPreview(){var v=parsePrice(document.getElementById('editPrice').value);document.getElementById('editPricePreview').textContent=v>0?'= TZS '+formatTZS(v):'';}
-function handleSaveEdit(){if(editingProductId===null)return;var ne=document.getElementById('editName'),pe=document.getElementById('editPrice');['editErrName','editErrPrice'].forEach(function(id){document.getElementById(id).classList.remove('show');});[ne,pe].forEach(function(el){el.classList.remove('error');});document.getElementById('editSuccess').classList.add('hidden');var name=ne.value.trim();if(!name){document.getElementById('editErrName').classList.add('show');ne.classList.add('error','shake');setTimeout(function(){ne.classList.remove('shake');},600);ne.focus();return;}var price=parsePrice(pe.value.trim());if(price<=0){document.getElementById('editErrPrice').classList.add('show');pe.classList.add('error','shake');setTimeout(function(){pe.classList.remove('shake');},600);pe.focus();return;}var idx=products.findIndex(function(x){return x.id===editingProductId;});if(idx===-1)return;products[idx].store=document.getElementById('editStore').value;products[idx].cat=document.getElementById('editCategory').value;products[idx].name=name;products[idx].price=price;products[idx].img=document.getElementById('editImage').value.trim()||products[idx].img;products[idx].desc=document.getElementById('editDesc').value.trim()||products[idx].desc;products[idx]._edited=true;saveEditedProducts();if(products[idx].id>1000)saveCustomProducts();document.getElementById('editSuccess').classList.remove('hidden');updateStoreCounts();renderManageList();updateDashboard();renderProducts();showToast('✅ "'+name+'" updated','success');}
+function handleSaveEdit(){
+    if(STATE.editingProductId===null)return;
+    var ne=document.getElementById('editName'),pe=document.getElementById('editPrice');
+    ['editErrName','editErrPrice'].forEach(function(id){document.getElementById(id).classList.remove('show');});[ne,pe].forEach(function(el){el.classList.remove('error');});
+    document.getElementById('editSuccess').classList.add('hidden');
+    var name=ne.value.trim();if(!name){document.getElementById('editErrName').classList.add('show');ne.classList.add('error','shake');setTimeout(function(){ne.classList.remove('shake');},600);ne.focus();return;}
+    var price=parsePrice(pe.value.trim());if(price<=0){document.getElementById('editErrPrice').classList.add('show');pe.classList.add('error','shake');setTimeout(function(){pe.classList.remove('shake');},600);pe.focus();return;}
+    var idx=STATE.products.findIndex(function(x){return x.id===STATE.editingProductId;});if(idx===-1)return;
+    STATE.products[idx].store=document.getElementById('editStore').value;STATE.products[idx].cat=document.getElementById('editCategory').value;
+    STATE.products[idx].name=name;STATE.products[idx].price=price;STATE.products[idx].img=document.getElementById('editImage').value.trim()||STATE.products[idx].img;
+    STATE.products[idx].desc=document.getElementById('editDesc').value.trim()||STATE.products[idx].desc;STATE.products[idx]._edited=true;
+    saveData();document.getElementById('editSuccess').classList.remove('hidden');renderStores();renderProducts();renderManageList();updateDashboard();showToast('✅ "'+name+'" updated','success');
+}
 
-function playAd(){var scenes=['adScene0','adScene1','adScene2','adScene3','adScene4','adScene5','adScene6'];var durs=[0,3000,3000,4000,3000,3000,4000];var total=0;durs.forEach(function(d){total+=d;});var pb=document.getElementById('adProgress'),st=Date.now();adTimeouts.forEach(function(t){clearTimeout(t);});adTimeouts=[];clearInterval(adInterval);function show(i){scenes.forEach(function(s){document.getElementById(s).classList.remove('playing');});if(i<scenes.length)document.getElementById(scenes[i]).classList.add('playing');}show(1);adInterval=setInterval(function(){pb.style.width=Math.min((Date.now()-st)/total*100,100)+'%';},50);var delay=0;for(var i=1;i<scenes.length;i++){delay+=durs[i];(function(idx,d){adTimeouts.push(setTimeout(function(){show(idx);if(idx===scenes.length-1)setTimeout(stopAd,durs[idx]);},d));})(i,delay);}}
-function stopAd(){adTimeouts.forEach(function(t){clearTimeout(t);});adTimeouts=[];clearInterval(adInterval);document.querySelectorAll('.ad-scene').forEach(function(s){s.classList.remove('playing');});document.getElementById('adScene0').classList.add('playing');document.getElementById('adProgress').style.width='0%';}
+// ===== ORDER LOGIC =====
+function openOrderModal(pid){
+    STATE.currentOrderProduct=STATE.products.find(function(p){return p.id===pid;});if(!STATE.currentOrderProduct)return;
+    document.getElementById('orderProductInfo').innerHTML='<img src="'+STATE.currentOrderProduct.img+'" class="w-20 h-20 rounded-lg object-cover flex-shrink-0" alt=""><div class="min-w-0"><p class="font-bold text-sm truncate">'+STATE.currentOrderProduct.name+'</p><p class="text-gold-500 font-bold">TZS '+formatTZS(STATE.currentOrderProduct.price)+'</p></div>';
+    document.getElementById('orderQty').value=1;updateOrderTotal();
+    document.getElementById('whatsappOrder').href='https://wa.me/'+STATE.settings.whatsapp.replace(/\+/g,'')+'?text='+encodeURIComponent("Hi Mandibo! I'd like to order:\n\n*"+STATE.currentOrderProduct.name+"*\nPrice: TZS "+formatTZS(STATE.currentOrderProduct.price)+"\n\nPlease confirm availability.");
+    document.getElementById('orderModal').classList.remove('hidden');document.body.style.overflow='hidden';lucide.createIcons();
+    if(AI_CONFIG.enabled){setTimeout(function(){autoShowChat();addChatMessage('Karibu! Nimeona unataka kuagiza '+STATE.currentOrderProduct.name+'. 😊 Jaza maelezo yako na tutawasiliana haraka!','bot');},500);}
+}
+function closeOrderModal(){document.getElementById('orderModal').classList.add('hidden');document.body.style.overflow='';document.getElementById('orderName').value='';document.getElementById('orderPhone').value='';document.getElementById('orderLocation').value='';document.getElementById('orderNotes').value='';document.getElementById('orderQty').value=1;}
+function updateOrderTotal(){if(!STATE.currentOrderProduct)return;var q=parseInt(document.getElementById('orderQty').value)||1;document.getElementById('orderTotal').innerHTML='Total: <span>TZS '+formatTZS(STATE.currentOrderProduct.price*Math.max(1,q))+'</span>';}
+function submitOrder(){if(!STATE.currentOrderProduct)return;var n=document.getElementById('orderName').value.trim(),ph=document.getElementById('orderPhone').value.trim(),loc=document.getElementById('orderLocation').value.trim();if(!n||!ph||!loc){showToast('Please fill all required fields','error');return;}var q=Math.max(1,parseInt(document.getElementById('orderQty').value)||1);STATE.orders.push({id:Date.now(),productId:STATE.currentOrderProduct.id,productName:STATE.currentOrderProduct.name,productImg:STATE.currentOrderProduct.img,price:STATE.currentOrderProduct.price,qty:q,total:STATE.currentOrderProduct.price*q,store:STATE.currentOrderProduct.store,name:n,phone:ph,location:loc,notes:document.getElementById('orderNotes').value.trim(),status:'pending',date:new Date().toISOString()});saveData();closeOrderModal();showToast('🎉 Order placed successfully!','success');}
+
+function renderOrdersList(){var el=document.getElementById('ordersList');if(!el)return;if(!STATE.orders.length){el.innerHTML='<div class="text-center py-16 text-neutral-500"><p class="text-4xl mb-3">📦</p><p>No orders yet</p></div>';return;}var sn={}; Object.keys(STATE.stores).forEach(k => sn[k] = STATE.stores[k].name);
+    var ss={pending:'bg-yellow-500/10 text-yellow-400 border-yellow-500/20',confirmed:'bg-blue-500/10 text-blue-400 border-blue-500/20',delivered:'bg-emerald-500/10 text-emerald-400 border-emerald-500/20',cancelled:'bg-red-500/10 text-red-400 border-red-500/20'};
+    var html='';STATE.orders.slice().reverse().forEach(function(o){var d=new Date(o.date);html+='<div class="bg-white/5 border border-white/10 rounded-xl p-5 flex flex-col md:flex-row gap-4"><img src="'+o.productImg+'" class="w-16 h-16 rounded-lg object-cover flex-shrink-0" alt=""><div class="flex-1 min-w-0"><div class="flex items-start justify-between gap-3 mb-2"><div><h4 class="font-bold text-sm">'+o.productName+'</h4><p class="text-neutral-500 text-xs">'+(sn[o.store]||'')+' · Qty: '+o.qty+'</p></div><span class="text-gold-500 font-bold text-sm whitespace-nowrap">TZS '+formatTZS(o.total)+'</span></div><div class="flex flex-wrap items-center gap-3 text-xs text-neutral-400 mb-3"><span>👤 '+o.name+'</span><span>📞 '+o.phone+'</span><span>📍 '+o.location+'</span></div>';if(o.notes)html+='<p class="text-xs text-neutral-500 mb-3">💬 '+o.notes+'</p>';html+='<div class="flex items-center gap-2 flex-wrap"><select onchange="updateOrderStatus('+o.id+',this.value)" class="text-[10px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-full border '+(ss[o.status]||ss.pending)+' bg-transparent focus:outline-none cursor-pointer"><option value="pending"'+(o.status==='pending'?' selected':'')+'>⏳ Pending</option><option value="confirmed"'+(o.status==='confirmed'?' selected':'')+'>✅ Confirmed</option><option value="delivered"'+(o.status==='delivered'?' selected':'')+'>📦 Delivered</option><option value="cancelled"'+(o.status==='cancelled'?' selected':'')+'>❌ Cancelled</option></select><span class="text-neutral-600 text-[10px]">'+d.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})+' '+d.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'})+'</span><button onclick="deleteOrder('+o.id+')" class="ml-auto text-red-400/40 hover:text-red-400 transition-colors p-1"><i data-lucide="trash-2" class="w-3.5 h-3.5"></i></button></div></div></div>';});el.innerHTML=html;lucide.createIcons();
+}
+function updateOrderStatus(id,st){var o=STATE.orders.find(function(x){return x.id===id;});if(o){o.status=st;saveData();renderOrdersList();document.getElementById('statRevenue').textContent=formatTZS(STATE.orders.reduce(function(s,x){return s+(x.status!=='cancelled'?x.total:0);},0))||'0';showToast('Status: '+st.toUpperCase(),'success');}}
+function deleteOrder(id){STATE.orders=STATE.orders.filter(function(x){return x.id!==id;});saveData();updateDashboard();showToast('Order deleted','info');}
+
+// ===== LOGIN =====
+function openOwnerLogin(){document.getElementById('loginModal').classList.remove('hidden');document.body.style.overflow='hidden';document.getElementById('loginError').classList.add('hidden');document.getElementById('ownerPass').value='';setTimeout(function(){document.getElementById('ownerPass').focus();},100);}
+function closeOwnerLogin(){document.getElementById('loginModal').classList.add('hidden');document.body.style.overflow='';}
+function ownerLogin(){if(document.getElementById('ownerPass').value===STATE.settings.ownerPass){closeOwnerLogin();document.body.classList.add('owner-mode');document.getElementById('userView').classList.add('hidden');document.getElementById('ownerView').classList.remove('hidden');updateDashboard();loadAIDashboard();showToast('🔑 Welcome back!','success');window.scrollTo(0,0);}else{document.getElementById('loginError').classList.remove('hidden');document.getElementById('ownerPass').classList.add('shake');setTimeout(function(){document.getElementById('ownerPass').classList.remove('shake');},600);}}
+function ownerLogout(){document.body.classList.remove('owner-mode');document.getElementById('ownerView').classList.add('hidden');document.getElementById('userView').classList.remove('hidden');showToast('Logged out','info');window.scrollTo(0,0);lucide.createIcons();}
+
+// ===== AI =====
+function showChatBox(){var box=document.getElementById('chatBox'),indicator=document.getElementById('aiIndicator'),notification=document.getElementById('aiNotification');box.classList.remove('hiding');box.classList.add('visible');indicator.classList.add('hidden');notification.style.display='none';STATE.ai.chatVisible=true;STATE.ai.newMessages=0;clearTimeout(STATE.ai.autoHideTimer);document.getElementById('chatInput').focus();}
+function hideChatBox(){var box=document.getElementById('chatBox'),indicator=document.getElementById('aiIndicator');box.classList.add('hiding');setTimeout(function(){box.classList.remove('visible','hiding');indicator.classList.remove('hidden');STATE.ai.chatVisible=false;},400);}
+function autoShowChat(){if(!STATE.ai.chatVisible&&AI_CONFIG.enabled){showChatBox();STATE.ai.autoHideTimer=setTimeout(function(){if(!document.getElementById('chatInput').value.trim()){hideChatBox();}},15000);}}
+function addChatMessage(text,sender){var chat=document.getElementById('chatMessages');if(!chat)return;var msg=document.createElement('div');msg.className='chat-msg '+(sender==='user'?'user':'bot');msg.textContent=text;chat.appendChild(msg);chat.scrollTop=chat.scrollHeight;if(sender==='bot'&&!STATE.ai.chatVisible){STATE.ai.newMessages++;var notification=document.getElementById('aiNotification');notification.textContent=STATE.ai.newMessages;notification.style.display='flex';}}
+function showTyping(){document.getElementById('typingIndicator').classList.add('active');}
+function hideTyping(){document.getElementById('typingIndicator').classList.remove('active');}
+function sendChatMessage(){var input=document.getElementById('chatInput'),text=input.value.trim();if(!text)return;addChatMessage(text,'user');input.value='';clearTimeout(STATE.ai.autoHideTimer);showTyping();setTimeout(function(){hideTyping();var response=getAIResponse(text);addChatMessage(response,'bot');speakText(response,'sw');if(text.toLowerCase().includes('order')||text.toLowerCase().includes('agiza')){setTimeout(function(){addChatMessage('Bonyeza "Order Now" kwenye bidhaa unayoipenda, au piga simu '+STATE.settings.phone+' 📞','bot');},1500);}},1200);}
+function toggleVoiceInput(){var btn=document.getElementById('voiceBtn');if(!STATE.ai.speechRecognition)return;if(STATE.ai.isListening){STATE.ai.speechRecognition.stop();btn.style.background='#0A0A0A';btn.style.color='#D4A017';}else{btn.style.background='#D4A017';btn.style.color='#000';STATE.ai.speechRecognition.start();}}
+function initAI(){
+    var SpeechRecognition=window.SpeechRecognition||window.webkitSpeechRecognition;if(SpeechRecognition){STATE.ai.speechRecognition=new SpeechRecognition();STATE.ai.speechRecognition.continuous=false;STATE.ai.speechRecognition.interimResults=false;STATE.ai.speechRecognition.lang='sw-TZ';STATE.ai.speechRecognition.onstart=function(){STATE.ai.isListening=true;document.getElementById('aiIndicator').classList.add('listening');};STATE.ai.speechRecognition.onend=function(){STATE.ai.isListening=false;document.getElementById('aiIndicator').classList.remove('listening');};STATE.ai.speechRecognition.onresult=function(e){var transcript='';for(var i=e.resultIndex;i<e.results.length;i++){if(e.results[i].isFinal)transcript+=e.results[i][0].transcript;}if(transcript){document.getElementById('chatInput').value=transcript;sendChatMessage();}};}
+    setTimeout(function(){if(AI_CONFIG.enabled&&!STATE.ai.hasGreeted){speakText(AI_CONFIG.greetingSW,'sw');addChatMessage(AI_CONFIG.greetingSW,'bot');autoShowChat();STATE.ai.hasGreeted=true;}},800);
+}
+function speakText(text,lang){if(!AI_CONFIG.enabled)return;STATE.ai.synth.cancel();var utterance=new SpeechSynthesisUtterance(text);utterance.lang=lang==='en'?'en-US':'sw-TZ';utterance.rate=1.0;utterance.pitch=1.0;utterance.volume=0.9;utterance.onstart=function(){STATE.ai.isSpeaking=true;document.getElementById('aiIndicator').classList.add('speaking');if(!STATE.ai.chatVisible)autoShowChat();};utterance.onend=function(){STATE.ai.isSpeaking=false;document.getElementById('aiIndicator').classList.remove('speaking');};STATE.ai.synth.speak(utterance);}
+const responses=[{keywords:['bei','price','gharama','cost'],reply:'Bei zinategemea bidhaa 😊 Niambie unatafuta nini (sofa, kitanda, meza) nikupatie bei sahihi. Ama bonyeza "Order Now" kwenye bidhaa unayoipenda!'},{keywords:['sofa','kochi','couch'],reply:'Sofa hizi zinauzwa sana kwa sasa 🛋️🔥 Unataka ya watu wangapi? 3, 5 au zaidi? Tazama chini ya ukurasa kupata bei!'},{keywords:['kitanda','bed'],reply:'Tunazo kitanda za kisasa kabisa 🛏️ Unatafuta size gani? 4x6, 5x6 au 6x6? Angalia products za Mandibo!'},{keywords:['meza','table','desk'],reply:'Tunazo meza za dining, coffee table, na study desk 🪑 Je, ni kwa ajili ya nyumbani au ofisi?'},{keywords:['kapu','cupboard','wardrobe','cabinet'],reply:'Kapu zetu ni quality sana 🗄️ Tunazo za mirror, sliding door, na traditional. Unapenda style gani?'},{keywords:['delivery','usafirishaji','peleka'],reply:'Tunafanya delivery bure Zanzibar yote 🚚 Niambie eneo lako nikusaidie haraka!'},{keywords:['nunua','order','nataka','agiza','buy'],reply:'Vizuri sana! 👍 Kwa kuagiza: 1) Bonyeza "Order Now" kwenye bidhaa 2) Jaza maelezo yako 3) Tutawasiliana haraka! 📞 '+STATE.settings.phone},{keywords:['store','duka','wapi','location'],reply:'Tunana duka 3 Zanzibar. Unataka kutembelea?'},{keywords:['hi','habari','hello','sasa','mambo','vipi'],reply:'Habari yako! 😊 Karibu sana Mandibo Furniture. Tunayo sofa, vitanda, meza, kapu... unataka kuangalia nini?'},{keywords:['asante','thanks','thank you','shukrani'],reply:'Karibu sana! 🙏 Niko hapa kukusaidia wakati wowote. Je, kuna kingine unachohitaji?'},{keywords:['price range','bei ipi','how much','kiasi gani'],reply:'Bei zetu ni affordable sana! Tunataka kila mtu apate samani nzuri 💯'}];
+function getAIResponse(userMessage){var msg=userMessage.toLowerCase();for(var r of responses){for(var k of r.keywords){if(msg.includes(k)){return r.reply;}}}return 'Karibu Mandibo Furniture! 😊 Tunayo samani nzuri - sofa, vitanda, meza, kapu. Unatafuta nini leo? Ama bonyeza "Order Now" kwa bidhaa unayopenda! 📞 '+STATE.settings.phone;}
+function loadAIDashboard(){document.getElementById('aiGreetingSW').value=AI_CONFIG.greetingSW;document.getElementById('aiEnabled').checked=AI_CONFIG.enabled;updateAIToggleLabel();}
+function updateAIToggleLabel(){var label=document.getElementById('aiToggleLabel');if(document.getElementById('aiEnabled').checked){label.textContent='Active';label.className='text-sm font-bold text-emerald-400';}else{label.textContent='Inactive';label.className='text-sm font-bold text-red-400';}}
+document.addEventListener('change',function(e){if(e.target.id==='aiEnabled'){updateAIToggleLabel();}});
+function saveAIConfig(){AI_CONFIG.greetingSW=document.getElementById('aiGreetingSW').value;AI_CONFIG.enabled=document.getElementById('aiEnabled').checked;saveData();document.getElementById('aiSuccess').classList.remove('hidden');document.getElementById('aiSavedTime').textContent='Saved at '+new Date().toLocaleTimeString();setTimeout(function(){document.getElementById('aiSuccess').classList.add('hidden');},3000);showToast('✅ Mandibo Team AI configuration saved!','success');}
+function testAIVoice(){speakText(AI_CONFIG.greetingSW,'sw');showToast('🎧 Testing Mandibo Team voice...','info');}
+
+// ===== LIVE FEED =====
+function lvInit(){var stored=localStorage.getItem('mandibo_lv');if(stored){try{var d=JSON.parse(stored);var now=new Date();var last=new Date(d.lastDate||0);if(now.toDateString()===last.toDateString()){STATE.live.online=d.online||STATE.live._onlineBase;STATE.live.today=d.today||STATE.live._todayBase;STATE.live.todayOrders=d.todayOrders||STATE.live._orderBase;}else{STATE.live.online=STATE.live._onlineBase;STATE.live.today=STATE.live._todayBase;STATE.live.todayOrders=STATE.live._orderBase;}}catch(e){}}else{STATE.live.online=STATE.live._onlineBase;STATE.live.today=STATE.live._todayBase;STATE.live.todayOrders=STATE.live._orderBase;}STATE.live.browsing=Math.floor(Math.random()*6)+3;lvUpdateUI();setTimeout(function(){document.getElementById('liveBar').classList.add('visible');},1200);setInterval(lvTick,3000);setInterval(lvSave,10000);setInterval(lvFeed,6000);setTimeout(function(){lvFeed();},2500);}
+function lvSave(){localStorage.setItem('mandibo_lv',JSON.stringify({online:STATE.live.online,today:STATE.live.today,todayOrders:STATE.live.todayOrders,lastDate:new Date().toISOString()}));}
+function lvTick(){var delta=Math.floor(Math.random()*5)-2;STATE.live.online=Math.max(6,Math.min(58,STATE.live.online+delta));STATE.live.browsing=Math.max(1,Math.min(12,STATE.live.browsing+Math.floor(Math.random()*3)-1));if(Math.random()<0.35)STATE.live.today++;lvUpdateUI();}
+function lvBumpOrder(){STATE.live.todayOrders++;STATE.live.today++;lvUpdateUI();lvSave();}
+function lvUpdateDisplay(elId,newVal){var el=document.getElementById(elId);if(!el)return;var oldVal=el.textContent;var formatted=typeof newVal==='number'?newVal.toLocaleString():newVal;if(oldVal!==formatted){el.textContent=formatted;el.classList.add('bumped');setTimeout(function(){el.classList.remove('bumped');},350);}}
+function lvUpdateUI(){lvUpdateDisplay('lvOnline',STATE.live.online);lvUpdateDisplay('lvToday',STATE.live.today.toLocaleString());lvUpdateDisplay('lvOrders',STATE.live.todayOrders);lvUpdateDisplay('lvBrowsing',STATE.live.browsing);var fab=document.getElementById('fabCount');if(fab)fab.textContent=STATE.live.todayOrders;}
+function lvFeed(){var msgs=[{type:'join',icon:'👋',gen:function(){return STATE.live._names[Math.floor(Math.random()*STATE.live._names.length)]+' from '+STATE.live._locations[Math.floor(Math.random()*STATE.live._locations.length)]+' joined';}},{type:'view',icon:'👁️',gen:function(){return STATE.live._names[Math.floor(Math.random()*STATE.live._names.length)]+' is viewing "'+STATE.live._products[Math.floor(Math.random()*STATE.live._products.length)]+'"';}},{type:'order',icon:'🛒',gen:function(){return STATE.live._names[Math.floor(Math.random()*STATE.live._names.length)]+' just ordered a '+STATE.live._products[Math.floor(Math.random()*STATE.live._products.length)]+'!';}},{type:'join',icon:'🌍',gen:function(){return 'New visitor from '+STATE.live._locations[Math.floor(Math.random()*STATE.live._locations.length)]+' browsing sofas';}}];var m=msgs[Math.floor(Math.random()*msgs.length)];lvShowFeed(m.type,m.icon,m.gen());if(m.type==='order')lvBumpOrder();}
+function lvShowFeed(type,icon,text){var item=document.getElementById('feedItem');if(!item)return;item.classList.remove('entering');item.classList.add('exiting');setTimeout(function(){item.className='feed-item';var iconWrap=item.querySelector('.feed-icon');iconWrap.className='feed-icon '+type;iconWrap.textContent=icon;document.getElementById('feedText').textContent=text;void item.offsetWidth;item.classList.add('entering');},300);}
+function toggleLiveBar(){var bar=document.getElementById('liveBar'),fab=document.getElementById('liveBarFab'),icon=document.getElementById('barToggleIcon');if(STATE.live.barVisible){bar.classList.remove('visible');fab.classList.remove('hidden');fab.classList.add('flex');icon.setAttribute('data-lucide','chevron-up');}else{bar.classList.add('visible');fab.classList.add('hidden');fab.classList.remove('flex');icon.setAttribute('data-lucide','chevron-down');}STATE.live.barVisible=!STATE.live.barVisible;lucide.createIcons();}
+
+// ===== UTILS =====
+function selectStore(sid){document.querySelectorAll('.store-card').forEach(function(c){c.classList.remove('active-store');});var c=document.querySelector('.store-card[data-store="'+sid+'"]');if(c)c.classList.add('active-store');filterStore(sid);document.getElementById('products').scrollIntoView({behavior:'smooth'});}
+function filterStore(s){STATE.currentStoreFilter=s;document.querySelectorAll('[data-sfilter]').forEach(function(b){b.classList.toggle('active-cat',b.dataset.sfilter===s);});renderProducts();}
+function filterCategory(c){STATE.currentCatFilter=c;document.querySelectorAll('[data-cfilter]').forEach(function(b){b.classList.toggle('active-cat',b.dataset.cfilter===c);});renderProducts();}
+var searchTimer=null;function searchProducts(){clearTimeout(searchTimer);searchTimer=setTimeout(renderProducts,200);}
+function openLightbox(pid){var p=STATE.products.find(function(x){return x.id===pid;});if(!p)return;STATE.lbZoom=1;STATE.lbSpinning=false;document.getElementById('lbImg').src=p.img;document.getElementById('lbImg').style.transform='scale(1)';document.getElementById('lbImg').classList.remove('auto-spinning');document.getElementById('lbName').textContent=p.name;document.getElementById('lbPrice').textContent='TZS '+formatTZS(p.price);document.getElementById('lbSpinBtn').classList.remove('spin-active');document.getElementById('lightbox').classList.add('active');document.body.style.overflow='hidden';}
+function closeLightbox(e){if(e&&e.target!==document.getElementById('lightbox')&&!e.target.closest('.lightbox-close'))return;document.getElementById('lightbox').classList.remove('active');document.getElementById('lbImg').classList.remove('auto-spinning');STATE.lbSpinning=false;if(!document.getElementById('orderModal').classList.contains('hidden')||!document.getElementById('editModal').classList.contains('hidden'))return;document.body.style.overflow='';}
+function toggleLightboxSpin(e){e.stopPropagation();STATE.lbSpinning=!STATE.lbSpinning;var img=document.getElementById('lbImg'),btn=document.getElementById('lbSpinBtn');if(STATE.lbSpinning){img.classList.add('auto-spinning');btn.classList.add('spin-active');}else{img.classList.remove('auto-spinning');btn.classList.remove('spin-active');}}
+function lightboxZoom(e,dir){e.stopPropagation();STATE.lbZoom=Math.max(0.5,Math.min(3,STATE.lbZoom+dir*0.3));document.getElementById('lbImg').style.transform='scale('+STATE.lbZoom+')';document.getElementById('lbImg').classList.remove('auto-spinning');STATE.lbSpinning=false;document.getElementById('lbSpinBtn').classList.remove('spin-active');}
+function lightboxReset(e){e.stopPropagation();STATE.lbZoom=1;document.getElementById('lbImg').style.transform='scale(1)';}
+
+function showToast(msg,type){type=type||'info';var box=document.getElementById('toastBox');var c={success:'border-emerald-500 bg-emerald-500/10',error:'border-red-500 bg-red-500/10',info:'border-gold-500 bg-gold-500/10'};var t=document.createElement('div');t.className='toast-in pointer-events-auto border '+(c[type]||c.info)+' backdrop-blur-xl rounded-xl px-5 py-4 max-w-sm text-sm';t.textContent=msg;box.appendChild(t);setTimeout(function(){t.classList.remove('toast-in');t.classList.add('toast-out');setTimeout(function(){t.remove();},300);},4000);}
+function initNavbar(){window.addEventListener('scroll',function(){var n=document.getElementById('navbar');if(window.scrollY>80)n.classList.add('bg-[#0A0A0A]/90','backdrop-blur-xl','border-b','border-white/5');else n.classList.remove('bg-[#0A0A0A]/90','backdrop-blur-xl','border-b','border-white/5');});}
+function toggleMobileMenu(){document.getElementById('mobileMenu').classList.toggle('hidden');}
+function initReveal(){var obs=new IntersectionObserver(function(e){e.forEach(function(x){if(x.isIntersecting)x.target.classList.add('active');});},{threshold:0.1,rootMargin:'0px 0px -50px 0px'});document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el);});}
+function playAd(){var scenes=['adScene0','adScene1','adScene2','adScene3','adScene4','adScene5','adScene6'];var durs=[0,3000,3000,4000,3000,3000,4000];var total=0;durs.forEach(function(d){total+=d;});var pb=document.getElementById('adProgress'),st=Date.now();STATE.adTimeouts.forEach(function(t){clearTimeout(t);});STATE.adTimeouts=[];clearInterval(STATE.adInterval);function show(i){scenes.forEach(function(s){document.getElementById(s).classList.remove('playing');});if(i<scenes.length)document.getElementById(scenes[i]).classList.add('playing');}show(1);STATE.adInterval=setInterval(function(){pb.style.width=Math.min((Date.now()-st)/total*100,100)+'%';},50);var delay=0;for(var i=1;i<scenes.length;i++){delay+=durs[i];(function(idx,d){STATE.adTimeouts.push(setTimeout(function(){show(idx);if(idx===scenes.length-1)setTimeout(stopAd,durs[idx]);},d));})(i,delay);}}
+function stopAd(){STATE.adTimeouts.forEach(function(t){clearTimeout(t);});STATE.adTimeouts=[];clearInterval(STATE.adInterval);document.querySelectorAll('.ad-scene').forEach(function(s){s.classList.remove('playing');});document.getElementById('adScene0').classList.add('playing');document.getElementById('adProgress').style.width='0%';}
+
+// ===== INITIALIZATION =====
+document.addEventListener('DOMContentLoaded',function(){
+    loadData();
+    renderStores(); // Important for dynamic stores
+    renderProducts();
+    
+    document.getElementById('loginForm').addEventListener('submit',function(e){e.preventDefault();ownerLogin();});
+    document.getElementById('orderForm').addEventListener('submit',function(e){e.preventDefault();submitOrder();});
+    document.getElementById('addPrice').addEventListener('input',function(){var v=parsePrice(this.value);var p=document.getElementById('pricePreview');if(v>0){p.textContent='= TZS '+formatTZS(v);p.classList.remove('hidden');}else p.classList.add('hidden');});
+    document.addEventListener('keydown',function(e){if(e.key==='Escape'){closeLightbox();closeOrderModal();closeEditModal();closeDeleteModal();closeOwnerLogin();}});
+    
+    initReveal();initNavbar();lucide.createIcons();lvInit();initAI();
+});
 </script>
 </body>
 </html>
