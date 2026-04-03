@@ -47,6 +47,8 @@
         @keyframes counter-bump{0%{transform:scale(1)}50%{transform:scale(1.15)}100%{transform:scale(1)}}
         @keyframes glow-line{0%{opacity:.3}50%{opacity:1}100%{opacity:.3}}
         @keyframes voice-pulse{0%,100%{box-shadow:0 0 20px rgba(212,160,23,.2)}50%{box-shadow:0 0 40px rgba(212,160,23,.5)}}
+        @keyframes slide-up-in{from{transform:translateY(100%) scale(0.9);opacity:0}to{transform:translateY(0) scale(1);opacity:1}}
+        @keyframes slide-down-out{from{transform:translateY(0) scale(1);opacity:1}to{transform:translateY(100%) scale(0.9);opacity:0}}
         .shimmer-text{background:linear-gradient(90deg,#D4A017 0%,#FDE68A 50%,#D4A017 100%);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:shimmer 3s linear infinite}
         .float{animation:float 3s ease-in-out infinite}
         .pulse-gold{animation:pulse-gold 2s ease-in-out infinite}
@@ -94,43 +96,179 @@
         .click-hint{position:absolute;bottom:50%;left:50%;transform:translate(-50%,50%);background:rgba(0,0,0,.7);backdrop-filter:blur(8px);padding:6px 14px;border-radius:20px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:rgba(255,255,255,.8);opacity:0;transition:opacity .3s;pointer-events:none}
         .product-card:hover .click-hint{opacity:1}
 
-        /* PASTORY VOICE INDICATOR */
-        .pastory-indicator{
+        /* MANDIBO TEAM AI CHAT BOX - DYNAMIC POP-UP */
+        #chatBox{
             position:fixed;
-            bottom:100px;
-            right:24px;
-            width:60px;
-            height:60px;
-            border-radius:50%;
-            background:rgba(212,160,23,.1);
-            border:2px solid rgba(212,160,23,.3);
+            bottom:20px;
+            right:20px;
+            width:340px;
+            background:#fff;
+            border-radius:16px;
+            box-shadow:0 20px 60px rgba(0,0,0,0.4), 0 0 0 1px rgba(212,160,23,0.2);
+            overflow:hidden;
+            font-family:'Manrope',sans-serif;
+            z-index:999;
+            display:flex;
+            flex-direction:column;
+            max-height:520px;
+            transform:translateY(100%) scale(0.9);
+            opacity:0;
+            pointer-events:none;
+            transition:all .4s cubic-bezier(.16,1,.3,1);
+        }
+        #chatBox.visible{
+            transform:translateY(0) scale(1);
+            opacity:1;
+            pointer-events:all;
+            animation:slide-up-in .5s cubic-bezier(.16,1,.3,1);
+        }
+        #chatBox.hiding{
+            animation:slide-down-out .4s cubic-bezier(.16,1,.3,1) forwards;
+        }
+        .chat-header{
+            background:linear-gradient(135deg, #0A0A0A 0%, #1a1a1a 100%);
+            color:#D4A017;
+            padding:14px 16px;
+            font-weight:bold;
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            border-bottom:1px solid rgba(212,160,23,0.2);
+        }
+        .chat-minimize-btn{
+            background:rgba(212,160,23,0.1);
+            border:1px solid rgba(212,160,23,0.3);
+            color:#D4A017;
+            cursor:pointer;
+            font-size:18px;
+            padding:4px 10px;
+            border-radius:8px;
             display:flex;
             align-items:center;
             justify-content:center;
-            opacity:0;
-            pointer-events:none;
-            transition:all .3s ease;
-            z-index:89;
-            cursor:help;
+            transition:all .3s;
+            width:32px;
+            height:32px;
         }
-        .pastory-indicator.listening{
-            opacity:1;
-            animation:voice-pulse 1.5s ease-in-out infinite;
+        .chat-minimize-btn:hover{
+            background:rgba(212,160,23,0.2);
             border-color:#D4A017;
         }
-        .pastory-indicator.speaking{
-            opacity:1;
-            border-color:#D4A017;
-            box-shadow:0 0 30px rgba(212,160,23,.4);
+        #chatMessages{
+            height:300px;
+            overflow-y:auto;
+            padding:14px;
+            font-size:13px;
+            background:#f9f9f9;
+            flex:1;
+            display:flex;
+            flex-direction:column;
+            gap:10px;
         }
-        .pastory-dot{
-            width:12px;
-            height:12px;
+        .chat-input-area{
+            display:flex;
+            gap:6px;
+            padding:10px;
+            background:#fff;
+            border-top:1px solid #eee;
+        }
+        .chat-msg{
+            margin-bottom:8px;
+            padding:10px 12px;
+            border-radius:12px;
+            word-wrap:break-word;
+            animation:fade-up .3s ease-out;
+            max-width:85%;
+        }
+        .chat-msg.user{
             background:#D4A017;
-            border-radius:50%;
+            color:#000;
+            margin-left:auto;
+            font-weight:500;
+            border-bottom-right-radius:4px;
         }
-        .pastory-dot.listening{
-            animation:live-dot 1.2s ease-in-out infinite;
+        .chat-msg.bot{
+            background:#e8e8e8;
+            color:#333;
+            margin-right:auto;
+            border-bottom-left-radius:4px;
+        }
+        .typing-indicator{
+            display:none;
+            padding:10px 12px;
+            background:#e8e8e8;
+            border-radius:12px;
+            width:fit-content;
+            margin-right:auto;
+        }
+        .typing-indicator.active{
+            display:block;
+            animation:fade-up .3s ease-out;
+        }
+        .typing-dot{
+            display:inline-block;
+            width:8px;
+            height:8px;
+            border-radius:50%;
+            background:#999;
+            margin:0 2px;
+            animation:typing-bounce 1.4s infinite;
+        }
+        .typing-dot:nth-child(2){animation-delay:0.2s}
+        .typing-dot:nth-child(3){animation-delay:0.4s}
+        @keyframes typing-bounce{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-8px)}}
+
+        /* FLOATING AI INDICATOR */
+        .ai-indicator{
+            position:fixed;
+            bottom:20px;
+            right:20px;
+            width:60px;
+            height:60px;
+            border-radius:50%;
+            background:linear-gradient(135deg, #D4A017 0%, #B8860B 100%);
+            border:3px solid rgba(212,160,23,.3);
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            cursor:pointer;
+            transition:all .3s ease;
+            z-index:998;
+            box-shadow:0 8px 24px rgba(212,160,23,.4);
+        }
+        .ai-indicator:hover{
+            transform:scale(1.1);
+            box-shadow:0 12px 32px rgba(212,160,23,.6);
+        }
+        .ai-indicator.listening{
+            animation:voice-pulse 1.5s ease-in-out infinite;
+        }
+        .ai-indicator.speaking{
+            border-color:#D4A017;
+            box-shadow:0 0 40px rgba(212,160,23,.6);
+            animation:pulse-gold 1s ease-in-out infinite;
+        }
+        .ai-indicator.hidden{
+            display:none;
+        }
+        .ai-icon{
+            font-size:28px;
+        }
+        .ai-notification{
+            position:absolute;
+            top:-8px;
+            right:-8px;
+            width:24px;
+            height:24px;
+            background:#ef4444;
+            border-radius:50%;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:11px;
+            font-weight:bold;
+            color:white;
+            animation:pop-in .5s ease-out;
         }
 
         /* ===== LIVE VISITOR BAR ===== */
@@ -271,6 +409,18 @@
                 animation:live-dot 1.5s ease-in-out infinite;
                 flex-shrink:0;
             }
+            #chatBox{
+                width:300px;
+                max-height:450px;
+                bottom:15px;
+                right:15px;
+            }
+            .ai-indicator{
+                width:56px;
+                height:56px;
+                bottom:15px;
+                right:15px;
+            }
         }
         @media(min-width:768px){
             .feed-mobile-dot{display:none}
@@ -280,32 +430,37 @@
 </head>
 <body class="bg-[#0A0A0A] text-white font-sans antialiased overflow-x-hidden">
 
-<!-- PASTORY CHAT BOX WIDGET -->
-<div id="chatBox" style="position:fixed;bottom:20px;right:20px;width:320px;background:#fff;border-radius:12px;box-shadow:0 10px 40px rgba(0,0,0,0.3);overflow:hidden;font-family:'Manrope',sans-serif;z-index:88;display:flex;flex-direction:column;max-height:500px;">
-  
-  <div style="background:#0A0A0A;color:#D4A017;padding:12px 15px;font-weight:bold;display:flex;align-items:center;justify-content:space-between;">
-    <div style="display:flex;align-items:center;gap:8px;">
-      <span style="width:8px;height:8px;background:#D4A017;border-radius:50%;animation:live-dot 1.2s ease-in-out infinite;"></span>
-      Pastory (AI Assistant)
+<!-- MANDIBO TEAM AI CHAT BOX (DYNAMIC POP-UP) -->
+<div id="chatBox">
+    <div class="chat-header">
+        <div style="display:flex;align-items:center;gap:10px;">
+            <div style="width:10px;height:10px;background:#D4A017;border-radius:50%;animation:live-dot 1.2s ease-in-out infinite;"></div>
+            <span style="font-size:14px;">🤝 Mandibo Team</span>
+        </div>
+        <button onclick="hideChatBox()" class="chat-minimize-btn" title="Close">✕</button>
     </div>
-    <button onclick="toggleChatBox()" style="background:none;border:none;color:#D4A017;cursor:pointer;font-size:18px;padding:0;width:24px;height:24px;display:flex;align-items:center;justify-content:center;">−</button>
-  </div>
-  
-  <div id="chatMessages" style="height:280px;overflow-y:auto;padding:12px;font-size:13px;background:#f9f9f9;flex:1;display:flex;flex-direction:column;gap:8px;">
-    <div style="color:#666;text-align:center;padding:10px;font-size:12px;">Habari! Karibu...</div>
-  </div>
-  
-  <div style="display:flex;gap:4px;padding:8px;background:#fff;border-top:1px solid #eee;">
-    <input id="chatInput" placeholder="Andika hapa..." style="flex:1;border:1px solid #ddd;padding:8px 10px;border-radius:6px;font-size:12px;font-family:'Manrope',sans-serif;" onkeypress="if(event.key==='Enter')sendMessage()">
-    <button onclick="sendMessage()" style="background:#D4A017;color:#000;border:none;padding:8px 12px;border-radius:6px;cursor:pointer;font-weight:bold;font-size:12px;transition:all .2s;">📤</button>
-    <button onclick="toggleVoiceInput()" id="voiceBtn" style="background:#0A0A0A;color:#D4A017;border:none;padding:8px 12px;border-radius:6px;cursor:pointer;font-weight:bold;font-size:12px;transition:all .2s;">🎤</button>
-    <a href="https://wa.me/255799610190?text=Habari!%20Nimetaka%20kujua%20zaidi%20kuhusu%20samani%20za%20Mandibo%20Furniture" target="_blank" style="background:#25D366;color:#fff;border:none;padding:8px 12px;border-radius:6px;cursor:pointer;font-weight:bold;font-size:12px;transition:all .2s;text-decoration:none;display:flex;align-items:center;gap:2px;hover:opacity:0.9;">💚 WhatsApp</a>
-  </div>
+    
+    <div id="chatMessages">
+        <div style="color:#666;text-align:center;padding:10px;font-size:12px;">👋 Karibu Mandibo Furniture...</div>
+    </div>
+    
+    <div class="typing-indicator" id="typingIndicator">
+        <span class="typing-dot"></span>
+        <span class="typing-dot"></span>
+        <span class="typing-dot"></span>
+    </div>
+    
+    <div class="chat-input-area">
+        <input id="chatInput" placeholder="Andika hapa..." style="flex:1;border:1px solid #ddd;padding:10px 12px;border-radius:10px;font-size:13px;font-family:'Manrope',sans-serif;outline:none;" onkeypress="if(event.key==='Enter')sendChatMessage()">
+        <button onclick="sendChatMessage()" style="background:#D4A017;color:#000;border:none;padding:10px 14px;border-radius:10px;cursor:pointer;font-weight:bold;font-size:13px;transition:all .2s;min-width:44px;">📤</button>
+        <button onclick="toggleVoiceInput()" id="voiceBtn" style="background:#0A0A0A;color:#D4A017;border:none;padding:10px 14px;border-radius:10px;cursor:pointer;font-weight:bold;font-size:13px;transition:all .2s;min-width:44px;">🎤</button>
+    </div>
 </div>
 
-<!-- PASTORY VOICE INDICATOR (INVISIBLE BUT SHOWS WHEN ACTIVE) -->
-<div id="pastoryIndicator" class="pastory-indicator" title="Pastory AI listening...">
-    <div class="pastory-dot listening"></div>
+<!-- FLOATING AI INDICATOR -->
+<div id="aiIndicator" class="ai-indicator" onclick="showChatBox()" title="Chat with Mandibo Team">
+    <span class="ai-icon">🤝</span>
+    <span class="ai-notification" id="aiNotification" style="display:none;">1</span>
 </div>
 
 <!-- LIGHTBOX -->
@@ -465,17 +620,17 @@
     <div class="max-w-[1800px] mx-auto px-4 md:px-8">
         <div class="mb-10"><p class="text-gold-500 font-mono text-xs uppercase tracking-[0.3em] mb-2">Owner Dashboard</p><h1 class="text-3xl md:text-4xl font-bold tracking-tighter">Mandibo <span class="shimmer-text">Control Panel</span></h1></div>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10"><div class="bg-white/5 border border-white/10 rounded-xl p-5"><p class="text-neutral-400 text-xs uppercase tracking-wider mb-1">Total Products</p><p id="statProducts" class="text-2xl font-bold text-gold-500">0</p></div><div class="bg-white/5 border border-white/10 rounded-xl p-5"><p class="text-neutral-400 text-xs uppercase tracking-wider mb-1">Total Orders</p><p id="statOrders" class="text-2xl font-bold text-emerald-400">0</p></div><div class="bg-white/5 border border-white/10 rounded-xl p-5"><p class="text-neutral-400 text-xs uppercase tracking-wider mb-1">Revenue (TZS)</p><p id="statRevenue" class="text-2xl font-bold text-blue-400">0</p></div><div class="bg-white/5 border border-white/10 rounded-xl p-5"><p class="text-neutral-400 text-xs uppercase tracking-wider mb-1">Stores</p><p class="text-2xl font-bold text-purple-400">3</p></div></div>
-        <div class="flex flex-wrap gap-2 mb-8 border-b border-white/10 pb-4"><button onclick="showDashTab('orders')" class="dash-tab text-sm font-bold uppercase tracking-wider px-5 py-2.5 rounded-full border border-gold-500 bg-gold-500 text-black" data-dtab="orders">📦 Orders</button><button onclick="showDashTab('addProduct')" class="dash-tab text-sm font-bold uppercase tracking-wider px-5 py-2.5 rounded-full border border-white/10 text-neutral-400" data-dtab="addProduct">➕ Add Product</button><button onclick="showDashTab('manageProducts')" class="dash-tab text-sm font-bold uppercase tracking-wider px-5 py-2.5 rounded-full border border-white/10 text-neutral-400" data-dtab="manageProducts">🔧 Manage Products</button><button onclick="showDashTab('pastory')" class="dash-tab text-sm font-bold uppercase tracking-wider px-5 py-2.5 rounded-full border border-white/10 text-neutral-400" data-dtab="pastory">🤖 Pastory AI</button></div>
+        <div class="flex flex-wrap gap-2 mb-8 border-b border-white/10 pb-4"><button onclick="showDashTab('orders')" class="dash-tab text-sm font-bold uppercase tracking-wider px-5 py-2.5 rounded-full border border-gold-500 bg-gold-500 text-black" data-dtab="orders">📦 Orders</button><button onclick="showDashTab('addProduct')" class="dash-tab text-sm font-bold uppercase tracking-wider px-5 py-2.5 rounded-full border border-white/10 text-neutral-400" data-dtab="addProduct">➕ Add Product</button><button onclick="showDashTab('manageProducts')" class="dash-tab text-sm font-bold uppercase tracking-wider px-5 py-2.5 rounded-full border border-white/10 text-neutral-400" data-dtab="manageProducts">🔧 Manage Products</button><button onclick="showDashTab('aiconfig')" class="dash-tab text-sm font-bold uppercase tracking-wider px-5 py-2.5 rounded-full border border-white/10 text-neutral-400" data-dtab="aiconfig">🤖 AI Config</button></div>
         <div id="dashOrders" class="dash-panel"><div id="ordersList" class="space-y-4"><div class="text-center py-16 text-neutral-500"><p class="text-4xl mb-3">📦</p><p>No orders yet</p></div></div></div>
         <div id="dashAddProduct" class="dash-panel hidden"><div id="addProductForm" class="max-w-2xl bg-white/5 border border-white/10 rounded-2xl p-6 md:p-8"><h3 class="text-xl font-bold mb-6">Add New Product</h3><div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5"><div><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2 block">Store *</label><select id="addStore" class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white focus:outline-none"><option value="store-a">Store A — Heritage</option><option value="store-b">Store B — Coastal</option><option value="store-c">Store C — Modern</option></select></div><div><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2 block">Category *</label><select id="addCategory" class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white focus:outline-none"><option value="beds">Beds</option><option value="sofa-chair">Sofa & Chair</option><option value="tables">Tables</option><option value="cupboard">Cupboard</option><option value="doors-windows">Doors & Windows</option><option value="others">Others</option></select></div></div><div class="mb-5"><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2 block">Product Name *</label><input type="text" id="addName" placeholder="e.g. Royal Zanzibar Bed" class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-neutral-600 focus:outline-none"><p id="errName" class="inline-err">⚠ Please enter a product name</p></div><div class="mb-5"><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2 block">Price (TZS) * <span class="text-neutral-600 normal-case tracking-normal font-normal">— type any amount</span></label><div class="relative"><span class="absolute left-4 top-1/2 -translate-y-1/2 text-neutral-500 text-sm font-medium">TZS</span><input type="text" id="addPrice" inputmode="numeric" placeholder="e.g. 2500000" class="form-input w-full bg-black border border-white/10 rounded-lg pl-14 pr-4 py-3 text-sm text-white placeholder-neutral-600 focus:outline-none" oninput="this.value=this.value.replace(/[^0-9,]/g,'')"></div><p id="errPrice" class="inline-err">⚠ Please enter a valid price</p><p id="pricePreview" class="text-gold-500/60 text-xs mt-2 font-mono hidden"></p></div><div class="mb-5"><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2 block">Image URL <span class="text-neutral-600 normal-case tracking-normal font-normal">(optional)</span></label><input type="text" id="addImage" placeholder="https://..." class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-neutral-600 focus:outline-none"></div><div class="mb-6"><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2 block">Description <span class="text-neutral-600 normal-case tracking-normal font-normal">(optional)</span></label><textarea id="addDesc" rows="3" placeholder="Brief description..." class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-neutral-600 focus:outline-none resize-none"></textarea></div><div class="flex gap-3"><button type="button" onclick="handleAddProduct()" class="btn-add bg-gold-500 text-black font-bold text-sm uppercase tracking-wider px-10 py-3.5 rounded-full hover:bg-gold-400 hover:scale-105 transition-all duration-300">➕ Add Product</button><button type="button" onclick="clearAddForm()" class="border border-white/10 text-neutral-400 font-bold text-sm uppercase tracking-wider px-6 py-3.5 rounded-full hover:border-white/30 hover:text-white transition-all duration-300">Clear</button></div><div id="addSuccess" class="hidden mt-5 p-4 bg-emerald-500/10 border border-emerald-500/30 rounded-xl"><p class="text-emerald-400 font-bold text-sm">✅ Product added!</p><p id="addSuccessDetail" class="text-emerald-400/60 text-xs mt-1"></p></div></div></div>
         <div id="dashManageProducts" class="dash-panel hidden"><div class="flex items-center justify-between mb-5"><p class="text-neutral-400 text-sm"><span id="manageCount" class="text-white font-bold">0</span> total products</p><button onclick="renderManageList()" class="text-xs font-bold uppercase tracking-wider px-4 py-2 border border-white/10 rounded-full text-neutral-400 hover:border-gold-500/50 hover:text-gold-500 transition-all">🔄 Refresh</button></div><div id="manageList" class="space-y-3"></div></div>
         
-        <!-- PASTORY AI CONFIGURATION PANEL -->
-        <div id="dashPastory" class="dash-panel hidden">
+        <!-- MANDIBO TEAM AI CONFIGURATION PANEL -->
+        <div id="dashAiconfig" class="dash-panel hidden">
             <div class="max-w-3xl bg-white/5 border border-white/10 rounded-2xl p-6 md:p-8">
                 <div class="mb-8">
-                    <h3 class="text-2xl font-bold mb-2">🤖 Pastory AI Agent Configuration</h3>
-                    <p class="text-neutral-400 text-sm">Configure what Pastory will say to welcome customers and handle conversations</p>
+                    <h3 class="text-2xl font-bold mb-2">🤖 Mandibo Team AI Configuration</h3>
+                    <p class="text-neutral-400 text-sm">Configure how the Mandibo Team AI agent greets and assists customers</p>
                 </div>
 
                 <div class="mb-8">
@@ -484,8 +639,8 @@
                             <i data-lucide="info" class="w-5 h-5 text-gold-500"></i>
                         </div>
                         <div class="text-sm">
-                            <p class="font-semibold text-gold-400">Pastory Status</p>
-                            <p class="text-gold-400/60">AI Voice Agent is <span id="pastoryStatus" class="font-bold">Active</span> • Auto-starts on page load • Speaks Swahili first, then translates</p>
+                            <p class="font-semibold text-gold-400">Mandibo Team AI Status</p>
+                            <p class="text-gold-400/60">AI Agent is <span id="aiConfigStatus" class="font-bold">Active</span> • Auto-starts immediately • Dynamic pop-up chat</p>
                         </div>
                     </div>
                 </div>
@@ -494,62 +649,33 @@
                     <!-- Swahili Greeting -->
                     <div>
                         <label class="text-sm font-bold uppercase tracking-wider text-neutral-400 mb-3 block">🇹🇿 Swahili Greeting (First Message)</label>
-                        <textarea id="pastoryGreetingSW" rows="3" placeholder="Habari! Karibu kwenye Mandibo Furniture..." class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-neutral-600 focus:outline-none resize-none"></textarea>
-                        <p class="text-xs text-neutral-500 mt-2">This message is spoken automatically when a visitor arrives</p>
-                    </div>
-
-                    <!-- English Greeting -->
-                    <div>
-                        <label class="text-sm font-bold uppercase tracking-wider text-neutral-400 mb-3 block">🇬🇧 English Translation (if Requested)</label>
-                        <textarea id="pastoryGreetingEN" rows="3" placeholder="Hello! Welcome to Mandibo Furniture..." class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-neutral-600 focus:outline-none resize-none"></textarea>
-                        <p class="text-xs text-neutral-500 mt-2">Pastory will switch to English if customer asks</p>
-                    </div>
-
-                    <!-- Business Brief -->
-                    <div>
-                        <label class="text-sm font-bold uppercase tracking-wider text-neutral-400 mb-3 block">📝 Business Brief (What to Say About Us)</label>
-                        <textarea id="pastoryBrief" rows="4" placeholder="We are Mandibo Furniture, Zanzibar's premier online furniture store with 3 stores..." class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-neutral-600 focus:outline-none resize-none"></textarea>
-                        <p class="text-xs text-neutral-500 mt-2">This is used when customers ask about Mandibo</p>
-                    </div>
-
-                    <!-- Product Info Template -->
-                    <div>
-                        <label class="text-sm font-bold uppercase tracking-wider text-neutral-400 mb-3 block">🛋️ How Pastory Describes Products</label>
-                        <textarea id="pastoryProductTemplate" rows="4" placeholder="We have a wide range of [CATEGORY] available in all 3 stores. Prices start from TZS [PRICE]. Free delivery across Zanzibar. Would you like to see our [CATEGORY]?" class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-neutral-600 focus:outline-none resize-none"></textarea>
-                        <p class="text-xs text-neutral-500 mt-2">Use [CATEGORY] and [PRICE] as placeholders</p>
-                    </div>
-
-                    <!-- System Instructions -->
-                    <div>
-                        <label class="text-sm font-bold uppercase tracking-wider text-neutral-400 mb-3 block">⚙️ AI Personality & Tone (System Instructions)</label>
-                        <textarea id="pastorySystemPrompt" rows="5" placeholder="You are Pastory, a friendly and professional furniture sales AI assistant for Mandibo Furniture. You should be helpful, enthusiastic, and multilingual. Always be respectful and guide customers toward products and ordering." class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-neutral-600 focus:outline-none resize-none"></textarea>
-                        <p class="text-xs text-neutral-500 mt-2">Controls how Pastory behaves and responds to customers</p>
+                        <textarea id="aiGreetingSW" rows="3" placeholder="Habari! Karibu kwenye Mandibo Furniture..." class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-neutral-600 focus:outline-none resize-none"></textarea>
+                        <p class="text-xs text-neutral-500 mt-2">This message is spoken and shown immediately when visitor arrives</p>
                     </div>
 
                     <!-- Enable/Disable -->
                     <div class="flex items-center gap-4 p-4 bg-white/5 rounded-lg border border-white/10">
                         <div>
-                            <p class="font-semibold text-sm mb-1">Enable Pastory on Site</p>
+                            <p class="font-semibold text-sm mb-1">Enable Mandibo Team AI</p>
                             <p class="text-xs text-neutral-400">Turn the AI agent on or off for visitors</p>
                         </div>
                         <div class="ml-auto">
                             <label class="flex items-center gap-2 cursor-pointer">
-                                <input type="checkbox" id="pastoryEnabled" checked class="w-4 h-4">
-                                <span id="pastoryToggleLabel" class="text-sm font-bold text-emerald-400">Active</span>
+                                <input type="checkbox" id="aiEnabled" checked class="w-4 h-4">
+                                <span id="aiToggleLabel" class="text-sm font-bold text-emerald-400">Active</span>
                             </label>
                         </div>
                     </div>
                 </div>
 
                 <div class="flex gap-3 mt-8">
-                    <button type="button" onclick="savePastoryConfig()" class="bg-gold-500 text-black font-bold text-sm uppercase tracking-wider px-10 py-3.5 rounded-full hover:bg-gold-400 hover:scale-105 transition-all duration-300">💾 Save Configuration</button>
-                    <button type="button" onclick="resetPastoryConfig()" class="border border-white/10 text-neutral-400 font-bold text-sm uppercase tracking-wider px-6 py-3.5 rounded-full hover:border-white/30 hover:text-white transition-all duration-300">↺ Reset to Default</button>
-                    <button type="button" onclick="testPastoryAI()" class="border border-gold-500/30 text-gold-400 font-bold text-sm uppercase tracking-wider px-6 py-3.5 rounded-full hover:border-gold-500 hover:bg-gold-500/10 transition-all duration-300">🎧 Test Voice</button>
+                    <button type="button" onclick="saveAIConfig()" class="bg-gold-500 text-black font-bold text-sm uppercase tracking-wider px-10 py-3.5 rounded-full hover:bg-gold-400 hover:scale-105 transition-all duration-300">💾 Save Configuration</button>
+                    <button type="button" onclick="testAIVoice()" class="border border-gold-500/30 text-gold-400 font-bold text-sm uppercase tracking-wider px-6 py-3.5 rounded-full hover:border-gold-500 hover:bg-gold-500/10 transition-all duration-300">🎧 Test Voice</button>
                 </div>
 
-                <div id="pastorySuccess" class="hidden mt-6 p-4 bg-emerald-500/10 border border-emerald-500/30 rounded-xl">
-                    <p class="text-emerald-400 font-bold text-sm">✅ Pastory Configuration Saved!</p>
-                    <p id="pastorySavedTime" class="text-emerald-400/60 text-xs mt-1"></p>
+                <div id="aiSuccess" class="hidden mt-6 p-4 bg-emerald-500/10 border border-emerald-500/30 rounded-xl">
+                    <p class="text-emerald-400 font-bold text-sm">✅ Mandibo Team AI Configuration Saved!</p>
+                    <p id="aiSavedTime" class="text-emerald-400/60 text-xs mt-1"></p>
                 </div>
             </div>
         </div>
@@ -569,214 +695,239 @@
 <div id="editModal" class="fixed inset-0 z-[110] hidden"><div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="closeEditModal()"></div><div class="relative z-10 flex items-center justify-center min-h-screen p-4"><div class="bg-[#111] border border-gold-500/30 rounded-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto p-6 md:p-8"><div class="flex items-center justify-between mb-6"><h3 class="text-xl font-bold">✏️ Edit Product</h3><button onclick="closeEditModal()" class="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center hover:border-red-500 hover:text-red-500 transition-colors"><i data-lucide="x" class="w-4 h-4"></i></button></div><div class="mb-5"><img id="editImgPreview" src="" class="w-full h-48 object-cover rounded-xl border border-white/10 bg-[#0A0A0A]" alt="Preview"></div><div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5"><div><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2 block">Store</label><select id="editStore" class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white focus:outline-none"><option value="store-a">Store A</option><option value="store-b">Store B</option><option value="store-c">Store C</option></select></div><div><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2 block">Category</label><select id="editCategory" class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white focus:outline-none"><option value="beds">Beds</option><option value="sofa-chair">Sofa & Chair</option><option value="tables">Tables</option><option value="cupboard">Cupboard</option><option value="doors-windows">Doors & Windows</option><option value="others">Others</option></select></div></div><div class="mb-5"><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2 block">Product Name *</label><input type="text" id="editName" class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-neutral-600 focus:outline-none"><p id="editErrName" class="inline-err">⚠ Name required</p></div><div class="mb-5"><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2 block">Price (TZS) *</label><div class="relative"><span class="absolute left-4 top-1/2 -translate-y-1/2 text-neutral-500 text-sm font-medium">TZS</span><input type="text" id="editPrice" inputmode="numeric" class="form-input w-full bg-black border border-white/10 rounded-lg pl-14 pr-4 py-3 text-sm text-white placeholder-neutral-600 focus:outline-none" oninput="this.value=this.value.replace(/[^0-9,]/g,'');updateEditPreview()"></div><p id="editErrPrice" class="inline-err">⚠ Valid price required</p><p id="editPricePreview" class="text-gold-500/60 text-xs mt-2 font-mono"></p></div><div class="mb-5"><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2 block">Image URL</label><input type="text" id="editImage" class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-neutral-600 focus:outline-none" oninput="updateEditImgPreview()"></div><div class="mb-6"><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2 block">Description</label><textarea id="editDesc" rows="3" class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-neutral-600 focus:outline-none resize-none"></textarea></div><div class="flex gap-3"><button type="button" onclick="handleSaveEdit()" class="flex-1 bg-gold-500 text-black font-bold text-sm uppercase tracking-wider py-3.5 rounded-full hover:bg-gold-400 hover:scale-[1.02] transition-all duration-300">💾 Save</button><button type="button" onclick="closeEditModal()" class="border border-white/10 text-neutral-400 font-bold text-sm uppercase tracking-wider px-6 py-3.5 rounded-full hover:border-white/30 hover:text-white transition-all duration-300">Cancel</button></div><div id="editSuccess" class="hidden mt-5 p-4 bg-emerald-500/10 border border-emerald-500/30 rounded-xl"><p class="text-emerald-400 font-bold text-sm">✅ Updated!</p></div></div></div></div>
 
 <script>
-// ===== PASTORY AI AGENT CONFIGURATION & INITIALIZATION =====
-var PASTORY_CONFIG={
-    greetingSW:'Habari! Karibu kwenye Mandibo Furniture. Mimi ni Pastory, msaidizi wa AI. Je, unafuata kiti, kitanda, au kapu? Tunafikiri wote.',
-    greetingEN:'Hello! Welcome to Mandibo Furniture. I\'m Pastory, your AI assistant. Are you looking for chairs, beds, or cupboards? We have everything.',
-    brief:'Mandibo Furniture ni duka la online la nyumba nzuri sana Zanzibar. Tunatoa kiti, mabingu, meza, na kapu. Tuna duka 3. Tukubali bila ada mahali popote nchi. Unaweza kuzunguka na kuagiza online.',
-    productTemplate:'Tunatoa [CATEGORY] nzuri katika duka 3. Bei kuanzia TZS [PRICE]. Haina gharama ya kutuma. Ungependa kuona [CATEGORY]?',
-    systemPrompt:'You are Pastory, a friendly and professional furniture sales AI assistant for Mandibo Furniture, a premier online furniture store in Zanzibar. Speak primarily in Swahili, but be ready to switch to English if asked. Be helpful, enthusiastic, and guide customers toward products and ordering. Keep responses concise and natural.',
+// ===== MANDIBO TEAM AI CONFIGURATION & INITIALIZATION =====
+var AI_CONFIG={
+    greetingSW:'Habari! Karibu kwenye Mandibo Furniture. 🤝 Mimi ni timu ya Mandibo. Tunakusaidia kupata samani nzuri. Je, unatafuta nini leo - sofa, kitanda, meza au kapu?',
     enabled:true
 };
 
-var pastoryState={
+var aiState={
     isListening:false,
     isSpeaking:false,
-    currentLang:'sw',
     speechRecognition:null,
     synth:window.speechSynthesis,
-    hasSpoken:false,
-    chatHistory:[],
-    chatBoxMinimized:false
+    hasGreeted:false,
+    chatVisible:false,
+    autoHideTimer:null,
+    newMessages:0
 };
 
-// Chat box helper functions
-function addChatMessage(text,sender){
-    var chatMessages=document.getElementById('chatMessages');
-    if(!chatMessages)return;
-    var msgDiv=document.createElement('div');
-    msgDiv.style.cssText='margin-bottom:6px;padding:8px;border-radius:8px;word-wrap:break-word;animation:fade-up .3s ease-out;';
-    if(sender==='user'){
-        msgDiv.style.background='#D4A017';
-        msgDiv.style.color='#000';
-        msgDiv.style.marginLeft='40px';
-        msgDiv.style.fontWeight='500';
-    }else{
-        msgDiv.style.background='#e8e8e8';
-        msgDiv.style.color='#333';
-        msgDiv.style.marginRight='40px';
-    }
-    msgDiv.textContent=text;
-    chatMessages.appendChild(msgDiv);
-    chatMessages.scrollTop=chatMessages.scrollHeight;
-    pastoryState.chatHistory.push({sender:sender,text:text,time:new Date()});
+// Chat box visibility management
+function showChatBox(){
+    var box=document.getElementById('chatBox');
+    var indicator=document.getElementById('aiIndicator');
+    var notification=document.getElementById('aiNotification');
+    
+    box.classList.remove('hiding');
+    box.classList.add('visible');
+    indicator.classList.add('hidden');
+    notification.style.display='none';
+    aiState.chatVisible=true;
+    aiState.newMessages=0;
+    
+    clearTimeout(aiState.autoHideTimer);
+    document.getElementById('chatInput').focus();
 }
 
-function toggleChatBox(){
+function hideChatBox(){
     var box=document.getElementById('chatBox');
-    var messages=document.getElementById('chatMessages');
-    pastoryState.chatBoxMinimized=!pastoryState.chatBoxMinimized;
-    if(pastoryState.chatBoxMinimized){
-        messages.style.display='none';
-        document.getElementById('chatInput').parentElement.style.display='none';
-        box.style.width='120px';
-    }else{
-        messages.style.display='flex';
-        document.getElementById('chatInput').parentElement.style.display='flex';
-        box.style.width='320px';
+    var indicator=document.getElementById('aiIndicator');
+    
+    box.classList.add('hiding');
+    setTimeout(function(){
+        box.classList.remove('visible','hiding');
+        indicator.classList.remove('hidden');
+        aiState.chatVisible=false;
+    },400);
+}
+
+function autoShowChat(){
+    if(!aiState.chatVisible && AI_CONFIG.enabled){
+        showChatBox();
+        aiState.autoHideTimer=setTimeout(function(){
+            if(!document.getElementById('chatInput').value.trim()){
+                hideChatBox();
+            }
+        },15000);
     }
+}
+
+function addChatMessage(text,sender){
+    var chat=document.getElementById('chatMessages');
+    if(!chat)return;
+    
+    var msg=document.createElement('div');
+    msg.className='chat-msg '+(sender==='user'?'user':'bot');
+    msg.textContent=text;
+    chat.appendChild(msg);
+    chat.scrollTop=chat.scrollHeight;
+    
+    if(sender==='bot'&&!aiState.chatVisible){
+        aiState.newMessages++;
+        var notification=document.getElementById('aiNotification');
+        notification.textContent=aiState.newMessages;
+        notification.style.display='flex';
+    }
+}
+
+function showTyping(){
+    document.getElementById('typingIndicator').classList.add('active');
+}
+
+function hideTyping(){
+    document.getElementById('typingIndicator').classList.remove('active');
 }
 
 function sendChatMessage(){
     var input=document.getElementById('chatInput');
     var text=input.value.trim();
     if(!text)return;
+    
     addChatMessage(text,'user');
     input.value='';
-    handlePastoryInput(text);
+    
+    clearTimeout(aiState.autoHideTimer);
+    
+    showTyping();
+    setTimeout(function(){
+        hideTyping();
+        var response=getAIResponse(text);
+        addChatMessage(response,'bot');
+        speakText(response,'sw');
+        
+        if(text.toLowerCase().includes('order')||text.toLowerCase().includes('agiza')||text.toLowerCase().includes('nunua')){
+            setTimeout(function(){
+                addChatMessage('Bonyeza "Order Now" kwenye bidhaa unayoipenda, au piga simu +255 799 610 190 📞','bot');
+            },1500);
+        }
+    },1200);
 }
 
 function toggleVoiceInput(){
     var btn=document.getElementById('voiceBtn');
-    if(pastoryState.isListening){
-        pastoryState.speechRecognition.stop();
+    if(!aiState.speechRecognition)return;
+    
+    if(aiState.isListening){
+        aiState.speechRecognition.stop();
         btn.style.background='#0A0A0A';
         btn.style.color='#D4A017';
     }else{
         btn.style.background='#D4A017';
         btn.style.color='#000';
-        pastoryState.speechRecognition.start();
+        aiState.speechRecognition.start();
     }
-}
-
-// New simplified chat functions with getAIResponse
-function addMessage(sender, text){
-    const chat = document.getElementById("chatMessages");
-    const msg = document.createElement("div");
-    msg.style.margin = "5px 0";
-    msg.style.padding = "8px";
-    msg.style.borderRadius = "8px";
-    msg.style.wordWrap = "break-word";
-    msg.style.animation = "fade-up .3s ease-out";
-    if(sender === "bot"){
-        msg.style.background = "#e8e8e8";
-        msg.style.color = "#333";
-        msg.style.marginRight = "40px";
-        msg.innerHTML = `<b>Pastory:</b> ${text}`;
-    } else {
-        msg.style.background = "#D4A017";
-        msg.style.color = "#000";
-        msg.style.marginLeft = "40px";
-        msg.style.fontWeight = "500";
-        msg.innerHTML = `<b>Wewe:</b> ${text}`;
-    }
-    chat.appendChild(msg);
-    chat.scrollTop = chat.scrollHeight;
-}
-
-function sendMessage(){
-    const input = document.getElementById("chatInput");
-    const message = input.value;
-    if(message.trim() === "") return;
-    addMessage("user", message);
-    const reply = getAIResponse(message);
-    setTimeout(()=>{
-        addMessage("bot", reply);
-    }, 800);
-    input.value = "";
-    lastInteractionTime = Date.now();
 }
 
 // Initialize speech recognition
-function initPastory(){
+function initAI(){
     var SpeechRecognition=window.SpeechRecognition||window.webkitSpeechRecognition;
-    if(!SpeechRecognition){console.warn('Speech Recognition not supported');return;}
-    pastoryState.speechRecognition=new SpeechRecognition();
-    pastoryState.speechRecognition.continuous=false;
-    pastoryState.speechRecognition.interimResults=false;
-    pastoryState.speechRecognition.lang='sw-TZ';
-    pastoryState.speechRecognition.onstart=function(){
-        pastoryState.isListening=true;
-        var ind=document.getElementById('pastoryIndicator');
-        if(ind){ind.classList.add('listening');ind.classList.remove('speaking');}
-    };
-    pastoryState.speechRecognition.onend=function(){
-        pastoryState.isListening=false;
-        var ind=document.getElementById('pastoryIndicator');
-        if(ind)ind.classList.remove('listening');
-    };
-    pastoryState.speechRecognition.onerror=function(e){
-        console.warn('Speech recognition error:',e.error);
-        pastoryState.isListening=false;
-    };
-    pastoryState.speechRecognition.onresult=function(e){
-        var transcript='';
-        for(var i=e.resultIndex;i<e.results.length;i++){
-            if(e.results[i].isFinal)transcript+=e.results[i][0].transcript;}
-        if(transcript)handlePastoryInput(transcript);
-    };
-    loadPastoryConfig();
+    if(SpeechRecognition){
+        aiState.speechRecognition=new SpeechRecognition();
+        aiState.speechRecognition.continuous=false;
+        aiState.speechRecognition.interimResults=false;
+        aiState.speechRecognition.lang='sw-TZ';
+        
+        aiState.speechRecognition.onstart=function(){
+            aiState.isListening=true;
+            document.getElementById('aiIndicator').classList.add('listening');
+        };
+        
+        aiState.speechRecognition.onend=function(){
+            aiState.isListening=false;
+            document.getElementById('aiIndicator').classList.remove('listening');
+        };
+        
+        aiState.speechRecognition.onerror=function(e){
+            console.warn('Speech recognition error:',e.error);
+            aiState.isListening=false;
+        };
+        
+        aiState.speechRecognition.onresult=function(e){
+            var transcript='';
+            for(var i=e.resultIndex;i<e.results.length;i++){
+                if(e.results[i].isFinal)transcript+=e.results[i][0].transcript;
+            }
+            if(transcript){
+                document.getElementById('chatInput').value=transcript;
+                sendChatMessage();
+            }
+        };
+    }
+    
+    loadAIConfig();
+    
+    // IMMEDIATE GREETING - Start talking right away!
     setTimeout(function(){
-        if(PASTORY_CONFIG.enabled&&!pastoryState.hasSpoken){
-            speakPastory(PASTORY_CONFIG.greetingSW,'sw');
-            pastoryState.hasSpoken=true;
+        if(AI_CONFIG.enabled&&!aiState.hasGreeted){
+            speakText(AI_CONFIG.greetingSW,'sw');
+            addChatMessage(AI_CONFIG.greetingSW,'bot');
+            autoShowChat();
+            aiState.hasGreeted=true;
         }
-    },2500);
+    },800);
 }
 
-function loadPastoryConfig(){
-    var saved=localStorage.getItem('mandibo_pastory_config');
+function loadAIConfig(){
+    var saved=localStorage.getItem('mandibo_ai_config');
     if(saved){
-        try{Object.assign(PASTORY_CONFIG,JSON.parse(saved));}catch(e){console.error('Error loading Pastory config');}
+        try{Object.assign(AI_CONFIG,JSON.parse(saved));}catch(e){}
     }
 }
 
-function speakPastory(text,lang){
-    if(!PASTORY_CONFIG.enabled)return;
-    addChatMessage(text,'pastory');
-    pastoryState.synth.cancel();
+function speakText(text,lang){
+    if(!AI_CONFIG.enabled)return;
+    
+    aiState.synth.cancel();
     var utterance=new SpeechSynthesisUtterance(text);
     utterance.lang=lang==='en'?'en-US':'sw-TZ';
     utterance.rate=1.0;
     utterance.pitch=1.0;
-    utterance.volume=0.8;
+    utterance.volume=0.9;
+    
     utterance.onstart=function(){
-        pastoryState.isSpeaking=true;
-        var ind=document.getElementById('pastoryIndicator');
-        if(ind){ind.classList.add('speaking');ind.classList.remove('listening');}
+        aiState.isSpeaking=true;
+        document.getElementById('aiIndicator').classList.add('speaking');
+        if(!aiState.chatVisible)autoShowChat();
     };
+    
     utterance.onend=function(){
-        pastoryState.isSpeaking=false;
-        var ind=document.getElementById('pastoryIndicator');
-        if(ind){ind.classList.remove('speaking');
-        setTimeout(function(){
-            if(!pastoryState.isListening&&document.body.classList.contains('user-only'))
-                pastoryState.speechRecognition.start();
-        },500);}
+        aiState.isSpeaking=false;
+        document.getElementById('aiIndicator').classList.remove('speaking');
     };
-    pastoryState.synth.speak(utterance);
+    
+    aiState.synth.speak(utterance);
 }
 
-function handlePastoryInput(transcript){
-    console.log('Pastory heard:',transcript);
-    if(transcript.toLowerCase().includes('english')||transcript.toLowerCase().includes('english')){
-        pastoryState.currentLang='en';
-        speakPastory(PASTORY_CONFIG.greetingEN,'en');
-    }else{
-        // Would integrate with Claude API here for intelligent responses
-        // For now, provide contextual responses
-        var response='Asante. ';
-        if(transcript.toLowerCase().includes('bed')||transcript.toLowerCase().includes('kitanda')){
-            response+=PASTORY_CONFIG.productTemplate.replace('[CATEGORY]','Mabingu').replace('[PRICE]','1,200,000');
-        }else if(transcript.toLowerCase().includes('sofa')||transcript.toLowerCase().includes('kiti')){
-            response+=PASTORY_CONFIG.productTemplate.replace('[CATEGORY]','Kapu').replace('[PRICE]','950,000');
-        }else{
-            response+=PASTORY_CONFIG.brief;
+// AI Response Logic
+const responses=[
+    {keywords:['bei','price','gharama','cost'],reply:'Bei zinategemea bidhaa 😊 Niambie unatafuta nini (sofa, kitanda, meza) nikupatie bei sahihi. Ama bonyeza "Order Now" kwenye bidhaa unayoipenda!'},
+    {keywords:['sofa','kochi','couch'],reply:'Sofa hizi zinauzwa sana kwa sasa 🛋️🔥 Unataka ya watu wangapi? 3, 5 au zaidi? Tazama chini ya ukurasa kupata bei!'},
+    {keywords:['kitanda','bed'],reply:'Tunazo kitanda za kisasa kabisa 🛏️ Unatafuta size gani? 4x6, 5x6 au 6x6? Angalia products za Mandibo!'},
+    {keywords:['meza','table','desk'],reply:'Tunazo meza za dining, coffee table, na study desk 🪑 Je, ni kwa ajili ya nyumbani au ofisi?'},
+    {keywords:['kapu','cupboard','wardrobe','cabinet'],reply:'Kapu zetu ni quality sana 🗄️ Tunazo za mirror, sliding door, na traditional. Unapenda style gani?'},
+    {keywords:['delivery','usafirishaji','peleka'],reply:'Tunafanya delivery bure Zanzibar yote 🚚 Niambie eneo lako nikusaidie haraka!'},
+    {keywords:['nunua','order','nataka','agiza','buy'],reply:'Vizuri sana! 👍 Kwa kuagiza: 1) Bonyeza "Order Now" kwenye bidhaa 2) Jaza maelezo yako 3) Tutawasiliana haraka! 📞 +255 799 610 190'},
+    {keywords:['store','duka','wapi','location'],reply:'Tunana duka 3 Zanzibar: 🏪 Store A (Stone Town - Heritage) 🏪 Store B (Nungwi - Coastal) 🏪 Store C (Kiwengwa - Modern). Unataka kutembelea?'},
+    {keywords:['hi','habari','hello','sasa','mambo','vipi'],reply:'Habari yako! 😊 Karibu sana Mandibo Furniture. Tunayo sofa, vitanda, meza, kapu... unataka kuangalia nini?'},
+    {keywords:['asante','thanks','thank you','shukrani'],reply:'Karibu sana! 🙏 Niko hapa kukusaidia wakati wowote. Je, kuna kingine unachohitaji?'},
+    {keywords:['price range','bei ipi','how much','kiasi gani'],reply:'Bei zetu ni affordable sana! Kutoka TZS 150,000 hadi TZS 4,500,000. Tunataka kila mtu apate samani nzuri 💯'}
+];
+
+function getAIResponse(userMessage){
+    var msg=userMessage.toLowerCase();
+    
+    for(var r of responses){
+        for(var k of r.keywords){
+            if(msg.includes(k)){
+                return r.reply;
+            }
         }
-        speakPastory(response,'sw');
     }
+    
+    return 'Karibu Mandibo Furniture! 😊 Tunayo samani nzuri - sofa, vitanda, meza, kapu. Unatafuta nini leo? Ama bonyeza "Order Now" kwa bidhaa unayopenda! 📞 +255 799 610 190';
 }
 
+// Rest of the script continues with existing variables and functions...
 var OWNER_PASSWORD='mandibo2026',WHATSAPP_NUMBER='255799610190',products=[],orders=[],currentStoreFilter='all',currentCatFilter='all',currentOrderProduct=null,adInterval=null,adTimeouts=[],pendingDeleteId=null,editingProductId=null,lbZoom=1,lbSpinning=false;
 var IMG=[
 'https://z-cdn-media.chatglm.cn/files/b2204e29-e1a1-4d2c-82ad-45c6f0810365.png?auth_key=1875121023-e0211d56db1c432bb5d12b1debea744f-0-e01624498ea126cfd37f26032f54e3e6',
@@ -965,7 +1116,7 @@ document.addEventListener('DOMContentLoaded',function(){
     document.addEventListener('keydown',function(e){if(e.key==='Escape'){closeLightbox();closeOrderModal();closeEditModal();closeDeleteModal();closeOwnerLogin();}});
     updateStoreCounts();renderProducts();initReveal();initNavbar();lucide.createIcons();
     lvInit();
-    initPastory();
+    initAI();
 });
 
 function initNavbar(){window.addEventListener('scroll',function(){var n=document.getElementById('navbar');if(window.scrollY>80)n.classList.add('bg-[#0A0A0A]/90','backdrop-blur-xl','border-b','border-white/5');else n.classList.remove('bg-[#0A0A0A]/90','backdrop-blur-xl','border-b','border-white/5');});}
@@ -1045,33 +1196,47 @@ function renderProducts(){
     grid.innerHTML=html;lucide.createIcons();
 }
 
-function openOrderModal(pid){currentOrderProduct=products.find(function(p){return p.id===pid;});if(!currentOrderProduct)return;document.getElementById('orderProductInfo').innerHTML='<img src="'+currentOrderProduct.img+'" class="w-20 h-20 rounded-lg object-cover flex-shrink-0" alt=""><div class="min-w-0"><p class="font-bold text-sm truncate">'+currentOrderProduct.name+'</p><p class="text-gold-500 font-bold">TZS '+formatTZS(currentOrderProduct.price)+'</p></div>';document.getElementById('orderQty').value=1;updateOrderTotal();document.getElementById('whatsappOrder').href='https://wa.me/'+WHATSAPP_NUMBER+'?text='+encodeURIComponent("Hi Mandibo! I'd like to order:\n\n*"+currentOrderProduct.name+"*\nPrice: TZS "+formatTZS(currentOrderProduct.price)+"\n\nPlease confirm availability.");document.getElementById('orderModal').classList.remove('hidden');document.body.style.overflow='hidden';lucide.createIcons();}
+function openOrderModal(pid){
+    currentOrderProduct=products.find(function(p){return p.id===pid;});
+    if(!currentOrderProduct)return;
+    document.getElementById('orderProductInfo').innerHTML='<img src="'+currentOrderProduct.img+'" class="w-20 h-20 rounded-lg object-cover flex-shrink-0" alt=""><div class="min-w-0"><p class="font-bold text-sm truncate">'+currentOrderProduct.name+'</p><p class="text-gold-500 font-bold">TZS '+formatTZS(currentOrderProduct.price)+'</p></div>';
+    document.getElementById('orderQty').value=1;
+    updateOrderTotal();
+    document.getElementById('whatsappOrder').href='https://wa.me/'+WHATSAPP_NUMBER+'?text='+encodeURIComponent("Hi Mandibo! I'd like to order:\n\n*"+currentOrderProduct.name+"*\nPrice: TZS "+formatTZS(currentOrderProduct.price)+"\n\nPlease confirm availability.");
+    document.getElementById('orderModal').classList.remove('hidden');
+    document.body.style.overflow='hidden';
+    lucide.createIcons();
+    
+    // Show AI chat when order is initiated
+    if(AI_CONFIG.enabled){
+        setTimeout(function(){
+            autoShowChat();
+            addChatMessage('Karibu! Nimeona unataka kuagiza '+currentOrderProduct.name+'. 😊 Jaza maelezo yako na tutawasiliana haraka!','bot');
+        },500);
+    }
+}
 function closeOrderModal(){document.getElementById('orderModal').classList.add('hidden');document.body.style.overflow='';document.getElementById('orderName').value='';document.getElementById('orderPhone').value='';document.getElementById('orderLocation').value='';document.getElementById('orderNotes').value='';document.getElementById('orderQty').value=1;}
 function updateOrderTotal(){if(!currentOrderProduct)return;var q=parseInt(document.getElementById('orderQty').value)||1;document.getElementById('orderTotal').innerHTML='Total: <span>TZS '+formatTZS(currentOrderProduct.price*Math.max(1,q))+'</span>';}
 function submitOrder(){if(!currentOrderProduct)return;var n=document.getElementById('orderName').value.trim(),ph=document.getElementById('orderPhone').value.trim(),loc=document.getElementById('orderLocation').value.trim();if(!n||!ph||!loc){showToast('Please fill all required fields','error');return;}var q=Math.max(1,parseInt(document.getElementById('orderQty').value)||1);orders.push({id:Date.now(),productId:currentOrderProduct.id,productName:currentOrderProduct.name,productImg:currentOrderProduct.img,price:currentOrderProduct.price,qty:q,total:currentOrderProduct.price*q,store:currentOrderProduct.store,name:n,phone:ph,location:loc,notes:document.getElementById('orderNotes').value.trim(),status:'pending',date:new Date().toISOString()});saveOrders();closeOrderModal();showToast('🎉 Order placed successfully!','success');}
 
 function openOwnerLogin(){document.getElementById('loginModal').classList.remove('hidden');document.body.style.overflow='hidden';document.getElementById('loginError').classList.add('hidden');document.getElementById('ownerPass').value='';setTimeout(function(){document.getElementById('ownerPass').focus();},100);}
 function closeOwnerLogin(){document.getElementById('loginModal').classList.add('hidden');document.body.style.overflow='';}
-function ownerLogin(){if(document.getElementById('ownerPass').value===OWNER_PASSWORD){closeOwnerLogin();document.body.classList.add('owner-mode');document.getElementById('userView').classList.add('hidden');document.getElementById('ownerView').classList.remove('hidden');updateDashboard();loadPastoryDashboard();showToast('🔑 Welcome back!','success');window.scrollTo(0,0);}else{document.getElementById('loginError').classList.remove('hidden');document.getElementById('ownerPass').classList.add('shake');setTimeout(function(){document.getElementById('ownerPass').classList.remove('shake');},600);}}
+function ownerLogin(){if(document.getElementById('ownerPass').value===OWNER_PASSWORD){closeOwnerLogin();document.body.classList.add('owner-mode');document.getElementById('userView').classList.add('hidden');document.getElementById('ownerView').classList.remove('hidden');updateDashboard();loadAIDashboard();showToast('🔑 Welcome back!','success');window.scrollTo(0,0);}else{document.getElementById('loginError').classList.remove('hidden');document.getElementById('ownerPass').classList.add('shake');setTimeout(function(){document.getElementById('ownerPass').classList.remove('shake');},600);}}
 function ownerLogout(){document.body.classList.remove('owner-mode');document.getElementById('ownerView').classList.add('hidden');document.getElementById('userView').classList.remove('hidden');showToast('Logged out','info');window.scrollTo(0,0);lucide.createIcons();}
 
-function showDashTab(tab){document.querySelectorAll('.dash-tab').forEach(function(b){b.classList.remove('bg-gold-500','text-black');b.classList.add('text-neutral-400');});var at=document.querySelector('.dash-tab[data-dtab="'+tab+'"]');if(at){at.classList.add('bg-gold-500','text-black');at.classList.remove('text-neutral-400');}document.querySelectorAll('.dash-panel').forEach(function(p){p.classList.add('hidden');});var panel=document.getElementById('dash'+tab.charAt(0).toUpperCase()+tab.slice(1));if(panel)panel.classList.remove('hidden');if(tab==='orders')renderOrdersList();if(tab==='manageProducts')renderManageList();if(tab==='pastory')loadPastoryDashboard();if(tab==='addProduct'){clearAddForm();document.getElementById('addSuccess').classList.add('hidden');}lucide.createIcons();}
+function showDashTab(tab){document.querySelectorAll('.dash-tab').forEach(function(b){b.classList.remove('bg-gold-500','text-black');b.classList.add('text-neutral-400');});var at=document.querySelector('.dash-tab[data-dtab="'+tab+'"]');if(at){at.classList.add('bg-gold-500','text-black');at.classList.remove('text-neutral-400');}document.querySelectorAll('.dash-panel').forEach(function(p){p.classList.add('hidden');});var panel=document.getElementById('dash'+tab.charAt(0).toUpperCase()+tab.slice(1));if(panel)panel.classList.remove('hidden');if(tab==='orders')renderOrdersList();if(tab==='manageProducts')renderManageList();if(tab==='aiconfig')loadAIDashboard();if(tab==='addProduct'){clearAddForm();document.getElementById('addSuccess').classList.add('hidden');}lucide.createIcons();}
 function updateDashboard(){document.getElementById('statProducts').textContent=products.length;document.getElementById('statOrders').textContent=orders.length;var rev=orders.reduce(function(s,o){return s+o.total;},0);document.getElementById('statRevenue').textContent=rev>0?formatTZS(rev):'0';renderOrdersList();renderManageList();lucide.createIcons();}
 
-// ===== PASTORY DASHBOARD FUNCTIONS =====
-function loadPastoryDashboard(){
-    document.getElementById('pastoryGreetingSW').value=PASTORY_CONFIG.greetingSW;
-    document.getElementById('pastoryGreetingEN').value=PASTORY_CONFIG.greetingEN;
-    document.getElementById('pastoryBrief').value=PASTORY_CONFIG.brief;
-    document.getElementById('pastoryProductTemplate').value=PASTORY_CONFIG.productTemplate;
-    document.getElementById('pastorySystemPrompt').value=PASTORY_CONFIG.systemPrompt;
-    document.getElementById('pastoryEnabled').checked=PASTORY_CONFIG.enabled;
-    updatePastoryToggleLabel();
+// ===== MANDIBO TEAM AI DASHBOARD FUNCTIONS =====
+function loadAIDashboard(){
+    document.getElementById('aiGreetingSW').value=AI_CONFIG.greetingSW;
+    document.getElementById('aiEnabled').checked=AI_CONFIG.enabled;
+    updateAIToggleLabel();
 }
 
-function updatePastoryToggleLabel(){
-    var label=document.getElementById('pastoryToggleLabel');
-    if(document.getElementById('pastoryEnabled').checked){
+function updateAIToggleLabel(){
+    var label=document.getElementById('aiToggleLabel');
+    if(document.getElementById('aiEnabled').checked){
         label.textContent='Active';
         label.className='text-sm font-bold text-emerald-400';
     }else{
@@ -1081,43 +1246,24 @@ function updatePastoryToggleLabel(){
 }
 
 document.addEventListener('change',function(e){
-    if(e.target.id==='pastoryEnabled'){
-        updatePastoryToggleLabel();
+    if(e.target.id==='aiEnabled'){
+        updateAIToggleLabel();
     }
 });
 
-function savePastoryConfig(){
-    PASTORY_CONFIG.greetingSW=document.getElementById('pastoryGreetingSW').value;
-    PASTORY_CONFIG.greetingEN=document.getElementById('pastoryGreetingEN').value;
-    PASTORY_CONFIG.brief=document.getElementById('pastoryBrief').value;
-    PASTORY_CONFIG.productTemplate=document.getElementById('pastoryProductTemplate').value;
-    PASTORY_CONFIG.systemPrompt=document.getElementById('pastorySystemPrompt').value;
-    PASTORY_CONFIG.enabled=document.getElementById('pastoryEnabled').checked;
-    localStorage.setItem('mandibo_pastory_config',JSON.stringify(PASTORY_CONFIG));
-    document.getElementById('pastorySuccess').classList.remove('hidden');
-    document.getElementById('pastorySavedTime').textContent='Saved at '+new Date().toLocaleTimeString();
-    setTimeout(function(){document.getElementById('pastorySuccess').classList.add('hidden');},3000);
-    showToast('✅ Pastory configuration saved!','success');
+function saveAIConfig(){
+    AI_CONFIG.greetingSW=document.getElementById('aiGreetingSW').value;
+    AI_CONFIG.enabled=document.getElementById('aiEnabled').checked;
+    localStorage.setItem('mandibo_ai_config',JSON.stringify(AI_CONFIG));
+    document.getElementById('aiSuccess').classList.remove('hidden');
+    document.getElementById('aiSavedTime').textContent='Saved at '+new Date().toLocaleTimeString();
+    setTimeout(function(){document.getElementById('aiSuccess').classList.add('hidden');},3000);
+    showToast('✅ Mandibo Team AI configuration saved!','success');
 }
 
-function resetPastoryConfig(){
-    if(!confirm('Reset Pastory to default configuration? This cannot be undone.'))return;
-    PASTORY_CONFIG={
-        greetingSW:'Habari! Karibu kwenye Mandibo Furniture. Mimi ni Pastory, msaidizi wa AI. Je, unafuata kiti, kitanda, au kapu? Tunafikiri wote.',
-        greetingEN:'Hello! Welcome to Mandibo Furniture. I\'m Pastory, your AI assistant. Are you looking for chairs, beds, or cupboards? We have everything.',
-        brief:'Mandibo Furniture ni duka la online la nyumba nzuri sana Zanzibar. Tunatoa kiti, mabingu, meza, na kapu. Tuna duka 3. Tukubali bila ada mahali popote nchi. Unaweza kuzunguka na kuagiza online.',
-        productTemplate:'Tunatoa [CATEGORY] nzuri katika duka 3. Bei kuanzia TZS [PRICE]. Haina gharama ya kutuma. Ungependa kuona [CATEGORY]?',
-        systemPrompt:'You are Pastory, a friendly and professional furniture sales AI assistant for Mandibo Furniture, a premier online furniture store in Zanzibar. Speak primarily in Swahili, but be ready to switch to English if asked. Be helpful, enthusiastic, and guide customers toward products and ordering. Keep responses concise and natural.',
-        enabled:true
-    };
-    loadPastoryDashboard();
-    localStorage.setItem('mandibo_pastory_config',JSON.stringify(PASTORY_CONFIG));
-    showToast('↺ Pastory reset to default settings','info');
-}
-
-function testPastoryAI(){
-    speakPastory(PASTORY_CONFIG.greetingSW,'sw');
-    showToast('🎧 Testing Pastory voice...','info');
+function testAIVoice(){
+    speakText(AI_CONFIG.greetingSW,'sw');
+    showToast('🎧 Testing Mandibo Team voice...','info');
 }
 
 function renderOrdersList(){var el=document.getElementById('ordersList');if(!el)return;if(!orders.length){el.innerHTML='<div class="text-center py-16 text-neutral-500"><p class="text-4xl mb-3">📦</p><p>No orders yet</p></div>';return;}var sn={'store-a':'Store A','store-b':'Store B','store-c':'Store C'};var ss={pending:'bg-yellow-500/10 text-yellow-400 border-yellow-500/20',confirmed:'bg-blue-500/10 text-blue-400 border-blue-500/20',delivered:'bg-emerald-500/10 text-emerald-400 border-emerald-500/20',cancelled:'bg-red-500/10 text-red-400 border-red-500/20'};var html='';orders.slice().reverse().forEach(function(o){var d=new Date(o.date);html+='<div class="bg-white/5 border border-white/10 rounded-xl p-5 flex flex-col md:flex-row gap-4"><img src="'+o.productImg+'" class="w-16 h-16 rounded-lg object-cover flex-shrink-0" alt=""><div class="flex-1 min-w-0"><div class="flex items-start justify-between gap-3 mb-2"><div><h4 class="font-bold text-sm">'+o.productName+'</h4><p class="text-neutral-500 text-xs">'+(sn[o.store]||'')+' · Qty: '+o.qty+'</p></div><span class="text-gold-500 font-bold text-sm whitespace-nowrap">TZS '+formatTZS(o.total)+'</span></div><div class="flex flex-wrap items-center gap-3 text-xs text-neutral-400 mb-3"><span>👤 '+o.name+'</span><span>📞 '+o.phone+'</span><span>📍 '+o.location+'</span></div>';if(o.notes)html+='<p class="text-xs text-neutral-500 mb-3">💬 '+o.notes+'</p>';html+='<div class="flex items-center gap-2 flex-wrap"><select onchange="updateOrderStatus('+o.id+',this.value)" class="text-[10px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-full border '+(ss[o.status]||ss.pending)+' bg-transparent focus:outline-none cursor-pointer"><option value="pending"'+(o.status==='pending'?' selected':'')+'>⏳ Pending</option><option value="confirmed"'+(o.status==='confirmed'?' selected':'')+'>✅ Confirmed</option><option value="delivered"'+(o.status==='delivered'?' selected':'')+'>📦 Delivered</option><option value="cancelled"'+(o.status==='cancelled'?' selected':'')+'>❌ Cancelled</option></select><span class="text-neutral-600 text-[10px]">'+d.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})+' '+d.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'})+'</span><button onclick="deleteOrder('+o.id+')" class="ml-auto text-red-400/40 hover:text-red-400 transition-colors p-1"><i data-lucide="trash-2" class="w-3.5 h-3.5"></i></button></div></div></div>';});el.innerHTML=html;lucide.createIcons();}
@@ -1141,103 +1287,6 @@ function handleSaveEdit(){if(editingProductId===null)return;var ne=document.getE
 
 function playAd(){var scenes=['adScene0','adScene1','adScene2','adScene3','adScene4','adScene5','adScene6'];var durs=[0,3000,3000,4000,3000,3000,4000];var total=0;durs.forEach(function(d){total+=d;});var pb=document.getElementById('adProgress'),st=Date.now();adTimeouts.forEach(function(t){clearTimeout(t);});adTimeouts=[];clearInterval(adInterval);function show(i){scenes.forEach(function(s){document.getElementById(s).classList.remove('playing');});if(i<scenes.length)document.getElementById(scenes[i]).classList.add('playing');}show(1);adInterval=setInterval(function(){pb.style.width=Math.min((Date.now()-st)/total*100,100)+'%';},50);var delay=0;for(var i=1;i<scenes.length;i++){delay+=durs[i];(function(idx,d){adTimeouts.push(setTimeout(function(){show(idx);if(idx===scenes.length-1)setTimeout(stopAd,durs[idx]);},d));})(i,delay);}}
 function stopAd(){adTimeouts.forEach(function(t){clearTimeout(t);});adTimeouts=[];clearInterval(adInterval);document.querySelectorAll('.ad-scene').forEach(function(s){s.classList.remove('playing');});document.getElementById('adScene0').classList.add('playing');document.getElementById('adProgress').style.width='0%';}
-
-const responses = [
-  {
-    keywords: ["bei", "price", "gharama"],
-    reply: "Bei zinategemea bidhaa 😊 Niambie unatafuta nini (sofa, kitanda, meza) nikupatie bei sahihi."
-  },
-  {
-    keywords: ["sofa", "kochi"],
-    reply: "Sofa hizi zinauzwa sana kwa sasa 🛋️🔥 Unataka ya watu wangapi? 3, 5 au zaidi?"
-  },
-  {
-    keywords: ["kitanda", "bed"],
-    reply: "Tunazo kitanda za kisasa kabisa 🛏️ Unatafuta size gani? 4x6, 5x6 au 6x6?"
-  },
-  {
-    keywords: ["delivery", "usafirishaji"],
-    reply: "Tunafanya delivery Zanzibar 🚚 Niambie eneo lako nikusaidie haraka."
-  },
-  {
-    keywords: ["nunua", "order", "nataka"],
-    reply: "Vizuri sana 👍 Bonyeza hapa kuagiza kupitia WhatsApp 👇\n👉 https://wa.me/255799610190"
-  }
-];
-
-function getAIResponse(userMessage){
-    const msg = userMessage.toLowerCase();
-    for(let r of responses){
-        for(let k of r.keywords){
-            if(msg.includes(k)){
-                return r.reply;
-            }
-        }
-    }
-    return "Karibu Mandibo Furniture 😊 Naitwa Pastory. Unatafuta sofa, kitanda au meza?";
-}
-
-// 🔥 AUTO FOLLOW-UP SECRET WEAPON 🔥
-let lastInteractionTime = Date.now();
-const autoFollowUpMessages = [
-    "Naweza kukusaidia kupata samani bora kwa bajeti yako 👍",
-    "Unatafuta kitu maalum? Niambie kupitia chat 😊",
-    "Tuna offers maalum za sasa 🎉 Ingia haraka!",
-    "Jibu haraka, kwani haini nyingi! 🔥",
-    "Karibu kuzunguka showroom? Tuna samani nzuri 🛋️"
-];
-
-let followUpIndex = 0;
-setInterval(()=>{
-    const now = Date.now();
-    if(now - lastInteractionTime > 20000){
-        const message = autoFollowUpMessages[followUpIndex % autoFollowUpMessages.length];
-        addMessage("bot", message);
-        followUpIndex++;
-        lastInteractionTime = now;
-    }
-}, 5000);
-
-// 👋 AUTO GREETING WHEN CUSTOMER ENTERS
-setTimeout(()=>{
-    addMessage("bot", "Karibu Mandibo Furniture 😊 Naitwa Pastory. Unatafuta samani gani leo?");
-    // Add WhatsApp button after greeting
-    setTimeout(()=>{
-        addWhatsAppButton();
-    }, 1200);
-}, 2000);
-
-// 💚 ADD WHATSAPP BUTTON TO CHAT
-function addWhatsAppButton(){
-    const chat = document.getElementById("chatMessages");
-    const btnContainer = document.createElement("div");
-    btnContainer.style.margin = "10px 0";
-    btnContainer.style.padding = "10px";
-    btnContainer.style.textAlign = "center";
-    btnContainer.style.animation = "fade-up .3s ease-out";
-    
-    btnContainer.innerHTML = `
-        <a href="https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Habari! Nimetaka kujua zaidi kuhusu samani za Mandibo Furniture 😊')}" 
-           target="_blank" 
-           style="display: inline-block; 
-                  background: #25D366; 
-                  color: white; 
-                  padding: 12px 20px; 
-                  border-radius: 8px; 
-                  text-decoration: none; 
-                  font-weight: bold; 
-                  font-size: 13px;
-                  border: none;
-                  cursor: pointer;
-                  transition: all .3s ease;
-                  box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);">
-            💬 Chat via WhatsApp
-        </a>
-    `;
-    
-    chat.appendChild(btnContainer);
-    chat.scrollTop = chat.scrollHeight;
-}
 </script>
 </body>
 </html>
