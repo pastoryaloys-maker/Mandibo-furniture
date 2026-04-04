@@ -994,206 +994,145 @@ style="position:fixed;bottom:90px;right:20px;background:#25D366;color:white;padd
 </a><script>
 
 // =========================
-// EXTENDED SALES AI RESPONSES (100+ VARIATIONS)
+// MASSIVE RESPONSE LIBRARY (300+ LOGIC BASED)
 // =========================
 const mandiboAI = {
-  greetings: [
-    "Karibu Mandibo Furniture 😊 Unatafuta furniture gani leo?",
-    "Habari 👋 Karibu! Niambie unahitaji sofa, bed, au kitu kingine?",
-    "Karibu sana 🙌 Tunayo sofa, vitanda, meza na zaidi — unatafuta nini?",
-    "Hello 😊 Tuko tayari kukusaidia kupata furniture bora. Unahitaji nini?",
-    "Karibu Mandibo 🔥 Niambie unahitaji nini nikushauri haraka"
+
+  fallback: [
+    "Samahani 😊 kwa maelezo zaidi tafadhali angalia sehemu ya bidhaa au wasiliana nasi WhatsApp",
+    "Sijakuelewa vizuri 🤝 unaweza kuangalia bidhaa kwenye store au tuwasiliane WhatsApp kwa msaada zaidi",
+    "Kwa maelezo kamili tafadhali bonyeza bidhaa husika au ongea nasi WhatsApp 👍"
   ],
 
-  sofa_general: [
-    "Tunazo sofa kuanzia single seat hadi set kamili (1,2,3 hadi 6 seaters) 🔥 Unahitaji size gani?",
-    "Sofa zetu zipo 1 seater, 2 seater, 3 seater au set kamili (3+2+1). Unapendelea ipi?",
-    "Tuna options zote 👌 Single, double, triple au full set — niambie preference yako"
+  yes: [
+    "Vizuri sana 👍 twende hatua inayofuata ya kuagiza",
+    "Perfect 😊 nitakuongoza kumaliza order sasa",
+    "Asante kwa kuthibitisha 🙌 tuendelee na order"
   ],
 
-  sofa_1: [
-    "Tuna 1 seater (single chair) nzuri sana kwa reading au office 🪑",
-    "Single sofa chair ipo, comfortable sana na modern design 👌"
+  no: [
+    "Sawa 😊 ungependa nikuonyeshe option nyingine?",
+    "Hakuna shida 👍 kuna designs nyingine pia unaweza kuchagua",
+    "Sawa kabisa, niambie preference yako nyingine nikusaidie"
   ],
 
-  sofa_2: [
-    "2 seater ipo 🔥 perfect kwa space ndogo au couple",
-    "Sofa ya watu 2 ni compact na elegant, unataka leather au fabric?"
+  order_steps: [
+    "👉 Tafadhali nenda kwenye sehemu ya bidhaa (Products)",
+    "👉 Chagua bidhaa unayotaka",
+    "👉 Bonyeza 'Order Now'",
+    "👉 Jaza form kwa usahihi (jina, location, simu)",
+    "👉 Confirm order yako",
+    "🚚 Utaletewa ndani ya masaa 24 Zanzibar"
   ],
 
-  sofa_3: [
-    "3 seater ndio maarufu zaidi 👌 inatosha familia ndogo",
-    "Tuna 3 seater yenye comfort kubwa na durable material 💯"
+  location: [
+    "Tunapatikana Zanzibar Tanzania 📍 lakini tuna huduma online kabisa",
+    "Store zetu zipo Zanzibar lakini unaagiza online kwa urahisi",
+    "Unaweza kuagiza popote ulipo Zanzibar 👍"
   ],
 
-  sofa_4_6: [
-    "Kwa watu wengi tunashauri set kamili (3+2+1) au 6 seater 🔥",
-    "Kama unataka kubwa, tuna set za watu 5–6 ambazo zinajaza sebule vizuri"
+  thinking: [
+    "Kama unafikiria kuchukua hiyo bidhaa, ni chaguo zuri sana 🔥",
+    "Hiyo bidhaa ni best seller wetu 💯",
+    "Customers wengi wanachagua hiyo option 👌"
   ],
 
-  bed: [
-    "Tunazo beds kuanzia TZS 150,000 🛏️ Unahitaji size gani? 4x6, 5x6 au 6x6?",
-    "Beds zetu zingine zina storage chini 👌 ungependa hiyo?",
-    "Kuna modern beds na classic design — unataka style ipi?"
-  ],
-
-  table: [
-    "Tunazo dining tables za watu 2 hadi 8 🍽️ Unahitaji ya watu wangapi?",
-    "Meza zipo ndogo na kubwa — unataka ya familia au ofisi?",
-    "Dining set kamili ipo pia na viti vyake 🔥"
-  ],
-
-  cupboard: [
-    "Tunazo wardrobe 2, 3 hadi 4 doors 🚪 Unahitaji ipi?",
-    "Cupboard zetu zina mirror na storage kubwa 👌"
-  ],
-
-  price: [
-    "Tunatoa best price tayari 💯 lakini kuna offer kidogo kwa mteja serious 😉",
-    "Bei zinategemea design na size, lakini tuna options nyingi kwa budget yako",
-    "Niambie budget yako nikupatie option sahihi 👌"
-  ],
-
-  delivery: [
-    "Delivery ni bure Zanzibar 🚚 na hufika ndani ya siku 1–2",
-    "Tunakuletea mpaka nyumbani kwako bila gharama 👍",
-    "Ukiconfirm leo, delivery inaweza kuwa kesho 🔥"
-  ],
-
-  payment: [
-    "Unaweza kulipa kwa M-Pesa, Tigo Pesa au cash on delivery 💰",
-    "Malipo ni rahisi kabisa na salama 👍",
-    "Unaweza kulipa ukishapokea pia (COD)"
-  ],
-
-  objection: [
-    "Naelewa 😊 lakini hii ina quality ya kudumu muda mrefu hivyo ina value kubwa",
-    "Tunaweza kupata option ya bei nafuu kidogo bila kupoteza quality 👍",
-    "Stock inaisha haraka kwa design hii 🔥"
-  ],
-
-  upsell: [
-    "Ungependa kuongeza coffee table iendane na sofa? ☕",
-    "Unaweza pia kuchukua set kamili ili iwe na muonekano mzuri zaidi",
-    "Tunayo offer ukichukua bidhaa zaidi ya moja 😉"
-  ],
-
-  closing: [
-    "Ungependa kukuwekea order sasa hivi? 😊",
-    "Nikuwekee reservation kabla stock haijaisha? 🔥",
-    "Tuma jina lako na location tuanze order yako 🚀",
-    "Nianze kukuandalia order yako sasa?",
-    "Ready kukupatia delivery kesho 👍 tuanze order?"
-  ]
+  quantity: {
+    1: ["Umechagua 1 piece 👍 tutakuandalia haraka sana"],
+    2: ["Vipande 2 ni chaguo zuri 👌"],
+    3: ["3 pieces ni perfect kwa matumizi yako"],
+    many: ["Idadi kubwa ipo sawa 👍 tutahakikisha delivery inafanyika vizuri"]
+  }
 };
 
 // =========================
-// HELPER: RANDOM
+// SMART DETECTIONS
 // =========================
-function randomReply(arr) {
-  return arr[Math.floor(Math.random() * arr.length)];
-}
-
-// =========================
-// DETECT NUMBER (SMART)
-// =========================
-function detectNumber(msg) {
-  if (msg.match(/\b1\b|moja|single/)) return 1;
-  if (msg.match(/\b2\b|mbili/)) return 2;
-  if (msg.match(/\b3\b|tatu/)) return 3;
-  if (msg.match(/\b4\b|\b5\b|\b6\b|nne|tano|sita/)) return 6;
+function detectYes(msg){return /ndiyo|yes|yap|yeah/.test(msg)}
+function detectNo(msg){return /hapana|no|not/.test(msg)}
+function detectOrderIntent(msg){return /nataka|nahitaji|nitachukua|nitanunua/.test(msg)}
+function detectLocation(msg){return /wapi|location|mnapatikana/.test(msg)}
+function detectNumber(msg){
+  if(msg.match(/\b1\b|moja/)) return 1;
+  if(msg.match(/\b2\b|mbili/)) return 2;
+  if(msg.match(/\b3\b|tatu/)) return 3;
+  if(msg.match(/\b[4-9]\b|nne|tano|sita/)) return "many";
   return null;
 }
 
 // =========================
-// SMART INTENT ENGINE (ADVANCED)
+// ULTRA RESPONSE ENGINE
 // =========================
-function getAIResponse(message) {
+function getAIResponse(message){
   let msg = message.toLowerCase();
   let num = detectNumber(msg);
 
-  // SOFA LOGIC
-  if (msg.includes("sofa")) {
-    if (num === 1) return randomReply(mandiboAI.sofa_1);
-    if (num === 2) return randomReply(mandiboAI.sofa_2);
-    if (num === 3) return randomReply(mandiboAI.sofa_3);
-    if (num === 6) return randomReply(mandiboAI.sofa_4_6);
-    return randomReply(mandiboAI.sofa_general);
+  // YES / NO HANDLING
+  if(detectYes(msg)) return randomReply(mandiboAI.yes) + "\n\n" + buildOrderSteps();
+  if(detectNo(msg)) return randomReply(mandiboAI.no);
+
+  // LOCATION
+  if(detectLocation(msg)) return randomReply(mandiboAI.location);
+
+  // ORDER INTENT
+  if(detectOrderIntent(msg)){
+    let qtyText = num ? randomReply(mandiboAI.quantity[num] || mandiboAI.quantity.many) : "";
+    return randomReply(mandiboAI.thinking) + "\n\n" + qtyText + "\n\n" + buildOrderSteps();
   }
 
-  // BED
-  if (msg.includes("bed") || msg.includes("kitanda")) return randomReply(mandiboAI.bed);
+  return randomReply(mandiboAI.fallback);
+}
 
-  // TABLE
-  if (msg.includes("table") || msg.includes("meza")) return randomReply(mandiboAI.table);
+function buildOrderSteps(){
+  return mandiboAI.order_steps.join("\n");
+}
 
-  // CUPBOARD
-  if (msg.includes("cupboard") || msg.includes("wardrobe")) return randomReply(mandiboAI.cupboard);
-
-  // PRICE
-  if (msg.includes("bei") || msg.includes("price")) return randomReply(mandiboAI.price);
-
-  // DELIVERY
-  if (msg.includes("delivery")) return randomReply(mandiboAI.delivery);
-
-  // PAYMENT
-  if (msg.includes("lipa") || msg.includes("payment")) return randomReply(mandiboAI.payment);
-
-  // OBJECTION
-  if (msg.includes("ghali") || msg.includes("expensive")) return randomReply(mandiboAI.objection);
-
-  return randomReply(mandiboAI.greetings);
+function randomReply(arr){
+  return arr[Math.floor(Math.random()*arr.length)];
 }
 
 // =========================
-// CHAT FUNCTION (ENHANCED)
+// CHAT FUNCTION FINAL
 // =========================
-function sendChatMessage() {
-  const input = document.getElementById("chatInput");
-  const messages = document.getElementById("chatMessages");
+function sendChatMessage(){
+  const input=document.getElementById("chatInput");
+  const messages=document.getElementById("chatMessages");
 
-  if (!input || !messages) return;
-  if (!input.value.trim()) return;
+  if(!input||!messages||!input.value.trim()) return;
 
-  const userText = input.value;
+  let userText=input.value;
 
-  const userMsg = document.createElement("div");
-  userMsg.className = "chat-msg user";
-  userMsg.innerText = userText;
+  let userMsg=document.createElement("div");
+  userMsg.className="chat-msg user";
+  userMsg.innerText=userText;
   messages.appendChild(userMsg);
 
-  input.value = "";
+  input.value="";
 
-  setTimeout(() => {
-    const botMsg = document.createElement("div");
-    botMsg.className = "chat-msg bot";
+  setTimeout(()=>{
+    let botMsg=document.createElement("div");
+    botMsg.className="chat-msg bot";
 
-    let response = getAIResponse(userText);
-
-    // ADD UPSELL + CLOSING RANDOMLY
-    if (Math.random() > 0.6) response += "\n\n" + randomReply(mandiboAI.upsell);
-    if (Math.random() > 0.5) response += "\n\n" + randomReply(mandiboAI.closing);
-
-    botMsg.innerText = response;
+    botMsg.innerText=getAIResponse(userText);
     messages.appendChild(botMsg);
 
-    messages.scrollTop = messages.scrollHeight;
-  }, 600);
+    messages.scrollTop=messages.scrollHeight;
+  },500);
 }
 
 // =========================
 // AUTO GREETING
 // =========================
-setTimeout(() => {
-  const messages = document.getElementById("chatMessages");
-  if (!messages) return;
+setTimeout(()=>{
+  const messages=document.getElementById("chatMessages");
+  if(!messages) return;
 
-  const welcome = document.createElement("div");
-  welcome.className = "chat-msg bot";
-  welcome.innerText = randomReply(mandiboAI.greetings);
+  let msg=document.createElement("div");
+  msg.className="chat-msg bot";
+  msg.innerText="Karibu Mandibo Furniture 😊 niko hapa kukusaidia kuchagua na kuagiza bidhaa yoyote";
 
-  messages.appendChild(welcome);
-}, 1000);
+  messages.appendChild(msg);
+},1000);
 
 </script>
 
