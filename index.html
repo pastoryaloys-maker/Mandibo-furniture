@@ -255,9 +255,7 @@
             <img src="https://z-cdn-media.chatglm.cn/files/d06cb235-9058-490c-b21c-a4cc6f192fb0.png?auth_key=1875111503-553b5bf504e04d49a0db0e9301a8b91d-0-f0265d78daac62181c5b8e73a86479be" alt="Mandibo Furniture" class="h-10 md:h-12 w-auto">
         </a>
         <div class="hidden md:flex items-center gap-8 user-only">
-            <a href="#stores" class="text-sm font-semibold uppercase tracking-wider text-neutral-300 hover:text-gold-500 link-h transition-colors">Stores</a>
             <a href="#products" class="text-sm font-semibold uppercase tracking-wider text-neutral-300 hover:text-gold-500 link-h transition-colors">Products</a>
-            <a href="#video-ad" class="text-sm font-semibold uppercase tracking-wider text-neutral-300 hover:text-gold-500 link-h transition-colors">Video Ad</a>
             <a href="#contact" class="text-sm font-semibold uppercase tracking-wider text-neutral-300 hover:text-gold-500 link-h transition-colors">Contact</a>
         </div>
         <div class="flex items-center gap-3">
@@ -267,58 +265,14 @@
             <button onclick="toggleMobileMenu()" class="md:hidden user-only w-10 h-10 flex items-center justify-center border border-white/20 rounded-full"><i data-lucide="menu" class="w-4 h-4"></i></button>
         </div>
     </div>
-    <div id="mobileMenu" class="hidden md:hidden bg-[#111]/95 backdrop-blur-xl border-t border-white/10 px-6 py-6 user-only"><div class="flex flex-col gap-4"><a href="#stores" onclick="toggleMobileMenu()" class="text-sm font-semibold uppercase tracking-wider text-neutral-300 hover:text-gold-500">Stores</a><a href="#products" onclick="toggleMobileMenu()" class="text-sm font-semibold uppercase tracking-wider text-neutral-300 hover:text-gold-500">Products</a><a href="#video-ad" onclick="toggleMobileMenu()" class="text-sm font-semibold uppercase tracking-wider text-neutral-300 hover:text-gold-500">Video Ad</a><a href="#contact" onclick="toggleMobileMenu()" class="text-sm font-semibold uppercase tracking-wider text-neutral-300 hover:text-gold-500">Contact</a></div></div>
+    <div id="mobileMenu" class="hidden md:hidden bg-[#111]/95 backdrop-blur-xl border-t border-white/10 px-6 py-6 user-only"><div class="flex flex-col gap-4"><a href="#products" onclick="toggleMobileMenu()" class="text-sm font-semibold uppercase tracking-wider text-neutral-300 hover:text-gold-500">Products</a><a href="#contact" onclick="toggleMobileMenu()" class="text-sm font-semibold uppercase tracking-wider text-neutral-300 hover:text-gold-500">Contact</a></div></div>
 </nav>
 
 <!-- USER VIEW -->
 <div id="userView">
 
-<section class="relative h-screen flex flex-col items-center justify-center overflow-hidden">
-    <div class="absolute inset-0"><img src="https://picsum.photos/seed/zanzibar-luxury-home/1920/1080.jpg" class="w-full h-full object-cover opacity-40" alt=""><div class="absolute inset-0 bg-gradient-to-b from-[#0A0A0A]/60 via-transparent to-[#0A0A0A]"></div></div>
-    <div class="absolute top-1/4 left-10 w-72 h-72 bg-gold-500/5 rounded-full blur-[120px]"></div>
-    <div class="absolute bottom-1/4 right-10 w-96 h-96 bg-gold-500/5 rounded-full blur-[150px]"></div>
-    <div class="relative z-10 text-center px-4 max-w-5xl">
-        <div class="mb-8" style="animation:scale-in 1s ease-out"><img src="https://z-cdn-media.chatglm.cn/files/d06cb235-9058-490c-b21c-a4cc6f192fb0.png?auth_key=1875111503-553b5bf504e04d49a0db0e9301a8b91d-0-f0265d78daac62181c5b8e73a86479be" alt="Logo" class="h-28 md:h-40 mx-auto drop-shadow-2xl"></div>
-        <p class="text-gold-500 font-mono text-xs md:text-sm uppercase tracking-[0.3em] mb-6" style="animation:fade-up .8s ease-out .3s both">Zanzibar's Premier Online Furniture Store</p>
-        <h1 class="text-4xl md:text-7xl lg:text-8xl font-extrabold tracking-tighter leading-[0.95] mb-6" style="animation:fade-up .8s ease-out .5s both">Transform Your<br><span class="shimmer-text">Living Space</span></h1>
-        <p class="text-neutral-400 text-base md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed" style="animation:fade-up .8s ease-out .7s both">Discover handpicked furniture from Zanzibar's finest stores. Browse, select, and order — all from the comfort of your home.</p>
-        <div class="flex flex-col sm:flex-row gap-4 justify-center" style="animation:fade-up .8s ease-out .9s both"><a href="#products" class="bg-gold-500 text-black font-bold text-sm uppercase tracking-wider px-10 py-4 rounded-full hover:bg-gold-400 hover:scale-105 transition-all duration-300 pulse-gold">Shop Now</a><a href="#video-ad" class="border border-white/20 text-white font-bold text-sm uppercase tracking-wider px-10 py-2 rounded-full hover:border-gold-500 hover:text-gold-500 transition-all duration-300">Watch Video Ad</a></div>
-    </div>
-    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 float"><i data-lucide="chevron-down" class="w-6 h-6 text-gold-500/60"></i></div>
-</section>
-
-<section id="video-ad" class="relative py-20 md:py-32 overflow-hidden">
-    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[1px] bg-gradient-to-r from-transparent via-gold-500/40 to-transparent"></div>
-    <div class="max-w-[1800px] mx-auto px-4 md:px-8">
-        <div class="text-center mb-16 reveal"><p class="text-gold-500 font-mono text-xs uppercase tracking-[0.3em] mb-4">Watch This</p><h2 class="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tighter">Our <span class="shimmer-text">Video Ad</span></h2></div>
-        <div class="relative max-w-5xl mx-auto reveal reveal-d1">
-            <div id="videoPlayer" class="relative aspect-video bg-black rounded-2xl overflow-hidden border border-white/10 cursor-pointer" onclick="playAd()">
-                <div id="adScene0" class="ad-scene playing absolute inset-0 flex-col items-center justify-center bg-black"><div class="absolute inset-0"><img src="https://picsum.photos/seed/luxury-room-dark/1280/720.jpg" class="w-full h-full object-cover opacity-30"><div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/80"></div></div><div class="relative z-10 text-center"><div class="w-20 h-20 md:w-24 md:h-24 rounded-full border-2 border-gold-500 flex items-center justify-center mx-auto mb-6 pulse-gold"><i data-lucide="play" class="w-8 h-8 md:w-10 md:h-10 text-gold-500 ml-1"></i></div><p class="text-gold-500 font-mono text-xs uppercase tracking-[0.3em]">Click to Play</p></div></div>
-                <div id="adScene1" class="ad-scene absolute inset-0 flex-col items-center justify-center bg-black"><img src="https://z-cdn-media.chatglm.cn/files/d06cb235-9058-490c-b21c-a4cc6f192fb0.png?auth_key=1875111503-553b5bf504e04d49a0db0e9301a8b91d-0-f0265d78daac62181c5b8e73a86479be" class="h-20 md:h-28 opacity-0" style="animation:scale-in 1s ease-out .5s forwards" alt="Logo"><p class="text-gold-400 font-mono text-xs uppercase tracking-[0.4em] mt-4 opacity-0" style="animation:fade-up .8s ease-out 1.5s forwards">Presents</p></div>
-                <div id="adScene2" class="ad-scene absolute inset-0 flex-col items-center justify-center bg-black"><p class="text-neutral-500 text-sm uppercase tracking-[0.3em] mb-4 opacity-0" style="animation:fade-up .6s ease-out forwards">Your Dream Home</p><h3 class="text-3xl md:text-6xl font-extrabold tracking-tighter text-center shimmer-text opacity-0" style="animation:scale-in .8s ease-out .5s forwards">Starts Here</h3></div>
-                <div id="adScene3" class="ad-scene absolute inset-0 flex-col items-center justify-center bg-black"><div class="absolute inset-0"><img src="https://z-cdn-media.chatglm.cn/files/f78a1915-3e89-4eaf-9e2f-0aaa67491fd6.png?auth_key=1875121023-c078d04653754bd18e638d5589b4652a-0-dbdc2637842b0c898f1bf3017d32a3ec" class="w-full h-full object-cover opacity-40"><div class="absolute inset-0 bg-black/50"></div></div><div class="relative z-10 text-center px-4"><p class="text-gold-500 font-mono text-xs uppercase tracking-[0.3em] mb-3 opacity-0" style="animation:fade-up .6s ease-out forwards">Beds • Sofas • Tables • Cupboards</p><h3 class="text-2xl md:text-5xl font-bold tracking-tight opacity-0" style="animation:fade-up .8s ease-out .5s forwards">Premium Furniture<br>From <span class="text-gold-500">3 Stores</span></h3></div></div>
-                <div id="adScene4" class="ad-scene absolute inset-0 flex-col items-center justify-center bg-black"><p class="text-neutral-400 text-sm uppercase tracking-widest mb-4 opacity-0" style="animation:fade-up .6s ease-out forwards">Starting From</p><p class="text-4xl md:text-7xl font-extrabold text-gold-500 opacity-0" style="animation:scale-in .8s ease-out .4s forwards">TZS 150,000</p></div>
-                <div id="adScene5" class="ad-scene absolute inset-0 flex-col items-center justify-center bg-black"><div class="text-center opacity-0" style="animation:fade-up .8s ease-out forwards"><div class="w-16 h-16 rounded-full bg-gold-500/10 border border-gold-500/30 flex items-center justify-center mx-auto mb-5"><i data-lucide="truck" class="w-7 h-7 text-gold-500"></i></div><h3 class="text-2xl md:text-4xl font-bold tracking-tight mb-2">FREE Delivery</h3><p class="text-neutral-400 text-sm">Across All Zanzibar</p></div></div>
-                <div id="adScene6" class="ad-scene absolute inset-0 flex-col items-center justify-center bg-black"><div class="absolute inset-0"><img src="https://z-cdn-media.chatglm.cn/files/f4d68b25-cb8e-4056-8dec-67156e8f8d40.png?auth_key=1875121023-600d14e5a6c540e0a10a077302343ab4-0-db973974387b32f211b4abb0a7059cf7" class="w-full h-full object-cover opacity-20"><div class="absolute inset-0 bg-black/70"></div></div><div class="relative z-10 text-center"><h3 class="text-2xl md:text-5xl font-extrabold tracking-tighter mb-2 opacity:0" style="animation:fade-up .6s ease-out forwards">Don't Wait!</h3><p class="text-gold-400 text-sm uppercase tracking-[0.2em] mb-8 opacity-0" style="animation:fade-up .6s ease-out .3s forwards">Limited Stock Available</p><a href="#products" onclick="stopAd()" class="inline-block bg-gold-500 text-black font-extrabold text-sm md:text-base uppercase tracking-wider px-12 py-4 rounded-full flash border-glow" style="animation:fade-up .6s ease-out .6s forwards">ORDER NOW →</a></div></div>
-                <div id="adProgress" class="absolute bottom-0 left-0 h-1 bg-gold-500 transition-all duration-300" style="width:0%"></div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="py-16 md:py-24 border-y border-white/5"><div class="max-w-[1800px] mx-auto px-4 md:px-8"><div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12"><div class="text-center reveal"><div class="w-16 h-16 rounded-full border border-gold-500/30 bg-gold-500/5 flex items-center justify-center mx-auto mb-5"><span class="text-gold-500 font-mono font-bold text-lg">01</span></div><h3 class="text-lg font-bold mb-2">Browse Stores</h3><p class="text-neutral-400 text-sm leading-relaxed">Explore our 3 curated stores across Zanzibar.</p></div><div class="text-center reveal reveal-d1"><div class="w-16 h-16 rounded-full border border-gold-500/30 bg-gold-500/5 flex items-center justify-center mx-auto mb-5"><span class="text-gold-500 font-mono font-bold text-lg">02</span></div><h3 class="text-lg font-bold mb-2">Select & Compare</h3><p class="text-neutral-400 text-sm leading-relaxed">Filter by category, compare prices, find your perfect piece.</p></div><div class="text-center reveal reveal-d2"><div class="w-16 h-16 rounded-full border border-gold-500/30 bg-gold-500/5 flex items-center justify-center mx-auto mb-5"><span class="text-gold-500 font-mono font-bold text-lg">03</span></div><h3 class="text-lg font-bold mb-2">Order Instantly</h3><p class="text-neutral-400 text-sm leading-relaxed">Tap "Order Now", fill your details, we handle delivery.</p></div></div></div></section>
-
-<!-- DYNAMIC STORES SECTION -->
-<section id="stores" class="py-20 md:py-32">
-    <div class="max-w-[1800px] mx-auto px-4 md:px-8">
-        <div class="text-center mb-16 reveal"><p class="text-gold-500 font-mono text-xs uppercase tracking-[0.3em] mb-4">Our Partners</p><h2 class="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tighter">Choose a <span class="shimmer-text">Store</span></h2></div>
-        <div id="dynamicStoreGrid" class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <!-- Stores injected via JS -->
-        </div>
-    </div>
-</section>
-
-<section id="products" class="py-20 md:py-32 bg-[#0d0d0d]">
+<!-- PRODUCTS SECTION (moved to top with padding) -->
+<section id="products" class="py-20 md:py-32 bg-[#0d0d0d] mt-20">
     <div class="max-w-[1800px] mx-auto px-4 md:px-8">
         <div class="text-center mb-12 reveal"><p class="text-gold-500 font-mono text-xs uppercase tracking-[0.3em] mb-4">Browse Collection</p><h2 class="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tighter">Our <span class="shimmer-text">Products</span></h2><p class="text-neutral-500 text-sm mt-3">Click any image to view full size with 3D rotation</p></div>
         <div class="reveal reveal-d1 mb-10">
@@ -637,24 +591,9 @@ function loadData(){
     if(document.getElementById('dynamicLocation')) document.getElementById('dynamicLocation').textContent = STATE.settings.location;
 }
 
-// ===== DYNAMIC STORE RENDERING =====
+// ===== DYNAMIC STORE RENDERING (Not used in simplified version, but keeping for dashboard) =====
 function renderStores() {
-    var container = document.getElementById('dynamicStoreGrid');
-    if(!container) return;
-    var html = '';
-    Object.keys(STATE.stores).forEach(function(key, index){
-        var s = STATE.stores[key];
-        var count = STATE.products.filter(function(p){return p.store === key;}).length;
-        var badgeHtml = s.badge ? '<span class="absolute top-3 right-3 '+s.badgeColor+' text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full">'+s.badge+'</span>' : '';
-        
-        html += '<div onclick="selectStore(\''+key+'\')" class="store-card border border-white/10 rounded-2xl overflow-hidden cursor-pointer reveal reveal-d'+index+'" data-store="'+key+'">';
-        html += '<div class="relative h-48 overflow-hidden"><img src="'+s.img+'" class="w-full h-full object-cover p-img" alt=""><div class="absolute inset-0 gradient-up"></div>'+badgeHtml+'</div>';
-        html += '<div class="p-6"><h3 class="text-xl font-bold mb-1">'+s.name+'</h3><p class="text-gold-500 text-sm font-medium mb-3">'+s.tag+'</p>';
-        html += '<div class="flex items-center gap-2 text-neutral-400 text-xs"><i data-lucide="map-pin" class="w-3 h-3"></i>'+s.loc+'</div>';
-        html += '<div class="flex items-center gap-2 text-neutral-400 text-xs mt-1"><i data-lucide="package" class="w-3 h-3"></i><span id="store-'+key+'-count">'+count+'</span> Products</div></div></div>';
-    });
-    container.innerHTML = html;
-    lucide.createIcons();
+    // Stores section removed from user view, but keeping function for potential dashboard use
 }
 
 // ===== PRODUCT LOGIC =====
@@ -890,13 +829,10 @@ function showToast(msg,type){type=type||'info';var box=document.getElementById('
 function initNavbar(){window.addEventListener('scroll',function(){var n=document.getElementById('navbar');if(window.scrollY>80)n.classList.add('bg-[#0A0A0A]/90','backdrop-blur-xl','border-b','border-white/5');else n.classList.remove('bg-[#0A0A0A]/90','backdrop-blur-xl','border-b','border-white/5');});}
 function toggleMobileMenu(){document.getElementById('mobileMenu').classList.toggle('hidden');}
 function initReveal(){var obs=new IntersectionObserver(function(e){e.forEach(function(x){if(x.isIntersecting)x.target.classList.add('active');});},{threshold:0.1,rootMargin:'0px 0px -50px 0px'});document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el);});}
-function playAd(){var scenes=['adScene0','adScene1','adScene2','adScene3','adScene4','adScene5','adScene6'];var durs=[0,3000,3000,4000,3000,3000,4000];var total=0;durs.forEach(function(d){total+=d;});var pb=document.getElementById('adProgress'),st=Date.now();STATE.adTimeouts.forEach(function(t){clearTimeout(t);});STATE.adTimeouts=[];clearInterval(STATE.adInterval);function show(i){scenes.forEach(function(s){document.getElementById(s).classList.remove('playing');});if(i<scenes.length)document.getElementById(scenes[i]).classList.add('playing');}show(1);STATE.adInterval=setInterval(function(){pb.style.width=Math.min((Date.now()-st)/total*100,100)+'%';},50);var delay=0;for(var i=1;i<scenes.length;i++){delay+=durs[i];(function(idx,d){STATE.adTimeouts.push(setTimeout(function(){show(idx);if(idx===scenes.length-1)setTimeout(stopAd,durs[idx]);},d));})(i,delay);}}
-function stopAd(){STATE.adTimeouts.forEach(function(t){clearTimeout(t);});STATE.adTimeouts=[];clearInterval(STATE.adInterval);document.querySelectorAll('.ad-scene').forEach(function(s){s.classList.remove('playing');});document.getElementById('adScene0').classList.add('playing');document.getElementById('adProgress').style.width='0%';}
 
 // ===== INITIALIZATION =====
 document.addEventListener('DOMContentLoaded',function(){
     loadData();
-    renderStores(); 
     renderProducts();
     
     document.getElementById('loginForm').addEventListener('submit',function(e){e.preventDefault();ownerLogin();});
@@ -908,90 +844,11 @@ document.addEventListener('DOMContentLoaded',function(){
 });
 </script>
 
-<script>
-// ===== SALES AI + WHATSAPP =====
-const OWNER_WHATSAPP = "255799610190";
-let aiRules = JSON.parse(localStorage.getItem('ai_rules')) || [];
-let aiLeads = JSON.parse(localStorage.getItem('ai_leads')) || [];
-
-function detectIntent(msg){
- msg=msg.toLowerCase();
- if(msg.includes('bei')||msg.includes('price')||msg.includes('nunua')||msg.includes('order')||msg.includes('lipa')||msg.includes('nataka')) return 'buyer';
- if(msg.includes('details')||msg.includes('info')||msg.includes('zaidi')) return 'interested';
- return 'normal';
-}
-
-function saveLead(message){
- aiLeads.push({message,time:new Date().toLocaleString()});
- localStorage.setItem('ai_leads', JSON.stringify(aiLeads));
-}
-
-function sendToWhatsApp(userMessage){
- const text=encodeURIComponent("NEW CUSTOMER\n\n"+userMessage);
- window.open(`https://wa.me/${OWNER_WHATSAPP}?text=${text}`,'_blank');
-}
-
-// ===== SMART AI (OpenRouter) =====
-const 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";
-
-async function getSmartAIResponse(message){
- try{
-  const res=await fetch("https://openrouter.ai/api/v1/chat/completions",{
-   method:"POST",
-   headers:{
-    "Authorization":"Bearer "+OPENROUTER_API_KEY,
-    "Content-Type":"application/json"
-   },
-   body:JSON.stringify({
-    model:"openai/gpt-3.5-turbo",
-    messages:[
-     {role:"system",content:"Wewe ni muuzaji wa furniture Tanzania. Ongea Kiswahili, uwe rafiki na shawishi mteja kununua."},
-     {role:"user",content:message}
-    ]
-   })
-  });
-  const data=await res.json();
-  return data.choices?.[0]?.message?.content || "Samahani, jaribu tena.";
- }catch(e){
-  return "Kuna tatizo la mtandao.";
- }
-}
-
-async function getSalesAIResponse(message){
- let intent=detectIntent(message);
-
- if(intent==='buyer'){
-  saveLead(message);
-  sendToWhatsApp(message);
-  return "🔥 Nakuelekeza WhatsApp ukamilishe oda.";
- }
-
- return await getSmartAIResponse(message);
-}
-
-async function sendChatMessage(){
- const input=document.getElementById('chatInput');
- const chat=document.getElementById('chatMessages');
- const message=input.value.trim();
- if(!message) return;
-
- chat.innerHTML+=`<div class="chat-msg user">${message}</div>`;
- input.value="";
-
- document.getElementById('typingIndicator').classList.add('active');
-
- const reply=await getSalesAIResponse(message);
-
- document.getElementById('typingIndicator').classList.remove('active');
- chat.innerHTML+=`<div class="chat-msg bot">${reply}</div>`;
- chat.scrollTop=chat.scrollHeight;
-}
-</script>
-
 <a href="https://wa.me/255799610190" target="_blank"
 style="position:fixed;bottom:90px;right:20px;background:#25D366;color:white;padding:14px;border-radius:50px;font-weight:bold;z-index:999;">
 💬 WhatsApp
-</a><script>
+</a>
+<script>
 
 // =========================
 // MASSIVE RESPONSE LIBRARY (300+ LOGIC BASED)
@@ -1135,6 +992,5 @@ setTimeout(()=>{
 },1000);
 
 </script>
-
 </body>
 </html>
