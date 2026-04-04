@@ -907,5 +907,89 @@ document.addEventListener('DOMContentLoaded',function(){
     initReveal();initNavbar();lucide.createIcons();lvInit();initAI();
 });
 </script>
+
+<script>
+// ===== SALES AI + WHATSAPP INTEGRATION =====
+const OWNER_WHATSAPP = "255799610190";
+
+let aiRules = JSON.parse(localStorage.getItem('ai_rules')) || [];
+let aiLeads = JSON.parse(localStorage.getItem('ai_leads')) || [];
+
+function detectIntent(msg){
+    msg = msg.toLowerCase();
+    if(msg.includes('bei')||msg.includes('price')||msg.includes('nunua')||msg.includes('order')||msg.includes('lipa')||msg.includes('nataka')||msg.includes('how much')) return 'buyer';
+    if(msg.includes('details')||msg.includes('info')||msg.includes('zaidi')||msg.includes('onyesha')||msg.includes('interested')) return 'interested';
+    return 'normal';
+}
+
+function saveLead(message){
+    aiLeads.push({message:message,time:new Date().toLocaleString()});
+    localStorage.setItem('ai_leads', JSON.stringify(aiLeads));
+}
+
+function sendToWhatsApp(userMessage){
+    const text = encodeURIComponent("🛒 NEW CUSTOMER (Mandibo Website)\n\nMessage: "+userMessage+"\n\nStatus: Ready Buyer");
+    window.open(`https://wa.me/${OWNER_WHATSAPP}?text=${text}`,'_blank');
+}
+
+function getSalesAIResponse(message){
+    let intent = detectIntent(message);
+    let msg = message.toLowerCase();
+
+    for(let rule of aiRules){
+        if(msg.includes(rule.trigger) && rule.intent === intent){
+            if(intent==='buyer'){ saveLead(message); sendToWhatsApp(message); }
+            return rule.response;
+        }
+    }
+
+    if(intent==='buyer'){
+        saveLead(message);
+        sendToWhatsApp(message);
+        return "🔥 Umechagua vizuri sana! Tunakuunganisha WhatsApp sasa.";
+    }
+
+    if(intent==='interested'){
+        return "Vizuri 😊 Ni bidhaa gani imekuvutia?";
+    }
+
+    return "Karibu Mandibo Furniture 🛋️ Unatafuta nini leo?";
+}
+
+// Override chat send
+function sendChatMessage(){
+    const input = document.getElementById('chatInput');
+    const chat = document.getElementById('chatMessages');
+    const message = input.value.trim();
+    if(!message) return;
+
+    chat.innerHTML += `<div class="chat-msg user">${message}</div>`;
+    input.value = "";
+
+    document.getElementById('typingIndicator').classList.add('active');
+
+    setTimeout(()=>{
+        document.getElementById('typingIndicator').classList.remove('active');
+        const reply = getSalesAIResponse(message);
+        chat.innerHTML += `<div class="chat-msg bot">${reply}</div>`;
+        chat.scrollTop = chat.scrollHeight;
+    },800);
+}
+
+// Default rules
+if(!localStorage.getItem('ai_rules')){
+    localStorage.setItem('ai_rules', JSON.stringify([
+        {trigger:"bei",intent:"buyer",response:"Bei zinaanzia TZS 150,000. Unapenda ipi?"},
+        {trigger:"sofa",intent:"interested",response:"Tuna sofa nzuri sana. Unapendelea style gani?"},
+        {trigger:"kitanda",intent:"interested",response:"Tunauza vitanda imara. Unataka size gani?"}
+    ]));
+}
+</script>
+
+<a href="https://wa.me/255799610190" target="_blank"
+style="position:fixed;bottom:90px;right:20px;background:#25D366;color:white;padding:14px 16px;border-radius:50px;font-weight:bold;z-index:999;text-decoration:none;">
+💬 WhatsApp
+</a>
+
 </body>
 </html>
