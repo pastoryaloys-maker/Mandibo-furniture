@@ -168,6 +168,56 @@
 </head>
 <body class="bg-[#0A0A0A] text-white font-sans antialiased overflow-x-hidden">
 
+<!-- ========== HOMEPAGE SECTION - FOR GOOGLE SEARCH CONSOLE ========== -->
+<section id="homepage" class="min-h-screen pt-32 pb-20 flex items-center justify-center bg-[#0d0d0d]">
+    <div class="max-w-[1800px] mx-auto px-4 md:px-8 text-center">
+        <div class="mb-8 flex justify-center animate-pulse">
+            <div class="logo-circle" style="width:140px;height:140px">
+                <img src="https://z-cdn-media.chatglm.cn/files/d06cb235-9058-490c-b21c-a4cc6f192fb0.png?auth_key=1875111503-553b5bf504e04d49a0db0e9301a8b91d-0-f0265d78daac62181c5b8e73a86479be" alt="MANDIBO FURNITURE Logo">
+            </div>
+        </div>
+        <h1 class="text-4xl md:text-6xl font-bold mb-4 tracking-tight leading-tight">
+            MANDIBO FURNITURE
+        </h1>
+        <p class="text-xl text-neutral-300 mb-3 font-semibold">Zanzibar's Premier Online Furniture Store</p>
+        <p class="text-lg text-neutral-400 mb-10 max-w-3xl mx-auto leading-relaxed">
+            Discover authentic, handcrafted furniture for your home. Premium quality products delivered free across all of Zanzibar within 24 hours. Shop from three unique collections: Heritage, Coastal, and Modern.
+        </p>
+        <div class="flex flex-col md:flex-row gap-4 justify-center mb-16">
+            <button onclick="scrollToProducts()" class="bg-gold-500 text-black font-bold text-lg px-12 py-4 rounded-full hover:bg-gold-400 hover:scale-105 transition-all duration-300">
+                🛍️ Shop Now
+            </button>
+            <button onclick="openWhatsApp()" class="border-2 border-gold-500 text-gold-500 font-bold text-lg px-12 py-4 rounded-full hover:bg-gold-500 hover:text-black transition-all duration-300">
+                💬 WhatsApp Us
+            </button>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 md:gap-8">
+            <div class="bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-gold-500/30 transition-colors">
+                <p class="text-gold-500 font-bold text-3xl mb-2">100+</p>
+                <p class="text-neutral-400 text-sm uppercase tracking-wider">Furniture Items</p>
+            </div>
+            <div class="bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-emerald-500/30 transition-colors">
+                <p class="text-emerald-400 font-bold text-3xl mb-2">98.5%</p>
+                <p class="text-neutral-400 text-sm uppercase tracking-wider">Customer Satisfaction</p>
+            </div>
+            <div class="bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-blue-500/30 transition-colors">
+                <p class="text-blue-400 font-bold text-3xl mb-2">24h</p>
+                <p class="text-neutral-400 text-sm uppercase tracking-wider">Free Delivery</p>
+            </div>
+            <div class="bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-purple-500/30 transition-colors">
+                <p class="text-purple-400 font-bold text-3xl mb-2">3</p>
+                <p class="text-neutral-400 text-sm uppercase tracking-wider">Store Locations</p>
+            </div>
+        </div>
+        <div class="mt-16 text-neutral-500 text-sm space-y-3">
+            <p class="font-semibold text-neutral-400">Why Choose Mandibo Furniture?</p>
+            <p class="max-w-2xl mx-auto">✓ Authentic handcrafted pieces  ✓ Best prices in Zanzibar  ✓ Free delivery  ✓ 24-hour WhatsApp support</p>
+            <p class="text-xs text-neutral-600 mt-6">Based in Zanzibar, Tanzania | Serving the entire Zanzibar archipelago</p>
+        </div>
+    </div>
+</section>
+<!-- ========== END HOMEPAGE SECTION ========== -->
+
 <div id="chatBox">
     <div class="chat-header">
         <div style="display:flex;align-items:center;gap:10px">
@@ -352,9 +402,18 @@
 
 <div id="deleteModal" class="fixed inset-0 z-[110] hidden"><div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="closeDeleteModal()"></div><div class="relative z-10 flex items-center justify-center min-h-screen p-4"><div class="bg-[#111] border border-red-500/30 rounded-2xl w-full max-w-sm p-8 text-center"><div class="w-14 h-14 rounded-full bg-red-500/10 border border-red-500/30 flex items-center justify-center mx-auto mb-4"><i data-lucide="trash-2" class="w-6 h-6 text-red-400"></i></div><h3 class="text-lg font-bold mb-2">Delete Product?</h3><p id="deleteItemName" class="text-neutral-400 text-sm mb-6"></p><div class="flex gap-3"><button onclick="closeDeleteModal()" class="flex-1 border border-white/10 text-neutral-300 font-bold text-sm uppercase tracking-wider py-3 rounded-full hover:border-white/30 transition-all">Cancel</button><button onclick="confirmDelete()" class="flex-1 bg-red-500 text-white font-bold text-sm uppercase tracking-wider py-3 rounded-full hover:bg-red-400 transition-all">Delete</button></div></div></div></div>
 
-<div id="editModal" class="fixed inset-0 z-[110] hidden"><div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="closeEditModal()"></div><div class="relative z-10 flex items-center justify-center min-h-screen p-4"><div class="bg-[#111] border border-gold-500/30 rounded-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto p-8"><div class="flex items-center justify-between mb-6"><h3 class="text-xl font-bold">✏️ Edit Product</h3><button onclick="closeEditModal()" class="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center hover:border-red-500 hover:text-red-500 transition-colors"><i data-lucide="x" class="w-4 h-4"></i></button></div><div class="mb-5"><img id="editImgPreview" src="" class="w-full h-48 object-cover rounded-xl border border-white/10 bg-[#0A0A0A]" alt="Preview"></div><div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5"><div><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2 block">Store</label><select id="editStore" class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white focus:outline-none"><option value="store-a">Store A</option><option value="store-b">Store B</option><option value="store-c">Store C</option></select></div><div><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2 block">Category</label><select id="editCategory" class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white focus:outline-none"><option value="beds">Beds</option><option value="sofa-chair">Sofa & Chair</option><option value="tables">Tables</option><option value="cupboard">Cupboard</option><option value="doors-windows">Doors & Windows</option><option value="others">Others</option></select></div></div><div class="mb-5"><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2 block">Product Name *</label><input type="text" id="editName" class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-neutral-600 focus:outline-none"><p id="editErrName" class="inline-err">⚠ Name required</p></div><div class="mb-5"><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2 block">Price (TZS) *</label><div class="relative"><span class="absolute left-4 top-1/2 -translate-y-1/2 text-neutral-500 text-sm font-medium">TZS</span><input type="text" id="editPrice" inputmode="numeric" class="form-input w-full bg-black border border-white/10 rounded-lg pl-14 pr-4 py-3 text-sm text-white placeholder-neutral-600 focus:outline-none" oninput="this.value=this.value.replace(/[^0-9,]/g,'')"></div><p id="editErrPrice" class="inline-err">⚠ Valid price required</p></div><div class="mb-5"><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2 block">Image URL</label><input type="text" id="editImage" class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-neutral-600 focus:outline-none" oninput="updateEditImgPreview()"></div><div class="mb-6"><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2 block">Description</label><textarea id="editDesc" rows="3" class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-neutral-600 focus:outline-none resize-none"></textarea></div><div class="flex gap-3"><button type="button" onclick="handleSaveEdit()" class="flex-1 bg-gold-500 text-black font-bold text-sm uppercase tracking-wider py-3.5 rounded-full hover:bg-gold-400 hover:scale-[1.02] transition-all duration-300">💾 Save</button><button type="button" onclick="closeEditModal()" class="border border-white/10 text-neutral-400 font-bold text-sm uppercase tracking-wider px-6 py-3.5 rounded-full hover:border-white/30 hover:text-white transition-all duration-300">Cancel</button></div></div></div></div></div>
+<div id="editModal" class="fixed inset-0 z-[110] hidden"><div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="closeEditModal()"></div><div class="relative z-10 flex items-center justify-center min-h-screen p-4"><div class="bg-[#111] border border-gold-500/30 rounded-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto p-8"><div class="flex items-center justify-between mb-6"><h3 class="text-xl font-bold">✏️ Edit Product</h3><button onclick="closeEditModal()" class="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center hover:border-red-500 hover:text-red-500 transition-colors"><i data-lucide="x" class="w-4 h-4"></i></button></div><div class="mb-5"><img id="editImgPreview" src="" class="w-full h-48 object-cover rounded-xl border border-white/10 bg-[#0A0A0A]" alt="Preview"></div><div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5"><div><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2 block">Store</label><select id="editStore" class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white focus:outline-none"><option value="store-a">Store A</option><option value="store-b">Store B</option><option value="store-c">Store C</option></select></div><div><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2 block">Category</label><select id="editCategory" class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white focus:outline-none"><option value="beds">Beds</option><option value="sofa-chair">Sofa & Chair</option><option value="tables">Tables</option><option value="cupboard">Cupboard</option><option value="doors-windows">Doors & Windows</option><option value="others">Others</option></select></div></div><div class="mb-5"><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2 block">Product Name *</label><input type="text" id="editName" class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-neutral-600 focus:outline-none"><p id="editErrName" class="inline-err">⚠ Name required</p></div><div class="mb-5"><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2 block">Price (TZS) *</label><div class="relative"><span class="absolute left-4 top-1/2 -translate-y-1/2 text-neutral-500 text-sm font-medium">TZS</span><input type="text" id="editPrice" inputmode="numeric" class="form-input w-full bg-black border border-white/10 rounded-lg pl-14 pr-4 py-3 text-sm text-white placeholder-neutral-600 focus:outline-none" oninput="this.value=this.value.replace(/[^0-9,]/g,'')"></div><p id="editErrPrice" class="inline-err">⚠ Valid price required</p></div><div class="mb-5"><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2 block">Image URL</label><input type="text" id="editImage" class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-neutral-600 focus:outline-none" oninput="updateEditImgPreview()"></div><div class="mb-6"><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2 block">Description</label><textarea id="editDesc" rows="3" class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-neutral-600 focus:outline-none resize-none"></textarea></div><div class="flex gap-3"><button type="button" onclick="handleSaveEdit()" class="flex-1 bg-gold-500 text-black font-bold text-sm uppercase tracking-wider py-3.5 rounded-full hover:bg-gold-400 hover:scale-[1.02] transition-all duration-300">💾 Save</button><button type="button" onclick="closeEditModal()" class="border border-white/10 text-neutral-400 font-bold text-sm uppercase tracking-wider px-6 py-3.5 rounded-full hover:border-white/30 hover:text-white transition-all duration-300">Cancel</button></div></div></div></div>
 
 <script>
+// ========== SCROLL TO PRODUCTS FUNCTION FOR HOMEPAGE ==========
+function scrollToProducts(){
+    var section = document.getElementById('products');
+    if(section){
+        section.scrollIntoView({behavior:'smooth'});
+    }
+}
+// ========== END SCROLL FUNCTION ==========
+
 var DEFAULT_SITE_SETTINGS={phone:'+255 799 610 190',whatsapp:'+255 799 610 190',location:'Zanzibar, Tanzania',ownerPass:'mandibo2026'};
 var DEFAULT_STORES={'store-a':{name:'Store A',tag:'Zanzibar Heritage Collection',loc:'Stone Town'},'store-b':{name:'Store B',tag:'Coastal Elegance',loc:'Nungwi'},'store-c':{name:'Store C',tag:'Modern Living',loc:'Kiwengwa'}};
 var STATE={settings:JSON.parse(JSON.stringify(DEFAULT_SITE_SETTINGS)),stores:JSON.parse(JSON.stringify(DEFAULT_STORES)),products:[],orders:[],discounts:[],currentStoreFilter:'all',currentCatFilter:'all',currentOrderProduct:null,currentDiscount:null,pendingDeleteId:null,editingProductId:null,lbZoom:1,lbSpinning:false,lbClosing:false,ai:{hasGreeted:false,chatVisible:false},live:{online:14,today:287,todayOrders:23,barVisible:true}};
