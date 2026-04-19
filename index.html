@@ -818,7 +818,22 @@ var D_DEFAULT_SETTINGS={phone:'+255 799 610 190',whatsapp:'+255 799 610 190',loc
 var D_DEFAULT_STORES={'store-a':{name:'Store A',tag:'Zanzibar Heritage Collection',loc:'Stone Town'},'store-b':{name:'Store B',tag:'Coastal Elegance',loc:'Nungwi'},'store-c':{name:'Store C',tag:'Modern Living',loc:'Kiwengwa'}};
 var DS={settings:JSON.parse(JSON.stringify(D_DEFAULT_SETTINGS)),stores:JSON.parse(JSON.stringify(D_DEFAULT_STORES)),products:[],orders:[],discounts:[],currentStoreFilter:'all',currentCatFilter:'all',currentOrderProduct:null,currentDiscount:null,pendingDeleteId:null,editingProductId:null,lbZoom:1,lbSpinning:false,lbClosing:false,ai:{hasGreeted:false,chatVisible:false},live:{online:14,today:287,todayOrders:23,barVisible:true}};
 var D_IMG_PH=['https://picsum.photos/seed/f1/600','https://picsum.photos/seed/f2/600','https://picsum.photos/seed/f3/600'];
-var dDefaultProducts=[{id:1,store:'store-a',cat:'beds',name:'Zanzibar Carved King Bed',price:3500000,img:'https://z-cdn-media.chatglm.cn/files/b2204e29-e1a1-4d2c-82ad-45c6f0810365.png?auth_key=1875121023-e0211d56db1c432bb5d12b1debea744f-0-e01624498ea126cfd37f26032f54e3e6',desc:'Hand-carved mahogany king-size bed.'},{id:2,store:'store-a',cat:'sofa-chair',name:'Heritage Sofa Set',price:4500000,img:'https://z-cdn-media.chatglm.cn/files/444215d9-bda6-45d7-a606-e9b9ec24b2c4.png?auth_key=1875121023-e7d989b65ea64667a9563899015dbfee-0-b66b7473c236d6a018435f9b6bef4748',desc:'3+1+1 sofa set with hand-carved mahogany frame.'},{id:3,store:'store-b',cat:'tables',name:'Coastal Dining Table',price:2500000,img:'https://z-cdn-media.chatglm.cn/files/f78a1915-3e89-4eaf-9e2f-0aaa67491fd6.png?auth_key=1875121023-c078d04653754bd18e638d5589b4652a-0-dbdc2637842b0c898f1bf3017d32a3ec',desc:'6-seater dining table with coastal styling.'},{id:4,store:'store-c',cat:'beds',name:'Modern Upholstered King Bed',price:3000000,img:'https://z-cdn-media.chatglm.cn/files/f4d68b25-cb8e-4056-8dec-67156e8f8d40.png?auth_key=1875121023-600d14e5a6c540e0a10a077302343ab4-0-db973974387b32f211b4abb0a7059cf7',desc:'Contemporary upholstered king bed with padded headboard.'},{id:5,store:'store-a',cat:'cupboard',name:'Mahogany Wardrobe',price:3200000,img:'https://z-cdn-media.chatglm.cn/files/bf96da0c-bf91-4349-93a3-38478154c069.png?auth_key=1875121023-532d6ffdf76740398d52b7963ec5b049-0-b077f8c54f361bf4c5f0a152a4bf523b',desc:'Large double-door wardrobe in solid mahogany.'}];
+var dDefaultProducts=[
+  {id:1,store:'store-a',cat:'beds',name:'Zanzibar Carved King Bed',price:3500000,img:'https://z-cdn-media.chatglm.cn/files/b2204e29-e1a1-4d2c-82ad-45c6f0810365.png?auth_key=1875121023-e0211d56db1c432bb5d12b1debea744f-0-e01624498ea126cfd37f26032f54e3e6',desc:'Hand-carved mahogany king-size bed.'},
+  {id:2,store:'store-a',cat:'sofa-chair',name:'Heritage Sofa Set',price:4500000,img:'https://z-cdn-media.chatglm.cn/files/444215d9-bda6-45d7-a606-e9b9ec24b2c4.png?auth_key=1875121023-e7d989b65ea64667a9563899015dbfee-0-b66b7473c236d6a018435f9b6bef4748',desc:'3+1+1 sofa set with hand-carved mahogany frame.'},
+  {id:3,store:'store-b',cat:'tables',name:'Coastal Dining Table',price:2500000,img:'https://z-cdn-media.chatglm.cn/files/f78a1915-3e89-4eaf-9e2f-0aaa67491fd6.png?auth_key=1875121023-c078d04653754bd18e638d5589b4652a-0-dbdc2637842b0c898f1bf3017d32a3ec',desc:'6-seater dining table with coastal styling.'},
+  {id:4,store:'store-c',cat:'beds',name:'Modern Upholstered King Bed',price:3000000,img:'https://z-cdn-media.chatglm.cn/files/f4d68b25-cb8e-4056-8dec-67156e8f8d40.png?auth_key=1875121023-600d14e5a6c540e0a10a077302343ab4-0-db973974387b32f211b4abb0a7059cf7',desc:'Contemporary upholstered king bed with padded headboard.'},
+  {id:5,store:'store-a',cat:'cupboard',name:'Mahogany Wardrobe',price:3200000,img:'https://z-cdn-media.chatglm.cn/files/bf96da0c-bf91-4349-93a3-38478154c069.png?auth_key=1875121023-532d6ffdf76740398d52b7963ec5b049-0-b077f8c54f361bf4c5f0a152a4bf523b',desc:'Large double-door wardrobe in solid mahogany.'},
+  // ADDED PRODUCTS START HERE
+  {id:101,store:'store-a',cat:'others',name:'Heritage Furniture Sample Set',price:5500000,img:'https://z-cdn-media.chatglm.cn/files/f6f33c57-50d2-4870-913e-16f0ef296b59.png?auth_key=1876601301-b261992f9b9c4460ab45eb769aea96ad-0-4e605335ddfff4c80b5abb9b1610e5c4',desc:'Limited availability artisanal collection. Regal Line Beds and Artisanal Daybed Frames included. Quality Heritage Limited Editions.'},
+  {id:102,store:'store-a',cat:'cupboard',name:'Grand Classic Wardrobe',price:3200000,img:'https://z-cdn-media.chatglm.cn/files/48578fdc-0c0b-4681-9fb7-37f4e5dd94ea.png?auth_key=1876601301-31d0c474c57947328e0894727997a914-0-7aa0fe19670bc90ba8e6d1c11aacab57',desc:'Large warm brown wardrobe with multiple compartments, drawers, and classic design. Perfect for master bedrooms.'},
+  {id:103,store:'store-a',cat:'cupboard',name:'Retro Storage Wardrobe',price:3100000,img:'https://z-cdn-media.chatglm.cn/files/15fee8e6-9df2-4b8c-bc54-8345528c68b4.png?auth_key=1876601301-9860768250ca46c8bc6c8ed6ef4160c6-0-997ad1898658f86738e097a6a588d047',desc:'Vintage style warm brown wardrobe with fabric-lined interior and ample drawer space. Elegant and practical.'},
+  {id:104,store:'store-a',cat:'cupboard',name:'Royal Gold-Trim Cabinet',price:3800000,img:'https://z-cdn-media.chatglm.cn/files/a8017c88-8e3a-4d25-947c-0d43f2d0b3c1.png?auth_key=1876601301-3c204b39b0e74717aa1e51a5457cb61d-0-34de50e5678dc12cd8ff769090754dec',desc:'Dark brown double-door wardrobe with intricate gold handles and locks. Features top decorative molding and circular engravings.'},
+  {id:105,store:'store-a',cat:'cupboard',name:'Glass-Display Storage Unit',price:2900000,img:'https://z-cdn-media.chatglm.cn/files/323bc068-95d4-4eca-9b46-e1f2a8cbe48c.png?auth_key=1876601301-05b68822be804efc91863a6457e47c3f-0-5abc8180a6e0b393f17be64123782daf',desc:'Retro storage unit with elegant glass display doors, carved wood panels, and metal hardware. Adds charm to any room.'},
+  {id:106,store:'store-a',cat:'cupboard',name:'Vertical Stripe Mahogany',price:3000000,img:'https://z-cdn-media.chatglm.cn/files/aa4fcde4-362e-4c1a-bd7a-a037438d7c8f.png?auth_key=1876601301-261b47f65a704769ae5bf2a56def7ef3-0-1f0f01276c22dfa2b31eeb0294c2a626',desc:'Elegant wardrobe with vertical wood grain design, purple velvet lining, and sleek metal handles. Bright and spacious.'},
+  {id:107,store:'store-a',cat:'cupboard',name:'Carved Master Wardrobe',price:4200000,img:'https://z-cdn-media.chatglm.cn/files/17e7d2be-378d-4ba9-981a-493eaf17e060.png?auth_key=1876601301-6f439b893da94ab69d579d326dc0bf59-0-318c06b6f56062aa28b61f0a24cf198f',desc:'Heavily carved wooden wardrobe with geometric patterns and gold accents. Fits perfectly in modern classic home settings.'}
+  // ADDED PRODUCTS END HERE
+];
 function dFmtTZS(n){return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g,',');}
 function dParsePrice(s){return parseInt(s.replace(/,/g,''),10)||0;}
 function dCleanPhone(p){var c=p.replace(/\D/g,'');if(c.startsWith('0'))c='255'+c.substring(1);return c;}
@@ -907,197 +922,4 @@ var M_PRODUCTS = [
   {id:1,store:'store-a',cat:'beds',name:'Zanzibar Carved King Bed',price:3500000,img:'https://z-cdn-media.chatglm.cn/files/b2204e29-e1a1-4d2c-82ad-45c6f0810365.png?auth_key=1875121023-e0211d56db1c432bb5d12b1debea744f-0-e01624498ea126cfd37f26032f54e3e6',desc:'Hand-carved mahogany king-size bed.'},
   {id:2,store:'store-a',cat:'sofa-chair',name:'Heritage Sofa Set',price:4500000,img:'https://z-cdn-media.chatglm.cn/files/444215d9-bda6-45d7-a606-e9b9ec24b2c4.png?auth_key=1875121023-e7d989b65ea64667a9563899015dbfee-0-b66b7473c236d6a018435f9b6bef4748',desc:'3+1+1 sofa set with hand-carved mahogany frame.'},
   {id:3,store:'store-b',cat:'tables',name:'Coastal Dining Table',price:2500000,img:'https://z-cdn-media.chatglm.cn/files/f78a1915-3e89-4eaf-9e2f-0aaa67491fd6.png?auth_key=1875121023-c078d04653754bd18e638d5589b4652a-0-dbdc2637842b0c898f1bf3017d32a3ec',desc:'6-seater dining table with coastal styling.'},
-  {id:4,store:'store-c',cat:'beds',name:'Modern Upholstered King Bed',price:3000000,img:'https://z-cdn-media.chatglm.cn/files/f4d68b25-cb8e-4056-8dec-67156e8f8d40.png?auth_key=1875121023-600d14e5a6c540e0a10a077302343ab4-0-db973974387b32f211b4abb0a7059cf7',desc:'Contemporary upholstered king bed with padded headboard.'},
-  {id:5,store:'store-a',cat:'cupboard',name:'Mahogany Wardrobe',price:3200000,img:'https://z-cdn-media.chatglm.cn/files/bf96da0c-bf91-4349-93a3-38478154c069.png?auth_key=1875121023-532d6ffdf76740398d52b7963ec5b049-0-b077f8c54f361bf4c5f0a152a4bf523b',desc:'Large double-door wardrobe in solid mahogany.'},
-  {id:6,store:'store-b',cat:'sofa-chair',name:'Blue Tufted Bed Frame',price:2800000,img:'https://z-cdn-media.chatglm.cn/files/9bfb3611-442c-43f3-ac25-7472d5618588.png?auth_key=1875819927-afb9998f5e10478eb563f55ccbe5e51d-0-f48cd800e6cc00e6ea5586ec5720f019',desc:'Luxurious tufted blue fabric bed frame.'},
-  {id:7,store:'store-c',cat:'sofa-chair',name:'Executive Leather Chair',price:1800000,img:'https://z-cdn-media.chatglm.cn/files/949d1517-d5a3-484d-8dbb-e806d48c6eae.png?auth_key=1875819927-69f32d94ece3468ba23f7518c320f633-0-80c4a3520fe273e4ead70edf8d86f877',desc:'Premium black leather executive chair.'},
-  {id:8,store:'store-b',cat:'sofa-chair',name:'Gold Three-Seater Sofa',price:3800000,img:'https://z-cdn-media.chatglm.cn/files/1b75edb6-a52c-44d7-97f5-a503216336be.png?auth_key=1875819927-70981693f3f34a13bc6e7484324493f9-0-23d9ab2090b824d83378ec597f92aaee',desc:'Opulent gold velvet three-seater sofa.'},
-];
-var mCurrentCat='all', mCurrentSearch='', mCurrentProduct=null, mChatOpen=false, mChatGreeted=false;
-var mFavs=new Set();
-
-function mFmt(n){return 'TZS '+n.toString().replace(/\B(?=(\d{3})+(?!\d))/g,',');}
-
-function mGetFiltered(){
-  return M_PRODUCTS.filter(function(p){
-    if(mCurrentCat!=='all'&&p.cat!==mCurrentCat)return false;
-    var s=mCurrentSearch.toLowerCase();
-    if(s&&!p.name.toLowerCase().includes(s)&&!p.desc.toLowerCase().includes(s))return false;
-    return true;
-  });
-}
-function mRenderProducts(){
-  var list=mGetFiltered();
-  var grid=document.getElementById('mProductGrid');
-  var empty=document.getElementById('mEmptyState');
-  document.getElementById('mProdCount').textContent=list.length;
-  if(!list.length){grid.innerHTML='';empty.style.display='block';return;}
-  empty.style.display='none';
-  grid.innerHTML=list.map(function(p,i){
-    return '<div class="m-p-card" style="animation-delay:'+i*45+'ms">'+
-      '<div class="m-p-img-wrap" onclick="mOpenLightbox('+p.id+')">'+
-      '<img class="m-p-img" src="'+p.img+'" alt="'+p.name+'" loading="lazy" onerror="this.src=\'https://picsum.photos/seed/'+p.id+'/400/400\'">'+
-      '<div class="m-p-store-tag">'+M_STORE_NAMES[p.store]+'</div>'+
-      '<div class="m-p-fav" id="mFav-'+p.id+'" onclick="event.stopPropagation();mToggleFav('+p.id+')">🤍</div>'+
-      '</div>'+
-      '<div class="m-p-body">'+
-      '<div class="m-p-name">'+p.name+'</div>'+
-      '<div class="m-p-price">'+mFmt(p.price)+'</div>'+
-      '<button class="m-p-order-btn" onclick="mOpenOrder('+p.id+')">Order Now</button>'+
-      '</div></div>';
-  }).join('');
-}
-function mFilterCat(el,cat){
-  mCurrentCat=cat;
-  document.querySelectorAll('.m-cat-pill').forEach(function(b){b.classList.remove('active');});
-  el.classList.add('active');
-  mRenderProducts();
-  mScrollToGrid();
-}
-var mSearchTimer;
-function mOnSearch(){clearTimeout(mSearchTimer);mSearchTimer=setTimeout(function(){mCurrentSearch=document.getElementById('mSearchInput').value;mRenderProducts();},200);}
-function mToggleFav(id){
-  var el=document.getElementById('mFav-'+id);
-  if(mFavs.has(id)){mFavs.delete(id);el.textContent='🤍';el.classList.remove('liked');mToast('Removed from wishlist','info');}
-  else{mFavs.add(id);el.textContent='❤️';el.classList.add('liked');mToast('Added to wishlist ❤️','success');}
-}
-function mOpenOrder(pid){
-  mCurrentProduct=M_PRODUCTS.find(function(p){return p.id===pid;});
-  if(!mCurrentProduct)return;
-  document.getElementById('mOImg').src=mCurrentProduct.img;
-  document.getElementById('mOName').textContent=mCurrentProduct.name;
-  document.getElementById('mOPrice').textContent=mFmt(mCurrentProduct.price);
-  document.getElementById('mOQty').value=1;
-  mCalcTotal();
-  document.getElementById('mOrderModal').classList.add('open');
-  document.body.style.overflow='hidden';
-  document.getElementById('mLightbox').classList.remove('open');
-}
-function mCloseOrder(){document.getElementById('mOrderModal').classList.remove('open');document.body.style.overflow='';}
-function mCloseOnBackdrop(e){if(e.target===document.getElementById('mOrderModal'))mCloseOrder();}
-function mChangeQty(dir){var el=document.getElementById('mOQty');var v=Math.max(1,Math.min(99,parseInt(el.value)||1)+dir);el.value=v;mCalcTotal();}
-function mCalcTotal(){if(!mCurrentProduct)return;var q=Math.max(1,parseInt(document.getElementById('mOQty').value)||1);document.getElementById('mOTotal').textContent=mFmt(mCurrentProduct.price*q);}
-function mConfirmOrder(){
-  var name=document.getElementById('mONameInput').value.trim();
-  var phone=document.getElementById('mOPhone').value.trim();
-  var loc=document.getElementById('mOLocation').value.trim();
-  if(!name||!phone||!loc){mToast('Please fill all required fields ⚠️','error');return;}
-  mCloseOrder();
-  document.getElementById('mSuccessSheet').classList.add('open');
-  setTimeout(function(){if(!mChatOpen)mShowChatMsg('🎊 Order imepokewa! Utapigiwa simu ndani ya masaa 24. Asante! 🙏');},1500);
-}
-function mOrderViaWA(){
-  var name=document.getElementById('mONameInput').value.trim();
-  var phone=document.getElementById('mOPhone').value.trim();
-  var loc=document.getElementById('mOLocation').value.trim();
-  var q=document.getElementById('mOQty').value;
-  var msg='Hi Mandibo! 👋\n\nI want to order:\n*'+mCurrentProduct.name+'*\nPrice: '+mFmt(mCurrentProduct.price)+'\nQty: '+q+'\n\nName: '+(name||'(not filled)')+'\nPhone: '+(phone||'(not filled)')+'\nLocation: '+(loc||'(not filled)');
-  window.open('https://wa.me/'+M_WA+'?text='+encodeURIComponent(msg),'_blank');
-}
-function mCloseSuccess(){document.getElementById('mSuccessSheet').classList.remove('open');}
-function mOpenLightbox(pid){
-  var p=M_PRODUCTS.find(function(x){return x.id===pid;});if(!p)return;
-  document.getElementById('mLbImg').src=p.img;
-  document.getElementById('mLbName').textContent=p.name;
-  document.getElementById('mLbPrice').textContent=mFmt(p.price);
-  document.getElementById('mLbOrderBtn').onclick=function(){mOpenOrder(pid);};
-  document.getElementById('mLightbox').classList.add('open');
-  document.body.style.overflow='hidden';
-}
-function mCloseLightbox(){document.getElementById('mLightbox').classList.remove('open');document.body.style.overflow='';}
-function mOpenWhatsApp(){window.open('https://wa.me/'+M_WA+'?text='+encodeURIComponent('Habari! Nataka kujua zaidi kuhusu bidhaa za Mandibo Furniture. 🪑'),'_blank');}
-function mToggleChat(){
-  mChatOpen=!mChatOpen;
-  document.getElementById('mChatWindow').classList.toggle('open',mChatOpen);
-  if(mChatOpen){
-    document.getElementById('mChatNotif').style.display='none';
-    if(!mChatGreeted){mStartGreeting();mChatGreeted=true;}
-    setTimeout(function(){document.getElementById('mChatInput').focus();},400);
-  }
-}
-function mStartGreeting(){
-  setTimeout(function(){
-    document.getElementById('mChatTyping').classList.add('active');
-    setTimeout(function(){
-      document.getElementById('mChatTyping').classList.remove('active');
-      mAddBotMsg('🤝 <strong>Karibu Mandibo Furniture!</strong><br>Niko hapa kukusaidia. Una swali lolote?');
-      setTimeout(function(){mAddBotMsg('💡 Andika <em>"nataka"</em> au bonyeza kitufe chochote hapo chini.');},1200);
-    },1200);
-  },300);
-}
-function mAddBotMsg(html){
-  var div=document.createElement('div');div.className='m-msg bot';div.innerHTML=html;
-  var msgs=document.getElementById('mChatMsgs');msgs.appendChild(div);msgs.scrollTop=msgs.scrollHeight;
-}
-function mAddUserMsg(text){
-  var div=document.createElement('div');div.className='m-msg user';div.textContent=text;
-  var msgs=document.getElementById('mChatMsgs');msgs.appendChild(div);msgs.scrollTop=msgs.scrollHeight;
-}
-function mShowChatMsg(html){if(!mChatOpen)mToggleChat();setTimeout(function(){mAddBotMsg(html);},300);}
-function mChipSend(text){mSendChatWith(text);}
-function mSendChat(){var input=document.getElementById('mChatInput');var text=input.value.trim();if(!text)return;input.value='';mSendChatWith(text);}
-function mSendChatWith(text){
-  mAddUserMsg(text);
-  var typing=document.getElementById('mChatTyping');
-  var msgs=document.getElementById('mChatMsgs');
-  typing.classList.add('active');msgs.scrollTop=msgs.scrollHeight;
-  setTimeout(function(){typing.classList.remove('active');mAddBotMsg(mGetReply(text));msgs.scrollTop=msgs.scrollHeight;},700+Math.random()*400);
-}
-function mGetReply(m){
-  var t=m.toLowerCase();
-  var has=function(w){return w.some(function(k){return t.includes(k);});};
-  if(has(['habari','jambo','hi','hello','mambo','vipi','karibu']))return '😊 <strong>Habari!</strong> Karibu Mandibo Furniture.<br>Tuna bidhaa nzuri sana!';
-  if(has(['nataka','nahitaji','order','agiza','nunua']))return '🎉 <strong>Vizuri!</strong><br>Chagua bidhaa 👆 kisha bonyeza <strong>"Order Now"</strong>.<br>Rahisi sana! 😊';
-  if(has(['bei','price','gharama','pesa']))return '💰 <strong>Bei zetu:</strong><br>🛏️ Vitanda — TZS 2.8M+<br>🛋️ Sofa — TZS 1.8M+<br>🪑 Meza — TZS 2.5M+<br><br>FREE delivery! 🚚';
-  if(has(['delivery','letewa','muda','lini']))return '🚚 <strong>FREE Delivery!</strong><br>Zanzibar yote ndani ya <strong>masaa 24</strong>. 😊';
-  if(has(['asante','shukrani','thanks']))return '🙏 <strong>Asante sana!</strong> Karibu tena Mandibo! 🪑✨';
-  if(has(['whatsapp','simu','call']))return '💬 <span onclick="mOpenWhatsApp()" style="color:#25D366;font-weight:bold;cursor:pointer">👆 Bonyeza hapa kutuandikia WhatsApp</span><br>📞 +255 799 610 190';
-  return '😊 Jaribu:<br>• <em>"nataka kuagiza"</em><br>• <em>"bei"</em><br>• <em>"delivery"</em><br>Au <span onclick="mOpenWhatsApp()" style="color:#D4A017;font-weight:bold;cursor:pointer">tuandikia WhatsApp 💬</span>';
-}
-function mToast(msg,type){
-  type=type||'info';
-  var box=document.getElementById('mToastBox');
-  var el=document.createElement('div');
-  el.className='m-toast '+type;el.textContent=msg;
-  box.appendChild(el);
-  setTimeout(function(){el.style.transition='opacity 0.3s,transform 0.3s';el.style.opacity='0';el.style.transform='scale(0.8)';setTimeout(function(){el.remove();},300);},2800);
-}
-function mScrollToGrid(){document.getElementById('mGridAnchor').scrollIntoView({behavior:'smooth',block:'start'});}
-function mShowInfo(){mToast('📍 Zanzibar, Tanzania · +255 799 610 190','info');}
-
-function mFixLayout(){
-  var header=document.getElementById('mHeader');
-  if(!header)return;
-  var hh=header.offsetHeight;
-  var catStrip=document.getElementById('mCatStrip');
-  catStrip.style.top=hh+'px';
-  var catH=catStrip.offsetHeight;
-  document.getElementById('mMain').style.paddingTop=(hh+catH+6)+'px';
-}
-
-/* Mobile init */
-document.addEventListener('DOMContentLoaded',function(){
-  if(document.getElementById('mobile-view').style.display==='none')return;
-  mRenderProducts();
-  mFixLayout();
-  setTimeout(function(){
-    var notif=document.getElementById('mChatNotif');
-    if(notif){notif.style.display='flex';notif.classList.add('show');}
-  },3000);
-});
-
-document.addEventListener('keydown',function(e){
-  if(e.key==='Escape'){
-    mCloseLightbox();mCloseOrder();
-    document.getElementById('mSuccessSheet').classList.remove('open');
-    if(mChatOpen)mToggleChat();
-  }
-});
-window.addEventListener('resize',function(){
-  setView();
-  if(document.getElementById('mobile-view').style.display!=='none')mFixLayout();
-});
-</script>
-
-</body>
-</html>
+  {id:4,store:'store-c',cat:'beds',name:'Modern Upholstered King Bed',price:3000000,img:'https://z-cdn-media.chatglm.cn/files/f4d68b25-cb8e-4056-8dec-67156e8f8d40.png?auth_key=1875121023-600d14e5a6c540e0a10a077
