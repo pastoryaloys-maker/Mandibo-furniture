@@ -5,15 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>MANDIBO FURNITURE | Zanzibar's Premier Online Furniture Store</title>
 
-<!-- DESKTOP RESOURCES -->
+<!-- RESOURCES -->
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://unpkg.com/lucide@latest"></script>
-
-<!-- SHARED FONTS -->
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <script>
-  /* ---- TAILWIND CONFIG (desktop) ---- */
   if(window.tailwind){
     tailwind.config = {
       theme: {
@@ -27,7 +24,7 @@
 </script>
 
 <!-- ============================================================
-     DESKTOP STYLES  (only applied when #desktop-view is visible)
+     DESKTOP STYLES
      ============================================================ -->
 <style id="desktop-css">
 ::selection{background:#D4A017;color:#000}
@@ -159,7 +156,7 @@ body:not(.owner-mode) .owner-only{display:none!important}
 </style>
 
 <!-- ============================================================
-     MOBILE STYLES  (scoped under #mobile-view)
+     MOBILE STYLES
      ============================================================ -->
 <style id="mobile-css">
 #mobile-view {
@@ -365,7 +362,7 @@ body { margin:0; padding:0; background:#0A0A0A; }
 <body class="bg-[#0A0A0A] text-white font-sans antialiased overflow-x-hidden">
 
 <!-- ================================================================
-     RESPONSIVE DETECTOR — runs immediately, no flash
+     RESPONSIVE DETECTOR
      ================================================================ -->
 <script>
 (function(){
@@ -380,7 +377,7 @@ body { margin:0; padding:0; background:#0A0A0A; }
      ================================================================ -->
 <div id="desktop-view">
 
-<!-- ========== HOMEPAGE SECTION WITH CINEMATIC BACKGROUND ========== -->
+<!-- ========== HOMEPAGE SECTION ========== -->
 <section id="homepage" class="relative min-h-screen pt-32 pb-20 flex items-center justify-center">
   <div class="cinematic-container">
     <img src="https://z-cdn-media.chatglm.cn/files/9bfb3611-442c-43f3-ac25-7472d5618588.png?auth_key=1875819927-afb9998f5e10478eb563f55ccbe5e51d-0-f48cd800e6cc00e6ea5586ec5720f019" class="cinematic-slide active">
@@ -807,7 +804,7 @@ window.addEventListener('resize', setView);
 
 
 <!-- ================================================================
-     DESKTOP JAVASCRIPT  (all functions prefixed with d)
+     DESKTOP JAVASCRIPT
      ================================================================ -->
 <script>
 var guideHandInterval;
@@ -824,7 +821,7 @@ var dDefaultProducts=[
   {id:3,store:'store-b',cat:'tables',name:'Coastal Dining Table',price:2500000,img:'https://z-cdn-media.chatglm.cn/files/f78a1915-3e89-4eaf-9e2f-0aaa67491fd6.png?auth_key=1875121023-c078d04653754bd18e638d5589b4652a-0-dbdc2637842b0c898f1bf3017d32a3ec',desc:'6-seater dining table with coastal styling.'},
   {id:4,store:'store-c',cat:'beds',name:'Modern Upholstered King Bed',price:3000000,img:'https://z-cdn-media.chatglm.cn/files/f4d68b25-cb8e-4056-8dec-67156e8f8d40.png?auth_key=1875121023-600d14e5a6c540e0a10a077302343ab4-0-db973974387b32f211b4abb0a7059cf7',desc:'Contemporary upholstered king bed with padded headboard.'},
   {id:5,store:'store-a',cat:'cupboard',name:'Mahogany Wardrobe',price:3200000,img:'https://z-cdn-media.chatglm.cn/files/bf96da0c-bf91-4349-93a3-38478154c069.png?auth_key=1875121023-532d6ffdf76740398d52b7963ec5b049-0-b077f8c54f361bf4c5f0a152a4bf523b',desc:'Large double-door wardrobe in solid mahogany.'},
-  // ADDED PRODUCTS START HERE (Store A)
+  // PREVIOUSLY ADDED PRODUCTS
   {id:108,store:'store-a',cat:'cupboard',name:'Retro Fabric-Lined Wardrobe',price:2800000,img:'https://z-cdn-media.chatglm.cn/files/31e0d147-fe11-49f5-8baa-d3d1df09f8ea.png?auth_key=1876604181-e48c3e4c913046ed9d341cff4617d73f-0-8e6a592ef946a387e5475fd70e92df82',desc:'Warm brown retro wardrobe with glass display doors and fabric-lined interior.'},
   {id:109,store:'store-a',cat:'cupboard',name:'Arch-Top Double Wardrobe',price:2600000,img:'https://z-cdn-media.chatglm.cn/files/d73ab751-0fdf-464b-b938-4945d33680d9.png?auth_key=1876604181-27858099ebcf461f97bc9cae133fb3e5-0-e9e655fcd6828a5dc3a8114431599637',desc:'Classic arched-door wardrobe with metal shelves and patterned lining.'},
   {id:110,store:'store-a',cat:'cupboard',name:'Geometric Carved Master Wardrobe',price:4500000,img:'https://z-cdn-media.chatglm.cn/files/2fc523e7-14e8-4a0a-9ee3-ac1566329cee.png?auth_key=1876604181-f1bdc661dfd146e7b1d418e9a5fb8fb4-0-cefd0e07fb8001fe0b6ead91519884d0',desc:'Grand two-tone wardrobe with intricate geometric carvings and gold hardware.'},
@@ -834,8 +831,14 @@ var dDefaultProducts=[
   {id:114,store:'store-a',cat:'beds',name:'Pineapple Carved Heritage Bed',price:3800000,img:'https://z-cdn-media.chatglm.cn/files/06e0c7a4-2a55-481e-ab16-9fc932744738.png?auth_key=1876604181-7526888b14e747c583d999a22cecdf24-0-1ef8842982d93226262efb89b45248fe',desc:'Traditional bed featuring ornate pineapple carvings on the headboard and footboard.'},
   {id:115,store:'store-a',cat:'beds',name:'Vertical Slatted Bed',price:3100000,img:'https://z-cdn-media.chatglm.cn/files/ba8e0305-8f21-40dc-929f-1f9f5d78af13.png?auth_key=1876604181-ace5fbc495e64934898f315f75548bd6-0-4e11cd67c17256d81c5419178935d157',desc:'Warm-toned bed with a distinctive vertical slatted headboard design and cozy cushions.'},
   {id:116,store:'store-a',cat:'beds',name:'Boxpro Cushioned Bed',price:3300000,img:'https://z-cdn-media.chatglm.cn/files/ebae0df3-245a-4fe7-ad0e-e9924e043de8.png?auth_key=1876604181-753fb83bcd8b45a2ada4d34ba7b8916f-0-303092277570f113f6582c33f14206f1',desc:'Elegant carved bed frame with a side table, colorful pillows, and soft lighting accents.'},
-  {id:117,store:'store-a',cat:'beds',name:'Classic Dark Wood Bed',price:2900000,img:'https://z-cdn-media.chatglm.cn/files/cfe8886f-d1f0-4ea8-81bc-1d689684e6d0.png?auth_key=1876604181-5ef8afbd957b438da088a88da312f32b-0-3b5acc3d366c977dc95c122eeb7a4078',desc:'Minimalist dark wood bed frame with vertical slat construction and clean lines.'}
-  // ADDED PRODUCTS END HERE
+  {id:117,store:'store-a',cat:'beds',name:'Classic Dark Wood Bed',price:2900000,img:'https://z-cdn-media.chatglm.cn/files/cfe8886f-d1f0-4ea8-81bc-1d689684e6d0.png?auth_key=1876604181-5ef8afbd957b438da088a88da312f32b-0-3b5acc3d366c977dc95c122eeb7a4078',desc:'Minimalist dark wood bed frame with vertical slat construction and clean lines.'},
+  // NEWLY ADDED PRODUCTS FROM REQUEST
+  {id:118,store:'store-a',cat:'beds',name:'Street View Heritage Bed',price:3300000,img:'https://z-cdn-media.chatglm.cn/files/f695016f-2d99-4d71-b722-ca0e2f2f97ff.png?auth_key=1876605368-cde78fc0707d4ae89b1d1a135545d005-0-7c8a04be96a0eddda71e6d8a6eb4d6cc',desc:'Traditional carved bed displayed outdoors on Zanzibar streets.'},
+  {id:119,store:'store-a',cat:'beds',name:'Transparent Carved Bed',price:3600000,img:'https://z-cdn-media.chatglm.cn/files/9e339439-5c70-45ee-9df0-6f61cdf8d0de.png?auth_key=1876605368-42bc309206b548d9b78ff4eecc7c48e2-0-08ab0eaf2b8ce4b493cf2d345357f20a',desc:'Detailed geometric carving with transparent background view.'},
+  {id:120,store:'store-a',cat:'beds',name:'Indoor Master Carved Bed',price:3400000,img:'https://z-cdn-media.chatglm.cn/files/74686940-5c9a-40b3-ba08-b54ff2f9bd73.png?auth_key=1876605368-cc3650c089bf4c2ebeb137cfd5706476-0-554086ad761f46df1037d1de8bc65889',desc:'Warm-toned carved bed set in a modern master bedroom.'},
+  {id:121,store:'store-a',cat:'beds',name:'Royal Blue Accent Bed',price:3500000,img:'https://z-cdn-media.chatglm.cn/files/bb898776-4ed6-43c8-a273-558cd0766c17.png?auth_key=1876605368-3753e1921fc54202b91b5277cc5007b2-0-49b845208801bb9667e44a7c3419e61d',desc:'Dark wood bed featuring a stylish blue textile throw.'},
+  {id:122,store:'store-a',cat:'beds',name:'Outdoor Carved Collection',price:4500000,img:'https://z-cdn-media.chatglm.cn/files/887d0c66-b33b-45bf-b2b3-846946cd29c6.png?auth_key=1876605368-10069b9432994744a0388d0dbb7621c3-0-582e30c319c3cd841307aceaabd72a35',desc:'Outdoor display of multiple intricately carved beds.'},
+  {id:123,store:'store-a',cat:'beds',name:'Simple Dark Wood Bed',price:2800000,img:'https://z-cdn-media.chatglm.cn/files/12bf84f4-757f-4678-9423-76ebf6cba214.jpeg?auth_key=1876605368-d63fbe3b4b4f4493a496f470df7271ea-0-4510b2cbdf78233b011e97a7b3ecaf23',desc:'Simple, elegant dark wood design with white bedding.'}
 ];
 function dFmtTZS(n){return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g,',');}
 function dParsePrice(s){return parseInt(s.replace(/,/g,''),10)||0;}
@@ -916,11 +919,11 @@ document.addEventListener('DOMContentLoaded',function(){
 
 
 <!-- ================================================================
-     MOBILE JAVASCRIPT  (all functions prefixed with m)
+     MOBILE JAVASCRIPT
      ================================================================ -->
 <script>
 var M_WA = '255799610190';
 var M_STORE_NAMES = {'store-a':'Store A','store-b':'Store B','store-c':'Store C'};
 var M_PRODUCTS = [
   {id:1,store:'store-a',cat:'beds',name:'Zanzibar Carved King Bed',price:3500000,img:'https://z-cdn-media.chatglm.cn/files/b2204e29-e1a1-4d2c-82ad-45c6f0810365.png?auth_key=1875121023-e0211d56db1c432bb5d12b1debea744f-0-e01624498ea126cfd37f26032f54e3e6',desc:'Hand-carved mahogany king-size bed.'},
-  {id:2,store:'store-a',cat:'sofa-chair',name:'
+  {id:2,store:'store-a',cat:'sofa-chair',name:'Heritage Sofa Set',price:4500000,img:'https://z-cdn-media.chatglm.cn/files/444215d9-bda6-45d
