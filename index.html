@@ -563,45 +563,26 @@
 
 </style>
 
-<style>body{margin:0;padding:0;background:#0A0A0A}#desktop-view{display:block}#mobile-view{display:none}</style>
+<style>
+    /* DEFAULT CSS STATE */
+    body{margin:0;padding:0;background:#0A0A0A}
+    #desktop-view{display:block}
+    #mobile-view{display:none}
+    
+    /* === NUCLEAR OPTION: FORCE MOBILE ON SMALL SCREENS === */
+    /* This ensures that even if JS fails, CSS forces the correct layout */
+    @media (max-width: 1024px) {
+        #desktop-view { display: none !important; }
+        #mobile-view { display: block !important; }
+    }
+    
+    @media (min-width: 1025px) {
+        #desktop-view { display: block !important; }
+        #mobile-view { display: none !important; }
+    }
+</style>
 </head>
 <body class="bg-[#0A0A0A] text-white font-sans antialiased overflow-x-hidden">
-
-<script>
-    // Simple View Switcher
-    (function(){
-        var isMobile = window.innerWidth <= 768 || /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-        var desktopView = document.getElementById('desktop-view');
-        var mobileView = document.getElementById('mobile-view');
-        
-        if (desktopView && mobileView) {
-            if (isMobile) {
-                desktopView.style.display = 'none';
-                mobileView.style.display = 'block';
-            } else {
-                desktopView.style.display = 'block';
-                mobileView.style.display = 'none';
-            }
-        }
-        
-        window.addEventListener('resize', function(){
-            var isM = window.innerWidth <= 768;
-            if (desktopView && mobileView) {
-                if (isM) {
-                    desktopView.style.display = 'none';
-                    mobileView.style.display = 'block';
-                    // Re-render mobile if data changed
-                    if(window.mRenderProducts) mRenderProducts();
-                } else {
-                    desktopView.style.display = 'block';
-                    mobileView.style.display = 'none';
-                    // Re-render desktop if data changed
-                    if(window.dRenderProducts) dRenderProducts();
-                }
-            }
-        });
-    })();
-</script>
 
 <!-- ================= DESKTOP VIEW ================= -->
 <div id="desktop-view">
@@ -743,6 +724,11 @@
             <span class="m-nav-label">Owner</span>
         </div>
     </nav>
+
+    <!-- DEBUG: Manual Toggle (Only visible if JS fails detection) -->
+    <div style="position:fixed; bottom:0; left:0; width:100%; text-align:center; font-size:10px; opacity:0.3; pointer-events:none; z-index:-1; color:#fff;">
+        <a href="?force=mobile" onclick="event.stopPropagation(); window.location.href='?force=mobile'">Force Mobile</a> | <a href="?force=desktop" onclick="event.stopPropagation(); window.location.href='?force=desktop'">Force Desktop</a>
+    </div>
 
     <!-- TOAST BOX -->
     <div id="mToastBox"></div>
@@ -1004,9 +990,6 @@ function mToast(msg, type) {
    INITIALIZATION
    ========================================= */
 document.addEventListener('DOMContentLoaded',function(){
-    // Determine view
-    var isMobile = window.innerWidth <= 768 || /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-    
     // Load Data
     dLoadData();
     
@@ -1025,6 +1008,7 @@ document.addEventListener('DOMContentLoaded',function(){
     var lbWrap=document.getElementById('lbImgWrap'),touchStartY=0,touchDiffY=0;lbWrap.addEventListener('touchstart',function(e){touchStartY=e.touches[0].clientY;},{passive:true});lbWrap.addEventListener('touchmove',function(e){touchDiffY=e.touches[0].clientY-touchStartY;},{passive:true});lbWrap.addEventListener('touchend',function(){if(touchDiffY>80)dCloseLightbox();touchDiffY=0;touchStartY=0;});
     
     // Mobile Init
+    var isMobile = window.innerWidth < 1024 || 'ontouchstart' in window || /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
     if(isMobile) {
         mInit();
     }
