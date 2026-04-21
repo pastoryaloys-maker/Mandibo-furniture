@@ -4,387 +4,173 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>MANDIBO FURNITURE | Zanzibar's Premier Online Furniture Store</title>
-
-<!-- RESOURCES -->
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://unpkg.com/lucide@latest"></script>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-
-<script>
-  if(window.tailwind){
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: { sans: ['Manrope','sans-serif'], mono: ['Space Mono','monospace'] },
-          colors: { gold: { 300:'#FCD34D', 400:'#FBBF24', 500:'#D4A017', 600:'#B8860B', 700:'#92400E' } }
-        }
-      }
-    }
-  }
-</script>
-
-<!-- ============================================================
-     DESKTOP STYLES
-     ============================================================ -->
+<script>if(window.tailwind){tailwind.config={theme:{extend:{fontFamily:{sans:['Manrope','sans-serif'],mono:['Space Mono','monospace']},colors:{gold:{300:'#FCD34D',400:'#FBBF24',500:'#D4A017',600:'#B8860B',700:'#92400E'}}}}}}</script>
 <style id="desktop-css">
-::selection{background:#D4A017;color:#000}
-::-webkit-scrollbar{width:6px}
-::-webkit-scrollbar-track{background:#111}
-::-webkit-scrollbar-thumb{background:#333;border-radius:3px}
-::-webkit-scrollbar-thumb:hover{background:#D4A017}
-
-.cinematic-container{position:absolute;top:0;left:0;width:100%;height:100%;overflow:hidden;z-index:-1;background:#000}
-.cinematic-slide{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.1);transition:opacity 1.5s ease-in-out,transform 10s linear;filter:brightness(0.6) contrast(1.1)}
-.cinematic-slide.active{opacity:1;transform:scale(1)}
-.cinematic-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.4) 40%,rgba(0,0,0,0.85) 100%);z-index:0}
-
-.reveal{opacity:0;transform:translateY(30px);transition:all .8s cubic-bezier(.16,1,.3,1)}
-.reveal.active{opacity:1;transform:translateY(0)}
-@keyframes shimmer{0%{background-position:-200% center}100%{background-position:200% center}}
-@keyframes fade-up{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
-@keyframes pop-in{0%{transform:scale(0);opacity:0}60%{transform:scale(1.15)}100%{transform:scale(1);opacity:1}}
-@keyframes shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-6px)}40%,80%{transform:translateX(6px)}}
-@keyframes img-rotate{0%{transform:perspective(800px) rotateY(-12deg) rotateX(2deg) scale(1)}25%{transform:perspective(800px) rotateY(8deg) rotateX(-1deg) scale(1.03)}50%{transform:perspective(800px) rotateY(12deg) rotateX(2deg) scale(1.05)}75%{transform:perspective(800px) rotateY(-4deg) rotateX(-1deg) scale(1.02)}100%{transform:perspective(800px) rotateY(-12deg) rotateX(2deg) scale(1)}}
-@keyframes lightbox-in{from{opacity:0;transform:scale(.7)}to{opacity:1;transform:scale(1)}}
-@keyframes lb-fade-out{to{opacity:0;pointer-events:none}}
-@keyframes lightbox-spin{0%{transform:perspective(1000px) rotateY(0deg)}100%{transform:perspective(1000px) rotateY(360deg)}}
-@keyframes live-dot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
-@keyframes live-ring{0%{transform:scale(1);opacity:.6}100%{transform:scale(2.2);opacity:0}}
-@keyframes glow-line{0%{opacity:.3}50%{opacity:1}100%{opacity:.3}}
-@keyframes slide-up-in{from{transform:translateY(100%) scale(.9);opacity:0}to{transform:translateY(0) scale(1);opacity:1}}
-@keyframes typing-bounce{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-8px)}}
-@keyframes float-bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
-@keyframes pulse-ring{0%{transform:scale(1);opacity:1}100%{transform:scale(1.5);opacity:0}}
-@keyframes agent-pop{0%{transform:scale(0) rotate(-10deg);opacity:0}50%{transform:scale(1.1) rotate(5deg)}100%{transform:scale(1) rotate(0deg);opacity:1}}
-@keyframes success-bounce{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
-@keyframes toast-in{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:translateX(0)}}
-@keyframes toast-out{from{opacity:1;transform:translateX(0)}to{opacity:0;transform:translateX(40px)}}
-@keyframes logo-spin{from{transform:rotate(0deg)}to{transform:rotate(-360deg)}}
-@keyframes logo-glow{0%,100%{filter:brightness(1.1) contrast(1.05) drop-shadow(0 0 6px rgba(212,160,23,0.15))}50%{filter:brightness(1.2) contrast(1.1) drop-shadow(0 0 14px rgba(212,160,23,0.35))}}
-
-.shimmer-text{background:linear-gradient(90deg,#D4A017 0%,#FDE68A 50%,#D4A017 100%);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:shimmer 3s linear infinite}
-.product-card{transition:all .5s cubic-bezier(.16,1,.3,1)}
-.product-card:hover{transform:translateY(-8px)}
-.img-rotator{animation:img-rotate 8s ease-in-out infinite;transform-origin:center center;cursor:pointer;transition:filter .3s}
-.product-card:hover .img-rotator{animation-duration:4s;filter:brightness(1.1) contrast(1.05)}
-.cat-btn{transition:all .3s ease}
-.cat-btn.active-cat{background:#D4A017!important;color:#000!important;border-color:#D4A017!important}
-body.owner-mode .user-only{display:none!important}
-body:not(.owner-mode) .owner-only{display:none!important}
-.form-input{transition:border-color .3s ease,box-shadow .3s ease}
-.form-input:focus{border-color:#D4A017!important;box-shadow:0 0 0 3px rgba(212,160,23,.1)}
-.form-input.error{border-color:#ef4444!important;box-shadow:0 0 0 3px rgba(239,68,68,.1)}
-.inline-err{color:#f87171;font-size:11px;margin-top:4px;display:none}
-.inline-err.show{display:block}
-.line-clamp-2{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-
-.lightbox-overlay{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.95);backdrop-filter:blur(20px);display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s}
-.lightbox-overlay.active{opacity:1;pointer-events:all}
-.lightbox-overlay.closing{animation:lb-fade-out .25s ease-out forwards}
-.lightbox-img-wrap{position:relative;max-width:92vw;max-height:78vh;display:flex;align-items:center;justify-content:center;flex:1;width:100%;padding:60px 12px 60px}
-.lightbox-img{max-width:100%;max-height:100%;object-fit:contain;border-radius:12px;box-shadow:0 25px 80px rgba(0,0,0,.6),0 0 40px rgba(212,160,23,.1);animation:lightbox-in .4s cubic-bezier(.16,1,.3,1) forwards;user-select:none;-webkit-user-drag:none}
-.lightbox-img.auto-spinning{animation:lightbox-spin 12s linear infinite}
-.lb-close-btn{position:fixed;top:12px;right:12px;z-index:202;width:48px;height:48px;border-radius:50%;border:2px solid rgba(255,255,255,.25);background:rgba(0,0,0,.7);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;cursor:pointer;color:white;transition:all .2s}
-.lb-close-btn:hover,.lb-close-btn:active{border-color:#ef4444;color:#ef4444;background:rgba(239,68,68,.15);transform:scale(1.1)}
-.lb-info{position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:202;text-align:center;max-width:75vw;pointer-events:none}
-.lb-info .lb-name{font-weight:800;font-size:15px;text-shadow:0 2px 12px rgba(0,0,0,.8);line-height:1.3}
-.lb-info .lb-price{color:#D4A017;font-weight:700;font-size:13px;margin-top:2px;text-shadow:0 2px 12px rgba(0,0,0,.8)}
-.lb-controls{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:202;display:flex;gap:12px}
-.lb-ctrl-btn{width:46px;height:46px;border-radius:50%;border:1.5px solid rgba(255,255,255,.2);background:rgba(0,0,0,.6);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;cursor:pointer;color:white;transition:all .2s}
-.lb-ctrl-btn:hover,.lb-ctrl-btn:active{border-color:#D4A017;color:#D4A017;background:rgba(212,160,23,.1)}
-.lb-ctrl-btn.spin-active{border-color:#D4A017;color:#D4A017;background:rgba(212,160,23,.15)}
-.lb-tap-close{position:fixed;bottom:74px;left:50%;transform:translateX(-50%);z-index:202;color:rgba(255,255,255,.3);font-size:11px;font-weight:600;letter-spacing:.05em;pointer-events:none;text-shadow:0 2px 8px rgba(0,0,0,.5)}
-.click-hint{position:absolute;bottom:50%;left:50%;transform:translate(-50%,50%);background:rgba(0,0,0,.7);backdrop-filter:blur(8px);padding:6px 14px;border-radius:20px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.8);opacity:0;transition:opacity .3s;pointer-events:none}
-.product-card:hover .click-hint{opacity:1}
-
-#chatBox{position:fixed;bottom:100px;right:20px;width:360px;background:#fff;border-radius:20px;box-shadow:0 20px 60px rgba(0,0,0,.4);overflow:hidden;font-family:'Manrope',sans-serif;z-index:999;display:flex;flex-direction:column;max-height:520px;transform:translateY(100%) scale(.9);opacity:0;pointer-events:none;transition:all .4s cubic-bezier(.16,1,.3,1)}
-#chatBox.visible{transform:translateY(0) scale(1);opacity:1;pointer-events:all;animation:slide-up-in .5s cubic-bezier(.16,1,.3,1)}
-.chat-header{background:linear-gradient(135deg,#0A0A0A,#1a1a1a);color:#D4A017;padding:14px 16px;font-weight:bold;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(212,160,23,.2)}
-.chat-minimize-btn{background:rgba(212,160,23,.1);border:1px solid rgba(212,160,23,.3);color:#D4A017;cursor:pointer;font-size:18px;padding:4px 10px;border-radius:8px;display:flex;align-items:center;justify-content:center;transition:all .3s;width:32px;height:32px}
-#chatMessages{height:300px;overflow-y:auto;padding:14px;font-size:13px;background:#f9f9f9;flex:1;display:flex;flex-direction:column;gap:10px;-webkit-overflow-scrolling:touch}
-.chat-input-area{display:flex;gap:6px;padding:10px;background:#fff;border-top:1px solid #eee}
-.chat-msg{padding:10px 12px;border-radius:12px;word-wrap:break-word;animation:fade-up .3s ease-out;max-width:85%;line-height:1.5}
-.chat-msg.user{background:#D4A017;color:#000;margin-left:auto;font-weight:500;border-bottom-right-radius:4px}
-.chat-msg.bot{background:#e8e8e8;color:#333;margin-right:auto;border-bottom-left-radius:4px}
-.typing-indicator{display:none;padding:10px 12px;background:#e8e8e8;border-radius:12px;width:fit-content;margin-right:auto}
-.typing-indicator.active{display:block;animation:fade-up .3s ease-out}
-.typing-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#999;margin:0 2px;animation:typing-bounce 1.4s infinite}
-.typing-dot:nth-child(2){animation-delay:.2s}
-.typing-dot:nth-child(3){animation-delay:.4s}
-
-.whatsapp-float{position:fixed;bottom:20px;right:20px;width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,#25D366,#128C7E);border:3px solid rgba(37,211,102,.3);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .3s;z-index:997;box-shadow:0 8px 24px rgba(37,211,102,.4);animation:float-bounce 2s ease-in-out infinite}
-.whatsapp-float:hover{transform:scale(1.1)}
-.whatsapp-float::before{content:'';position:absolute;inset:-4px;border-radius:50%;border:2px solid rgba(37,211,102,.4);animation:pulse-ring 1.5s ease-out infinite}
-.whatsapp-icon{font-size:28px;color:white}
-.whatsapp-notification{position:absolute;top:-6px;right:-6px;min-width:20px;height:20px;background:#ef4444;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:bold;color:white;animation:pop-in .5s ease-out;padding:0 5px}
-.ai-indicator{position:fixed;bottom:20px;right:92px;width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#D4A017,#B8860B);border:3px solid rgba(212,160,23,.3);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .3s;z-index:998;box-shadow:0 8px 24px rgba(212,160,23,.4);animation:float-bounce 2s ease-in-out infinite;animation-delay:.5s}
-.ai-indicator:hover{transform:scale(1.1)}
-.ai-indicator.hidden{display:none}
-.ai-icon{font-size:24px}
-.ai-notification{position:absolute;top:-6px;right:-6px;min-width:20px;height:20px;background:#ef4444;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:bold;color:white;animation:pop-in .5s ease-out;padding:0 5px}
-.agent-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#D4A017,#B8860B);display:flex;align-items:center;justify-content:center;flex-shrink:0;animation:agent-pop .3s ease-out}
-.agent-avatar.speaking{animation:success-bounce .5s ease-in-out infinite}
-
-#liveBar{position:fixed;bottom:0;left:0;right:0;z-index:90;background:linear-gradient(180deg,rgba(10,10,10,0),rgba(10,10,10,.85) 30%,rgba(10,10,10,.95));backdrop-filter:blur(20px);border-top:1px solid rgba(212,160,23,.12);transform:translateY(100%);transition:transform .6s cubic-bezier(.16,1,.3,1)}
-#liveBar.visible{transform:translateY(0)}
-#liveBar-inner{max-width:1800px;margin:0 auto;padding:10px 16px 12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
-.live-dot-wrap{position:relative;width:10px;height:10px;flex-shrink:0}
-.live-dot{position:absolute;inset:0;background:#22c55e;border-radius:50%;animation:live-dot 1.5s ease-in-out infinite}
-.live-ring{position:absolute;inset:0;background:#22c55e;border-radius:50%;animation:live-ring 1.5s ease-out infinite}
-.live-label{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.15em;color:#22c55e;white-space:nowrap}
-.live-stat-val{font-family:'Space Mono',monospace;font-size:15px;font-weight:700;color:#fff;line-height:1}
-.live-stat-label{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.35);white-space:nowrap}
-.glow-line{position:absolute;top:-1px;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(212,160,23,.4) 50%,transparent);animation:glow-line 3s ease-in-out infinite}
-.discount-applied{background:linear-gradient(135deg,#22c55e,#16a34a);color:white;padding:8px 12px;border-radius:10px;font-size:12px;font-weight:bold;display:flex;align-items:center;gap:6px}
-.original-price{text-decoration:line-through;color:#999;font-size:12px}
-.discounted-price{color:#22c55e;font-weight:bold}
-
-.logo-circle{width:110px;height:110px;border-radius:50%;overflow:hidden;border:2px solid rgba(212,160,23,0.25);box-shadow:0 0 20px rgba(212,160,23,0.1);animation:logo-glow 4s ease-in-out infinite;flex-shrink:0;cursor:pointer;transition:all .3s ease}
-.logo-circle:hover{border-color:rgba(212,160,23,0.6);box-shadow:0 0 35px rgba(212,160,23,0.3);transform:scale(1.08)}
-.logo-circle img{width:100%;height:100%;object-fit:cover;animation:logo-spin 20s linear infinite;image-rendering:-webkit-optimize-contrast}
-
-.cat-scroll{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;padding-bottom:4px}
-.cat-scroll::-webkit-scrollbar{display:none}
-.cat-scroll .cat-btn{flex-shrink:0}
-
-@media(hover:none){
-  .product-card:hover{transform:none}
-  .product-card:active{transform:scale(.97)}
-  .img-rotator{animation:none!important;transform:none!important}
-  .click-hint{display:none!important}
-}
+::selection{background:#D4A017;color:#000}::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:#111}::-webkit-scrollbar-thumb{background:#333;border-radius:3px}.cinematic-container{position:absolute;top:0;left:0;width:100%;height:100%;overflow:hidden;z-index:-1;background:#000}.cinematic-slide{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.1);transition:opacity 1.5s ease-in-out,transform 10s linear;filter:brightness(0.6) contrast(1.1)}.cinematic-slide.active{opacity:1;transform:scale(1)}.cinematic-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.4) 40%,rgba(0,0,0,0.85) 100%);z-index:0}.reveal{opacity:0;transform:translateY(30px);transition:all .8s cubic-bezier(.16,1,.3,1)}.reveal.active{opacity:1;transform:translateY(0)}@keyframes shimmer{0%{background-position:-200% center}100%{background-position:200% center}}@keyframes fade-up{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}.shimmer-text{background:linear-gradient(90deg,#D4A017 0%,#FDE68A 50%,#D4A017 100%);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:shimmer 3s linear infinite}.product-card{transition:all .5s cubic-bezier(.16,1,.3,1)}.product-card:hover{transform:translateY(-8px)}.img-rotator{animation:img-rotate 8s ease-in-out infinite;transform-origin:center center;cursor:pointer;transition:filter .3s}.product-card:hover .img-rotator{animation-duration:4s;filter:brightness(1.1) contrast(1.05)}@keyframes img-rotate{0%{transform:perspective(800px) rotateY(-12deg) rotateX(2deg) scale(1)}25%{transform:perspective(800px) rotateY(8deg) rotateX(-1deg) scale(1.03)}50%{transform:perspective(800px) rotateY(12deg) rotateX(2deg) scale(1.05)}75%{transform:perspective(800px) rotateY(-4deg) rotateX(-1deg) scale(1.02)}100%{transform:perspective(800px) rotateY(-12deg) rotateX(2deg) scale(1)}}.cat-btn{transition:all .3s ease}.cat-btn.active-cat{background:#D4A017!important;color:#000!important;border-color:#D4A017!important}body.owner-mode .user-only{display:none!important}body:not(.owner-mode) .owner-only{display:none!important}.form-input{transition:border-color .3s ease,box-shadow .3s ease}.form-input:focus{border-color:#D4A017!important;box-shadow:0 0 0 3px rgba(212,160,23,.1)}.form-input.error{border-color:#ef4444!important;box-shadow:0 0 0 3px rgba(239,68,68,.1)}.inline-err{color:#f87171;font-size:11px;margin-top:4px;display:none}.inline-err.show{display:block}.line-clamp-2{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.lightbox-overlay{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.95);backdrop-filter:blur(20px);display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s}.lightbox-overlay.active{opacity:1;pointer-events:all}.lightbox-overlay.closing{animation:lb-fade-out .25s ease-out forwards}@keyframes lb-fade-out{to{opacity:0;pointer-events:none}}.lightbox-img-wrap{position:relative;max-width:92vw;max-height:78vh;display:flex;align-items:center;justify-content:center;flex:1;width:100%;padding:60px 12px 60px}.lightbox-img{max-width:100%;max-height:100%;object-fit:contain;border-radius:12px;box-shadow:0 25px 80px rgba(0,0,0,.6),0 0 40px rgba(212,160,23,.1);animation:lightbox-in .4s cubic-bezier(.16,1,.3,1) forwards;user-select:none;-webkit-user-drag:none}@keyframes lightbox-in{from{opacity:0;transform:scale(.7)}to{opacity:1;transform:scale(1)}}.lightbox-img.auto-spinning{animation:lightbox-spin 12s linear infinite}@keyframes lightbox-spin{0%{transform:perspective(1000px) rotateY(0deg)}100%{transform:perspective(1000px) rotateY(360deg)}}.lb-close-btn{position:fixed;top:12px;right:12px;z-index:202;width:48px;height:48px;border-radius:50%;border:2px solid rgba(255,255,255,.25);background:rgba(0,0,0,.7);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;cursor:pointer;color:white;transition:all .2s}.lb-close-btn:hover,.lb-close-btn:active{border-color:#ef4444;color:#ef4444;background:rgba(239,68,68,.15);transform:scale(1.1)}.lb-info{position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:202;text-align:center;max-width:75vw;pointer-events:none}.lb-info .lb-name{font-weight:800;font-size:15px;text-shadow:0 2px 12px rgba(0,0,0,.8);line-height:1.3}.lb-info .lb-price{color:#D4A017;font-weight:700;font-size:13px;margin-top:2px;text-shadow:0 2px 12px rgba(0,0,0,.8)}.lb-controls{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:202;display:flex;gap:12px}.lb-ctrl-btn{width:46px;height:46px;border-radius:50%;border:1.5px solid rgba(255,255,255,.2);background:rgba(0,0,0,.6);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;cursor:pointer;color:white;transition:all .2s}.lb-ctrl-btn:hover,.lb-ctrl-btn:active{border-color:#D4A017;color:#D4A017;background:rgba(212,160,23,.1)}.lb-ctrl-btn.spin-active{border-color:#D4A017;color:#D4A017;background:rgba(212,160,23,.15)}.lb-tap-close{position:fixed;bottom:74px;left:50%;transform:translateX(-50%);z-index:202;color:rgba(255,255,255,.3);font-size:11px;font-weight:600;letter-spacing:.05em;pointer-events:none;text-shadow:0 2px 8px rgba(0,0,0,.5)}.click-hint{position:absolute;bottom:50%;left:50%;transform:translate(-50%,50%);background:rgba(0,0,0,.7);backdrop-filter:blur(8px);padding:6px 14px;border-radius:20px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.8);opacity:0;transition:opacity .3s;pointer-events:none}.product-card:hover .click-hint{opacity:1}#chatBox{position:fixed;bottom:100px;right:20px;width:360px;background:#fff;border-radius:20px;box-shadow:0 20px 60px rgba(0,0,0,.4);overflow:hidden;font-family:'Manrope',sans-serif;z-index:999;display:flex;flex-direction:column;max-height:520px;transform:translateY(100%) scale(.9);opacity:0;pointer-events:none;transition:all .4s cubic-bezier(.16,1,.3,1)}#chatBox.visible{transform:translateY(0) scale(1);opacity:1;pointer-events:all;animation:slide-up-in .5s cubic-bezier(.16,1,.3,1)}@keyframes slide-up-in{from{transform:translateY(100%) scale(.9);opacity:0}to{transform:translateY(0) scale(1);opacity:1}}.chat-header{background:linear-gradient(135deg,#0A0A0A,#1a1a1a);color:#D4A017;padding:14px 16px;font-weight:bold;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(212,160,23,.2)}.chat-minimize-btn{background:rgba(212,160,23,.1);border:1px solid rgba(212,160,23,.3);color:#D4A017;cursor:pointer;font-size:18px;padding:4px 10px;border-radius:8px;display:flex;align-items:center;justify-content:center;transition:all .3s;width:32px;height:32px}#chatMessages{height:300px;overflow-y:auto;padding:14px;font-size:13px;background:#f9f9f9;flex:1;display:flex;flex-direction:column;gap:10px;-webkit-overflow-scrolling:touch}.chat-input-area{display:flex;gap:6px;padding:10px;background:#fff;border-top:1px solid #eee}.chat-msg{padding:10px 12px;border-radius:12px;word-wrap:break-word;animation:fade-up .3s ease-out;max-width:85%;line-height:1.5}.chat-msg.user{background:#D4A017;color:#000;margin-left:auto;font-weight:500;border-bottom-right-radius:4px}.chat-msg.bot{background:#e8e8e8;color:#333;margin-right:auto;border-bottom-left-radius:4px}.typing-indicator{display:none;padding:10px 12px;background:#e8e8e8;border-radius:12px;width:fit-content;margin-right:auto}.typing-indicator.active{display:block;animation:fade-up .3s ease-out}.typing-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#999;margin:0 2px;animation:typing-bounce 1.4s infinite}@keyframes typing-bounce{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-8px)}}.whatsapp-float{position:fixed;bottom:20px;right:20px;width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,#25D366,#128C7E);border:3px solid rgba(37,211,102,.3);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .3s;z-index:997;box-shadow:0 8px 24px rgba(37,211,102,.4);animation:float-bounce 2s ease-in-out infinite}@keyframes float-bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}.whatsapp-float:hover{transform:scale(1.1)}.whatsapp-float::before{content:'';position:absolute;inset:-4px;border-radius:50%;border:2px solid rgba(37,211,102,.4);animation:pulse-ring 1.5s ease-out infinite}@keyframes pulse-ring{0%{transform:scale(1);opacity:1}100%{transform:scale(1.5);opacity:0}}.whatsapp-icon{font-size:28px;color:white}.whatsapp-notification{position:absolute;top:-6px;right:-6px;min-width:20px;height:20px;background:#ef4444;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:bold;color:white;animation:pop-in .5s ease-out;padding:0 5px}@keyframes pop-in{0%{transform:scale(0);opacity:0}60%{transform:scale(1.15)}100%{transform:scale(1);opacity:1}}.ai-indicator{position:fixed;bottom:20px;right:92px;width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#D4A017,#B8860B);border:3px solid rgba(212,160,23,.3);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .3s;z-index:998;box-shadow:0 8px 24px rgba(212,160,23,.4);animation:float-bounce 2s ease-in-out infinite;animation-delay:.5s}.ai-indicator:hover{transform:scale(1.1)}.ai-indicator.hidden{display:none}.ai-icon{font-size:24px}.ai-notification{position:absolute;top:-6px;right:-6px;min-width:20px;height:20px;background:#ef4444;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:bold;color:white;animation:pop-in .5s ease-out;padding:0 5px}.agent-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#D4A017,#B8860B);display:flex;align-items:center;justify-content:center;flex-shrink:0;animation:agent-pop .3s ease-out}@keyframes agent-pop{0%{transform:scale(0) rotate(-10deg);opacity:0}50%{transform:scale(1.1) rotate(5deg)}100%{transform:scale(1) rotate(0deg);opacity:1}}.agent-avatar.speaking{animation:success-bounce .5s ease-in-out infinite}@keyframes success-bounce{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}#liveBar{position:fixed;bottom:0;left:0;right:0;z-index:90;background:linear-gradient(180deg,rgba(10,10,10,0),rgba(10,10,10,.85) 30%,rgba(10,10,10,.95));backdrop-filter:blur(20px);border-top:1px solid rgba(212,160,23,.12);transform:translateY(100%);transition:transform .6s cubic-bezier(.16,1,.3,1)}#liveBar.visible{transform:translateY(0)}#liveBar-inner{max-width:1800px;margin:0 auto;padding:10px 16px 12px;display:flex;align-items:center;justify-content:space-between;gap:12px}.live-dot-wrap{position:relative;width:10px;height:10px;flex-shrink:0}.live-dot{position:absolute;inset:0;background:#22c55e;border-radius:50%;animation:live-dot 1.5s ease-in-out infinite}@keyframes live-dot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}.live-ring{position:absolute;inset:0;background:#22c55e;border-radius:50%;animation:live-ring 1.5s ease-out infinite}@keyframes live-ring{0%{transform:scale(1);opacity:.6}100%{transform:scale(2.2);opacity:0}}.live-label{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.15em;color:#22c55e;white-space:nowrap}.live-stat-val{font-family:'Space Mono',monospace;font-size:15px;font-weight:700;color:#fff;line-height:1}.live-stat-label{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.35);white-space:nowrap}.glow-line{position:absolute;top:-1px;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(212,160,23,.4) 50%,transparent);animation:glow-line 3s ease-in-out infinite}@keyframes glow-line{0%{opacity:.3}50%{opacity:1}100%{opacity:.3}}.discount-applied{background:linear-gradient(135deg,#22c55e,#16a34a);color:white;padding:8px 12px;border-radius:10px;font-size:12px;font-weight:bold;display:flex;align-items:center;gap:6px}.original-price{text-decoration:line-through;color:#999;font-size:12px}.discounted-price{color:#22c55e;font-weight:bold}.logo-circle{width:110px;height:110px;border-radius:50%;overflow:hidden;border:2px solid rgba(212,160,23,0.25);box-shadow:0 0 20px rgba(212,160,23,0.1);animation:logo-glow 4s ease-in-out infinite;flex-shrink:0;cursor:pointer;transition:all .3s ease}@keyframes logo-glow{0%,100%{filter:brightness(1.1) contrast(1.05) drop-shadow(0 0 6px rgba(212,160,23,0.15))}50%{filter:brightness(1.2) contrast(1.1) drop-shadow(0 0 14px rgba(212,160,23,0.35))}}.logo-circle:hover{border-color:rgba(212,160,23,0.6);box-shadow:0 0 35px rgba(212,160,23,0.3);transform:scale(1.08)}.logo-circle img{width:100%;height:100%;object-fit:cover;animation:logo-spin 20s linear infinite;image-rendering:-webkit-optimize-contrast}@keyframes logo-spin{from{transform:rotate(0deg)}to{transform:rotate(-360deg)}}.cat-scroll{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;padding-bottom:4px}.cat-scroll::-webkit-scrollbar{display:none}.cat-scroll .cat-btn{flex-shrink:0}@media(hover:none){.product-card:hover{transform:none}.product-card:active{transform:scale(.97)}.img-rotator{animation:none!important;transform:none!important}.click-hint{display:none!important}}
 </style>
 
-<!-- ============================================================
-     MOBILE STYLES
-     ============================================================ -->
 <style id="mobile-css">
-#mobile-view {
-  --gold:#D4A017; --gold-light:#F5C842; --gold-dim:rgba(212,160,23,0.15);
-  --mbg:#0C0C0C; --mbg2:#141414; --mbg3:#1C1C1C;
-  --mborder:rgba(255,255,255,0.08);
-  --mtext:#F0EDE8; --mmuted:#888; --mgreen:#22c55e; --mred:#ef4444;
-  --mradius:16px; --mradius-sm:10px;
-  --mfont-head:'Syne',sans-serif; --mfont-body:'DM Sans',sans-serif;
-  font-family:var(--mfont-body); font-size:14px;
-  background:var(--mbg); color:var(--mtext);
-  min-height:100vh; overflow-x:hidden;
-}
-#mobile-view * { box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
-#mobile-view img { display:block; }
-#mobile-view button { border:none; cursor:pointer; font-family:var(--mfont-body); }
-#mobile-view input,#mobile-view textarea,#mobile-view select { font-family:var(--mfont-body); }
-
-/* Header */
-#mHeader {
-  position:fixed; top:0; left:0; right:0; z-index:100;
-  background:rgba(12,12,12,0.96); backdrop-filter:blur(20px);
-  -webkit-backdrop-filter:blur(20px); border-bottom:1px solid var(--mborder);
-  padding:10px 16px 8px;
-}
-.m-header-top { display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; }
-.m-header-logo { display:flex; align-items:center; gap:10px; }
-.m-logo-img { width:38px; height:38px; border-radius:50%; border:1.5px solid rgba(212,160,23,0.4); object-fit:cover; animation:mLogoGlow 4s ease-in-out infinite; }
-@keyframes mLogoGlow { 0%,100%{box-shadow:0 0 8px rgba(212,160,23,0.2)} 50%{box-shadow:0 0 18px rgba(212,160,23,0.5)} }
-.m-logo-text { font-family:var(--mfont-head); font-weight:800; font-size:15px; line-height:1; letter-spacing:-0.02em; }
-.m-logo-sub { font-size:9px; color:var(--gold); font-weight:600; letter-spacing:0.12em; text-transform:uppercase; margin-top:2px; }
-.m-header-actions { display:flex; align-items:center; gap:8px; }
-.m-cart-btn { width:38px; height:38px; border-radius:50%; background:var(--mbg3); border:1px solid var(--mborder); display:flex; align-items:center; justify-content:center; font-size:17px; transition:all 0.2s; }
-.m-wa-btn { width:38px; height:38px; border-radius:50%; background:linear-gradient(135deg,#25D366,#128C7E); display:flex; align-items:center; justify-content:center; font-size:19px; transition:all 0.2s; cursor:pointer; border:none; }
-
-.m-search-wrap { position:relative; }
-.m-search-wrap svg { position:absolute; left:12px; top:50%; transform:translateY(-50%); width:15px; height:15px; stroke:var(--mmuted); fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; pointer-events:none; }
-#mSearchInput { width:100%; height:38px; background:var(--mbg3); border:1px solid var(--mborder); border-radius:50px; padding:0 14px 0 36px; color:var(--mtext); font-size:13px; outline:none; transition:border-color 0.2s; }
-#mSearchInput:focus { border-color:rgba(212,160,23,0.5); }
-#mSearchInput::placeholder { color:var(--mmuted); }
-
-/* Category strip */
-#mCatStrip { display:flex; gap:7px; overflow-x:auto; padding:12px 16px 0; scrollbar-width:none; -ms-overflow-style:none; position:fixed; left:0; right:0; z-index:99; background:rgba(12,12,12,0.97); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); border-bottom:1px solid rgba(255,255,255,0.06); padding-bottom:10px; }
-#mCatStrip::-webkit-scrollbar { display:none; }
-.m-cat-pill { flex-shrink:0; height:33px; padding:0 13px; border-radius:50px; background:var(--mbg3); border:1px solid var(--mborder); color:var(--mmuted); font-size:12px; font-weight:600; letter-spacing:0.02em; white-space:nowrap; transition:all 0.2s; display:flex; align-items:center; gap:5px; cursor:pointer; }
-.m-cat-pill.active { background:var(--gold); color:#000; border-color:var(--gold); }
-
-/* Main */
-#mMain { padding-bottom:90px; }
-.m-section-header { padding:16px 16px 4px; display:flex; align-items:center; justify-content:space-between; }
-.m-section-title { font-family:var(--mfont-head); font-weight:700; font-size:17px; }
-.m-product-count { font-size:12px; color:var(--mmuted); }
-
-/* Product grid */
-#mProductGrid { display:grid; grid-template-columns:1fr 1fr; gap:10px; padding:8px 16px; }
-.m-p-card { background:var(--mbg2); border:1px solid var(--mborder); border-radius:var(--mradius); overflow:hidden; animation:mCardIn 0.4s ease both; transition:border-color 0.2s; position:relative; }
-@keyframes mCardIn { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:translateY(0)} }
-.m-p-img-wrap { position:relative; aspect-ratio:1/1; overflow:hidden; background:var(--mbg3); }
-.m-p-img { width:100%; height:100%; object-fit:cover; transition:transform 0.6s ease; }
-.m-p-store-tag { position:absolute; top:8px; left:8px; background:rgba(0,0,0,0.75); backdrop-filter:blur(8px); color:var(--gold); font-size:9px; font-weight:700; letter-spacing:0.07em; text-transform:uppercase; padding:3px 7px; border-radius:50px; }
-.m-p-fav { position:absolute; top:7px; right:7px; width:28px; height:28px; border-radius:50%; background:rgba(0,0,0,0.65); backdrop-filter:blur(8px); display:flex; align-items:center; justify-content:center; font-size:14px; border:1px solid rgba(255,255,255,0.1); transition:all 0.2s; cursor:pointer; }
-.m-p-fav.liked { background:rgba(239,68,68,0.2); border-color:rgba(239,68,68,0.4); }
-.m-p-body { padding:10px; }
-.m-p-name { font-family:var(--mfont-head); font-weight:700; font-size:12px; line-height:1.35; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; margin-bottom:4px; }
-.m-p-price { color:var(--gold); font-weight:700; font-size:11px; margin-bottom:8px; }
-.m-p-order-btn { width:100%; height:34px; background:var(--gold); color:#000; border-radius:50px; font-size:11px; font-weight:700; letter-spacing:0.04em; text-transform:uppercase; transition:all 0.2s; cursor:pointer; border:none; font-family:var(--mfont-body); }
-
-#mEmptyState { display:none; text-align:center; padding:60px 20px; }
-#mEmptyState .m-e-icon { font-size:52px; margin-bottom:12px; }
-#mEmptyState p { color:var(--mmuted); font-size:14px; }
-
-/* Trust + Banner */
-.m-trust-strip { display:flex; gap:8px; overflow-x:auto; padding:10px 16px 0; scrollbar-width:none; }
-.m-trust-strip::-webkit-scrollbar { display:none; }
-.m-trust-item { flex-shrink:0; display:flex; align-items:center; gap:6px; background:var(--mbg2); border:1px solid var(--mborder); border-radius:50px; padding:6px 12px; }
-.m-trust-icon { font-size:14px; }
-.m-trust-text { font-size:11px; font-weight:600; color:var(--mmuted); white-space:nowrap; }
-.m-banner { margin:10px 16px 0; background:linear-gradient(135deg,#1a1200,#2a1d00); border:1px solid rgba(212,160,23,0.2); border-radius:var(--mradius); padding:14px 16px; display:flex; align-items:center; justify-content:space-between; overflow:hidden; position:relative; }
-.m-banner::before { content:''; position:absolute; top:-20px; right:-20px; width:120px; height:120px; background:radial-gradient(circle,rgba(212,160,23,0.15),transparent); border-radius:50%; }
-.m-banner-text { position:relative; }
-.m-banner-tag { font-size:9px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--gold); margin-bottom:3px; }
-.m-banner-title { font-family:var(--mfont-head); font-weight:800; font-size:16px; line-height:1.2; }
-.m-banner-sub { font-size:11px; color:var(--mmuted); margin-top:2px; }
-.m-banner-cta { flex-shrink:0; height:34px; padding:0 14px; background:var(--gold); color:#000; border-radius:50px; font-size:11px; font-weight:800; letter-spacing:0.04em; text-transform:uppercase; white-space:nowrap; position:relative; z-index:1; transition:all 0.2s; cursor:pointer; border:none; font-family:var(--mfont-body); }
-
-/* Order modal */
-.m-modal-overlay { position:fixed; inset:0; z-index:200; background:rgba(0,0,0,0.85); backdrop-filter:blur(12px); display:flex; align-items:flex-end; justify-content:center; opacity:0; pointer-events:none; transition:opacity 0.3s; }
-.m-modal-overlay.open { opacity:1; pointer-events:all; }
-.m-modal-sheet { background:var(--mbg2); border-radius:24px 24px 0 0; border-top:1px solid var(--mborder); width:100%; max-height:92vh; overflow-y:auto; -webkit-overflow-scrolling:touch; padding:0 0 40px; transform:translateY(100%); transition:transform 0.4s cubic-bezier(0.16,1,0.3,1); }
-.m-modal-overlay.open .m-modal-sheet { transform:translateY(0); }
-.m-modal-handle { width:40px; height:4px; border-radius:2px; background:var(--mbg3); margin:12px auto 16px; }
-.m-modal-head { display:flex; align-items:center; justify-content:space-between; padding:0 16px 14px; border-bottom:1px solid var(--mborder); }
-.m-modal-title { font-family:var(--mfont-head); font-weight:700; font-size:18px; }
-.m-modal-close { width:34px; height:34px; border-radius:50%; background:var(--mbg3); color:var(--mmuted); display:flex; align-items:center; justify-content:center; font-size:16px; transition:all 0.2s; cursor:pointer; border:none; }
-.m-modal-body { padding:16px; }
-.m-order-product-row { display:flex; gap:12px; align-items:center; padding:12px; border-radius:var(--mradius-sm); background:var(--mbg3); border:1px solid var(--mborder); margin-bottom:16px; }
-.m-order-product-img { width:60px; height:60px; border-radius:10px; object-fit:cover; flex-shrink:0; }
-.m-order-product-name { font-weight:600; font-size:14px; margin-bottom:3px; }
-.m-order-product-price { color:var(--gold); font-weight:700; font-size:13px; }
-.m-field-label { font-size:11px; font-weight:700; letter-spacing:0.07em; text-transform:uppercase; color:var(--mmuted); margin-bottom:6px; display:block; }
-.m-field-input { width:100%; height:46px; background:var(--mbg3); border:1px solid var(--mborder); border-radius:var(--mradius-sm); padding:0 14px; color:var(--mtext); font-size:14px; outline:none; transition:border-color 0.2s; margin-bottom:12px; font-family:var(--mfont-body); }
-.m-field-input:focus { border-color:rgba(212,160,23,0.5); }
-.m-field-input::placeholder { color:#555; }
-.m-qty-row { display:flex; align-items:center; background:var(--mbg3); border:1px solid var(--mborder); border-radius:var(--mradius-sm); overflow:hidden; margin-bottom:12px; height:46px; }
-.m-qty-btn { width:46px; height:46px; font-size:20px; background:transparent; color:var(--mtext); display:flex; align-items:center; justify-content:center; transition:background 0.2s; cursor:pointer; border:none; }
-.m-qty-val { flex:1; text-align:center; font-weight:700; font-size:16px; color:var(--mtext); background:transparent; border:none; outline:none; font-family:var(--mfont-body); }
-.m-order-total-row { display:flex; align-items:center; justify-content:space-between; padding:14px; border-radius:var(--mradius-sm); background:var(--gold-dim); border:1px solid rgba(212,160,23,0.2); margin-bottom:16px; }
-.m-total-label { font-size:12px; font-weight:600; color:var(--mmuted); }
-.m-total-amount { font-family:var(--mfont-head); font-size:20px; font-weight:800; color:var(--gold); }
-.m-btn-confirm { width:100%; height:52px; border-radius:50px; background:var(--gold); color:#000; font-weight:800; font-size:15px; letter-spacing:0.03em; transition:all 0.2s; margin-bottom:10px; cursor:pointer; border:none; font-family:var(--mfont-body); }
-.m-btn-wa { width:100%; height:46px; border-radius:50px; background:linear-gradient(135deg,#25D366,#128C7E); color:#fff; font-weight:700; font-size:14px; display:flex; align-items:center; justify-content:center; gap:8px; transition:all 0.2s; cursor:pointer; border:none; font-family:var(--mfont-body); }
-
-/* Success */
-#mSuccessSheet { position:fixed; inset:0; z-index:300; background:rgba(0,0,0,0.9); backdrop-filter:blur(20px); display:flex; align-items:center; justify-content:center; opacity:0; pointer-events:none; transition:opacity 0.3s; }
-#mSuccessSheet.open { opacity:1; pointer-events:all; }
-.m-success-card { background:var(--mbg2); border:1px solid rgba(34,197,94,0.3); border-radius:24px; padding:36px 24px; text-align:center; max-width:320px; width:90%; transform:scale(0.85); transition:transform 0.4s cubic-bezier(0.16,1,0.3,1); }
-#mSuccessSheet.open .m-success-card { transform:scale(1); }
-.m-success-icon { font-size:58px; margin-bottom:16px; animation:mSuccessBounce 0.6s ease; }
-@keyframes mSuccessBounce { 0%,100%{transform:scale(1)} 40%{transform:scale(1.25)} 70%{transform:scale(0.92)} }
-.m-success-title { font-family:var(--mfont-head); font-size:24px; font-weight:800; margin-bottom:8px; }
-.m-success-msg { color:var(--mmuted); font-size:13px; line-height:1.6; margin-bottom:24px; }
-.m-success-close { width:100%; height:48px; border-radius:50px; background:var(--gold); color:#000; font-weight:700; font-size:14px; transition:all 0.2s; cursor:pointer; border:none; font-family:var(--mfont-body); }
-
-/* AI Chat bubble */
-#mChatBubble { position:fixed; bottom:86px; right:16px; z-index:150; animation:mChatFloat 3s ease-in-out infinite; }
-@keyframes mChatFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
-.m-chat-trigger { width:54px; height:54px; border-radius:50%; background:linear-gradient(135deg,var(--gold),#B8860B); border:2px solid rgba(212,160,23,0.3); display:flex; align-items:center; justify-content:center; font-size:24px; cursor:pointer; box-shadow:0 8px 24px rgba(212,160,23,0.35); position:relative; transition:all 0.2s; }
-.m-chat-trigger::before { content:''; position:absolute; inset:-4px; border-radius:50%; border:2px solid rgba(212,160,23,0.3); animation:mPulseRing 2s ease-out infinite; }
-@keyframes mPulseRing { 0%{transform:scale(1);opacity:0.6} 100%{transform:scale(1.7);opacity:0} }
-.m-chat-notif { position:absolute; top:-4px; right:-4px; width:19px; height:19px; background:var(--mred); border-radius:50%; font-size:10px; font-weight:700; color:#fff; display:none; align-items:center; justify-content:center; animation:mNotifPop 0.4s cubic-bezier(0.34,1.56,0.64,1); }
-.m-chat-notif.show { display:flex; }
-@keyframes mNotifPop { from{transform:scale(0)} to{transform:scale(1)} }
-
-/* Chat window */
-#mChatWindow { position:fixed; bottom:150px; right:16px; width:calc(100vw - 32px); max-width:340px; background:#fff; border-radius:20px; box-shadow:0 20px 60px rgba(0,0,0,0.5); overflow:hidden; z-index:151; transform:scale(0.85) translateY(20px); transform-origin:bottom right; opacity:0; pointer-events:none; transition:all 0.35s cubic-bezier(0.16,1,0.3,1); }
-#mChatWindow.open { transform:scale(1) translateY(0); opacity:1; pointer-events:all; }
-.m-chat-head { background:linear-gradient(135deg,#0C0C0C,#1C1C1C); padding:12px 14px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid rgba(212,160,23,0.15); }
-.m-chat-agent { display:flex; align-items:center; gap:10px; }
-.m-agent-av { width:36px; height:36px; border-radius:50%; background:linear-gradient(135deg,var(--gold),#B8860B); display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0; }
-.m-agent-name { font-size:13px; font-weight:700; color:var(--gold); font-family:var(--mfont-head); }
-.m-agent-status { display:flex; align-items:center; gap:5px; font-size:10px; color:rgba(255,255,255,0.45); }
-.m-online-dot { width:7px; height:7px; background:var(--mgreen); border-radius:50%; animation:mOnlinePulse 1.5s ease-in-out infinite; }
-@keyframes mOnlinePulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
-.m-chat-close-btn { width:28px; height:28px; border-radius:50%; background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.1); color:rgba(255,255,255,0.5); font-size:14px; display:flex; align-items:center; justify-content:center; transition:all 0.2s; cursor:pointer; }
-#mChatMsgs { height:240px; overflow-y:auto; padding:12px; background:#f5f5f5; display:flex; flex-direction:column; gap:8px; -webkit-overflow-scrolling:touch; }
-.m-msg { max-width:82%; padding:9px 12px; border-radius:14px; font-size:12.5px; line-height:1.55; word-break:break-word; animation:mMsgIn 0.3s ease; }
-@keyframes mMsgIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
-.m-msg.bot { background:#fff; color:#222; margin-right:auto; border-bottom-left-radius:4px; box-shadow:0 2px 8px rgba(0,0,0,0.08); }
-.m-msg.user { background:var(--gold); color:#000; margin-left:auto; border-bottom-right-radius:4px; font-weight:600; }
-.m-typing { display:none; align-items:center; gap:4px; padding:8px 12px; background:#fff; border-radius:14px; width:fit-content; box-shadow:0 2px 8px rgba(0,0,0,0.08); }
-.m-typing.active { display:flex; animation:mMsgIn 0.3s ease; }
-.m-t-dot { width:7px; height:7px; border-radius:50%; background:#aaa; animation:mTypingBounce 1.4s infinite; }
-.m-t-dot:nth-child(2){animation-delay:0.18s} .m-t-dot:nth-child(3){animation-delay:0.36s}
-@keyframes mTypingBounce { 0%,60%,100%{transform:translateY(0)} 30%{transform:translateY(-6px)} }
-.m-chat-chips { display:flex; gap:6px; padding:8px 10px; background:#f5f5f5; border-top:1px solid #eee; overflow-x:auto; scrollbar-width:none; }
-.m-chat-chips::-webkit-scrollbar { display:none; }
-.m-chip { flex-shrink:0; padding:5px 11px; border-radius:50px; background:#fff; border:1px solid #ddd; font-size:11px; font-weight:600; color:#333; cursor:pointer; transition:all 0.18s; font-family:var(--mfont-body); white-space:nowrap; }
-.m-chat-input-row { display:flex; gap:7px; padding:9px 10px; background:#fff; border-top:1px solid #eee; }
-#mChatInput { flex:1; height:38px; border-radius:50px; border:1px solid #ddd; padding:0 14px; font-size:13px; color:#333; outline:none; font-family:var(--mfont-body); transition:border-color 0.2s; }
-#mChatInput:focus { border-color:var(--gold); }
-#mChatInput::placeholder { color:#aaa; }
-.m-chat-send { width:38px; height:38px; border-radius:50px; background:var(--gold); color:#000; display:flex; align-items:center; justify-content:center; font-size:16px; transition:all 0.2s; cursor:pointer; border:none; }
-
-/* WA float */
-#mWaFloat { position:fixed; bottom:22px; right:16px; z-index:149; width:54px; height:54px; border-radius:50%; background:linear-gradient(135deg,#25D366,#128C7E); border:2px solid rgba(37,211,102,0.3); display:flex; align-items:center; justify-content:center; font-size:26px; cursor:pointer; box-shadow:0 8px 24px rgba(37,211,102,0.35); animation:mChatFloat 2.5s ease-in-out infinite; animation-delay:0.5s; position:fixed; }
-#mWaFloat::before { content:''; position:absolute; inset:-4px; border-radius:50%; border:2px solid rgba(37,211,102,0.25); animation:mPulseRing 2s ease-out infinite; animation-delay:0.4s; }
-
-/* Bottom nav */
-#mBottomNav { position:fixed; bottom:0; left:0; right:0; z-index:100; background:rgba(12,12,12,0.97); backdrop-filter:blur(20px); border-top:1px solid var(--mborder); display:flex; height:62px; padding-bottom:env(safe-area-inset-bottom); }
-.m-nav-item { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px; cursor:pointer; transition:all 0.2s; color:var(--mmuted); }
-.m-nav-item.active { color:var(--gold); }
-.m-nav-icon { font-size:20px; line-height:1; }
-.m-nav-label { font-size:9px; font-weight:600; letter-spacing:0.05em; text-transform:uppercase; }
-
-/* Toast */
-#mToastBox { position:fixed; top:120px; left:50%; transform:translateX(-50%); z-index:500; display:flex; flex-direction:column; align-items:center; gap:8px; pointer-events:none; }
-.m-toast { padding:10px 18px; border-radius:50px; font-size:12px; font-weight:600; color:#fff; backdrop-filter:blur(20px); animation:mToastIn 0.4s cubic-bezier(0.34,1.56,0.64,1) both; white-space:nowrap; }
-.m-toast.success { background:rgba(34,197,94,0.9); }
-.m-toast.error { background:rgba(239,68,68,0.9); }
-.m-toast.info { background:rgba(212,160,23,0.9); color:#000; }
-@keyframes mToastIn { from{opacity:0;transform:scale(0.7)} to{opacity:1;transform:scale(1)} }
-
-/* Lightbox */
-#mLightbox { position:fixed; inset:0; z-index:250; background:rgba(0,0,0,0.96); backdrop-filter:blur(20px); display:flex; flex-direction:column; align-items:center; justify-content:center; opacity:0; pointer-events:none; transition:opacity 0.25s; }
-#mLightbox.open { opacity:1; pointer-events:all; }
-#mLbImg { max-width:92vw; max-height:75vh; object-fit:contain; border-radius:16px; animation:mLbIn 0.35s cubic-bezier(0.16,1,0.3,1); }
-@keyframes mLbIn { from{transform:scale(0.8);opacity:0} to{transform:scale(1);opacity:1} }
-.m-lb-close { position:absolute; top:16px; right:16px; width:42px; height:42px; border-radius:50%; background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.15); color:#fff; font-size:18px; display:flex; align-items:center; justify-content:center; cursor:pointer; transition:all 0.2s; }
-.m-lb-info { text-align:center; margin-top:16px; padding:0 20px; }
-.m-lb-name { font-family:var(--mfont-head); font-weight:700; font-size:16px; }
-.m-lb-price { color:var(--gold); font-weight:700; font-size:14px; margin-top:4px; }
-.m-lb-order-btn { margin-top:16px; height:46px; padding:0 32px; background:var(--gold); color:#000; border-radius:50px; font-weight:800; font-size:13px; letter-spacing:0.04em; text-transform:uppercase; transition:all 0.2s; cursor:pointer; border:none; font-family:var(--mfont-body); }
+#mobile-view{--gold:#D4A017;--gold-light:#F5C842;--gold-dim:rgba(212,160,23,0.15);--mbg:#0C0C0C;--mbg2:#141414;--mbg3:#1C1C1C;--mborder:rgba(255,255,255,0.08);--mtext:#F0EDE8;--mmuted:#888;--mgreen:#22c55e;--mred:#ef4444;--mradius:16px;--mradius-sm:10px;--mfont-head:'Syne',sans-serif;--mfont-body:'DM Sans',sans-serif;font-family:var(--mfont-body);font-size:14px;background:var(--mbg);color:var(--mtext);min-height:100vh;overflow-x:hidden}
+#mobile-view *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+#mobile-view img{display:block}
+#mobile-view button{border:none;cursor:pointer;font-family:var(--mfont-body)}
+#mobile-view input,#mobile-view textarea,#mobile-view select{font-family:var(--mfont-body)}
+#mHeader{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(12,12,12,0.96);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--mborder);padding:10px 16px 8px}
+.m-header-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.m-header-logo{display:flex;align-items:center;gap:10px}
+.m-logo-img{width:38px;height:38px;border-radius:50%;border:1.5px solid rgba(212,160,23,0.4);object-fit:cover;animation:mLogoGlow 4s ease-in-out infinite}
+@keyframes mLogoGlow{0%,100%{box-shadow:0 0 8px rgba(212,160,23,0.2)}50%{box-shadow:0 0 18px rgba(212,160,23,0.5)}}
+.m-logo-text{font-family:var(--mfont-head);font-weight:800;font-size:15px;line-height:1;letter-spacing:-0.02em}
+.m-logo-sub{font-size:9px;color:var(--gold);font-weight:600;letter-spacing:0.12em;text-transform:uppercase;margin-top:2px}
+.m-header-actions{display:flex;align-items:center;gap:8px}
+.m-cart-btn{width:38px;height:38px;border-radius:50%;background:var(--mbg3);border:1px solid var(--mborder);display:flex;align-items:center;justify-content:center;font-size:17px;transition:all 0.2s}
+.m-wa-btn{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#25D366,#128C7E);display:flex;align-items:center;justify-content:center;font-size:19px;transition:all 0.2s;cursor:pointer;border:none}
+.m-search-wrap{position:relative}
+.m-search-wrap svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);width:15px;height:15px;stroke:var(--mmuted);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;pointer-events:none}
+#mSearchInput{width:100%;height:38px;background:var(--mbg3);border:1px solid var(--mborder);border-radius:50px;padding:0 14px 0 36px;color:var(--mtext);font-size:13px;outline:none;transition:border-color 0.2s}
+#mSearchInput:focus{border-color:rgba(212,160,23,0.5)}
+#mSearchInput::placeholder{color:var(--mmuted)}
+#mCatStrip{display:flex;gap:7px;overflow-x:auto;padding:12px 16px 0;scrollbar-width:none;-ms-overflow-style:none;position:fixed;left:0;right:0;z-index:99;background:rgba(12,12,12,0.97);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,0.06);padding-bottom:10px}
+#mCatStrip::-webkit-scrollbar{display:none}
+.m-cat-pill{flex-shrink:0;height:33px;padding:0 13px;border-radius:50px;background:var(--mbg3);border:1px solid var(--mborder);color:var(--mmuted);font-size:12px;font-weight:600;letter-spacing:0.02em;white-space:nowrap;transition:all 0.2s;display:flex;align-items:center;gap:5px;cursor:pointer}
+.m-cat-pill.active{background:var(--gold);color:#000;border-color:var(--gold)}
+#mMain{padding-bottom:90px}
+.m-section-header{padding:16px 16px 4px;display:flex;align-items:center;justify-content:space-between}
+.m-section-title{font-family:var(--mfont-head);font-weight:700;font-size:17px}
+.m-product-count{font-size:12px;color:var(--mmuted)}
+#mProductGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:8px 16px}
+.m-p-card{background:var(--mbg2);border:1px solid var(--mborder);border-radius:var(--mradius);overflow:hidden;animation:mCardIn 0.4s ease both;transition:border-color 0.2s;position:relative}
+@keyframes mCardIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+.m-p-img-wrap{position:relative;aspect-ratio:1/1;overflow:hidden;background:var(--mbg3)}
+.m-p-img{width:100%;height:100%;object-fit:cover;transition:transform 0.6s ease}
+.m-p-store-tag{position:absolute;top:8px;left:8px;background:rgba(0,0,0,0.75);backdrop-filter:blur(8px);color:var(--gold);font-size:9px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;padding:3px 7px;border-radius:50px}
+.m-p-fav{position:absolute;top:7px;right:7px;width:28px;height:28px;border-radius:50%;background:rgba(0,0,0,0.65);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;font-size:14px;border:1px solid rgba(255,255,255,0.1);transition:all 0.2s;cursor:pointer}
+.m-p-fav.liked{background:rgba(239,68,68,0.2);border-color:rgba(239,68,68,0.4)}
+.m-p-body{padding:10px}
+.m-p-name{font-family:var(--mfont-head);font-weight:700;font-size:12px;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:4px}
+.m-p-price{color:var(--gold);font-weight:700;font-size:11px;margin-bottom:8px}
+.m-p-order-btn{width:100%;height:34px;background:var(--gold);color:#000;border-radius:50px;font-size:11px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;transition:all 0.2s;cursor:pointer;border:none;font-family:var(--mfont-body)}
+#mEmptyState{display:none;text-align:center;padding:60px 20px}
+#mEmptyState .m-e-icon{font-size:52px;margin-bottom:12px}
+#mEmptyState p{color:var(--mmuted);font-size:14px}
+.m-trust-strip{display:flex;gap:8px;overflow-x:auto;padding:10px 16px 0;scrollbar-width:none}
+.m-trust-strip::-webkit-scrollbar{display:none}
+.m-trust-item{flex-shrink:0;display:flex;align-items:center;gap:6px;background:var(--mbg2);border:1px solid var(--mborder);border-radius:50px;padding:6px 12px}
+.m-trust-icon{font-size:14px}
+.m-trust-text{font-size:11px;font-weight:600;color:var(--mmuted);white-space:nowrap}
+.m-banner{margin:10px 16px 0;background:linear-gradient(135deg,#1a1200,#2a1d00);border:1px solid rgba(212,160,23,0.2);border-radius:var(--mradius);padding:14px 16px;display:flex;align-items:center;justify-content:space-between;overflow:hidden;position:relative}
+.m-banner::before{content:'';position:absolute;top:-20px;right:-20px;width:120px;height:120px;background:radial-gradient(circle,rgba(212,160,23,0.15),transparent);border-radius:50%}
+.m-banner-text{position:relative}
+.m-banner-tag{font-size:9px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);margin-bottom:3px}
+.m-banner-title{font-family:var(--mfont-head);font-weight:800;font-size:16px;line-height:1.2}
+.m-banner-sub{font-size:11px;color:var(--mmuted);margin-top:2px}
+.m-banner-cta{flex-shrink:0;height:34px;padding:0 14px;background:var(--gold);color:#000;border-radius:50px;font-size:11px;font-weight:800;letter-spacing:0.04em;text-transform:uppercase;white-space:nowrap;position:relative;z-index:1;transition:all 0.2s;cursor:pointer;border:none;font-family:var(--mfont-body)}
+.m-modal-overlay{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,0.85);backdrop-filter:blur(12px);display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.3s}
+.m-modal-overlay.open{opacity:1;pointer-events:all}
+.m-modal-sheet{background:var(--mbg2);border-radius:24px 24px 0 0;border-top:1px solid var(--mborder);width:100%;max-height:92vh;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:0 0 40px;transform:translateY(100%);transition:transform .4s cubic-bezier(0.16,1,0.3,1)}
+.m-modal-overlay.open .m-modal-sheet{transform:translateY(0)}
+.m-modal-handle{width:40px;height:4px;border-radius:2px;background:var(--mbg3);margin:12px auto 16px}
+.m-modal-head{display:flex;align-items:center;justify-content:space-between;padding:0 16px 14px;border-bottom:1px solid var(--mborder)}
+.m-modal-title{font-family:var(--mfont-head);font-weight:700;font-size:18px}
+.m-modal-close{width:34px;height:34px;border-radius:50%;background:var(--mbg3);color:var(--mmuted);display:flex;align-items:center;justify-content:center;font-size:16px;transition:all 0.2s;cursor:pointer;border:none}
+.m-modal-body{padding:16px}
+.m-order-product-row{display:flex;gap:12px;align-items:center;padding:12px;border-radius:var(--mradius-sm);background:var(--mbg3);border:1px solid var(--mborder);margin-bottom:16px}
+.m-order-product-img{width:60px;height:60px;border-radius:10px;object-fit:cover;flex-shrink:0}
+.m-order-product-name{font-weight:600;font-size:14px;margin-bottom:3px}
+.m-order-product-price{color:var(--gold);font-weight:700;font-size:13px}
+.m-field-label{font-size:11px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--mmuted);margin-bottom:6px;display:block}
+.m-field-input{width:100%;height:46px;background:var(--mbg3);border:1px solid var(--mborder);border-radius:var(--mradius-sm);padding:0 14px;color:var(--mtext);font-size:14px;outline:none;transition:border-color 0.2s;margin-bottom:12px;font-family:var(--mfont-body)}
+.m-field-input:focus{border-color:rgba(212,160,23,0.5)}
+.m-field-input::placeholder{color:#555}
+.m-qty-row{display:flex;align-items:center;background:var(--mbg3);border:1px solid var(--mborder);border-radius:var(--mradius-sm);overflow:hidden;margin-bottom:12px;height:46px}
+.m-qty-btn{width:46px;height:46px;font-size:20px;background:transparent;color:var(--mtext);display:flex;align-items:center;justify-content:center;transition:background 0.2s;cursor:pointer;border:none}
+.m-qty-val{flex:1;text-align:center;font-weight:700;font-size:16px;color:var(--mtext);background:transparent;border:none;outline:none;font-family:var(--mfont-body)}
+.m-order-total-row{display:flex;align-items:center;justify-content:space-between;padding:14px;border-radius:var(--mradius-sm);background:var(--gold-dim);border:1px solid rgba(212,160,23,0.2);margin-bottom:16px}
+.m-total-label{font-size:12px;font-weight:600;color:var(--mmuted)}
+.m-total-amount{font-family:var(--mfont-head);font-size:20px;font-weight:800;color:var(--gold)}
+.m-btn-confirm{width:100%;height:52px;border-radius:50px;background:var(--gold);color:#000;font-weight:800;font-size:15px;letter-spacing:0.03em;transition:all 0.2s;margin-bottom:10px;cursor:pointer;border:none;font-family:var(--mfont-body)}
+.m-btn-wa{width:100%;height:46px;border-radius:50px;background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center;gap:8px;transition:all 0.2s;cursor:pointer;border:none;font-family:var(--mfont-body)}
+#mSuccessSheet{position:fixed;inset:0;z-index:300;background:rgba(0,0,0,0.9);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.3s}
+#mSuccessSheet.open{opacity:1;pointer-events:all}
+.m-success-card{background:var(--mbg2);border:1px solid rgba(34,197,94,0.3);border-radius:24px;padding:36px 24px;text-align:center;max-width:320px;width:90%;transform:scale(0.85);transition:transform .4s cubic-bezier(0.16,1,0.3,1)}
+#mSuccessSheet.open .m-success-card{transform:scale(1)}
+.m-success-icon{font-size:58px;margin-bottom:16px;animation:mSuccessBounce 0.6s ease}
+@keyframes mSuccessBounce{0%,100%{transform:scale(1)}40%{transform:scale(1.25)}70%{transform:scale(0.92)}}
+.m-success-title{font-family:var(--mfont-head);font-size:24px;font-weight:800;margin-bottom:8px}
+.m-success-msg{color:var(--mmuted);font-size:13px;line-height:1.6;margin-bottom:24px}
+.m-success-close{width:100%;height:48px;border-radius:50px;background:var(--gold);color:#000;font-weight:700;font-size:14px;transition:all 0.2s;cursor:pointer;border:none;font-family:var(--mfont-body)}
+#mChatBubble{position:fixed;bottom:86px;right:16px;z-index:150;animation:mChatFloat 3s ease-in-out infinite}
+@keyframes mChatFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.m-chat-trigger{width:54px;height:54px;border-radius:50%;background:linear-gradient(135deg,var(--gold),#B8860B);border:2px solid rgba(212,160,23,0.3);display:flex;align-items:center;justify-content:center;font-size:24px;cursor:pointer;box-shadow:0 8px 24px rgba(212,160,23,0.35);position:relative;transition:all 0.2s}
+.m-chat-trigger::before{content:'';position:absolute;inset:-4px;border-radius:50%;border:2px solid rgba(212,160,23,0.3);animation:mPulseRing 2s ease-out infinite}
+@keyframes mPulseRing{0%{transform:scale(1);opacity:0.6}100%{transform:scale(1.7);opacity:0}}
+.m-chat-notif{position:absolute;top:-4px;right:-4px;width:19px;height:19px;background:var(--mred);border-radius:50%;font-size:10px;font-weight:700;color:#fff;display:none;align-items:center;justify-content:center;animation:mNotifPop 0.4s cubic-bezier(0.34,1.56,0.64,1)}
+.m-chat-notif.show{display:flex}
+@keyframes mNotifPop{from{transform:scale(0)}to{transform:scale(1)}}
+#mChatWindow{position:fixed;bottom:150px;right:16px;width:calc(100vw - 32px);max-width:340px;background:#fff;border-radius:20px;box-shadow:0 20px 60px rgba(0,0,0,0.5);overflow:hidden;z-index:151;transform:scale(0.85) translateY(20px);transform-origin:bottom right;opacity:0;pointer-events:none;transition:all .35s cubic-bezier(0.16,1,0.3,1)}
+#mChatWindow.open{transform:scale(1) translateY(0);opacity:1;pointer-events:all}
+.m-chat-head{background:linear-gradient(135deg,#0C0C0C,#1C1C1C);padding:12px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(212,160,23,0.15)}
+.m-chat-agent{display:flex;align-items:center;gap:10px}
+.m-agent-av{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--gold),#B8860B);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.m-agent-name{font-size:13px;font-weight:700;color:var(--gold);font-family:var(--mfont-head)}
+.m-agent-status{display:flex;align-items:center;gap:5px;font-size:10px;color:rgba(255,255,255,0.45)}
+.m-online-dot{width:7px;height:7px;background:var(--mgreen);border-radius:50%;animation:mOnlinePulse 1.5s ease-in-out infinite}
+@keyframes mOnlinePulse{0%,100%{opacity:1}50%{opacity:0.4}}
+.m-chat-close-btn{width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.5);font-size:14px;display:flex;align-items:center;justify-content:center;transition:all 0.2s;cursor:pointer}
+#mChatMsgs{height:240px;overflow-y:auto;padding:12px;background:#f5f5f5;display:flex;flex-direction:column;gap:8px;-webkit-overflow-scrolling:touch}
+.m-msg{max-width:82%;padding:9px 12px;border-radius:14px;font-size:12.5px;line-height:1.55;word-break:break-word;animation:mMsgIn 0.3s ease}
+@keyframes mMsgIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.m-msg.bot{background:#fff;color:#222;margin-right:auto;border-bottom-left-radius:4px;box-shadow:0 2px 8px rgba(0,0,0,0.08)}
+.m-msg.user{background:var(--gold);color:#000;margin-left:auto;border-bottom-right-radius:4px;font-weight:600}
+.m-typing{display:none;align-items:center;gap:4px;padding:8px 12px;background:#fff;border-radius:14px;width:fit-content;box-shadow:0 2px 8px rgba(0,0,0,0.08)}
+.m-typing.active{display:flex;animation:mMsgIn 0.3s ease}
+.m-t-dot{width:7px;height:7px;border-radius:50%;background:#aaa;animation:mTypingBounce 1.4s infinite}
+.m-t-dot:nth-child(2){animation-delay:0.18s}.m-t-dot:nth-child(3){animation-delay:0.36s}
+@keyframes mTypingBounce{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-6px)}}
+.m-chat-chips{display:flex;gap:6px;padding:8px 10px;background:#f5f5f5;border-top:1px solid #eee;overflow-x:auto;scrollbar-width:none}
+.m-chat-chips::-webkit-scrollbar{display:none}
+.m-chip{flex-shrink:0;padding:5px 11px;border-radius:50px;background:#fff;border:1px solid #ddd;font-size:11px;font-weight:600;color:#333;cursor:pointer;transition:all .18s;font-family:var(--mfont-body);white-space:nowrap}
+.m-chat-input-row{display:flex;gap:7px;padding:9px 10px;background:#fff;border-top:1px solid #eee}
+#mChatInput{flex:1;height:38px;border-radius:50px;border:1px solid #ddd;padding:0 14px;font-size:13px;color:#333;outline:none;font-family:var(--mfont-body);transition:border-color 0.2s}
+#mChatInput:focus{border-color:var(--gold)}
+#mChatInput::placeholder{color:#aaa}
+.m-chat-send{width:38px;height:38px;border-radius:50%;background:var(--gold);color:#000;display:flex;align-items:center;justify-content:center;font-size:16px;transition:all 0.2s;cursor:pointer;border:none}
+#mWaFloat{position:fixed;bottom:22px;right:16px;z-index:149;width:54px;height:54px;border-radius:50%;background:linear-gradient(135deg,#25D366,#128C7E);border:2px solid rgba(37,211,102,0.3);display:flex;align-items:center;justify-content:center;font-size:26px;cursor:pointer;box-shadow:0 8px 24px rgba(37,211,102,0.35);animation:mChatFloat 2.5s ease-in-out infinite;animation-delay:0.5s;position:fixed}
+#mWaFloat::before{content:'';position:absolute;inset:-4px;border-radius:50%;border:2px solid rgba(37,211,102,0.25);animation:mPulseRing 2s ease-out infinite;animation-delay:0.4s}
+#mBottomNav{position:fixed;bottom:0;left:0;right:0;z-index:100;background:rgba(12,12,12,0.97);backdrop-filter:blur(20px);border-top:1px solid var(--mborder);display:flex;height:62px;padding-bottom:env(safe-area-inset-bottom)}
+.m-nav-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer;transition:all 0.2s;color:var(--mmuted)}
+.m-nav-item.active{color:var(--gold)}
+.m-nav-icon{font-size:20px;line-height:1}
+.m-nav-label{font-size:9px;font-weight:600;letter-spacing:0.05em;text-transform:uppercase}
+#mToastBox{position:fixed;top:120px;left:50%;transform:translateX(-50%);z-index:500;display:flex;flex-direction:column;align-items:center;gap:8px;pointer-events:none}
+.m-toast{padding:10px 18px;border-radius:50px;font-size:12px;font-weight:600;color:#fff;backdrop-filter:blur(20px);animation:mToastIn 0.4s cubic-bezier(0.34,1.56,0.64,1) both;white-space:nowrap}
+.m-toast.success{background:rgba(34,197,94,0.9)}.m-toast.error{background:rgba(239,68,68,0.9)}.m-toast.info{background:rgba(212,160,23,0.9);color:#000}
+@keyframes mToastIn{from{opacity:0;transform:scale(0.7)}to{opacity:1;transform:scale(1)}}
+#mLightbox{position:fixed;inset:0;z-index:250;background:rgba(0,0,0,0.96);backdrop-filter:blur(20px);display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .25s}
+#mLightbox.open{opacity:1;pointer-events:all}
+#mLbImg{max-width:92vw;max-height:75vh;object-fit:contain;border-radius:16px;animation:mLbIn .35s cubic-bezier(0.16,1,0.3,1)}
+@keyframes mLbIn{from{transform:scale(0.8);opacity:0}to{transform:scale(1);opacity:1}}
+.m-lb-close{position:absolute;top:16px;right:16px;width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.15);color:#fff;font-size:18px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all 0.2s}
+.m-lb-info{text-align:center;margin-top:16px;padding:0 20px}
+.m-lb-name{font-family:var(--mfont-head);font-weight:700;font-size:16px}
+.m-lb-price{color:var(--gold);font-weight:700;font-size:14px;margin-top:4px}
+.m-lb-order-btn{margin-top:16px;height:46px;padding:0 32px;background:var(--gold);color:#000;border-radius:50px;font-weight:800;font-size:13px;letter-spacing:0.04em;text-transform:uppercase;transition:all 0.2s;cursor:pointer;border:none;font-family:var(--mfont-body)}
 </style>
-
-<!-- Shared body base -->
-<style>
-body { margin:0; padding:0; background:#0A0A0A; }
-#desktop-view { font-family:'Manrope',sans-serif; color:white; padding-bottom:52px; }
-#mobile-view { display:none; }
-</style>
+<style>body{margin:0;padding:0;background:#0A0A0A}#desktop-view{font-family:'Manrope',sans-serif;color:white;padding-bottom:52px}#mobile-view{display:none}</style>
 </head>
-
 <body class="bg-[#0A0A0A] text-white font-sans antialiased overflow-x-hidden">
-
-<!-- ================================================================
-     RESPONSIVE DETECTOR
-     ================================================================ -->
-<script>
-(function(){
-  var mobile = window.innerWidth <= 768 || /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-  document.getElementById ? null : null; // ensure DOM ready check below
-  window.__isMobile = mobile;
-})();
-</script>
-
-<!-- ================================================================
-     DESKTOP VIEW
-     ================================================================ -->
+<script>(function(){var mobile=window.innerWidth<=768||/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);window.__isMobile=mobile;})();</script>
 <div id="desktop-view">
-
-<!-- ========== HOMEPAGE SECTION ========== -->
 <section id="homepage" class="relative min-h-screen pt-32 pb-20 flex items-center justify-center">
   <div class="cinematic-container">
-    <img src="https://z-cdn-media.chatglm.cn/files/9bfb3611-442c-43f3-ac25-7472d5618588.png?auth_key=1875819927-afb9998f5e10478eb563f55ccbe5e51d-0-f48cd800e6cc00e6ea5586ec5720f019" class="cinematic-slide active">
-    <img src="https://z-cdn-media.chatglm.cn/files/949d1517-d5a3-484d-8dbb-e806d48c6eae.png?auth_key=1875819927-69f32d94ece3468ba23f7518c320f633-0-80c4a3520fe273e4ead70edf8d86f877" class="cinematic-slide">
-    <img src="https://z-cdn-media.chatglm.cn/files/1b75edb6-a52c-44d7-97f5-a503216336be.png?auth_key=1875819927-70981693f3f34a13bc6e7484324493f9-0-23d9ab2090b824d83378ec597f92aaee" class="cinematic-slide">
-    <img src="https://z-cdn-media.chatglm.cn/files/f8b3cc74-bb9d-42a2-9365-207f5889bef2.png?auth_key=1875819927-44750750881a4c68ab2763a1a6b9b47b-0-c7cc6c6998ba76f7aef319c1db706956" class="cinematic-slide">
-    <img src="https://z-cdn-media.chatglm.cn/files/d5aa307e-6a31-432a-a068-584fdb78e3fb.png?auth_key=1875819927-01c680c0a53c434cacd599e4652047ca-0-4a02e85a6cc05164f96f2405751dcc2d" class="cinematic-slide">
+    <img src="https://z-cdn-media.chatglm.cn/files/fe5b9414-8918-4931-b4c6-28cd3e62edaf.png?auth_key=1876769336-a09f6986d2a2441c92aa73de61a5d735-0-3b3c9030232c0fb4da4dde8b309c644d" class="cinematic-slide active">
+    <img src="https://z-cdn-media.chatglm.cn/files/f91b833c-2482-4748-b61a-54e56c30d633.png?auth_key=1876769336-09c58566d8124a6c8dec34d96850c29d-0-46438336cdad8ffba0400e7f9762486b" class="cinematic-slide">
+    <img src="https://z-cdn-media.chatglm.cn/files/1f9f1660-7b3c-4597-a65d-2e6c327ad93d.png?auth_key=1876769336-8d73da1751664505a0a71fb86ede6697-0-52bce2827c075431bdb8d61a22b985b4" class="cinematic-slide">
+    <img src="https://z-cdn-media.chatglm.cn/files/74b518ea-2545-4c53-9b33-dd6fc82ade10.png?auth_key=1876769336-9c6b48d3c89c494bbccfabcfc70f69c2-0-5ca973defda03fc6b72689118fa072af" class="cinematic-slide">
+    <img src="https://z-cdn-media.chatglm.cn/files/d7e78720-7b82-4b2a-88e9-47d914c41cb7.png?auth_key=1876769336-899a5cfd8df14382a908d6b82f5acedb-0-794475958d8cba85be5c9f1e82a596f1" class="cinematic-slide">
     <div class="cinematic-overlay"></div>
   </div>
   <div class="max-w-[1800px] mx-auto px-4 md:px-8 text-center relative z-10">
@@ -403,442 +189,65 @@ body { margin:0; padding:0; background:#0A0A0A; }
     </div>
   </div>
 </section>
-
-<!-- DESKTOP CHAT BOX -->
-<div id="chatBox">
-  <div class="chat-header">
-    <div style="display:flex;align-items:center;gap:10px">
-      <div class="agent-avatar" id="chatAvatar"><span style="font-size:17px">🤝</span></div>
-      <div><div style="display:flex;align-items:center;gap:6px"><span style="font-size:13px;font-weight:bold">Mandibo Team</span><span style="width:7px;height:7px;background:#22c55e;border-radius:50%;animation:live-dot 1.2s ease-in-out infinite"></span></div><span style="font-size:10px;color:rgba(212,160,23,.7)">AI Assistant</span></div>
-    </div>
-    <button onclick="dHideChatBox()" class="chat-minimize-btn">✕</button>
-  </div>
-  <div id="chatMessages"><div style="color:#666;text-align:center;padding:10px;font-size:12px">👋 Karibu Mandibo Furniture...</div></div>
-  <div class="typing-indicator" id="typingIndicator"><span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span></div>
-  <div class="chat-input-area">
-    <input id="chatInput" placeholder="Andika hapa..." style="flex:1;border:1px solid #ddd;padding:10px 12px;border-radius:10px;font-size:13px;font-family:'Manrope',sans-serif;outline:none;color:#000" onkeypress="if(event.key==='Enter')dSendChatMessage()">
-    <button onclick="dSendChatMessage()" style="background:#D4A017;color:#000;border:none;padding:10px 14px;border-radius:10px;cursor:pointer;font-weight:bold;font-size:13px;min-width:44px">📤</button>
-  </div>
-</div>
-
+<div id="chatBox"><div class="chat-header"><div style="display:flex;align-items:center;gap:10px"><div class="agent-avatar" id="chatAvatar"><span style="font-size:17px">🤝</span></div><div><div style="display:flex;align-items:center;gap:6px"><span style="font-size:13px;font-weight:bold">Mandibo Team</span><span style="width:7px;height:7px;background:#22c55e;border-radius:50%;animation:live-dot 1.2s ease-in-out infinite"></span></div><span style="font-size:10px;color:rgba(212,160,23,.7)">AI Assistant</span></div></div><button onclick="dHideChatBox()" class="chat-minimize-btn">✕</button></div><div id="chatMessages"><div style="color:#666;text-align:center;padding:10px;font-size:12px">👋 Karibu Mandibo Furniture...</div></div><div class="typing-indicator" id="typingIndicator"><span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span></div><div class="chat-input-area"><input id="chatInput" placeholder="Andika hapa..." style="flex:1;border:1px solid #ddd;padding:10px 12px;border-radius:10px;font-size:13px;font-family:'Manrope',sans-serif;outline:none;color:#000" onkeypress="if(event.key==='Enter')dSendChatMessage()"><button onclick="dSendChatMessage()" style="background:#D4A017;color:#000;border:none;padding:10px 14px;border-radius:10px;cursor:pointer;font-weight:bold;font-size:13px;min-width:44px">📤</button></div></div>
 <div class="whatsapp-float" onclick="dOpenWhatsApp()"><span class="whatsapp-icon">💬</span><span class="whatsapp-notification" id="whatsappNotification">1</span></div>
 <div id="aiIndicator" class="ai-indicator" onclick="dShowChatBox()"><span class="ai-icon">🤝</span><span class="ai-notification" id="aiNotification">1</span></div>
-
-<!-- DESKTOP LIGHTBOX -->
-<div id="lightbox" class="lightbox-overlay">
-  <button class="lb-close-btn" onclick="dCloseLightbox()"><i data-lucide="x" style="width:22px;height:22px;stroke-width:2.5"></i></button>
-  <div class="lb-info"><p id="lbName" class="lb-name"></p><p id="lbPrice" class="lb-price"></p></div>
-  <div class="lightbox-img-wrap" id="lbImgWrap" onclick="dCloseLightbox()"><img id="lbImg" class="lightbox-img" src="" alt="" onclick="event.stopPropagation()"></div>
-  <div class="lb-tap-close">Tap outside image to close</div>
-  <div class="lb-controls" onclick="event.stopPropagation()">
-    <button class="lb-ctrl-btn" onclick="dToggleLightboxSpin()" id="lbSpinBtn"><i data-lucide="rotate-3d" style="width:18px;height:18px"></i></button>
-    <button class="lb-ctrl-btn" onclick="dLightboxZoom(1)"><i data-lucide="zoom-in" style="width:18px;height:18px"></i></button>
-    <button class="lb-ctrl-btn" onclick="dLightboxZoom(-1)"><i data-lucide="zoom-out" style="width:18px;height:18px"></i></button>
-  </div>
-</div>
-
+<div id="lightbox" class="lightbox-overlay"><button class="lb-close-btn" onclick="dCloseLightbox()"><i data-lucide="x" style="width:22px;height:22px;stroke-width:2.5"></i></button><div class="lb-info"><p id="lbName" class="lb-name"></p><p id="lbPrice" class="lb-price"></p></div><div class="lightbox-img-wrap" id="lbImgWrap" onclick="dCloseLightbox()"><img id="lbImg" class="lightbox-img" src="" alt="" onclick="event.stopPropagation()"></div><div class="lb-tap-close">Tap outside image to close</div><div class="lb-controls" onclick="event.stopPropagation()"><button class="lb-ctrl-btn" onclick="dToggleLightboxSpin()" id="lbSpinBtn"><i data-lucide="rotate-3d" style="width:18px;height:18px"></i></button><button class="lb-ctrl-btn" onclick="dLightboxZoom(1)"><i data-lucide="zoom-in" style="width:18px;height:18px"></i></button><button class="lb-ctrl-btn" onclick="dLightboxZoom(-1)"><i data-lucide="zoom-out" style="width:18px;height:18px"></i></button></div></div>
 <div id="toastBox" class="fixed top-24 right-4 z-[9999] flex flex-col gap-3 pointer-events-none"></div>
-
-<!-- LIVE BAR -->
-<div id="liveBar">
-  <div class="glow-line"></div>
-  <div id="liveBar-inner">
-    <div class="flex items-center gap-3 flex-shrink-0"><div class="live-dot-wrap"><div class="live-ring"></div><div class="live-dot"></div></div><span class="live-label">Live</span></div>
-    <div class="flex items-center gap-6 flex-shrink-0">
-      <div class="flex flex-col items-center gap-0.5"><span class="live-stat-val" id="lvOnline">0</span><span class="live-stat-label">Online</span></div>
-      <div class="flex flex-col items-center gap-0.5"><span class="live-stat-val" id="lvToday">0</span><span class="live-stat-label">Today</span></div>
-      <div class="flex flex-col items-center gap-0.5"><span class="live-stat-val" id="lvOrders">0</span><span class="live-stat-label">Orders</span></div>
-    </div>
-    <button onclick="dToggleLiveBar()" style="width:28px;height:28px;border-radius:50%;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03);display:flex;align-items:center;justify-content:center;cursor:pointer;color:rgba(255,255,255,.4);transition:all .3s;flex-shrink:0"><i data-lucide="chevron-down" class="w-3.5 h-3.5" id="barToggleIcon"></i></button>
-  </div>
-</div>
-
-<!-- DESKTOP NAV -->
-<nav id="navbar" class="fixed top-0 left:0 right:0 z-50 transition-all duration-500">
-  <div class="max-w-[1800px] mx-auto px-4 md:px-8 py-4 md:py-5 flex items-center justify-between gap-4 relative">
-    <a href="#" class="flex items-center flex-shrink-0 relative z-20">
-      <div class="logo-circle"><img src="https://z-cdn-media.chatglm.cn/files/d06cb235-9058-490c-b21c-a4cc6f192fb0.png?auth_key=1875111503-553b5bf504e04d49a0db0e9301a8b91d-0-f0265d78daac62181c5b8e73a86479be" alt="MANDIBO FURNITURE"></div>
-    </a>
-    <div class="hidden md:flex items-center gap-2 user-only flex-1 justify-center relative z-10">
-      <button onclick="dFilterStore('all')" class="cat-btn active-cat text-xs font-bold uppercase tracking-wider px-5 py-2.5 rounded-full border border-white/10 bg-white/5 text-neutral-300 whitespace-nowrap relative store-btn" data-sfilter="all">All Stores</button>
-      <button onclick="dFilterStore('store-a')" class="cat-btn text-xs font-bold uppercase tracking-wider px-5 py-2.5 rounded-full border border-white/10 bg-white/5 text-neutral-300 whitespace-nowrap relative store-btn" data-sfilter="store-a">Store A</button>
-      <button onclick="dFilterStore('store-b')" class="cat-btn text-xs font-bold uppercase tracking-wider px-5 py-2.5 rounded-full border border-white/10 bg-white/5 text-neutral-300 whitespace-nowrap relative store-btn" data-sfilter="store-b">Store B</button>
-      <button onclick="dFilterStore('store-c')" class="cat-btn text-xs font-bold uppercase tracking-wider px-5 py-2.5 rounded-full border border-white/10 bg-white/5 text-neutral-300 whitespace-nowrap relative store-btn" data-sfilter="store-c">Store C</button>
-    </div>
-    <div id="guideHand" class="absolute flex flex-col items-center opacity-0 transition-all duration-700 z-30 pointer-events-none hidden md:flex" style="top:50px;">
-      <span class="text-[3.5rem] drop-shadow-[0_0_15px_rgba(212,160,23,1)] animate-bounce">👇</span>
-    </div>
-    <div class="flex items-center gap-3 flex-shrink-0 relative z-50">
-      <button id="btnOwnerLogin" onclick="dOpenOwnerLogin()" class="user-only text-xs font-bold uppercase tracking-wider px-4 py-2 border border-white/20 rounded-full hover:border-gold-500 hover:text-gold-500 transition-all duration-300 bg-black/20 backdrop-blur-sm">Owner</button>
-      <button id="btnLogout" onclick="dOwnerLogout()" class="owner-only text-xs font-bold uppercase tracking-wider px-4 py-2 border border-red-500/50 rounded-full text-red-400 hover:bg-red-500 hover:text-white transition-all duration-300">Logout</button>
-      <button id="btnBackToStore" onclick="dOwnerLogout()" class="owner-only text-xs font-bold uppercase tracking-wider px-4 py-2 border border-gold-500/50 rounded-full text-gold-400 hover:bg-gold-500 hover:text-black transition-all duration-300">← Store</button>
-      <button onclick="toggleMobileMenu()" class="md:hidden user-only w-10 h-10 flex items-center justify-center border border-white/20 rounded-full"><i data-lucide="menu" class="w-4 h-4"></i></button>
-    </div>
-  </div>
-  <div id="mobileMenu" class="hidden md:hidden bg-[#111]/95 backdrop-blur-xl border-t border-white/10 px-6 py-6 user-only">
-    <div class="cat-scroll">
-      <button onclick="dFilterStore('all');toggleMobileMenu()" class="cat-btn active-cat text-xs font-bold uppercase tracking-wider px-4 py-2.5 rounded-full border border-white/10 bg-white/5 text-neutral-300" data-sfilter="all">All Stores</button>
-      <button onclick="dFilterStore('store-a');toggleMobileMenu()" class="cat-btn text-xs font-bold uppercase tracking-wider px-4 py-2.5 rounded-full border border-white/10 bg-white/5 text-neutral-300" data-sfilter="store-a">Store A</button>
-      <button onclick="dFilterStore('store-b');toggleMobileMenu()" class="cat-btn text-xs font-bold uppercase tracking-wider px-4 py-2.5 rounded-full border border-white/10 bg-white/5 text-neutral-300" data-sfilter="store-b">Store B</button>
-      <button onclick="dFilterStore('store-c');toggleMobileMenu()" class="cat-btn text-xs font-bold uppercase tracking-wider px-4 py-2.5 rounded-full border border-white/10 bg-white/5 text-neutral-300" data-sfilter="store-c">Store C</button>
-    </div>
-  </div>
-</nav>
-
-<!-- DESKTOP USER VIEW -->
+<div id="liveBar"><div class="glow-line"></div><div id="liveBar-inner"><div class="flex items-center gap-3 flex-shrink-0"><div class="live-dot-wrap"><div class="live-ring"></div><div class="live-dot"></div></div><span class="live-label">Live</span></div><div class="flex items-center gap-6 flex-shrink-0"><div class="flex flex-col items-center gap-0.5"><span class="live-stat-val" id="lvOnline">0</span><span class="live-stat-label">Online</span></div><div class="flex flex-col items-center gap-0.5"><span class="live-stat-val" id="lvToday">0</span><span class="live-stat-label">Today</span></div><div class="flex flex-col items-center gap-0.5"><span class="live-stat-val" id="lvOrders">0</span><span class="live-stat-label">Orders</span></div></div><button onclick="dToggleLiveBar()" style="width:28px;height:28px;border-radius:50%;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03);display:flex;align-items:center;justify-content:center;cursor:pointer;color:rgba(255,255,255,.4);transition:all .3s;flex-shrink:0"><i data-lucide="chevron-down" class="w-3.5 h-3.5" id="barToggleIcon"></i></button></div></div>
+<nav id="navbar" class="fixed top-0 left:0 right:0 z-50 transition-all duration-500"><div class="max-w-[1800px] mx-auto px-4 md:px-8 py-4 md:py-5 flex items-center justify-between gap-4 relative"><a href="#" class="flex items-center flex-shrink-0 relative z-20"><div class="logo-circle"><img src="https://z-cdn-media.chatglm.cn/files/d06cb235-9058-490c-b21c-a4cc6f192fb0.png?auth_key=1875111503-553b5bf504e04d49a0db0e9301a8b91d-0-f0265d78daac62181c5b8e73a86479be" alt="MANDIBO FURNITURE"></div></a><div class="hidden md:flex items-center gap-2 user-only flex-1 justify-center relative z-10"><button onclick="dFilterStore('all')" class="cat-btn active-cat text-xs font-bold uppercase tracking-wider px-5 py-2.5 rounded-full border border-white/10 bg-white/5 text-neutral-300 whitespace-nowrap relative store-btn" data-sfilter="all">All Stores</button><button onclick="dFilterStore('store-a')" class="cat-btn text-xs font-bold uppercase tracking-wider px-5 py-2.5 rounded-full border border-white/10 bg-white/5 text-neutral-300 whitespace-nowrap relative store-btn" data-sfilter="store-a">Store A</button><button onclick="dFilterStore('store-b')" class="cat-btn text-xs font-bold uppercase tracking-wider px-5 py-2.5 rounded-full border border-white/10 bg-white/5 text-neutral-300 whitespace-nowrap relative store-btn" data-sfilter="store-b">Store B</button><button onclick="dFilterStore('store-c')" class="cat-btn text-xs font-bold uppercase tracking-wider px-5 py-2.5 rounded-full border border-white/10 bg-white/5 text-neutral-300 whitespace-nowrap relative store-btn" data-sfilter="store-c">Store C</button></div><div id="guideHand" class="absolute flex flex-col items-center opacity-0 transition-all duration-700 z-30 pointer-events-none hidden md:flex" style="top:50px;"><span class="text-[3.5rem] drop-shadow-[0_0_15px_rgba(212,160,23,1)] animate-bounce">👇</span></div><div class="flex items-center gap-3 flex-shrink-0 relative z-50"><button id="btnOwnerLogin" onclick="dOpenOwnerLogin()" class="user-only text-xs font-bold uppercase tracking-wider px-4 py-2 border border-white/20 rounded-full hover:border-gold-500 hover:text-gold-500 transition-all duration-300 bg-black/20 backdrop-blur-sm">Owner</button><button id="btnLogout" onclick="dOwnerLogout()" class="owner-only text-xs font-bold uppercase tracking-wider px-4 py-2 border border-red-500/50 rounded-full text-red-400 hover:bg-red-500 hover:text-white transition-all duration-300">Logout</button><button id="btnBackToStore" onclick="dOwnerLogout()" class="owner-only text-xs font-bold uppercase tracking-wider px-4 py-2 border border-gold-500/50 rounded-full text-gold-400 hover:bg-gold-500 hover:text-black transition-all duration-300">← Store</button><button onclick="toggleMobileMenu()" class="md:hidden user-only w-10 h-10 flex items-center justify-center border border-white/20 rounded-full"><i data-lucide="menu" class="w-4 h-4"></i></button></div></div><div id="mobileMenu" class="hidden md:hidden bg-[#111]/95 backdrop-blur-xl border-t border-white/10 px-6 py-6 user-only"><div class="cat-scroll"><button onclick="dFilterStore('all');toggleMobileMenu()" class="cat-btn active-cat text-xs font-bold uppercase tracking-wider px-4 py-2.5 rounded-full border border-white/10 bg-white/5 text-neutral-300" data-sfilter="all">All Stores</button><button onclick="dFilterStore('store-a');toggleMobileMenu()" class="cat-btn text-xs font-bold uppercase tracking-wider px-4 py-2.5 rounded-full border border-white/10 bg-white/5 text-neutral-300" data-sfilter="store-a">Store A</button><button onclick="dFilterStore('store-b');toggleMobileMenu()" class="cat-btn text-xs font-bold uppercase tracking-wider px-4 py-2.5 rounded-full border border-white/10 bg-white/5 text-neutral-300" data-sfilter="store-b">Store B</button><button onclick="dFilterStore('store-c');toggleMobileMenu()" class="cat-btn text-xs font-bold uppercase tracking-wider px-4 py-2.5 rounded-full border border-white/10 bg-white/5 text-neutral-300" data-sfilter="store-c">Store C</button></div></div></nav>
 <div id="userView">
-<section id="products" class="pt-28 md:pt-32 bg-[#0d0d0d]">
-  <div class="max-w-[1800px] mx-auto px-4 md:px-8">
-    <div class="reveal flex flex-col md:flex-row items-center justify-between gap-4 mb-6">
-      <div class="cat-scroll w-full md:w-auto order-2 md:order-1">
-        <button onclick="dFilterCategory('all')" class="cat-btn active-cat text-[11px] font-bold uppercase tracking-wider px-4 py-2 rounded-full border border-white/10 bg-white/5 text-neutral-400" data-cfilter="all">All</button>
-        <button onclick="dFilterCategory('beds')" class="cat-btn text-[11px] font-bold uppercase tracking-wider px-4 py-2 rounded-full border border-white/10 bg-white/5 text-neutral-400" data-cfilter="beds">🛏️ Beds</button>
-        <button onclick="dFilterCategory('sofa-chair')" class="cat-btn text-[11px] font-bold uppercase tracking-wider px-4 py-2 rounded-full border border-white/10 bg-white/5 text-neutral-400" data-cfilter="sofa-chair">🛋️ Sofa & Chair</button>
-        <button onclick="dFilterCategory('tables')" class="cat-btn text-[11px] font-bold uppercase tracking-wider px-4 py-2 rounded-full border border-white/10 bg-white/5 text-neutral-400" data-cfilter="tables">🪑 Tables</button>
-        <button onclick="dFilterCategory('cupboard')" class="cat-btn text-[11px] font-bold uppercase tracking-wider px-4 py-2 rounded-full border border-white/10 bg-white/5 text-neutral-400" data-cfilter="cupboard">🗄️ Cupboard</button>
-        <button onclick="dFilterCategory('doors-windows')" class="cat-btn text-[11px] font-bold uppercase tracking-wider px-4 py-2 rounded-full border border-white/10 bg-white/5 text-neutral-400" data-cfilter="doors-windows">🚪 Doors & Windows</button>
-        <button onclick="dFilterCategory('others')" class="cat-btn text-[11px] font-bold uppercase tracking-wider px-4 py-2 rounded-full border border-white/10 bg-white/5 text-neutral-400" data-cfilter="others">📦 Others</button>
-      </div>
-      <div class="relative w-full md:w-auto order-1 md:order-2">
-        <i data-lucide="search" class="w-4 h-4 text-neutral-500 absolute left-3 top-1/2 -translate-y-1/2"></i>
-        <input type="text" id="searchInput" oninput="dSearchProducts()" placeholder="Search furniture..." class="bg-white/5 border border-white/10 rounded-full pl-10 pr-5 py-2.5 text-sm text-white placeholder-neutral-500 focus:outline-none focus:border-gold-500/50 w-full md:w-64 transition-colors">
-      </div>
-    </div>
-    <div class="flex items-center justify-end mb-6 reveal reveal-d2"><p class="text-neutral-400 text-sm"><span id="productCount" class="text-white font-bold">0</span> products found</p></div>
-    <div id="productGrid" class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6"></div>
-    <div id="emptyState" class="hidden text-center py-20"><i data-lucide="search-x" class="w-16 h-16 text-neutral-600 mx-auto mb-4"></i><p class="text-neutral-400 text-lg font-medium">No products found</p></div>
-  </div>
-</section>
-
-<section class="py-20 md:py-28">
-  <div class="max-w-[1800px] mx-auto px-4 md:px-8">
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center">
-      <div class="reveal">
-        <p class="text-gold-500 font-mono text-xs uppercase tracking-[0.3em] mb-4">Why Mandibo</p>
-        <h2 class="text-3xl md:text-5xl font-bold tracking-tighter mb-8">Trusted by <span class="shimmer-text">Hundreds</span> of Zanzibar Homes</h2>
-        <div class="space-y-6">
-          <div class="flex gap-4"><div class="w-10 h-10 rounded-full bg-gold-500/10 flex items-center justify-center flex-shrink-0 mt-1"><i data-lucide="shield-check" class="w-5 h-5 text-gold-500"></i></div><div><h4 class="font-bold mb-1">Verified Quality</h4><p class="text-neutral-400 text-sm leading-relaxed">Every product is personally inspected before listing.</p></div></div>
-          <div class="flex gap-4"><div class="w-10 h-10 rounded-full bg-gold-500/10 flex items-center justify-center flex-shrink-0 mt-1"><i data-lucide="truck" class="w-5 h-5 text-gold-500"></i></div><div><h4 class="font-bold mb-1">Free Delivery</h4><p class="text-neutral-400 text-sm leading-relaxed">Free delivery across all of Zanzibar.</p></div></div>
-          <div class="flex gap-4"><div class="w-10 h-10 rounded-full bg-gold-500/10 flex items-center justify-center flex-shrink-0 mt-1"><i data-lucide="banknote" class="w-5 h-5 text-gold-500"></i></div><div><h4 class="font-bold mb-1">Best Prices</h4><p class="text-neutral-400 text-sm leading-relaxed">Compare across stores for the best deal.</p></div></div>
-          <div class="flex gap-4"><div class="w-10 h-10 rounded-full bg-gold-500/10 flex items-center justify-center flex-shrink-0 mt-1"><i data-lucide="message-circle" class="w-5 h-5 text-gold-500"></i></div><div><h4 class="font-bold mb-1">WhatsApp Support</h4><p class="text-neutral-400 text-sm leading-relaxed">Instant support via WhatsApp.</p></div></div>
-        </div>
-      </div>
-      <div class="relative reveal reveal-d2">
-        <div class="absolute -top-10 -right-10 w-60 h-60 bg-gold-500/5 rounded-full blur-[100px]"></div>
-        <img src="https://z-cdn-media.chatglm.cn/files/b2204e29-e1a1-4d2c-82ad-45c6f0810365.png?auth_key=1875121023-e0211d56db1c432bb5d12b1debea744f-0-e01624498ea126cfd37f26032f54e3e6" class="w-full rounded-2xl object-cover h-[400px] md:h-[600px]" alt="">
-        <div class="absolute bottom-6 left-6 right-6 bg-black/80 backdrop-blur-xl rounded-xl p-5 border border-white/10">
-          <div class="flex items-center justify-between"><div><p class="text-gold-500 font-mono text-xs uppercase tracking-wider mb-1">Customer Satisfaction</p><p class="text-2xl font-bold">98.5%</p></div></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="contact" class="py-20 md:py-28 bg-[#0d0d0d] border-t border-white/5">
-  <div class="max-w-[1800px] mx-auto px-4 md:px-8">
-    <div class="text-center mb-16 reveal"><p class="text-gold-500 font-mono text-xs uppercase tracking-[0.3em] mb-4">Get In Touch</p><h2 class="text-3xl md:text-5xl font-bold tracking-tighter">Contact <span class="shimmer-text">Us</span></h2></div>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-      <div class="text-center p-8 border border-white/10 rounded-2xl reveal"><div class="w-12 h-12 rounded-full bg-gold-500/10 flex items-center justify-center mx-auto mb-4"><i data-lucide="phone" class="w-5 h-5 text-gold-500"></i></div><h4 class="font-bold mb-1">Call Us</h4><p id="dynamicPhone" class="text-neutral-400 text-sm">+255 799 610 190</p></div>
-      <div class="text-center p-8 border border-white/10 rounded-2xl reveal cursor-pointer" onclick="dOpenWhatsApp()"><div class="w-12 h-12 rounded-full bg-emerald-500/10 flex items-center justify-center mx-auto mb-4"><i data-lucide="message-circle" class="w-5 h-5 text-emerald-500"></i></div><h4 class="font-bold mb-1">WhatsApp</h4><p id="dynamicWhatsapp" class="text-neutral-400 text-sm">+255 799 610 190</p></div>
-      <div class="text-center p-8 border border-white/10 rounded-2xl reveal"><div class="w-12 h-12 rounded-full bg-blue-500/10 flex items-center justify-center mx-auto mb-4"><i data-lucide="map-pin" class="w-5 h-5 text-blue-400"></i></div><h4 class="font-bold mb-1">Location</h4><p id="dynamicLocation" class="text-neutral-400 text-sm">Zanzibar, Tanzania</p></div>
-    </div>
-  </div>
-</section>
-
-<footer class="py-10 border-t border-white/5">
-  <div class="max-w-[1800px] mx-auto px-4 md:px-8">
-    <div class="flex flex-col items-center gap-4 md:gap-6">
-      <div class="logo-circle" style="width:60px;height:60px;border-width:1.5px"><img src="https://z-cdn-media.chatglm.cn/files/d06cb235-9058-490c-b21c-a4cc6f192fb0.png?auth_key=1875111503-553b5bf504e04d49a0db0e9301a8b91d-0-f0265d78daac62181c5b8e73a86479be" alt="Logo"></div>
-      <p class="text-neutral-500 text-xs text-center">© 2026 Mandibo Furniture. All rights reserved. Zanzibar, Tanzania.</p>
-      <div class="flex items-center gap-4">
-        <a href="#" class="text-neutral-500 hover:text-gold-500 transition-colors"><i data-lucide="instagram" class="w-4 h-4"></i></a>
-        <a href="#" class="text-neutral-500 hover:text-gold-500 transition-colors"><i data-lucide="facebook" class="w-4 h-4"></i></a>
-        <a href="#" class="text-neutral-500 hover:text-gold-500 transition-colors"><i data-lucide="twitter" class="w-4 h-4"></i></a>
-      </div>
-      <div class="w-full max-w-md text-center pt-2 border-t border-white/5 mt-2">
-        <p class="text-[10px] uppercase tracking-[0.2em] text-neutral-600 font-medium">Developed by <span class="text-gold-500/60">Pastory</span> from <span class="text-gold-500/60">Mandibotech International</span></p>
-      </div>
-    </div>
-  </div>
-</footer>
-</div><!-- end userView -->
-
-<!-- OWNER DASHBOARD -->
-<div id="ownerView" class="hidden min-h-screen pt-24 pb-16">
-  <div class="max-w-[1800px] mx-auto px-4 md:px-8">
-    <div class="mb-10"><p class="text-gold-500 font-mono text-xs uppercase tracking-[0.3em] mb-2">Owner Dashboard</p><h1 class="text-3xl md:text-4xl font-bold tracking-tighter">Mandibo <span class="shimmer-text">Control Panel</span></h1></div>
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10"><div class="bg-white/5 border border-white/10 rounded-xl p-5"><p class="text-neutral-400 text-xs uppercase tracking-wider mb-1">Total Products</p><p id="statProducts" class="text-2xl font-bold text-gold-500">0</p></div><div class="bg-white/5 border border-white/10 rounded-xl p-5"><p class="text-neutral-400 text-xs uppercase tracking-wider mb-1">Total Orders</p><p id="statOrders" class="text-2xl font-bold text-emerald-400">0</p></div><div class="bg-white/5 border border-white/10 rounded-xl p-5"><p class="text-neutral-400 text-xs uppercase tracking-wider mb-1">Revenue (TZS)</p><p id="statRevenue" class="text-2xl font-bold text-blue-400">0</p></div><div class="bg-white/5 border border-white/10 rounded-xl p-5"><p class="text-neutral-400 text-xs uppercase tracking-wider mb-1">Stores</p><p class="text-2xl font-bold text-purple-400">3</p></div></div>
-    <div class="flex flex-wrap gap-2 mb-8 border-b border-white/10 pb-4">
-      <button onclick="dShowDashTab('orders')" class="dash-tab text-sm font-bold uppercase tracking-wider px-5 py-2.5 rounded-full border border-gold-500 bg-gold-500 text-black" data-dtab="orders">📦 Orders</button>
-      <button onclick="dShowDashTab('addProduct')" class="dash-tab text-sm font-bold uppercase tracking-wider px-5 py-2.5 rounded-full border border-white/10 text-neutral-400" data-dtab="addProduct">➕ Add Product</button>
-      <button onclick="dShowDashTab('manageProducts')" class="dash-tab text-sm font-bold uppercase tracking-wider px-5 py-2.5 rounded-full border border-white/10 text-neutral-400" data-dtab="manageProducts">🔧 Manage Products</button>
-      <button onclick="dShowDashTab('manageStores')" class="dash-tab text-sm font-bold uppercase tracking-wider px-5 py-2.5 rounded-full border border-white/10 text-neutral-400" data-dtab="manageStores">🏪 Manage Stores</button>
-      <button onclick="dShowDashTab('discounts')" class="dash-tab text-sm font-bold uppercase tracking-wider px-5 py-2.5 rounded-full border border-white/10 text-neutral-400" data-dtab="discounts">🏷️ Discounts</button>
-      <button onclick="dShowDashTab('siteSettings')" class="dash-tab text-sm font-bold uppercase tracking-wider px-5 py-2.5 rounded-full border border-white/10 text-neutral-400" data-dtab="siteSettings">⚙️ Site Settings</button>
-    </div>
-    <div id="dashOrders" class="dash-panel"><div id="ordersList" class="space-y-4"><div class="text-center py-16 text-neutral-500"><p class="text-4xl mb-3">📦</p><p>No orders yet</p></div></div></div>
-    <div id="dashAddProduct" class="dash-panel hidden"><div class="max-w-2xl bg-white/5 border border-white/10 rounded-2xl p-8"><h3 class="text-xl font-bold mb-6">Add New Product</h3><div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5"><div><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2 block">Store *</label><select id="addStore" class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white focus:outline-none"><option value="store-a">Store A</option><option value="store-b">Store B</option><option value="store-c">Store C</option></select></div><div><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2 block">Category *</label><select id="addCategory" class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white focus:outline-none"><option value="beds">Beds</option><option value="sofa-chair">Sofa & Chair</option><option value="tables">Tables</option><option value="cupboard">Cupboard</option><option value="doors-windows">Doors & Windows</option><option value="others">Others</option></select></div></div><div class="mb-5"><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2 block">Product Name *</label><input type="text" id="addName" placeholder="e.g. Royal Zanzibar Bed" class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-neutral-600 focus:outline-none"><p id="errName" class="inline-err">⚠ Please enter a product name</p></div><div class="mb-5"><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2 block">Price (TZS) *</label><div class="relative"><span class="absolute left-4 top-1/2 -translate-y-1/2 text-neutral-500 text-sm font-medium">TZS</span><input type="text" id="addPrice" inputmode="numeric" placeholder="e.g. 2500000" class="form-input w-full bg-black border border-white/10 rounded-lg pl-14 pr-4 py-3 text-sm text-white placeholder-neutral-600 focus:outline-none" oninput="this.value=this.value.replace(/[^0-9,]/g,'')"></div><p id="errPrice" class="inline-err">⚠ Please enter a valid price</p></div><div class="mb-5"><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2 block">Image URL</label><input type="text" id="addImage" placeholder="https://..." class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-neutral-600 focus:outline-none"></div><div class="mb-6"><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2 block">Description</label><textarea id="addDesc" rows="3" placeholder="Brief description..." class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-neutral-600 focus:outline-none resize-none"></textarea></div><div class="flex gap-3"><button type="button" onclick="dHandleAddProduct()" class="bg-gold-500 text-black font-bold text-sm uppercase tracking-wider px-10 py-3.5 rounded-full hover:bg-gold-400 hover:scale-105 transition-all duration-300">➕ Add Product</button><button type="button" onclick="dClearAddForm()" class="border border-white/10 text-neutral-400 font-bold text-sm uppercase tracking-wider px-6 py-3.5 rounded-full hover:border-white/30 hover:text-white transition-all duration-300">Clear</button></div><div id="addSuccess" class="hidden mt-5 p-4 bg-emerald-500/10 border border-emerald-500/30 rounded-xl"><p class="text-emerald-400 font-bold text-sm">✅ Product added!</p></div></div></div>
-    <div id="dashManageProducts" class="dash-panel hidden"><div class="flex items-center justify-between mb-5"><p class="text-neutral-400 text-sm"><span id="manageCount" class="text-white font-bold">0</span> total products</p><button onclick="dRenderManageList()" class="text-xs font-bold uppercase tracking-wider px-4 py-2 border border-white/10 rounded-full text-neutral-400 hover:border-gold-500/50 hover:text-gold-500 transition-all">🔄 Refresh</button></div><div id="manageList" class="space-y-3"></div></div>
-    <div id="dashManageStores" class="dash-panel hidden"><div class="max-w-4xl bg-white/5 border border-white/10 rounded-2xl p-8"><h3 class="text-2xl font-bold mb-6">🏪 Manage Stores</h3><div class="space-y-8" id="storeConfigList"></div><div class="mt-8 flex gap-3"><button onclick="dSaveStoreConfig()" class="bg-gold-500 text-black font-bold text-sm uppercase tracking-wider px-10 py-3.5 rounded-full hover:bg-gold-400 transition-all">💾 Save Stores</button></div><div id="storeSuccess" class="hidden mt-4 p-3 bg-emerald-500/10 border border-emerald-500/30 rounded-lg text-emerald-400 text-sm">✅ Store details updated.</div></div></div>
-    <div id="dashDiscounts" class="dash-panel hidden"><div class="max-w-2xl bg-white/5 border border-white/10 rounded-2xl p-8"><h3 class="text-2xl font-bold mb-6">🏷️ Discount Codes</h3><div class="mb-6 p-4 bg-black/30 rounded-xl border border-white/5"><h4 class="font-bold mb-4">Create New Discount Code</h4><div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4"><div><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2 block">Code Name</label><input type="text" id="discountCode" placeholder="e.g. SAVE20" class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white focus:outline-none uppercase"></div><div><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2 block">Discount %</label><input type="number" id="discountPercent" min="1" max="100" placeholder="e.g. 20" class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white focus:outline-none"></div></div><div class="mb-4"><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2 block">Valid Until</label><input type="date" id="discountExpiry" class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white focus:outline-none"></div><button onclick="dAddDiscountCode()" class="bg-emerald-500 text-white font-bold text-sm uppercase tracking-wider px-8 py-3 rounded-full hover:bg-emerald-400 transition-all">➕ Add Discount</button></div><div id="discountsList" class="space-y-3"></div><div id="discountSuccess" class="hidden mt-4 p-3 bg-emerald-500/10 border border-emerald-500/30 rounded-lg text-emerald-400 text-sm">✅ Discount saved.</div></div></div>
-    <div id="dashSiteSettings" class="dash-panel hidden"><div class="max-w-3xl bg-white/5 border border-white/10 rounded-2xl p-8"><h3 class="text-2xl font-bold mb-6">⚙️ Site Settings</h3><div class="space-y-6"><div><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2 block">Contact Phone</label><input type="text" id="settingPhone" class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white focus:outline-none"></div><div><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2 block">WhatsApp Number</label><input type="text" id="settingWhatsapp" class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white focus:outline-none"></div><div><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2 block">Location Text</label><input type="text" id="settingLocation" class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white focus:outline-none"></div><div class="border-t border-white/10 pt-6 mt-6"><label class="text-xs font-bold uppercase tracking-wider text-red-400 mb-2 block">Owner Password</label><input type="password" id="settingPass" class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white focus:outline-none" placeholder="Enter new password"></div></div><div class="mt-8 flex gap-3"><button onclick="dSaveSiteSettings()" class="bg-gold-500 text-black font-bold text-sm uppercase tracking-wider px-10 py-3.5 rounded-full hover:bg-gold-400 transition-all">💾 Save Settings</button></div><div id="siteSettingsSuccess" class="hidden mt-4 p-3 bg-emerald-500/10 border border-emerald-500/30 rounded-lg text-emerald-400 text-sm">✅ Settings saved.</div></div></div>
-  </div>
+<section id="products" class="pt-28 md:pt-32 bg-[#0d0d0d]"><div class="max-w-[1800px] mx-auto px-4 md:px-8"><div class="reveal flex flex-col md:flex-row items-center justify-between gap-4 mb-6"><div class="cat-scroll w-full md:w-auto order-2 md:order-1"><button onclick="dFilterCategory('all')" class="cat-btn active-cat text-[11px] font-bold uppercase tracking-wider px-4 py-2 rounded-full border border-white/10 bg-white/5 text-neutral-400" data-cfilter="all">All</button><button onclick="dFilterCategory('beds')" class="cat-btn text-[11px] font-bold uppercase tracking-wider px-4 py-2 rounded-full border border-white/10 bg-white/5 text-neutral-400" data-cfilter="beds">🛏️ Beds</button><button onclick="dFilterCategory('sofa-chair')" class="cat-btn text-[11px] font-bold uppercase tracking-wider px-4 py-2 rounded-full border border-white/10 bg-white/5 text-neutral-400" data-cfilter="sofa-chair">🛋️ Sofa & Chair</button><button onclick="dFilterCategory('tables')" class="cat-btn text-[11px] font-bold uppercase tracking-wider px-4 py-2 rounded-full border border-white/10 bg-white/5 text-neutral-400" data-cfilter="tables">🪑 Tables</button><button onclick="dFilterCategory('cupboard')" class="cat-btn text-[11px] font-bold uppercase tracking-wider px-4 py-2 rounded-full border border-white/10 bg-white/5 text-neutral-400" data-cfilter="cupboard">🗄️ Cupboard</button><button onclick="dFilterCategory('doors-windows')" class="cat-btn text-[11px] font-bold uppercase tracking-wider px-4 py-2 rounded-full border border-white/10 bg-white/5 text-neutral-400" data-cfilter="doors-windows">🚪 Doors & Windows</button><button onclick="dFilterCategory('others')" class="cat-btn text-[11px] font-bold uppercase tracking-wider px-4 py-2 rounded-full border border-white/10 bg-white/5 text-neutral-400" data-cfilter="others">📦 Others</button></div><div class="relative w-full md:w-auto order-1 md:order-2"><i data-lucide="search" class="w-4 h-4 text-neutral-500 absolute left-3 top-1/2 -translate-y-1/2"></i><input type="text" id="searchInput" oninput="dSearchProducts()" placeholder="Search furniture..." class="bg-white/5 border border-white/10 rounded-full pl-10 pr-5 py-2.5 text-sm text-white placeholder-neutral-500 focus:outline-none focus:border-gold-500/50 w-full md:w-64 transition-colors"></div></div><div class="flex items-center justify-end mb-6 reveal reveal-d2"><p class="text-neutral-400 text-sm"><span id="productCount" class="text-white font-bold">0</span> products found</p></div><div id="productGrid" class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6"></div><div id="emptyState" class="hidden text-center py-20"><i data-lucide="search-x" class="w-16 h-16 text-neutral-600 mx-auto mb-4"></i><p class="text-neutral-400 text-lg font-medium">No products found</p></div></div></section>
+<section class="py-20 md:py-28"><div class="max-w-[1800px] mx-auto px-4 md:px-8"><div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center"><div class="reveal"><p class="text-gold-500 font-mono text-xs uppercase tracking-[0.3em] mb-4">Why Mandibo</p><h2 class="text-3xl md:text-5xl font-bold tracking-tighter mb-8">Trusted by <span class="shimmer-text">Hundreds</span> of Zanzibar Homes</h2><div class="space-y-6"><div class="flex gap-4"><div class="w-10 h-10 rounded-full bg-gold-500/10 flex items-center justify-center flex-shrink-0 mt-1"><i data-lucide="shield-check" class="w-5 h-5 text-gold-500"></i></div><div><h4 class="font-bold mb-1">Verified Quality</h4><p class="text-neutral-400 text-sm leading-relaxed">Every product is personally inspected before listing.</p></div></div><div class="flex gap-4"><div class="w-10 h-10 rounded-full bg-gold-500/10 flex items-center justify-center flex-shrink-0 mt-1"><i data-lucide="truck" class="w-5 h-5 text-gold-500"></i></div><div><h4 class="font-bold mb-1">Free Delivery</h4><p class="text-neutral-400 text-sm leading-relaxed">Free delivery across all of Zanzibar.</p></div></div><div class="flex gap-4"><div class="w-10 h-10 rounded-full bg-gold-500/10 flex items-center justify-center flex-shrink-0 mt-1"><i data-lucide="banknote" class="w-5 h-5 text-gold-500"></i></div><div><h4 class="font-bold mb-1">Best Prices</h4><p class="text-neutral-400 text-sm leading-relaxed">Compare across stores for best deal.</p></div></div><div class="flex gap-4"><div class="w-10 h-10 rounded-full bg-gold-500/10 flex items-center justify-center flex-shrink-0 mt-1"><i data-lucide="message-circle" class="w-5 h-5 text-gold-500"></i></div><div><h4 class="font-bold mb-1">WhatsApp Support</h4><p class="text-neutral-400 text-sm leading-relaxed">Instant support via WhatsApp.</p></div></div></div></div><div class="relative reveal reveal-d2"><div class="absolute -top-10 -right-10 w-60 h-60 bg-gold-500/5 rounded-full blur-[100px]"></div><img src="https://z-cdn-media.chatglm.cn/files/7ded6934-3ecd-4ce9-853a-8e33b5ef29ce.png?auth_key=1876769336-f6033f48516349ce925412200c6d8ed2-0-9c8e24bd03454557b0d64bd64cb9b5dc" class="w-full rounded-2xl object-cover h-[400px] md:h-[600px]" alt=""><div class="absolute bottom-6 left-6 right-6 bg-black/80 backdrop-blur-xl rounded-xl p-5 border border-white/10"><div class="flex items-center justify-between"><div><p class="text-gold-500 font-mono text-xs uppercase tracking-wider mb-1">Customer Satisfaction</p><p class="text-2xl font-bold">98.5%</p></div></div></div></div></div></div></section>
+<section id="contact" class="py-20 md:py-28 bg-[#0d0d0d] border-t border-white/5"><div class="max-w-[1800px] mx-auto px-4 md:px-8"><div class="text-center mb-16 reveal"><p class="text-gold-500 font-mono text-xs uppercase tracking-[0.3em] mb-4">Get In Touch</p><h2 class="text-3xl md:text-5xl font-bold tracking-tighter">Contact <span class="shimmer-text">Us</span></h2></div><div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto"><div class="text-center p-8 border border-white/10 rounded-2xl reveal"><div class="w-12 h-12 rounded-full bg-gold-500/10 flex items-center justify-center mx-auto mb-4"><i data-lucide="phone" class="w-5 h-5 text-gold-500"></i></div><h4 class="font-bold mb-1">Call Us</h4><p id="dynamicPhone" class="text-neutral-400 text-sm">+255 799 610 190</p></div><div class="text-center p-8 border border-white/10 rounded-2xl reveal cursor-pointer" onclick="dOpenWhatsApp()"><div class="w-12 h-12 rounded-full bg-emerald-500/10 flex items-center justify-center mx-auto mb-4"><i data-lucide="message-circle" class="w-5 h-5 text-emerald-500"></i></div><h4 class="font-bold mb-1">WhatsApp</h4><p id="dynamicWhatsapp" class="text-neutral-400 text-sm">+255 799 610 190</p></div><div class="text-center p-8 border border-white/10 rounded-2xl reveal"><div class="w-12 h-12 rounded-full bg-blue-500/10 flex items-center justify-center mx-auto mb-4"><i data-lucide="map-pin" class="w-5 h-5 text-blue-400"></i></div><h4 class="font-bold mb-1">Location</h4><p id="dynamicLocation" class="text-neutral-400 text-sm">Zanzibar, Tanzania</p></div></div></div></section>
+<footer class="py-10 border-t border-white/5"><div class="max-w-[1800px] mx-auto px-4 md:px-8"><div class="flex flex-col items-center gap-4 md:gap-6"><div class="logo-circle" style="width:60px;height:60px;border-width:1.5px"><img src="https://z-cdn-media.chatglm.cn/files/d06cb235-9058-490c-b21c-a4cc6f192fb0.png?auth_key=1875111503-553b5bf504e04d49a0db0e9301a8b91d-0-f0265d78daac62181c5b8e73a86479be" alt="Logo"></div><p class="text-neutral-500 text-xs text-center">© 2026 Mandibo Furniture. All rights reserved. Zanzibar, Tanzania.</p><div class="flex items-center gap-4"><a href="#" class="text-neutral-500 hover:text-gold-500 transition-colors"><i data-lucide="instagram" class="w-4 h-4"></i></a><a href="#" class="text-neutral-500 hover:text-gold-500 transition-colors"><i data-lucide="facebook" class="w-4 h-4"></i></a><a href="#" class="text-neutral-500 hover:text-gold-500 transition-colors"><i data-lucide="twitter" class="w-4 h-4"></i></a></div><div class="w-full max-w-md text-center pt-2 border-t border-white/5 mt-2"><p class="text-[10px] uppercase tracking-[0.2em] text-neutral-600 font-medium">Developed by <span class="text-gold-500/60">Pastory</span> from <span class="text-gold-500/60">Mandibotech International</span></p></div></div></div></footer>
 </div>
-
-<!-- DESKTOP ORDER MODAL -->
+<div id="ownerView" class="hidden min-h-screen pt-24 pb-16"><div class="max-w-[1800px] mx-auto px-4 md:px-8"><div class="mb-10"><p class="text-gold-500 font-mono text-xs uppercase tracking-[0.3em] mb-2">Owner Dashboard</p><h1 class="text-3xl md:text-4xl font-bold tracking-tighter">Mandibo <span class="shimmer-text">Control Panel</span></h1></div><div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10"><div class="bg-white/5 border border-white/10 rounded-xl p-5"><p class="text-neutral-400 text-xs uppercase tracking-wider mb-1">Total Products</p><p id="statProducts" class="text-2xl font-bold text-gold-500">0</p></div><div class="bg-white/5 border border-white/10 rounded-xl p-5"><p class="text-neutral-400 text-xs uppercase tracking-wider mb-1">Total Orders</p><p id="statOrders" class="text-2xl font-bold text-emerald-400">0</p></div><div class="bg-white/5 border border-white/10 rounded-xl p-5"><p class="text-neutral-400 text-xs uppercase tracking-wider mb-1">Revenue (TZS)</p><p id="statRevenue" class="text-2xl font-bold text-blue-400">0</p></div><div class="bg-white/5 border border-white/10 rounded-xl p-5"><p class="text-neutral-400 text-xs uppercase tracking-wider mb-1">Stores</p><p class="text-2xl font-bold text-purple-400">3</p></div></div><div class="flex flex-wrap gap-2 mb-8 border-b border-white/10 pb-4"><button onclick="dShowDashTab('orders')" class="dash-tab text-sm font-bold uppercase tracking-wider px-5 py-2.5 rounded-full border border-gold-500 bg-gold-500 text-black" data-dtab="orders">📦 Orders</button><button onclick="dShowDashTab('addProduct')" class="dash-tab text-sm font-bold uppercase tracking-wider px-5 py-2.5 rounded-full border border-white/10 text-neutral-400" data-dtab="addProduct">➕ Add Product</button><button onclick="dShowDashTab('manageProducts')" class="dash-tab text-sm font-bold uppercase tracking-wider px-5 py-2.5 rounded-full border border-white/10 text-neutral-400" data-dtab="manageProducts">🔧 Manage Products</button><button onclick="dShowDashTab('manageStores')" class="dash-tab text-sm font-bold uppercase tracking-wider px-5 py-2.5 rounded-full border border-white/10 text-neutral-400" data-dtab="manageStores">🏪 Manage Stores</button><button onclick="dShowDashTab('discounts')" class="dash-tab text-sm font-bold uppercase tracking-wider px-5 py-2.5 rounded-full border border-white/10 text-neutral-400" data-dtab="discounts">🏷️ Discounts</button><button onclick="dShowDashTab('siteSettings')" class="dash-tab text-sm font-bold uppercase tracking-wider px-5 py-2.5 rounded-full border border-white/10 text-neutral-400" data-dtab="siteSettings">⚙️ Site Settings</button></div><div id="dashOrders" class="dash-panel"><div id="ordersList" class="space-y-4"><div class="text-center py-16 text-neutral-500"><p class="text-4xl mb-3">📦</p><p>No orders yet</p></div></div></div><div id="dashAddProduct" class="dash-panel hidden"><div class="max-w-2xl bg-white/5 border border-white/10 rounded-2xl p-8"><h3 class="text-xl font-bold mb-6">Add New Product</h3><div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5"><div><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2 block">Store *</label><select id="addStore" class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white focus:outline-none"><option value="store-a">Store A</option><option value="store-b">Store B</option><option value="store-c">Store C</option></select></div><div><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2 block">Category *</label><select id="addCategory" class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white focus:outline-none"><option value="beds">Beds</option><option value="sofa-chair">Sofa & Chair</option><option value="tables">Tables</option><option value="cupboard">Cupboard</option><option value="doors-windows">Doors & Windows</option><option value="others">Others</option></select></div></div><div class="mb-5"><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2 block">Product Name *</label><input type="text" id="addName" placeholder="e.g. Royal Zanzibar Bed" class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-neutral-600 focus:outline-none"><p id="errName" class="inline-err">⚠ Please enter a product name</p></div><div class="mb-5"><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2 block">Price (TZS) *</label><div class="relative"><span class="absolute left-4 top-1/2 -translate-y-1/2 text-neutral-500 text-sm font-medium">TZS</span><input type="text" id="addPrice" inputmode="numeric" placeholder="e.g. 2500000" class="form-input w-full bg-black border border-white/10 rounded-lg pl-14 pr-4 py-3 text-sm text-white placeholder-neutral-600 focus:outline-none" oninput="this.value=this.value.replace(/[^0-9,]/g,'')"></div><p id="errPrice" class="inline-err">⚠ Please enter a valid price</p></div><div class="mb-5"><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2 block">Image URL</label><input type="text" id="addImage" placeholder="https://..." class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-neutral-600 focus:outline-none"></div><div class="mb-6"><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2 block">Description</label><textarea id="addDesc" rows="3" placeholder="Brief description..." class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-neutral-600 focus:outline-none resize-none"></textarea></div><div class="flex gap-3"><button type="button" onclick="dHandleAddProduct()" class="bg-gold-500 text-black font-bold text-sm uppercase tracking-wider px-10 py-3.5 rounded-full hover:bg-gold-400 hover:scale-105 transition-all duration-300">➕ Add Product</button><button type="button" onclick="dClearAddForm()" class="border border-white/10 text-neutral-400 font-bold text-sm uppercase tracking-wider px-6 py-3.5 rounded-full hover:border-white/30 hover:text-white transition-all duration-300">Clear</button></div><div id="addSuccess" class="hidden mt-5 p-4 bg-emerald-500/10 border border-emerald-500/30 rounded-xl"><p class="text-emerald-400 font-bold text-sm">✅ Product added!</p></div></div></div><div id="dashManageProducts" class="dash-panel hidden"><div class="flex items-center justify-between mb-5"><p class="text-neutral-400 text-sm"><span id="manageCount" class="text-white font-bold">0</span> total products</p><button onclick="dRenderManageList()" class="text-xs font-bold uppercase tracking-wider px-4 py-2 border border-white/10 rounded-full text-neutral-400 hover:border-gold-500/50 hover:text-gold-500 transition-all">🔄 Refresh</button></div><div id="manageList" class="space-y-3"></div></div><div id="dashManageStores" class="dash-panel hidden"><div class="max-w-4xl bg-white/5 border border-white/10 rounded-2xl p-8"><h3 class="text-2xl font-bold mb-6">🏪 Manage Stores</h3><div class="space-y-8" id="storeConfigList"></div><div class="mt-8 flex gap-3"><button onclick="dSaveStoreConfig()" class="bg-gold-500 text-black font-bold text-sm uppercase tracking-wider px-10 py-3.5 rounded-full hover:bg-gold-400 transition-all">💾 Save Stores</button></div><div id="storeSuccess" class="hidden mt-4 p-3 bg-emerald-500/10 border border-emerald-500/30 rounded-lg text-emerald-400 text-sm">✅ Store details updated.</div></div></div><div id="dashDiscounts" class="dash-panel hidden"><div class="max-w-2xl bg-white/5 border border-white/10 rounded-2xl p-8"><h3 class="text-2xl font-bold mb-6">🏷️ Discount Codes</h3><div class="mb-6 p-4 bg-black/30 rounded-xl border border-white/5"><h4 class="font-bold mb-4">Create New Discount Code</h4><div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4"><div><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2 block">Code Name</label><input type="text" id="discountCode" placeholder="e.g. SAVE20" class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white focus:outline-none uppercase"></div><div><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2 block">Discount %</label><input type="number" id="discountPercent" min="1" max="100" placeholder="e.g. 20" class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white focus:outline-none"></div></div><div class="mb-4"><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2 block">Valid Until</label><input type="date" id="discountExpiry" class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white focus:outline-none"></div><button onclick="dAddDiscountCode()" class="bg-emerald-500 text-white font-bold text-sm uppercase tracking-wider px-8 py-3 rounded-full hover:bg-emerald-400 transition-all">➕ Add Discount</button></div><div id="discountsList" class="space-y-3"></div><div id="discountSuccess" class="hidden mt-4 p-3 bg-emerald-500/10 border border-emerald-500/30 rounded-lg text-emerald-400 text-sm">✅ Discount saved.</div></div></div><div id="dashSiteSettings" class="dash-panel hidden"><div class="max-w-3xl bg-white/5 border border-white/10 rounded-2xl p-8"><h3 class="text-2xl font-bold mb-6">⚙️ Site Settings</h3><div class="space-y-6"><div><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2 block">Contact Phone</label><input type="text" id="settingPhone" class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white focus:outline-none"></div><div><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2 block">WhatsApp Number</label><input type="text" id="settingWhatsapp" class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white focus:outline-none"></div><div><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2 block">Location Text</label><input type="text" id="settingLocation" class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white focus:outline-none"></div><div class="border-t border-white/10 pt-6 mt-6"><label class="text-xs font-bold uppercase tracking-wider text-red-400 mb-2 block">Owner Password</label><input type="password" id="settingPass" class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white focus:outline-none" placeholder="Enter new password"></div></div><div class="mt-8 flex gap-3"><button onclick="dSaveSiteSettings()" class="bg-gold-500 text-black font-bold text-sm uppercase tracking-wider px-10 py-3.5 rounded-full hover:bg-gold-400 transition-all">💾 Save Settings</button></div><div id="siteSettingsSuccess" class="hidden mt-4 p-3 bg-emerald-500/10 border border-emerald-500/30 rounded-lg text-emerald-400 text-sm">✅ Settings saved.</div></div></div></div>
 <div id="orderModal" class="fixed inset-0 z-[100] hidden"><div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="dCloseOrderModal()"></div><div class="relative z-10 flex items-center justify-center min-h-screen p-4"><div class="bg-[#111] border border-white/10 rounded-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto p-8"><div class="flex items-center justify-between mb-6"><h3 class="text-xl font-bold">Place Your Order</h3><button onclick="dCloseOrderModal()" class="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center hover:border-red-500 hover:text-red-500 transition-colors"><i data-lucide="x" class="w-4 h-4"></i></button></div><div id="orderProductInfo" class="flex gap-4 mb-6 p-4 bg-white/5 rounded-xl border border-white/5"></div><div class="mb-4 p-4 bg-emerald-500/5 rounded-xl border border-emerald-500/20"><div class="flex gap-2 mb-2"><input type="text" id="orderDiscountCode" placeholder="Discount code" class="flex-1 bg-black border border-white/10 rounded-lg px-4 py-2.5 text-sm text-white placeholder-neutral-600 focus:outline-none focus:border-emerald-500 uppercase"><button onclick="dApplyOrderDiscount()" class="bg-emerald-600 text-white font-bold text-xs uppercase tracking-wider px-4 py-2.5 rounded-lg hover:bg-emerald-500 transition-all">Apply</button></div><div id="discountStatus" class="text-xs"></div></div><form id="orderForm" class="space-y-4"><div><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-1.5 block">Full Name *</label><input type="text" id="orderName" required class="w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-neutral-600 focus:outline-none focus:border-gold-500" placeholder="Your full name"></div><div><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-1.5 block">Phone Number *</label><input type="tel" id="orderPhone" required class="w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-neutral-600 focus:outline-none focus:border-gold-500" placeholder="+255 7XX XXX XXX"></div><div><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-1.5 block">Delivery Location *</label><input type="text" id="orderLocation" required class="w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-neutral-600 focus:outline-none focus:border-gold-500" placeholder="e.g. Stone Town"></div><div><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-1.5 block">Quantity</label><input type="number" id="orderQty" min="1" max="99" value="1" class="w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white focus:outline-none focus:border-gold-500" oninput="dUpdateOrderTotal()"></div><div><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-1.5 block">Notes</label><textarea id="orderNotes" rows="2" class="w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-neutral-600 focus:outline-none focus:border-gold-500 resize-none" placeholder="Special requests..."></textarea></div><div id="orderTotal" class="text-right text-lg font-bold text-gold-500 py-2"></div><div class="flex gap-3 pt-2"><button type="submit" class="flex-1 bg-gold-500 text-black font-bold text-sm uppercase tracking-wider py-3.5 rounded-full hover:bg-gold-400 hover:scale-[1.02] transition-all duration-300">Confirm Order</button><a id="whatsappOrder" href="#" target="_blank" class="flex items-center justify-center gap-2 px-6 py-3.5 bg-emerald-600 text-white font-bold text-sm uppercase tracking-wider rounded-full hover:bg-emerald-500 transition-all duration-300"><i data-lucide="message-circle" class="w-4 h-4"></i>WhatsApp</a></div></form></div></div></div>
-
-<!-- DESKTOP LOGIN MODAL -->
 <div id="loginModal" class="fixed inset-0 z-[100] hidden"><div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="dCloseOwnerLogin()"></div><div class="relative z-10 flex items-center justify-center min-h-screen p-4"><div class="bg-[#111] border border-white/10 rounded-2xl w-full max-w-sm p-8"><div class="text-center mb-8"><img src="https://z-cdn-media.chatglm.cn/files/d06cb235-9058-490c-b21c-a4cc6f192fb0.png?auth_key=1875111503-553b5bf504e04d49a0db0e9301a8b91d-0-f0265d78daac62181c5b8e73a86479be" class="h-16 mx-auto mb-4" alt="Logo"><h3 class="text-lg font-bold">Owner Access</h3><p class="text-neutral-500 text-xs mt-1">Enter password to access dashboard</p></div><form id="loginForm" class="space-y-4"><input type="password" id="ownerPass" required placeholder="Enter password" class="w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-neutral-600 focus:outline-none focus:border-gold-500 text-center tracking-widest"><p id="loginError" class="text-red-400 text-xs text-center hidden">⚠ Incorrect password.</p><button type="submit" class="w-full bg-gold-500 text-black font-bold text-sm uppercase tracking-wider py-3 rounded-full hover:bg-gold-400 transition-all">Unlock Dashboard</button></form><button onclick="dCloseOwnerLogin()" class="w-full mt-3 text-neutral-500 text-xs hover:text-white transition-colors py-2">Cancel</button></div></div></div>
-
-<!-- DESKTOP DELETE MODAL -->
 <div id="deleteModal" class="fixed inset-0 z-[110] hidden"><div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="dCloseDeleteModal()"></div><div class="relative z-10 flex items-center justify-center min-h-screen p-4"><div class="bg-[#111] border border-red-500/30 rounded-2xl w-full max-w-sm p-8 text-center"><div class="w-14 h-14 rounded-full bg-red-500/10 border border-red-500/30 flex items-center justify-center mx-auto mb-4"><i data-lucide="trash-2" class="w-6 h-6 text-red-400"></i></div><h3 class="text-lg font-bold mb-2">Delete Product?</h3><p id="deleteItemName" class="text-neutral-400 text-sm mb-6"></p><div class="flex gap-3"><button onclick="dCloseDeleteModal()" class="flex-1 border border-white/10 text-neutral-300 font-bold text-sm uppercase tracking-wider py-3 rounded-full hover:border-white/30 transition-all">Cancel</button><button onclick="dConfirmDelete()" class="flex-1 bg-red-500 text-white font-bold text-sm uppercase tracking-wider py-3 rounded-full hover:bg-red-400 transition-all">Delete</button></div></div></div></div>
-
-<!-- DESKTOP EDIT MODAL -->
 <div id="editModal" class="fixed inset-0 z-[110] hidden"><div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="dCloseEditModal()"></div><div class="relative z-10 flex items-center justify-center min-h-screen p-4"><div class="bg-[#111] border border-gold-500/30 rounded-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto p-8"><div class="flex items-center justify-between mb-6"><h3 class="text-xl font-bold">✏️ Edit Product</h3><button onclick="dCloseEditModal()" class="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center hover:border-red-500 hover:text-red-500 transition-colors"><i data-lucide="x" class="w-4 h-4"></i></button></div><div class="mb-5"><img id="editImgPreview" src="" class="w-full h-48 object-cover rounded-xl border border-white/10 bg-[#0A0A0A]" alt="Preview"></div><div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5"><div><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2 block">Store</label><select id="editStore" class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white focus:outline-none"><option value="store-a">Store A</option><option value="store-b">Store B</option><option value="store-c">Store C</option></select></div><div><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2 block">Category</label><select id="editCategory" class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white focus:outline-none"><option value="beds">Beds</option><option value="sofa-chair">Sofa & Chair</option><option value="tables">Tables</option><option value="cupboard">Cupboard</option><option value="doors-windows">Doors & Windows</option><option value="others">Others</option></select></div></div><div class="mb-5"><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2 block">Product Name *</label><input type="text" id="editName" class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-neutral-600 focus:outline-none"><p id="editErrName" class="inline-err">⚠ Name required</p></div><div class="mb-5"><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2 block">Price (TZS) *</label><div class="relative"><span class="absolute left-4 top-1/2 -translate-y-1/2 text-neutral-500 text-sm font-medium">TZS</span><input type="text" id="editPrice" inputmode="numeric" class="form-input w-full bg-black border border-white/10 rounded-lg pl-14 pr-4 py-3 text-sm text-white placeholder-neutral-600 focus:outline-none" oninput="this.value=this.value.replace(/[^0-9,]/g,'')"></div><p id="editErrPrice" class="inline-err">⚠ Valid price required</p></div><div class="mb-5"><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2 block">Image URL</label><input type="text" id="editImage" class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-neutral-600 focus:outline-none" oninput="dUpdateEditImgPreview()"></div><div class="mb-6"><label class="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2 block">Description</label><textarea id="editDesc" rows="3" class="form-input w-full bg-black border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-neutral-600 focus:outline-none resize-none"></textarea></div><div class="flex gap-3"><button type="button" onclick="dHandleSaveEdit()" class="flex-1 bg-gold-500 text-black font-bold text-sm uppercase tracking-wider py-3.5 rounded-full hover:bg-gold-400 hover:scale-[1.02] transition-all duration-300">💾 Save</button><button type="button" onclick="dCloseEditModal()" class="border border-white/10 text-neutral-400 font-bold text-sm uppercase tracking-wider px-6 py-3.5 rounded-full hover:border-white/30 hover:text-white transition-all duration-300">Cancel</button></div></div></div></div>
-
-</div><!-- end desktop-view -->
-
-<!-- ================================================================
-     MOBILE VIEW
-     ================================================================ -->
+</div>
 <div id="mobile-view">
-
-<!-- Header -->
-<header id="mHeader">
-  <div class="m-header-top">
-    <div class="m-header-logo">
-      <img class="m-logo-img" src="https://z-cdn-media.chatglm.cn/files/d06cb235-9058-490c-b21c-a4cc6f192fb0.png?auth_key=1875111503-553b5bf504e04d49a0db0e9301a8b91d-0-f0265d78daac62181c5b8e73a86479be" alt="Mandibo">
-      <div>
-        <div class="m-logo-text">MANDIBO</div>
-        <div class="m-logo-sub">Zanzibar Furniture</div>
-      </div>
-    </div>
-    <div class="m-header-actions">
-      <div class="m-cart-btn">🛍️</div>
-      <button class="m-wa-btn" onclick="mOpenWhatsApp()">💬</button>
-    </div>
-  </div>
-  <div class="m-search-wrap">
-    <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-    <input type="text" id="mSearchInput" placeholder="Search furniture..." oninput="mOnSearch()" autocomplete="off">
-  </div>
-</header>
-
-<!-- Category strip -->
-<div id="mCatStrip">
-  <button class="m-cat-pill active" data-cat="all" onclick="mFilterCat(this,'all')">✨ All</button>
-  <button class="m-cat-pill" data-cat="beds" onclick="mFilterCat(this,'beds')">🛏️ Beds</button>
-  <button class="m-cat-pill" data-cat="sofa-chair" onclick="mFilterCat(this,'sofa-chair')">🛋️ Sofa</button>
-  <button class="m-cat-pill" data-cat="tables" onclick="mFilterCat(this,'tables')">🪑 Tables</button>
-  <button class="m-cat-pill" data-cat="cupboard" onclick="mFilterCat(this,'cupboard')">🗄️ Cupboard</button>
-  <button class="m-cat-pill" data-cat="doors-windows" onclick="mFilterCat(this,'doors-windows')">🚪 Doors</button>
-  <button class="m-cat-pill" data-cat="others" onclick="mFilterCat(this,'others')">📦 Others</button>
-</div>
-
-<!-- Main -->
-<main id="mMain">
-  <div class="m-trust-strip">
-    <div class="m-trust-item"><span class="m-trust-icon">🚚</span><span class="m-trust-text">Free Delivery 24h</span></div>
-    <div class="m-trust-item"><span class="m-trust-icon">✅</span><span class="m-trust-text">98.5% Satisfied</span></div>
-    <div class="m-trust-item"><span class="m-trust-icon">🏆</span><span class="m-trust-text">100+ Items</span></div>
-    <div class="m-trust-item"><span class="m-trust-icon">📞</span><span class="m-trust-text">24/7 Support</span></div>
-  </div>
-  <div class="m-banner">
-    <div class="m-banner-text">
-      <div class="m-banner-tag">🔥 Zanzibar's Best</div>
-      <div class="m-banner-title">Premium<br>Furniture</div>
-      <div class="m-banner-sub">Free delivery across Zanzibar</div>
-    </div>
-    <button class="m-banner-cta" onclick="mScrollToGrid()">Shop Now</button>
-  </div>
-  <div class="m-section-header" id="mGridAnchor">
-    <div class="m-section-title">All Products</div>
-    <div class="m-product-count"><span id="mProdCount">0</span> items</div>
-  </div>
-  <div id="mProductGrid"></div>
-  <div id="mEmptyState">
-    <div class="m-e-icon">🪑</div>
-    <p>No products found</p>
-  </div>
-</main>
-
-<!-- Order Modal -->
-<div class="m-modal-overlay" id="mOrderModal" onclick="mCloseOnBackdrop(event)">
-  <div class="m-modal-sheet">
-    <div class="m-modal-handle"></div>
-    <div class="m-modal-head">
-      <div class="m-modal-title">Place Order</div>
-      <button class="m-modal-close" onclick="mCloseOrder()">✕</button>
-    </div>
-    <div class="m-modal-body">
-      <div class="m-order-product-row">
-        <img class="m-order-product-img" id="mOImg" src="" alt="">
-        <div>
-          <div class="m-order-product-name" id="mOName"></div>
-          <div class="m-order-product-price" id="mOPrice"></div>
-        </div>
-      </div>
-      <label class="m-field-label">Your Name *</label>
-      <input class="m-field-input" id="mONameInput" placeholder="e.g. Ahmed Hassan" autocomplete="name">
-      <label class="m-field-label">Phone Number *</label>
-      <input class="m-field-input" id="mOPhone" placeholder="+255 7XX XXX XXX" type="tel" autocomplete="tel">
-      <label class="m-field-label">Delivery Location *</label>
-      <input class="m-field-input" id="mOLocation" placeholder="e.g. Stone Town, Forodhani">
-      <label class="m-field-label">Quantity</label>
-      <div class="m-qty-row">
-        <button class="m-qty-btn" onclick="mChangeQty(-1)">−</button>
-        <input class="m-qty-val" id="mOQty" type="number" value="1" min="1" max="99" oninput="mCalcTotal()">
-        <button class="m-qty-btn" onclick="mChangeQty(1)">+</button>
-      </div>
-      <div class="m-order-total-row">
-        <span class="m-total-label">Total</span>
-        <span class="m-total-amount" id="mOTotal">TZS 0</span>
-      </div>
-      <button class="m-btn-confirm" onclick="mConfirmOrder()">✅ Confirm Order</button>
-      <button class="m-btn-wa" onclick="mOrderViaWA()"><span>💬</span> Order via WhatsApp</button>
-    </div>
-  </div>
-</div>
-
-<!-- Success Sheet -->
-<div id="mSuccessSheet">
-  <div class="m-success-card">
-    <div class="m-success-icon">🎉</div>
-    <div class="m-success-title">Order Placed!</div>
-    <div class="m-success-msg">Asante sana! Your order has been received.<br>We will deliver within <strong>24 hours</strong>.<br>Our team will call you to confirm. 📞</div>
-    <button class="m-success-close" onclick="mCloseSuccess()">Continue Shopping</button>
-  </div>
-</div>
-
-<!-- Lightbox -->
-<div id="mLightbox" onclick="mCloseLightbox()">
-  <button class="m-lb-close">✕</button>
-  <img id="mLbImg" src="" alt="" onclick="event.stopPropagation()">
-  <div class="m-lb-info" onclick="event.stopPropagation()">
-    <div class="m-lb-name" id="mLbName"></div>
-    <div class="m-lb-price" id="mLbPrice"></div>
-    <button class="m-lb-order-btn" id="mLbOrderBtn">🛒 Order Now</button>
-  </div>
-</div>
-
-<!-- AI Chat bubble -->
-<div id="mChatBubble">
-  <div class="m-chat-trigger" onclick="mToggleChat()">
-    🤝
-    <span class="m-chat-notif" id="mChatNotif">1</span>
-  </div>
-</div>
-
-<!-- Chat window -->
-<div id="mChatWindow">
-  <div class="m-chat-head">
-    <div class="m-chat-agent">
-      <div class="m-agent-av">🤝</div>
-      <div>
-        <div class="m-agent-name">Mandibo Team</div>
-        <div class="m-agent-status"><div class="m-online-dot"></div> Online now</div>
-      </div>
-    </div>
-    <button class="m-chat-close-btn" onclick="mToggleChat()">✕</button>
-  </div>
-  <div id="mChatMsgs">
-    <div class="m-typing active" id="mChatTyping">
-      <div class="m-t-dot"></div><div class="m-t-dot"></div><div class="m-t-dot"></div>
-    </div>
-  </div>
-  <div class="m-chat-chips">
-    <button class="m-chip" onclick="mChipSend('Nataka kuagiza')">🛒 Nataka kuagiza</button>
-    <button class="m-chip" onclick="mChipSend('Bei ya bidhaa?')">💰 Bei</button>
-    <button class="m-chip" onclick="mChipSend('Delivery?')">🚚 Delivery</button>
-    <button class="m-chip" onclick="mChipSend('Habari!')">👋 Habari</button>
-  </div>
-  <div class="m-chat-input-row">
-    <input id="mChatInput" placeholder="Andika ujumbe..." onkeydown="if(event.key==='Enter')mSendChat()">
-    <button class="m-chat-send" onclick="mSendChat()">➤</button>
-  </div>
-</div>
-
-<!-- WA float -->
+<header id="mHeader"><div class="m-header-top"><div class="m-header-logo"><img class="m-logo-img" src="https://z-cdn-media.chatglm.cn/files/d06cb235-9058-490c-b21c-a4cc6f192fb0.png?auth_key=1875111503-553b5bf504e04d49a0db0e9301a8b91d-0-f0265d78daac62181c5b8e73a86479be" alt="Mandibo"><div><div class="m-logo-text">MANDIBO</div><div class="m-logo-sub">Zanzibar Furniture</div></div></div><div class="m-header-actions"><div class="m-cart-btn">🛍️</div><button class="m-wa-btn" onclick="mOpenWhatsApp()">💬</button></div></div><div class="m-search-wrap"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input type="text" id="mSearchInput" placeholder="Search furniture..." oninput="mOnSearch()" autocomplete="off"></div></header>
+<div id="mCatStrip"><button class="m-cat-pill active" data-cat="all" onclick="mFilterCat(this,'all')">✨ All</button><button class="m-cat-pill" data-cat="beds" onclick="mFilterCat(this,'beds')">🛏️ Beds</button><button class="m-cat-pill" data-cat="sofa-chair" onclick="mFilterCat(this,'sofa-chair')">🛋️ Sofa</button><button class="m-cat-pill" data-cat="tables" onclick="mFilterCat(this,'tables')">🪑 Tables</button><button class="m-cat-pill" data-cat="cupboard" onclick="mFilterCat(this,'cupboard')">🗄️ Cupboard</button><button class="m-cat-pill" data-cat="doors-windows" onclick="mFilterCat(this,'doors-windows')">🚪 Doors</button><button class="m-cat-pill" data-cat="others" onclick="mFilterCat(this,'others')">📦 Others</button></div>
+<main id="mMain"><div class="m-trust-strip"><div class="m-trust-item"><span class="m-trust-icon">🚚</span><span class="m-trust-text">Free Delivery 24h</span></div><div class="m-trust-item"><span class="m-trust-icon">✅</span><span class="m-trust-text">98.5% Satisfied</span></div><div class="m-trust-item"><span class="m-trust-icon">🏆</span><span class="m-trust-text">100+ Items</span></div><div class="m-trust-item"><span class="m-trust-icon">📞</span><span class="m-trust-text">24/7 Support</span></div></div><div class="m-banner"><div class="m-banner-text"><div class="m-banner-tag">🔥 Zanzibar's Best</div><div class="m-banner-title">Premium<br>Furniture</div><div class="m-banner-sub">Free delivery across Zanzibar</div></div><button class="m-banner-cta" onclick="mScrollToGrid()">Shop Now</button></div><div class="m-section-header" id="mGridAnchor"><div class="m-section-title">All Products</div><div class="m-product-count"><span id="mProdCount">0</span> items</div></div><div id="mProductGrid"></div><div id="mEmptyState"><div class="m-e-icon">🪑</div><p>No products found</p></div></main>
+<div class="m-modal-overlay" id="mOrderModal" onclick="mCloseOnBackdrop(event)"><div class="m-modal-sheet"><div class="m-modal-handle"></div><div class="m-modal-head"><div class="m-modal-title">Place Order</div><button class="m-modal-close" onclick="mCloseOrder()">✕</button></div><div class="m-modal-body"><div class="m-order-product-row"><img class="m-order-product-img" id="mOImg" src="" alt=""><div><div class="m-order-product-name" id="mOName"></div><div class="m-order-product-price" id="mOPrice"></div></div></div><label class="m-field-label">Your Name *</label><input class="m-field-input" id="mONameInput" placeholder="e.g. Ahmed Hassan" autocomplete="name"><label class="m-field-label">Phone Number *</label><input class="m-field-input" id="mOPhone" placeholder="+255 7XX XXX XXX" type="tel" autocomplete="tel"><label class="m-field-label">Delivery Location *</label><input class="m-field-input" id="mOLocation" placeholder="e.g. Stone Town, Forodhani"><label class="m-field-label">Quantity</label><div class="m-qty-row"><button class="m-qty-btn" onclick="mChangeQty(-1)">−</button><input class="m-qty-val" id="mOQty" type="number" value="1" min="1" max="99" oninput="mCalcTotal()"><button class="m-qty-btn" onclick="mChangeQty(1)">+</button></div><div class="m-order-total-row"><span class="m-total-label">Total</span><span class="m-total-amount" id="mOTotal">TZS 0</span></div><button class="m-btn-confirm" onclick="mConfirmOrder()">✅ Confirm Order</button><button class="m-btn-wa" onclick="mOrderViaWA()"><span>💬</span> Order via WhatsApp</button></div></div></div>
+<div id="mSuccessSheet"><div class="m-success-card"><div class="m-success-icon">🎉</div><div class="m-success-title">Order Placed!</div><div class="m-success-msg">Asante sana! Your order has been received.<br>We will deliver within <strong>24 hours</strong>.<br>Our team will call you to confirm. 📞</div><button class="m-success-close" onclick="mCloseSuccess()">Continue Shopping</button></div></div>
+<div id="mLightbox" onclick="mCloseLightbox()"><button class="m-lb-close">✕</button><img id="mLbImg" src="" alt="" onclick="event.stopPropagation()"><div class="m-lb-info" onclick="event.stopPropagation()"><div class="m-lb-name" id="mLbName"></div><div class="m-lb-price" id="mLbPrice"></div><button class="m-lb-order-btn" id="mLbOrderBtn">🛒 Order Now</button></div></div>
+<div id="mChatBubble"><div class="m-chat-trigger" onclick="mToggleChat()">🤝<span class="m-chat-notif" id="mChatNotif">1</span></div></div>
+<div id="mChatWindow"><div class="m-chat-head"><div class="m-chat-agent"><div class="m-agent-av">🤝</div><div><div class="m-agent-name">Mandibo Team</div><div class="m-agent-status"><div class="m-online-dot"></div> Online now</div></div></div><button class="m-chat-close-btn" onclick="mToggleChat()">✕</button></div><div id="mChatMsgs"><div class="m-typing active" id="mChatTyping"><div class="m-t-dot"></div><div class="m-t-dot"></div><div class="m-t-dot"></div></div></div><div class="m-chat-chips"><button class="m-chip" onclick="mChipSend('Nataka kuagiza')">🛒 Nataka kuagiza</button><button class="m-chip" onclick="mChipSend('Bei ya bidhaa?')">💰 Bei</button><button class="m-chip" onclick="mChipSend('Delivery?')">🚚 Delivery</button><button class="m-chip" onclick="mChipSend('Habari!')">👋 Habari</button></div><div class="m-chat-input-row"><input id="mChatInput" placeholder="Andika ujumbe..." onkeydown="if(event.key==='Enter')mSendChat()"><button class="m-chat-send" onclick="mSendChat()">➤</button></div></div>
 <div id="mWaFloat" onclick="mOpenWhatsApp()">💬</div>
-
-<!-- Bottom nav -->
-<nav id="mBottomNav">
-  <div class="m-nav-item active" onclick="mScrollToGrid()">
-    <div class="m-nav-icon">🛍️</div>
-    <div class="m-nav-label">Shop</div>
-  </div>
-  <div class="m-nav-item" onclick="mOpenWhatsApp()">
-    <div class="m-nav-icon">💬</div>
-    <div class="m-nav-label">WhatsApp</div>
-  </div>
-  <div class="m-nav-item" onclick="mToggleChat()">
-    <div class="m-nav-icon">🤖</div>
-    <div class="m-nav-label">AI Help</div>
-  </div>
-  <div class="m-nav-item" onclick="mShowInfo()">
-    <div class="m-nav-icon">ℹ️</div>
-    <div class="m-nav-label">About</div>
-  </div>
-</nav>
-
-<!-- Toast -->
-<div id="mToastBox"></div>
-
-</div><!-- end mobile-view -->
-
-
-<!-- ================================================================
-     RESPONSIVE SWITCHER
-     ================================================================ -->
+<nav id="mBottomNav"><div class="m-nav-item active" onclick="mScrollToGrid()"><div class="m-nav-icon">🛍️</div><div class="m-nav-label">Shop</div></div><div class="m-nav-item" onclick="mOpenWhatsApp()"><div class="m-nav-icon">💬</div><div class="m-nav-label">WhatsApp</div></div><div class="m-nav-item" onclick="mToggleChat()"><div class="m-nav-icon">🤖</div><div class="m-nav-label">AI Help</div></div><div class="m-nav-item" onclick="mShowInfo()"><div class="m-nav-icon">ℹ️</div><div class="m-nav-label">About</div></div></nav><div id="mToastBox"></div></div>
+<script>function setView(){var mobile=window.innerWidth<=768||/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);document.getElementById('desktop-view').style.display=mobile?'none':'block';document.getElementById('mobile-view').style.display=mobile?'block':'none';document.body.style.background='#0A0A0A';}setView();window.addEventListener('resize',setView);</script>
 <script>
-function setView(){
-  var mobile = window.innerWidth <= 768 || /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-  document.getElementById('desktop-view').style.display = mobile ? 'none' : 'block';
-  document.getElementById('mobile-view').style.display = mobile ? 'block' : 'none';
-  document.body.style.background = '#0A0A0A';
-}
-setView();
-window.addEventListener('resize', setView);
-</script>
-
-
-<!-- ================================================================
-     DESKTOP JAVASCRIPT
-     ================================================================ -->
-<script>
-var guideHandInterval;
-function initHandGuide(){var hand=document.getElementById('guideHand');var buttons=document.querySelectorAll('.store-btn');if(!hand||!buttons.length)return;var currentIndex=0;function moveHand(){var btn=buttons[currentIndex];var btnRect=btn.getBoundingClientRect();var navRect=document.getElementById('navbar').getBoundingClientRect();var leftPos=(btnRect.left-navRect.left)+(btnRect.width/2)-(hand.offsetWidth/2);hand.style.left=leftPos+'px';setTimeout(function(){hand.classList.remove('opacity-0');},100);setTimeout(function(){hand.classList.add('opacity-0');currentIndex=(currentIndex+1)%buttons.length;},2500);}moveHand();guideHandInterval=setInterval(moveHand,3500);}
-function initCinematicBg(){var slides=document.querySelectorAll('.cinematic-slide');if(!slides.length)return;var current=0;setInterval(function(){slides[current].classList.remove('active');current=(current+1)%slides.length;slides[current].classList.add('active');},6000);}
-function dScrollToProducts(){var s=document.getElementById('products');if(s)s.scrollIntoView({behavior:'smooth'});}
 var D_DEFAULT_SETTINGS={phone:'+255 799 610 190',whatsapp:'+255 799 610 190',location:'Zanzibar, Tanzania',ownerPass:'mandibo2026'};
 var D_DEFAULT_STORES={'store-a':{name:'Store A',tag:'Zanzibar Heritage Collection',loc:'Stone Town'},'store-b':{name:'Store B',tag:'Coastal Elegance',loc:'Nungwi'},'store-c':{name:'Store C',tag:'Modern Living',loc:'Kiwengwa'}};
 var DS={settings:JSON.parse(JSON.stringify(D_DEFAULT_SETTINGS)),stores:JSON.parse(JSON.stringify(D_DEFAULT_STORES)),products:[],orders:[],discounts:[],currentStoreFilter:'all',currentCatFilter:'all',currentOrderProduct:null,currentDiscount:null,pendingDeleteId:null,editingProductId:null,lbZoom:1,lbSpinning:false,lbClosing:false,ai:{hasGreeted:false,chatVisible:false},live:{online:14,today:287,todayOrders:23,barVisible:true}};
-var D_IMG_PH=['https://picsum.photos/seed/f1/600','https://picsum.photos/seed/f2/600','https://picsum.photos/seed/f3/600'];
 var dDefaultProducts=[
-  {id:1,store:'store-a',cat:'beds',name:'Zanzibar Carved King Bed',price:3500000,img:'https://z-cdn-media.chatglm.cn/files/b2204e29-e1a1-4d2c-82ad-45c6f0810365.png?auth_key=1875121023-e0211d56db1c432bb5d12b1debea744f-0-e01624498ea126cfd37f26032f54e3e6',desc:'Hand-carved mahogany king-size bed.'},
-  {id:2,store:'store-a',cat:'sofa-chair',name:'Heritage Sofa Set',price:4500000,img:'https://z-cdn-media.chatglm.cn/files/444215d9-bda6-45d7-a606-e9b9ec24b2c4.png?auth_key=1875121023-e7d989b65ea64667a9563899015dbfee-0-b66b7473c236d6a018435f9b6bef4748',desc:'3+1+1 sofa set with hand-carved mahogany frame.'},
-  {id:3,store:'store-b',cat:'tables',name:'Coastal Dining Table',price:2500000,img:'https://z-cdn-media.chatglm.cn/files/f78a1915-3e89-4eaf-9e2f-0aaa67491fd6.png?auth_key=1875121023-c078d04653754bd18e638d5589b4652a-0-dbdc2637842b0c898f1bf3017d32a3ec',desc:'6-seater dining table with coastal styling.'},
-  {id:4,store:'store-c',cat:'beds',name:'Modern Upholstered King Bed',price:3000000,img:'https://z-cdn-media.chatglm.cn/files/f4d68b25-cb8e-4056-8dec-67156e8f8d40.png?auth_key=1875121023-600d14e5a6c540e0a10a077302343ab4-0-db973974387b32f211b4abb0a7059cf7',desc:'Contemporary upholstered king bed with padded headboard.'},
-  {id:5,store:'store-a',cat:'cupboard',name:'Mahogany Wardrobe',price:3200000,img:'https://z-cdn-media.chatglm.cn/files/bf96da0c-bf91-4349-93a3-38478154c069.png?auth_key=1875121023-532d6ffdf76740398d52b7963ec5b049-0-b077f8c54f361bf4c5f0a152a4bf523b',desc:'Large double-door wardrobe in solid mahogany.'},
-  // PREVIOUSLY ADDED PRODUCTS
-  {id:108,store:'store-a',cat:'cupboard',name:'Retro Fabric-Lined Wardrobe',price:2800000,img:'https://z-cdn-media.chatglm.cn/files/31e0d147-fe11-49f5-8baa-d3d1df09f8ea.png?auth_key=1876604181-e48c3e4c913046ed9d341cff4617d73f-0-8e6a592ef946a387e5475fd70e92df82',desc:'Warm brown retro wardrobe with glass display doors and fabric-lined interior.'},
-  {id:109,store:'store-a',cat:'cupboard',name:'Arch-Top Double Wardrobe',price:2600000,img:'https://z-cdn-media.chatglm.cn/files/d73ab751-0fdf-464b-b938-4945d33680d9.png?auth_key=1876604181-27858099ebcf461f97bc9cae133fb3e5-0-e9e655fcd6828a5dc3a8114431599637',desc:'Classic arched-door wardrobe with metal shelves and patterned lining.'},
-  {id:110,store:'store-a',cat:'cupboard',name:'Geometric Carved Master Wardrobe',price:4500000,img:'https://z-cdn-media.chatglm.cn/files/2fc523e7-14e8-4a0a-9ee3-ac1566329cee.png?auth_key=1876604181-f1bdc661dfd146e7b1d418e9a5fb8fb4-0-cefd0e07fb8001fe0b6ead91519884d0',desc:'Grand two-tone wardrobe with intricate geometric carvings and gold hardware.'},
-  {id:111,store:'store-a',cat:'beds',name:'Modern Textured Platform Bed',price:3200000,img:'https://z-cdn-media.chatglm.cn/files/a0b211e5-97db-4950-836f-309a2c3480c0.png?auth_key=1876604181-06ff8f907b3a49f29a12dec6f1d1d025-0-dac05c7c6c52b6d6ddcde5c3eb5494c7',desc:'Contemporary bed with unique wooden texture headboard and neutral linens.'},
-  {id:112,store:'store-a',cat:'beds',name:'Green Accent Carved Bed',price:3500000,img:'https://z-cdn-media.chatglm.cn/files/fbc94ce0-c5d7-433b-bd96-40960f5636dd.png?auth_key=1876604181-8f5822b50eaf4924a609f87d762575ff-0-1fc4545ba37b832f652da699c7581142',desc:'Hand-carved wooden bed featuring a stylish green textile throw and minimalist decor.'},
-  {id:113,store:'store-a',cat:'beds',name:'Warm Fabric Comfort Bed',price:3400000,img:'https://z-cdn-media.chatglm.cn/files/93cb4db4-437e-4491-8dd2-9a35409677be.png?auth_key=1876604181-322d5d5ba7dd4b85b30cff2e273aff1f-0-241d75b4375ec982d0d7e427adaa74d4',desc:'Cozy carved bed with plush beige and grey bedding, paired with a rustic lamp.'},
-  {id:114,store:'store-a',cat:'beds',name:'Pineapple Carved Heritage Bed',price:3800000,img:'https://z-cdn-media.chatglm.cn/files/06e0c7a4-2a55-481e-ab16-9fc932744738.png?auth_key=1876604181-7526888b14e747c583d999a22cecdf24-0-1ef8842982d93226262efb89b45248fe',desc:'Traditional bed featuring ornate pineapple carvings on the headboard and footboard.'},
-  {id:115,store:'store-a',cat:'beds',name:'Vertical Slatted Bed',price:3100000,img:'https://z-cdn-media.chatglm.cn/files/ba8e0305-8f21-40dc-929f-1f9f5d78af13.png?auth_key=1876604181-ace5fbc495e64934898f315f75548bd6-0-4e11cd67c17256d81c5419178935d157',desc:'Warm-toned bed with a distinctive vertical slatted headboard design and cozy cushions.'},
-  {id:116,store:'store-a',cat:'beds',name:'Boxpro Cushioned Bed',price:3300000,img:'https://z-cdn-media.chatglm.cn/files/ebae0df3-245a-4fe7-ad0e-e9924e043de8.png?auth_key=1876604181-753fb83bcd8b45a2ada4d34ba7b8916f-0-303092277570f113f6582c33f14206f1',desc:'Elegant carved bed frame with a side table, colorful pillows, and soft lighting accents.'},
-  {id:117,store:'store-a',cat:'beds',name:'Classic Dark Wood Bed',price:2900000,img:'https://z-cdn-media.chatglm.cn/files/cfe8886f-d1f0-4ea8-81bc-1d689684e6d0.png?auth_key=1876604181-5ef8afbd957b438da088a88da312f32b-0-3b5acc3d366c977dc95c122eeb7a4078',desc:'Minimalist dark wood bed frame with vertical slat construction and clean lines.'},
-  // NEWLY ADDED PRODUCTS FROM REQUEST
-  {id:118,store:'store-a',cat:'beds',name:'Street View Heritage Bed',price:3300000,img:'https://z-cdn-media.chatglm.cn/files/f695016f-2d99-4d71-b722-ca0e2f2f97ff.png?auth_key=1876605368-cde78fc0707d4ae89b1d1a135545d005-0-7c8a04be96a0eddda71e6d8a6eb4d6cc',desc:'Traditional carved bed displayed outdoors on Zanzibar streets.'},
-  {id:119,store:'store-a',cat:'beds',name:'Transparent Carved Bed',price:3600000,img:'https://z-cdn-media.chatglm.cn/files/9e339439-5c70-45ee-9df0-6f61cdf8d0de.png?auth_key=1876605368-42bc309206b548d9b78ff4eecc7c48e2-0-08ab0eaf2b8ce4b493cf2d345357f20a',desc:'Detailed geometric carving with transparent background view.'},
-  {id:120,store:'store-a',cat:'beds',name:'Indoor Master Carved Bed',price:3400000,img:'https://z-cdn-media.chatglm.cn/files/74686940-5c9a-40b3-ba08-b54ff2f9bd73.png?auth_key=1876605368-cc3650c089bf4c2ebeb137cfd5706476-0-554086ad761f46df1037d1de8bc65889',desc:'Warm-toned carved bed set in a modern master bedroom.'},
-  {id:121,store:'store-a',cat:'beds',name:'Royal Blue Accent Bed',price:3500000,img:'https://z-cdn-media.chatglm.cn/files/bb898776-4ed6-43c8-a273-558cd0766c17.png?auth_key=1876605368-3753e1921fc54202b91b5277cc5007b2-0-49b845208801bb9667e44a7c3419e61d',desc:'Dark wood bed featuring a stylish blue textile throw.'},
-  {id:122,store:'store-a',cat:'beds',name:'Outdoor Carved Collection',price:4500000,img:'https://z-cdn-media.chatglm.cn/files/887d0c66-b33b-45bf-b2b3-846946cd29c6.png?auth_key=1876605368-10069b9432994744a0388d0dbb7621c3-0-582e30c319c3cd841307aceaabd72a35',desc:'Outdoor display of multiple intricately carved beds.'},
-  {id:123,store:'store-a',cat:'beds',name:'Simple Dark Wood Bed',price:2800000,img:'https://z-cdn-media.chatglm.cn/files/12bf84f4-757f-4678-9423-76ebf6cba214.jpeg?auth_key=1876605368-d63fbe3b4b4f4493a496f470df7271ea-0-4510b2cbdf78233b011e97a7b3ecaf23',desc:'Simple, elegant dark wood design with white bedding.'}
+{id:1,store:'store-a',cat:'beds',name:'Zanzibar Carved King Bed',price:3500000,img:'https://z-cdn-media.chatglm.cn/files/7ded6934-3ecd-4ce9-853a-8e33b5ef29ce.png?auth_key=1876769336-f6033f48516349ce925412200c6d8ed2-0-9c8e24bd03454557b0d64bd64cb9b5dc',desc:'Hand-carved mahogany king-size bed.'},
+{id:2,store:'store-a',cat:'sofa-chair',name:'Heritage Sofa Set',price:4500000,img:'https://z-cdn-media.chatglm.cn/files/6bc5ede0-a0b4-4b61-836e-2545d0bcece5.png?auth_key=1876769336-cbe19c4354ce44dc808b0fb879fe0110-0-3c4e412b319b131a52facc5466f3a8c6',desc:'3+1+1 sofa set with hand-carved mahogany frame.'},
+{id:3,store:'store-b',cat:'tables',name:'Coastal Dining Table',price:2500000,img:'https://z-cdn-media.chatglm.cn/files/2c478c37-3c91-4cd4-9a97-9dec5eb4d67b.png?auth_key=1876769336-a87fba6e3d4947f2a83480c737a49c8b-0-905499c6bbc074277dd20afd9a6eba8e',desc:'6-seater dining table with coastal styling.'},
+{id:4,store:'store-c',cat:'beds',name:'Modern Upholstered King Bed',price:3000000,img:'https://z-cdn-media.chatglm.cn/files/17074105-78fa-40b4-8346-ba00da9bda3c.png?auth_key=1876769336-cb7355de6daa4b519316e572d9d8a5b7-0-236b1fd8decdb9f0cdad6ebdf5090a24',desc:'Contemporary upholstered king bed with padded headboard.'},
+{id:5,store:'store-a',cat:'cupboard',name:'Mahogany Wardrobe',price:3200000,img:'https://z-cdn-media.chatglm.cn/files/08c0e598-9f5e-4f66-a126-51482aafb52c.png?auth_key=1876769336-adcf344320b94b41b1d5559a63ad6022-0-483adf73844bb619980278ca56e28fdd',desc:'Large double-door wardrobe in solid mahogany.'},
+{id:6,store:'store-b',cat:'sofa-chair',name:'Blue Tufted Bed Frame',price:2800000,img:'https://z-cdn-media.chatglm.cn/files/fe5b9414-8918-4931-b4c6-28cd3e62edaf.png?auth_key=1876769336-a09f6986d2a2441c92aa73de61a5d735-0-3b3c9030232c0fb4da4dde8b309c644d',desc:'Luxurious tufted blue fabric bed frame.'},
+{id:7,store:'store-c',cat:'sofa-chair',name:'Executive Leather Chair',price:1800000,img:'https://z-cdn-media.chatglm.cn/files/f91b833c-2482-4748-b61a-54e56c30d633.png?auth_key=1876769336-09c58566d8124a6c8dec34d96850c29d-0-46438336cdad8ffba0400e7f9762486b',desc:'Premium black leather executive chair.'},
+{id:8,store:'store-b',cat:'sofa-chair',name:'Gold Three-Seater Sofa',price:3800000,img:'https://z-cdn-media.chatglm.cn/files/1f9f1660-7b3c-4597-a65d-2e6c327ad93d.png?auth_key=1876769336-8d73da1751664505a0a71fb86ede6697-0-52bce2827c075431bdb8d61a22b985b4',desc:'Opulent gold velvet three-seater sofa.'},
+{id:101,store:'store-a',cat:'beds',name:'Modern Warm Wood Vertical Bed',price:2500000,img:'https://z-cdn-media.chatglm.cn/files/d86ac18c-0a34-4417-8dc7-f0256ce52cf8.png?auth_key=1876772655-575b4b51f1f148f29fae610f1ec7c3ff-0-7f2ae4d360efb87d8faf858b825609c2',desc:'A warm brown solid wood bed featuring elegant vertical strip designs, creating a cozy and modern aesthetic.'},
+{id:102,store:'store-a',cat:'beds',name:'Carved Heritage Bed with Green Accents',price:3200000,img:'https://z-cdn-media.chatglm.cn/files/ffb899ff-d6bf-4e28-86e0-91de52a9a441.png?auth_key=1876772655-b28e0729cb0c432bb64a9473e1022ac8-0-bfe6678a5e44262dff578fd1b96f2643',desc:'Exquisitely carved wooden bed featuring a white mattress and unique green cloth accents, perfect for a heritage style room.'},
+{id:103,store:'store-a',cat:'beds',name:'Grand Four-Poster Carved Bed',price:4500000,img:'https://z-cdn-media.chatglm.cn/files/b506382c-cc76-4185-8d29-04fabf1b2fe1.png?auth_key=1876772655-61a23a84d5384dffaa422eb27b08340f-0-7a67f4dcef1ac533181b3b606da4a6c7',desc:'A majestic four-poster bed with intricate carvings on headboard and frame, featuring soft bedding and a minimalist decor style.'},
+{id:104,store:'store-a',cat:'beds',name:'Pineapple Carved Royal Bed',price:3800000,img:'https://z-cdn-media.chatglm.cn/files/ce1a07cd-17df-48fc-871a-08ed238f3365.png?auth_key=1876772655-8198e152d1d745ba9e0d2a9cf2c91f0f-0-8e61f36d8a3f581b8aeef67fd87e96da',desc:'Premium hand-carved bed featuring traditional pineapple patterns on headboard and footboard. A true royal statement.'},
+{id:105,store:'store-b',cat:'beds',name:'Outdoor Display Carved Bed',price:2800000,img:'https://z-cdn-media.chatglm.cn/files/62878088-50f4-4589-b732-1a86850f1660.png?auth_key=1876772655-728a1a6ad6114969917990061e689f76-0-deaa253f53c9a88f6498aaa2f5d2e6de',desc:'Durable hand-carved bed frame, displayed outdoors to showcase its robust craftsmanship and natural wood finish.'},
+{id:106,store:'store-c',cat:'beds',name:'Retro Geometric Carved Bed',price:3000000,img:'https://z-cdn-media.chatglm.cn/files/33620881-dd9f-43f9-a3af-b18f20becbb8.png?auth_key=1876772655-fb91a3736bc94a0b9764f72c5a752edf-0-b87d7c9dab4cb027391bd85d290e837b',desc:'A retro-style bed frame with symmetrical geometric carvings, offering a vintage look with high-quality wood construction.'},
+{id:107,store:'store-a',cat:'beds',name:'Complete Carved Master Bedroom Set',price:5500000,img:'https://z-cdn-media.chatglm.cn/files/74fb3911-59bb-4b03-80f8-ec5463b24e4e.png?auth_key=1876772655-ea55a2a8a9af42b2b4599bb7f62b9c48-0-8ef08cfa828d69d54727e40b4375d756',desc:'A complete bedroom solution featuring a large carved bed, matching side cabinets, and a wardrobe. Perfect for a master suite.'},
+{id:108,store:'store-a',cat:'beds',name:'Botanical Carved Bed Frame',price:3100000,img:'https://z-cdn-media.chatglm.cn/files/79b54a8f-8cf4-4f38-babe-ad1131873bdd.png?auth_key=1876772655-0bfa892b9f60488580301349f4459a54-0-3be224f037b1bcf03dcf9d867d483415',desc:'Artistic bed frame with plant and flower-inspired carvings on headboard, accented by a stylish blue drape.'},
+// --- NEWEST LATEST PRODUCTS (IDS 109-114) ---
+{id:109, store:'store-a', cat:'beds', name:'Kimtndkwa Warm Vertical Bed', price:2600000, img:'https://z-cdn-media.chatglm.cn/files/03794e34-7b1a-48df-88ec-770c94196f4f.png?auth_key=1876774055-831e3a0a7a9c4eda94e6cb6fda3ec693-0-0943e0c31189270e479e4852425a26ce', desc:'Warm brown wood bed with unique vertical structure and panels, creating a cozy atmosphere.'},
+{id:110, store:'store-a', cat:'beds', name:'Boxpro Carved Heritage Bed', price:3400000, img:'https://z-cdn-media.chatglm.cn/files/fe86f385-bd8d-40e2-b335-12331fa9344a.png?auth_key=1876774055-fd299084b6f44c9bb2280f918f2a76dd-0-0a90083904470e861a2ab0b3a60f815a', desc:'Carved wooden bed featuring white bedding with brown, green, and orange accents. Natural and retro style.'},
+{id:111, store:'store-c', cat:'beds', name:'Classic Slat Bed Frame', price:2200000, img:'https://z-cdn-media.chatglm.cn/files/eb147908-6984-483a-b3ae-be258285e742.png?auth_key=1876774055-77d0a0f5d00c46bb99a723953704cb11-0-223a0c204fd015b5d70afa2769ad179d', desc:'Dark wood bed frame with vertical slats on headboard and footboard. Minimalist design focusing on wood grain.'},
+{id:112, store:'store-b', cat:'beds', name:'Market Display Carved Bed', price:2700000, img:'https://z-cdn-media.chatglm.cn/files/b018eaf2-bc47-4b01-8c4e-3b7b2058a1d8.png?auth_key=1876774055-d1c9d1ef8597425bbe0c2ccbcbb81dc9-0-70a2b6c8a62b4dbbd34b5e7fe17aa04d', desc:'Finely carved wooden bed frame displayed in an outdoor market setting. Robust craftsmanship.'},
+{id:113, store:'store-b', cat:'beds', name:'Geometric Carved Bed Set', price:3300000, img:'https://z-cdn-media.chatglm.cn/files/3923c6c8-81e2-4e7e-a0c1-87651c328752.png?auth_key=1876774055-1366b6aaf9e54667a1fd2573d5f5b5ff-0-bf6958f2683f54ca1f014660a6004247', desc:'Collection of carved wooden beds with geometric patterns displayed outdoors. Authentic tribal style.'},
+{id:114, store:'store-c', cat:'beds', name:'Solid Wood Carved Master Bed', price:2950000, img:'https://z-cdn-media.chatglm.cn/files/d9d738cb-4ea4-4fe6-92d7-7e60a551bf4a.jpeg?auth_key=1876774055-3f4add77180f45559703be7a1ff84209-0-e8b075f03aa37ee4ea2e678444b39f9c', desc:'Dark brown solid wood bed with an intricately carved headboard. Simple and elegant bedroom setup.'}
 ];
 function dFmtTZS(n){return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g,',');}
 function dParsePrice(s){return parseInt(s.replace(/,/g,''),10)||0;}
@@ -857,7 +266,7 @@ function dLoadDiscountsList(){var list=document.getElementById('discountsList');
 function dToggleDiscount(i){DS.discounts[i].active=!DS.discounts[i].active;dSaveData();dLoadDiscountsList();}
 function dDeleteDiscount(i){DS.discounts.splice(i,1);dSaveData();dLoadDiscountsList();dShowToast('Deleted','info');}
 function dApplyOrderDiscount(){var code=document.getElementById('orderDiscountCode').value.trim().toUpperCase(),st=document.getElementById('discountStatus');if(!code){st.innerHTML='<span class="text-red-400">Enter a code</span>';return;}var d=DS.discounts.find(function(x){return x.code===code&&x.active;});if(!d){st.innerHTML='<span class="text-red-400">⚠ Invalid</span>';DS.currentDiscount=null;dUpdateOrderTotal();return;}if(d.expiry&&new Date(d.expiry)<new Date()){st.innerHTML='<span class="text-red-400">⚠ Expired</span>';DS.currentDiscount=null;dUpdateOrderTotal();return;}DS.currentDiscount=d;st.innerHTML='<span style="background:linear-gradient(135deg,#22c55e,#16a34a);color:white;padding:8px 12px;border-radius:10px;font-size:12px;font-weight:bold;display:inline-flex;align-items:center;gap:6px">✓ '+d.percent+'% off!</span>';dUpdateOrderTotal();dShowToast('🎉 '+d.percent+'% off!','success');}
-function dHandleAddProduct(){var ne=document.getElementById('addName'),pe=document.getElementById('addPrice');document.getElementById('errName').classList.remove('show');document.getElementById('errPrice').classList.remove('show');ne.classList.remove('error');pe.classList.remove('error');document.getElementById('addSuccess').classList.add('hidden');var name=ne.value.trim();if(!name){document.getElementById('errName').classList.add('show');ne.classList.add('error');ne.focus();return;}var price=dParsePrice(pe.value.trim());if(price<=0){document.getElementById('errPrice').classList.add('show');pe.classList.add('error');pe.focus();return;}var img=document.getElementById('addImage').value.trim()||D_IMG_PH[0];DS.products.push({id:Date.now(),store:document.getElementById('addStore').value,cat:document.getElementById('addCategory').value,name:name,price:price,img:img,desc:document.getElementById('addDesc').value.trim()||'Premium furniture.'});dSaveData();document.getElementById('addSuccess').classList.remove('hidden');ne.value='';pe.value='';document.getElementById('addImage').value='';document.getElementById('addDesc').value='';dRenderProducts();dUpdateDashboard();dShowToast('✅ "'+name+'" added','success');}
+function dHandleAddProduct(){var ne=document.getElementById('addName'),pe=document.getElementById('addPrice');document.getElementById('errName').classList.remove('show');document.getElementById('errPrice').classList.remove('show');ne.classList.remove('error');pe.classList.remove('error');document.getElementById('addSuccess').classList.add('hidden');var name=ne.value.trim();if(!name){document.getElementById('errName').classList.add('show');ne.classList.add('error');ne.focus();return;}var price=dParsePrice(pe.value.trim());if(price<=0){document.getElementById('errPrice').classList.add('show');pe.classList.add('error');pe.focus();return;}DS.products.push({id:Date.now(),store:document.getElementById('addStore').value,cat:document.getElementById('addCategory').value,name:name,price:price,img:document.getElementById('addImage').value.trim()||'https://picsum.photos/seed/f1/600',desc:document.getElementById('addDesc').value.trim()||'Premium furniture.'});dSaveData();document.getElementById('addSuccess').classList.remove('hidden');ne.value='';pe.value='';document.getElementById('addImage').value='';document.getElementById('addDesc').value='';dRenderProducts();dUpdateDashboard();dShowToast('✅ "'+name+'" added','success');}
 function dClearAddForm(){['addName','addPrice','addImage','addDesc'].forEach(function(id){document.getElementById(id).value='';});document.getElementById('addStore').selectedIndex=0;document.getElementById('addCategory').selectedIndex=0;}
 function dRenderManageList(){var el=document.getElementById('manageList'),ce=document.getElementById('manageCount');if(!el)return;if(ce)ce.textContent=DS.products.length;if(!DS.products.length){el.innerHTML='<div class="text-center py-16 text-neutral-500"><p class="text-4xl mb-3">🪑</p><p>No products.</p></div>';return;}var sn={};Object.keys(DS.stores).forEach(function(k){sn[k]=DS.stores[k].name;});var cl={'beds':'Beds','sofa-chair':'Sofa','tables':'Tables','cupboard':'Cupboard','doors-windows':'Doors','others':'Others'};var html='';DS.products.forEach(function(p){html+='<div id="product-row-'+p.id+'" class="flex items-center gap-4 bg-white/5 border border-white/10 rounded-xl p-4 hover:border-white/20 transition-colors"><img src="'+p.img+'" class="w-12 h-12 rounded-lg object-cover flex-shrink-0" alt=""><div class="flex-1 min-w-0"><p class="font-bold text-sm truncate">'+p.name+'</p><p class="text-neutral-500 text-[11px]">'+(sn[p.store]||'')+' · '+(cl[p.cat]||'')+' · <span class="text-gold-500/70">TZS '+dFmtTZS(p.price)+'</span></p></div><button onclick="dOpenEditModal('+p.id+')" class="text-gold-500/50 hover:text-gold-500 hover:bg-gold-500/10 transition-all p-2 rounded-lg flex-shrink-0"><i data-lucide="pencil" class="w-4 h-4"></i></button><button onclick="dOpenDeleteModal('+p.id+',\''+p.name.replace(/'/g,"\\'")+'\')" class="text-red-400/40 hover:text-red-400 hover:bg-red-500/10 transition-all p-2 rounded-lg flex-shrink-0"><i data-lucide="trash-2" class="w-4 h-4"></i></button></div>';});el.innerHTML=html;lucide.createIcons();}
 function dOpenDeleteModal(id,name){DS.pendingDeleteId=id;document.getElementById('deleteItemName').textContent='"'+name+'"';document.getElementById('deleteModal').classList.remove('hidden');lucide.createIcons();}
@@ -895,35 +304,20 @@ function toggleMobileMenu(){document.getElementById('mobileMenu').classList.togg
 function dInitReveal(){var obs=new IntersectionObserver(function(e){e.forEach(function(x){if(x.isIntersecting)x.target.classList.add('active');});},{threshold:0.1});document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el);});}
 function dFilterStore(s){DS.currentStoreFilter=s;document.querySelectorAll('[data-sfilter]').forEach(function(b){b.classList.toggle('active-cat',b.dataset.sfilter===s);});dRenderProducts();var prodSection=document.getElementById('products');if(prodSection&&window.scrollY<prodSection.offsetTop-200)prodSection.scrollIntoView({behavior:'smooth'});}
 function dFilterCategory(c){DS.currentCatFilter=c;document.querySelectorAll('[data-cfilter]').forEach(function(b){b.classList.toggle('active-cat',b.dataset.cfilter===c);});dRenderProducts();}
-var dSearchTimer=null;
-function dSearchProducts(){clearTimeout(dSearchTimer);dSearchTimer=setTimeout(dRenderProducts,200);}
+var dSearchTimer=null;function dSearchProducts(){clearTimeout(dSearchTimer);dSearchTimer=setTimeout(dRenderProducts,200);}
 function dLvInit(){dLvUpdateUI();setTimeout(function(){document.getElementById('liveBar').classList.add('visible');},1200);setInterval(function(){DS.live.online=Math.max(6,Math.min(58,DS.live.online+Math.floor(Math.random()*5)-2));if(Math.random()<0.3)DS.live.today++;dLvUpdateUI();},4000);}
 function dLvUpdateUI(){document.getElementById('lvOnline').textContent=DS.live.online;document.getElementById('lvToday').textContent=DS.live.today.toLocaleString();document.getElementById('lvOrders').textContent=DS.live.todayOrders;}
 function dToggleLiveBar(){var bar=document.getElementById('liveBar');if(DS.live.barVisible)bar.classList.remove('visible');else bar.classList.add('visible');DS.live.barVisible=!DS.live.barVisible;}
 function dInitAI(){document.getElementById('aiNotification').style.display='flex';document.getElementById('chatMessages').innerHTML='';setTimeout(function(){if(!DS.ai.hasGreeted){dShowChatBox();DS.ai.hasGreeted=true;setTimeout(function(){dAddChatMsg("🤝 <strong>Karibu Mandibo!</strong>",'bot');setTimeout(function(){dAddChatMsg("Niko hapa kukusaidia.<br>💡 Andika <strong>'nataka'</strong>.",'bot');},800);setTimeout(function(){if(DS.ai.chatVisible)dHideChatBox();},8000);},500);}},2500);}
-
-/* Desktop init */
-document.addEventListener('DOMContentLoaded',function(){
-  if(document.getElementById('desktop-view').style.display==='none')return;
-  dLoadData();dRenderProducts();
-  document.getElementById('loginForm').addEventListener('submit',function(e){e.preventDefault();dOwnerLogin();});
-  document.getElementById('orderForm').addEventListener('submit',function(e){e.preventDefault();dSubmitOrder();});
-  document.addEventListener('keydown',function(e){if(e.key==='Escape'){dCloseLightbox();dCloseOrderModal();dCloseEditModal();dCloseDeleteModal();dCloseOwnerLogin();}});
-  var lbWrap=document.getElementById('lbImgWrap'),touchStartY=0,touchDiffY=0;
-  lbWrap.addEventListener('touchstart',function(e){touchStartY=e.touches[0].clientY;},{passive:true});
-  lbWrap.addEventListener('touchmove',function(e){touchDiffY=e.touches[0].clientY-touchStartY;},{passive:true});
-  lbWrap.addEventListener('touchend',function(){if(touchDiffY>80)dCloseLightbox();touchDiffY=0;touchStartY=0;});
-  dInitReveal();dInitNavbar();lucide.createIcons();dLvInit();dInitAI();initCinematicBg();initHandGuide();
-});
+function dScrollToProducts(){var s=document.getElementById('products');if(s)s.scrollIntoView({behavior:'smooth'});}
+function initHandGuide(){var hand=document.getElementById('guideHand');var buttons=document.querySelectorAll('.store-btn');if(!hand||!buttons.length)return;var currentIndex=0;function moveHand(){var btn=buttons[currentIndex];var btnRect=btn.getBoundingClientRect();var navRect=document.getElementById('navbar').getBoundingClientRect();var leftPos=(btnRect.left-navRect.left)+(btnRect.width/2)-(hand.offsetWidth/2);hand.style.left=leftPos+'px';setTimeout(function(){hand.classList.remove('opacity-0');},100);setTimeout(function(){hand.classList.add('opacity-0');currentIndex=(currentIndex+1)%buttons.length;},2500);}moveHand();guideHandInterval=setInterval(moveHand,3500);}
+function initCinematicBg(){var slides=document.querySelectorAll('.cinematic-slide');if(!slides.length)return;var current=0;setInterval(function(){slides[current].classList.remove('active');current=(current+1)%slides.length;slides[current].classList.add('active');},6000);}
+document.addEventListener('DOMContentLoaded',function(){if(document.getElementById('desktop-view').style.display==='none')return;dLoadData();dRenderProducts();document.getElementById('loginForm').addEventListener('submit',function(e){e.preventDefault();dOwnerLogin();});document.getElementById('orderForm').addEventListener('submit',function(e){e.preventDefault();dSubmitOrder();});document.addEventListener('keydown',function(e){if(e.key==='Escape'){dCloseLightbox();dCloseOrderModal();dCloseEditModal();dCloseDeleteModal();dCloseOwnerLogin();}});var lbWrap=document.getElementById('lbImgWrap'),touchStartY=0,touchDiffY=0;lbWrap.addEventListener('touchstart',function(e){touchStartY=e.touches[0].clientY;},{passive:true});lbWrap.addEventListener('touchmove',function(e){touchDiffY=e.touches[0].clientY-touchStartY;},{passive:true});lbWrap.addEventListener('touchend',function(){if(touchDiffY>80)dCloseLightbox();touchDiffY=0;touchStartY=0;});dInitReveal();dInitNavbar();lucide.createIcons();dLvInit();dInitAI();initCinematicBg();initHandGuide();});
 </script>
-
-
-<!-- ================================================================
-     MOBILE JAVASCRIPT
-     ================================================================ -->
 <script>
-var M_WA = '255799610190';
-var M_STORE_NAMES = {'store-a':'Store A','store-b':'Store B','store-c':'Store C'};
+var M_WA = '255799610190';var M_STORE_NAMES = {'store-a':'Store A','store-b':'Store B','store-c':'Store C'};
 var M_PRODUCTS = [
-  {id:1,store:'store-a',cat:'beds',name:'Zanzibar Carved King Bed',price:3500000,img:'https://z-cdn-media.chatglm.cn/files/b2204e29-e1a1-4d2c-82ad-45c6f0810365.png?auth_key=1875121023-e0211d56db1c432bb5d12b1debea744f-0-e01624498ea126cfd37f26032f54e3e6',desc:'Hand-carved mahogany king-size bed.'},
-  {id:2,store:'store-a',cat:'sofa-chair',name:'Heritage Sofa Set',price:4500000,img:'https://z-cdn-media.chatglm.cn/files/444215d9-bda6-45d
+{id:1,store:'store-a',cat:'beds',name:'Zanzibar Carved King Bed',price:3500000,img:'https://z-cdn-media.chatglm.cn/files/7ded6934-3ecd-4ce9-853a-8e33b5ef29ce.png?auth_key=1876769336-f6033f48516349ce925412200c6d8ed2-0-9c8e24bd03454557b0d64bd64cb9b5dc',desc:'Hand-carved mahogany king-size bed.'},
+{id:2,store:'store-a',cat:'sofa-chair',name:'Heritage Sofa Set',price:4500000,img:'https://z-cdn-media.chatglm.cn/files/6bc5ede0-a0b4-4b61-836e-2545d0bcece5.png?auth_key=1876769336-cbe19c4354ce44dc808b0fb879fe0110-0-3c4e412b319b131a52facc5466f3a8c6',desc:'3+1+1 sofa set with hand-carved mahogany frame.'},
+{id:3,store:'store-b',cat:'tables',name:'Coastal Dining Table',price:2500000,img:'https://z-cdn-media.chatglm.cn/files/2c478c37-3c91-4cd4-9a97-9dec5eb4d67b.png?auth_key=1876769336-a87fba6e3d4947f2a83480c737a49c8b-0-905499c6bbc074277dd20afd9a6eba8e',desc:'6-seater dining table with coastal styling.'},
+{id:4,store:'store-c',cat:'beds',name:'Modern Upholstered King Bed',price:3000000,img:'https://z-cdn-media.chatglm.cn/files/1707
