@@ -816,7 +816,7 @@ function dHideChatBox(){document.getElementById('chatBox').classList.remove('vis
 function dAddChatMsg(text,sender){var chat=document.getElementById('chatMessages');if(!chat)return;var msg=document.createElement('div');msg.className='chat-msg '+(sender==='user'?'user':'bot');msg.innerHTML=text;chat.appendChild(msg);chat.scrollTop=chat.scrollHeight;}
 function dShowTyping(){document.getElementById('typingIndicator').classList.add('active');document.getElementById('chatAvatar').classList.add('speaking');}
 function dHideTyping(){document.getElementById('typingIndicator').classList.remove('active');document.getElementById('chatAvatar').classList.remove('speaking');}
-function dGetAIReply(m){var msg=m.toLowerCase();var ok=['nataka','nahitaji','niwekee','order','nunue','ninataka'];var pk=['bed','kitanda','sofa','meza','table','chair','kiti'];var yk=['ndiyo','yes','sawa','ok'];var gk=['habari','jambo','hi','hello','mambo'];var bk=['bei','price','gharama'];var dk=['delivery','letewa','muda'];if(ok.some(function(k){return msg.indexOf(k)!==-1;}))return "🎉 Mzuri! Chagua bidhaa kisha bonyeza <strong>'Order Now'</strong>. FREE delivery masaa 24!";if(gk.some(function(k){return msg.indexOf(k)!==-1;}))return "🤝 <strong>Karibu Mandibo!</strong> Andika 'nataka' nikuelekeze.";if(bk.some(function(k){return msg.indexOf(k)!==-1;}))return "💰 Bei zinaanza TZS 500K. FREE delivery!";if(dk.some(function(k){return msg.indexOf(k)!==-1;}))return "🚚 <strong>FREE delivery</strong> Zanzibar ndani ya masaa 24!";if(pk.some(function(k){return msg.indexOf(k)!==-1;}))return "🪑 Tunayo beds, sofas, tables, cupboards na zaidi!";return "😊 Andika 'nataka kuagiza' au 'bei' au bonyeza WhatsApp!";}
+function dGetAIReply(m){var msg=m.toLowerCase();var ok=['nataka','nahitaji','niwekee','order','nunue','ninataka'];var pk=['bed','kitanda','sofa','meza','table','chair','kiti'];var yk=['ndiyo','yes','sawa','ok'];var gk=['habari','jambo','hi','hello','mambo'];var bk=['bei','price','gharama'];var dk=['delivery','letewa','muda'];if(ok.some(function(k){return msg.indexOf(k)!==-1;}))return "🎉 Mzuri! Chagua bidhaa kisha bonyeza <strong>'Order Now'</strong>. FREE delivery masaa 24!";if(gk.some(function(k){return msg.indexOf(k)!==-1;}))return "🤝 <strong>Karibu Mandibo!</strong> Andika 'nataka' nikuelekeze.";if(bk.some(function(k){return msg.indexOf(k)!==-1;}))return "💰 Bei zinaanza TZS 500K. FREE delivery!";if(dk.some(function(k){return msg.indexOf(k)!==-1;}))return "🚚 <strong>FREE delivery</strong> Zanzibar ndani ya masaa24!";if(pk.some(function(k){return msg.indexOf(k)!==-1;}))return "🪑 Tunayo beds, sofas, tables, cupboards na zaidi!";return "😊 Andika 'nataka kuagiza' au 'bei' au bonyeza WhatsApp!";}
 function dSendChatMessage(){var input=document.getElementById('chatInput'),msgs=document.getElementById('chatMessages');if(!input||!msgs||!input.value.trim())return;var t=input.value.trim();var um=document.createElement('div');um.className='chat-msg user';um.innerText=t;msgs.appendChild(um);input.value='';msgs.scrollTop=msgs.scrollHeight;dShowTyping();setTimeout(function(){dHideTyping();var bm=document.createElement('div');bm.className='chat-msg bot';bm.innerHTML=dGetAIReply(t);msgs.appendChild(bm);msgs.scrollTop=msgs.scrollHeight;},800+Math.random()*500);}
 function dShowToast(msg,type){type=type||'info';var box=document.getElementById('toastBox');var c={success:'border-emerald-500 bg-emerald-500/10',error:'border-red-500 bg-red-500/10',info:'border-gold-500 bg-gold-500/10'};var t=document.createElement('div');t.className='toast-in pointer-events-auto border '+(c[type]||c.info)+' backdrop-blur-xl rounded-xl px-5 py-4 max-w-sm text-sm text-white';t.textContent=msg;box.appendChild(t);setTimeout(function(){t.classList.add('toast-out');setTimeout(function(){t.remove();},300);},4000);}
 function dInitNavbar(){window.addEventListener('scroll',function(){var n=document.getElementById('navbar');if(window.scrollY>80)n.classList.add('bg-[#0A0A0A]/90','backdrop-blur-xl','border-b','border-white/5');else n.classList.remove('bg-[#0A0A0A]/90','backdrop-blur-xl','border-b','border-white/5');});}
@@ -841,7 +841,15 @@ var M_STATE = {
 };
 
 function mInit() {
-    if(!DS.products.length && typeof dLoadData === 'function') dLoadData();
+    // Ensure Data is loaded. If dLoadData failed, use defaults directly.
+    if(!DS.products || !DS.products.length) {
+        console.log("Mobile Init: Data empty, using defaults.");
+        DS.products = dDefaultProducts.map(function(p){return Object.assign({},p);});
+        // Sync with desktop settings just in case
+        if(DS.stores && !DS.stores['store-a']) DS.stores = JSON.parse(JSON.stringify(D_DEFAULT_STORES));
+        if(DS.settings && !DS.settings.phone) DS.settings = JSON.parse(JSON.stringify(D_DEFAULT_SETTINGS));
+    }
+    
     mRenderProducts();
     lucide.createIcons();
 }
@@ -858,10 +866,11 @@ function mSearchProducts() {
 }
 
 function mRenderProducts() {
-    if(!DS || !DS.products) return;
+    if(!DS || !DS.products) {
+        console.error("Mobile Render: DS or products missing.");
+        return;
+    }
     
-    // Sync Desktop Filter to Mobile if needed, or keep separate
-    // Requirement says "store A, B, C" on header. 
     var filterStore = DS.currentMobileStore;
     var search = (document.getElementById('mSearchInput').value || '').toLowerCase();
     
@@ -924,7 +933,6 @@ function mSubmitOrder() {
         return;
     }
     
-    // Add to shared orders
     if(M_STATE.currentProduct) {
         DS.orders.push({
             id: Date.now(),
@@ -932,7 +940,7 @@ function mSubmitOrder() {
             productName: M_STATE.currentProduct.name,
             productImg: M_STATE.currentProduct.img,
             price: M_STATE.currentProduct.price,
-            qty: 1,
+            qty:1,
             total: M_STATE.currentProduct.price,
             store: M_STATE.currentProduct.store,
             name: name,
@@ -965,10 +973,8 @@ function mOpenWA() {
 }
 
 function mOpenOwner() {
-    // Prompt for password (Simplified for mobile)
     var pass = prompt("Enter Owner Password:");
     if(pass === DS.settings.ownerPass) {
-        // Switch to desktop view for admin or show alert
         alert("Access Granted. Please switch to Desktop view for full Admin Panel.");
     } else {
         alert("Incorrect Password.");
@@ -991,31 +997,58 @@ function mToast(msg, type) {
    ========================================= */
 document.addEventListener('DOMContentLoaded',function(){
     // Load Data
-    dLoadData();
+    try {
+        dLoadData();
+    } catch(e) {
+        console.error("Data load failed, using defaults", e);
+        // Fallbacks if localStorage fails
+        DS.products = dDefaultProducts.map(function(p){return Object.assign({},p);});
+        DS.stores = JSON.parse(JSON.stringify(D_DEFAULT_STORES));
+        DS.settings = JSON.parse(JSON.stringify(D_DEFAULT_SETTINGS));
+    }
     
-    // Desktop Init
-    dRenderProducts();
-    dUpdateDashboard();
-    dInitReveal();
-    dInitNavbar();
-    dLvInit();
-    dInitAI();
-    initCinematicBg();
-    initHandGuide();
-    document.getElementById('loginForm').addEventListener('submit',function(e){e.preventDefault();dOwnerLogin();});
-    document.getElementById('orderForm').addEventListener('submit',function(e){e.preventDefault();dSubmitOrder();});
-    document.addEventListener('keydown',function(e){if(e.key==='Escape'){dCloseLightbox();dCloseOrderModal();dCloseEditModal();dCloseDeleteModal();dCloseOwnerLogin();}});
-    var lbWrap=document.getElementById('lbImgWrap'),touchStartY=0,touchDiffY=0;lbWrap.addEventListener('touchstart',function(e){touchStartY=e.touches[0].clientY;},{passive:true});lbWrap.addEventListener('touchmove',function(e){touchDiffY=e.touches[0].clientY-touchStartY;},{passive:true});lbWrap.addEventListener('touchend',function(){if(touchDiffY>80)dCloseLightbox();touchDiffY=0;touchStartY=0;});
+    // IMPORTANT: ROBUST INIT LOGIC
+    // Instead of guessing width, we check which container is actually VISIBLE via CSS.
+    // If CSS forced #mobile-view to display:block, this block will trigger mInit.
     
-    // Mobile Init
-    var isMobile = window.innerWidth < 1024 || 'ontouchstart' in window || /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-    if(isMobile) {
+    var desktopContainer = document.getElementById('desktop-view');
+    var mobileContainer = document.getElementById('mobile-view');
+    
+    // Check computed styles (the "Nuclear Option" forces this)
+    if (window.getComputedStyle(mobileContainer).display !== 'none') {
+        console.log("Detected MOBILE VIEW (via Computed Style). Initializing Mobile...");
         mInit();
+        // We don't run desktop init if mobile is forced visible
+    } else {
+        console.log("Detected DESKTOP VIEW. Initializing Desktop...");
+        // Desktop Init
+        dRenderProducts();
+        dUpdateDashboard();
+        dInitReveal();
+        dInitNavbar();
+        dLvInit();
+        dInitAI();
+        initCinematicBg();
+        initHandGuide();
+        document.getElementById('loginForm').addEventListener('submit',function(e){e.preventDefault();dOwnerLogin();});
+        document.getElementById('orderForm').addEventListener('submit',function(e){e.preventDefault();dSubmitOrder();});
+        document.addEventListener('keydown',function(e){if(e.key==='Escape'){dCloseLightbox();dCloseOrderModal();dCloseEditModal();dCloseDeleteModal();dCloseOwnerLogin();}});
+        var lbWrap=document.getElementById('lbImgWrap'),touchStartY=0,touchDiffY=0;
+        if(lbWrap) {
+            lbWrap.addEventListener('touchstart',function(e){touchStartY=e.touches[0].clientY;},{passive:true});
+            lbWrap.addEventListener('touchmove',function(e){touchDiffY=e.touches[0].clientY-touchStartY;},{passive:true});
+            lbWrap.addEventListener('touchend',function(){if(touchDiffY>80)dCloseLightbox();touchDiffY=0;touchStartY=0;});
+        }
     }
     
     // Handle Resize to re-init icons
     window.addEventListener('resize', function(){
         lucide.createIcons();
+        
+        // Double check logic on resize (in case user rotates phone)
+        if (window.innerWidth < 1025) {
+            if(!document.querySelector('.m-p-card')) mInit();
+        }
     });
 });
 </script>
